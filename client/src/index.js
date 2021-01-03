@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './css/index.css';
-import reportWebVitals from './reportWebVitals';
-import LoginForm from './components/LoginForm';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './css/index.css'
+import reportWebVitals from './reportWebVitals'
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 
 ReactDOM.render(
   <React.StrictMode>
