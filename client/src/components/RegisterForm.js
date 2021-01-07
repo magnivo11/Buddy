@@ -13,7 +13,7 @@ function RegisterForm(){
                   <h3 className="panel-title">Buddy</h3>
                 </div>
                 <div className="panel-body">
-                  <form role="form">
+                  <form role="form" onSubmit={(e)=>register(e)}>
                     <div className="row">
                       <div className="col-xs-6 col-sm-6 col-md-6">
                         <div className="form-group">
@@ -49,6 +49,13 @@ function RegisterForm(){
           </div>
         </div>
       </div>);
+}
+function register(e){
+
+  e.preventDefault();
+  const newUser={ 
+
+  }
 }
 
 export default RegisterForm
