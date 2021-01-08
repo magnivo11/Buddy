@@ -11,6 +11,8 @@ export default function RightSideBar(){
       <a href="#" style={{marginTop: '10%'}} className="w3-bar-item w3-button">Bedroom</a>
       <a href="#" style={{marginTop: '10%'}} className="w3-bar-item w3-button">Living Room</a>
       <a href="#" style={{marginTop: '10%'}} className="w3-bar-item w3-button">Balcony</a>
+      <a href="#" style={{marginTop: '10%'}} className="w3-bar-item w3-button">Add A Garden </a>
+
 
     </div>
   </div>

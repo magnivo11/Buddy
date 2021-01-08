@@ -3,6 +3,7 @@
   }
   #sidebar {
     width: 250px;
+    margin-top: 0px;
     margin-right: 50px;
     position: absolute;
     top: 0;
