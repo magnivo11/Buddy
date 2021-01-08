@@ -1,37 +1,37 @@
-import '../css/LoginForm.css'
-import axios from 'axios'
+import '../css/LoginForm.css';
+import axios from 'axios';
+import{Link, Redirect} from 'react-router-dom';
+import logo from '../Images/Buddy_img.jpeg'; 
+import React from 'react';
 
-function LoginForm(){
+function LoginForm({user,setUser}){
+  const inputRef=React.useRef();
+
+
 return (
-    <div className="LoginForm" >
-      <form onSubmit={(e)=>login(e)}>
-        <div className="container" >
-          <label htmlFor="exampleInputEmail1" className="form-label">User Name</label>
-          <input type="userName" className="form-control" id="InputUserName"  />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="InputPassword" />
-        </div>
-
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+  <div className="wrapper fadeInDown">
+  <div id="formContent">
+    <div className="fadeIn first">
+      <img src={logo} id="icon" alt="Welcome Buddy" />
     </div>
+    <form  onSubmit={(e)=>{
+      setUser({userName:inputRef.current.value})
+      login(e)}}>
+      <input type="text" id="userName" className="fadeIn second" name="login" placeholder="User name" ref={inputRef} />
+      <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" />
+      <input type="submit" className="fadeIn fourth" defaultValue="Log In"/>
+    </form>
+    <div id="formFooter">
+      <Link className="underlineHover" to="/register">Register</Link>
+      <Link to="/Home">Home </Link>
+    </div>
+  </div>
+</div>
 );
 }
 function login(e){
     e.preventDefault();
     console.log("LOGIN START");
-
-let request= { userName: document.getElementById('InputUserName').value,
-                password: document.getElementById('InputPassword').value
-
-}
-
-console.log(request);
-
-axios.post('http://localhost:8080/login',request);
-
 
 }
 
