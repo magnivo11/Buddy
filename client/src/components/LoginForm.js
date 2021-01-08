@@ -1,21 +1,33 @@
-import '../css/LoginForm.css'
+import '../css/registerForm.css'
 import axios from 'axios'
 
 function LoginForm(){
 return (
-    <div className="LoginForm" >
-      <form onSubmit={(e)=>login(e)}>
-        <div className="container" >
-          <label htmlFor="exampleInputEmail1" className="form-label">User Name</label>
-          <input type="userName" className="form-control" id="InputUserName"  />
+  <div>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+  <div className="container">
+    <div className="row centered-form">
+      <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">Buddy</h3>
+          </div>
+          <div className="panel-body">
+              <form onSubmit={(e)=>login(e)}>
+              <div className="form-group">
+                      <input type="email" name="email" id="email" className="form-control input-sm" placeholder="Email Address" />
+                    </div>
+                    <div className="form-group">
+                    <input type="password" name="password" id="password" className="form-control input-sm" placeholder="Password" />
+                    </div>
+               
+                <input type="submit" defaultValue="Register" className="btn btn-info btn-block" />
+              </form>
+            </div>
+            </div>
+          </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input type="password" className="form-control" id="InputPassword" />
-        </div>
-
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+      </div>
     </div>
 );
 }

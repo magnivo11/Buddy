@@ -1,0 +1,19 @@
+.content {
+    position: relative;
+  }
+  #sidebar {
+    width: 250px;
+    margin-right: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    text-align: left;
+    
+}
+.a{
+    color:black;
+}
+  #sidebarcontents {
+    padding: 5px 0px 5px 0px;
+  }

@@ -6,14 +6,13 @@ function App(){
     return(
     
     <BrowserRouter>
+
          <Switch>
-             <Route exact path='/'>
+             <Route exact path='/login'>
                 <LoginForm/>
              </Route>
              <Route exact path='/register'>
                  <RegisterForm/>
-
-
              </Route>
 
 
