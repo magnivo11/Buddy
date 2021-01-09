@@ -1,3 +1,1 @@
- 
-"#Welcome Little-Buddy"
- 
+Hello and Welcome to Little - Buddy 
