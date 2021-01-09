@@ -1,4 +1,2 @@
  
-"Welcome to Little-Buddy"
- 
- 
+"Welcome to Little-Buddy!!"
