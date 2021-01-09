@@ -16,8 +16,9 @@ function App(){
 
     <DataContext.Provider value={user}>
     <BrowserRouter>
+
          <Switch>
-             <Route exact path='/'>
+             <Route exact path='/login'>
                 <LoginForm user={user} setUser={setUser}/>
              </Route>
              <Route exact path='/register'>
