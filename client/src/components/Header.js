@@ -12,8 +12,7 @@ export default function Header(){
             <h1 className="logo mr-auto" style={{marginRight: '100%'}}><a href="index.html">Little Buddy</a></h1>
             <nav className="nav-menu d-none d-lg-block">
               <ul>
-                
-                <li className="book-a-table text-center"  ><a href="#book-a-table">Search</a></li>
+                <input placeholder = "Search" className="form-control"></input>
 
                 <a href="#" className="nav-item nav-link" style={{color:'white'}}><i className="fa fa-envelope" /></a>
                 <a href="#" className="nav-item nav-link"><i className="fa fa-bell" /></a>

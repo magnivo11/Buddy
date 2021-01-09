@@ -5,11 +5,10 @@ import DataContext from '../DataContext';
 import React from 'react';
 import HomePage from './HomePage'
 import Header from './Header';
-import Hero from './hero';
-import LeftSideBar from './LeftSideBar';
-import RightSideBar from './RightSideBar';
-
-
+import MyGardens from './MyGardens';
+import Footer from './Footer';
+import Page from './Page';
+import FirstPage from './FirstPage';
 
 
 function App(){
@@ -24,19 +23,22 @@ function App(){
     <BrowserRouter>
 
          <Switch>
-             <Route exact path='/login'>
+         <Route exact path='/login'>
                 <LoginForm user={user} setUser={setUser}/>
              </Route>
              <Route exact path='/register'>
-                 <RegisterForm/>
+                 <RegisterForm user={user} setUser={setUser}/>
              </Route>
-             <Route>
-                 <HomePage user={user}/>
+         <Route>
+                <HomePage user={user}/>
                 <Header/>
-                <RightSideBar/>
-                <LeftSideBar/>
-                <Hero/>
+                <FirstPage/>
+                <MyGardens/>
+                <Page/>
+                <Footer/>
              </Route>
+         
+            
 
         </Switch>
     

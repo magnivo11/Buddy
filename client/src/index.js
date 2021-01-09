@@ -3,12 +3,7 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './components/App';
-import Header from './components/Header';
-import Hero from './components/hero';
-import LeftSideBar from './components/LeftSideBar';
-import RightSideBar from './components/RightSideBar';
-import MainBar from './components/MainBar';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
 
 
 
