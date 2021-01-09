@@ -1,6 +1,1 @@
- 
-"# Little-Buddy"
- 
- Gal shaked
- Niv levy 
- Shir koren 
+Hello and Welcome to Little - Buddy 
