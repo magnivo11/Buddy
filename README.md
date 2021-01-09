@@ -1,2 +1,1 @@
- 
-"Welcome to Little-Buddy!!"
+Hello and Welcome to Little - Buddy 
