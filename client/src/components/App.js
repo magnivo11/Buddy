@@ -3,7 +3,13 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
 import React from 'react';
-import HomePage from '../components/HomePage'
+import HomePage from './HomePage'
+import Header from './Header';
+import Hero from './hero';
+import LeftSideBar from './LeftSideBar';
+import RightSideBar from './RightSideBar';
+
+
 
 
 function App(){
@@ -26,12 +32,13 @@ function App(){
              </Route>
              <Route>
                  <HomePage user={user}/>
+                <Header/>
+                <RightSideBar/>
+                <LeftSideBar/>
+                <Hero/>
              </Route>
 
         </Switch>
-    
-    
-    
     
      </BrowserRouter>
 

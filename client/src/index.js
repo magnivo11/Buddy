@@ -8,17 +8,15 @@ import Hero from './components/hero';
 import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
 import MainBar from './components/MainBar';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header/>
     <App/>
-    <RightSideBar/>
-    <LeftSideBar/>
-    <Hero/>
+   
   </React.StrictMode>,
   document.getElementById('root')
 );

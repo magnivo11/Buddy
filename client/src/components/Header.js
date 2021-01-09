@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 
 export default function Header(){
     return (
@@ -16,7 +17,7 @@ export default function Header(){
 
                 <a href="#" className="nav-item nav-link" style={{color:'white'}}><i className="fa fa-envelope" /></a>
                 <a href="#" className="nav-item nav-link"><i className="fa fa-bell" /></a>
-                <a href="#" className="nav-item nav-link"><i className="fa fa-user-circle" /></a>
+                <Link to="/login" className="nav-item nav-link"><i className="fa fa-user-circle" /></Link>
                        
               </ul>
             </nav>
