@@ -6,8 +6,9 @@ import React from 'react';
 
 function LoginForm({user,setUser}){
   const inputRef=React.useRef();
+  
 
-
+if(!user.userName)
 return (
   <div>
     <section id="hero" className="d-flex align-items-center">
@@ -39,6 +40,8 @@ return (
    </section>
 </div>
 );
+else
+return(<Redirect to="/home"/>);
 }
 function login(e){
     e.preventDefault();

@@ -13,7 +13,7 @@ import FirstPage from './FirstPage';
 
 function App(){
 
-    const[user,setUser]=React.useState({userName:"a"});
+    const[user,setUser]=React.useState({userName:null});
     console.log("user name is " + user.userName);
     
     
