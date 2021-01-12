@@ -1,57 +1,50 @@
-import '../css/registerForm.css'
+import '../css/LoginForm.css'
 import axios from 'axios'
+import{Link, Redirect} from 'react-router-dom';
+import logo from '../Images/LB.png'; 
+import React from 'react';
+
+function RegisterForm({user,setUser}){
+  const inputRef=React.useRef();
 
 
-function RegisterForm(){
+  return (
+    <div>
 
-    return ( 
-      <div className="container">
-      <div className="row centered-form">
-        <div className="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-          <div className="panel panel-default">
-            <div className="panel-heading">
-              <h3 className="panel-title">Sign in to Buddy</h3>
-            </div>
-            <div className="panel-body">
-              <form role="form" onSubmit={(e)=>{register(e)}}>
-                <div className="row">
-                  <div className="col-xs-6 col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <input type="text" name="first_name" id="first_name" className="form-control input-sm" placeholder="First Name" />
-                    </div>
-                  </div>
-                  <div className="col-xs-6 col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <input type="text" name="last_name" id="last_name" className="form-control input-sm" placeholder="Last Name" />
-                    </div>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <input type="email" name="email" id="email" className="form-control input-sm" placeholder="Email Address" />
-                </div>
-                <div className="row">
-                  <div className="col-xs-6 col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <input type="password" name="password" id="password" className="form-control input-sm" placeholder="Password" />
-                    </div>
-                  </div>
-                  <div className="col-xs-6 col-sm-6 col-md-6">
-                    <div className="form-group">
-                      <input type="password" name="password_confirmation" id="password_confirmation" className="form-control input-sm" placeholder="Confirm Password" />
-                    </div>
-                  </div>
-                </div>
-                <input type="submit" defaultValue="Register" className="btn btn-info btn-block" />
+      <section id="hero" className="d-flex align-items-center">
+        <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+  
+          <div className="wrapper fadeInDown">
+            <div id="formContent">
+              <div className="fadeIn first">
+              
+                <img src={logo} id="icon" alt="Welcome Buddy" />
+                <h1 style= {{fontSize: '35px', color:'#51361A'}}>Welcome to the family! </h1> 
+                <h3 style= {{color:'#51361A'}}> Register </h3> 
+          
+              </div>
+              <form  onSubmit={(e)=>{
+                setUser({userName:inputRef.current.value})
+              register(e)}}>
+                <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" ref={inputRef} />
+                <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name" ref={inputRef} />
+                <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" ref={inputRef} />
+                <input type="text" id="password" className="fadeIn third" name="register" placeholder="Password" />
+                <input type="submit" className="fadeIn fourth" defaultValue="register"/><br/>
+                <Link style= {{color:'#51361A'}} className="underlineHover" to="/login">Already a member? Login!</Link>
+
               </form>
+              <div id="formFooter">
+                <Link style= {{color:'#51361A'}} className="underlineHover" to="/login"> </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-    
-    
-      );
-}
+  );
+  }
+   
 function register(e){
 
   e.preventDefault();
