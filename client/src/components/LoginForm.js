@@ -6,8 +6,9 @@ import React from 'react';
 
 function LoginForm({user,setUser}){
   const inputRef=React.useRef();
+  
 
-
+if(!user.userName)
 return (
   <div className="wrapper fadeInDown">
   <div id="formContent">
@@ -28,6 +29,8 @@ return (
   </div>
 </div>
 );
+else
+return(<Redirect to="/home"/>);
 }
 function login(e){
     e.preventDefault();
