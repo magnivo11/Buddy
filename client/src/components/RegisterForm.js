@@ -55,6 +55,12 @@ function register(e){
       'password': document.getElementById('password').value ,
   }
   console.log(newUser);
+  axios.post('http://localhost:8080/user/register',newUser).then((Response)=>{console.log(Response.data)})
+  
+  
+  //to test user update
+  //axios.post('http://localhost:8080/user/update',newUser)
+
 
   
   //need to add post to server//////
