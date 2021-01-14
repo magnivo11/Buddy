@@ -6,7 +6,10 @@ const userSchema=new Schema({
     lastName:String,
     email:String,
     password:String,
-    isAdmin:Boolean
+    isAdmin:Boolean,
+    gardens:[String],
+    posts:[String]
+
 })
 
 module.exports=mongoose.model('users',userSchema);
