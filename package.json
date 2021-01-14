@@ -4,6 +4,7 @@
   "description": "Hello and Welcome to Little - Buddy !!!",
   "main": "index.js",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "compass": "^0.1.1",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
