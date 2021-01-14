@@ -30,7 +30,6 @@ function App(){
                  <RegisterForm user={user} setUser={setUser}/>
              </Route>
          <Route>
-                <HomePage user={user}/>
                 <Header/>
                 <FirstPage/>
                 <MyGardens/>
