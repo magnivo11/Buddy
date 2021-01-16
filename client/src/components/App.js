@@ -30,6 +30,10 @@ function App(){
              <Route exact path='/register'>
                  <RegisterForm user={user} setUser={setUser}/>
              </Route>
+             <Route exact path='/Home'>
+                 <Header/>
+                 <MyGardens/>
+             </Route>
          <Route>
                 <Header/>
                 <FirstPage/>

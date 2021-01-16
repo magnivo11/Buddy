@@ -6,8 +6,7 @@ import React from 'react';
 
 function RegisterForm({user,setUser}){
   const inputRef=React.useRef();
-
-
+if(!user.userName)
   return (
     <div>
 
@@ -24,11 +23,11 @@ function RegisterForm({user,setUser}){
           
               </div>
               <form  onSubmit={(e)=>{
-                setUser({userName:inputRef.current.value})
+                setUser({userName:'registered'})
               register(e)}}>
                 <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" ref={inputRef} />
-                <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name" ref={inputRef} />
-                <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" ref={inputRef} />
+                <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name"  />
+                <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" />
                 <input type="text" id="password" className="fadeIn third" name="register" placeholder="Password" />
                 <input type="submit" className="fadeIn fourth" defaultValue="register"/><br/>
                 <Link style= {{color:'#51361A'}} className="underlineHover" to="/login">Already a member? Login!</Link>
@@ -43,6 +42,8 @@ function RegisterForm({user,setUser}){
       </section>
     </div>
   );
+  else
+  return(<Redirect to="/login"/>);
   }
    
 function register(e){
@@ -55,15 +56,8 @@ function register(e){
       'password': document.getElementById('password').value ,
   }
   console.log(newUser);
-  axios.post('http://localhost:8080/user/register',newUser).then((Response)=>{console.log(Response.data)})
-  
-  
-  //to test user update
-  //axios.post('http://localhost:8080/user/update',newUser)
+  axios.post('http://localhost:8080/user/',newUser).then((Response)=>{console.log(Response.data)})  
 
-
-  
-  //need to add post to server//////
 
 }
 

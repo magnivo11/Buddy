@@ -6,12 +6,33 @@ const coneectionString='mongodb+srv://Nivo11:sheleg11@cluster0.k9bri.mongodb.net
 mongoose.connect(coneectionString,{ useUnifiedTopology: true, useNewUrlParser: true  });
 const User=require('../schema/userSchema')
 const Garden=require('../schema/gardenSchema')
-const Plant=require('../schema/plantSchema')
+const Plant=require('../schema/plantSchema');
+const { request } = require('express');
 
-//register
-                                     
-router.post('/register',(request,response)=>{
-    User.insertMany([{
+
+
+//read / get user by id
+router.get('/:_id',(request,response)=>{
+
+    const user=User.findById(request.params._id,(err,user)=>{
+        if(err)
+        response.send(err)
+        else
+        response.send(user)
+    })
+})
+
+
+//create user
+// request must include:
+// name:request.body.firstName,
+// lastName:request.body.lastName,
+// email:request.body.email,
+// password:request.body.password,
+                                   
+router.post('/',(request,response)=>{
+   
+    const newUser={
         name:request.body.firstName,
         lastName:request.body.lastName,
         email:request.body.email,
@@ -19,35 +40,49 @@ router.post('/register',(request,response)=>{
         isAdmin:false,
         gardens:[],
         posts:[],
-    }])
+    }
+    User.insertMany([newUser]);
 response.send('new user is now registered');
 });
 
 //update user details
-//does not work yet
 
-router.post('/update',(request,response)=>{
-    const filter={email:'magnivo11@gmail.com'}
-    const newData={isAdmin:true}
-    User.findOneAndUpdate(filter,newData,{upsert: true});
-response.send('user updated');
+//request must include 
+//_id:request.body._id
+// name:request.body.firstName,
+// lastName:request.body.lastName,
+// email:request.body.email,
+// password:request.body.password,
+
+
+router.put('/',(request,response)=>{
+
+    const userUpdate={
+        name:request.body.firstName,
+        lastName:request.body.lastName,
+        email:request.body.email,
+        password:request.body.password
+        }
+        
+   User.findOneAndUpdate({_id:request.body._id},userUpdate,(err,user)=>{
+       if(err)
+       response.send(err);
+       else
+       response.send('user updated successfully');
+   });
+
 });
 
 
 
 
+// delete user
+//request must include 
+// _id:request.body._id
 
-router.post('/addGarden',(request,response)=>{
-    Garden.insertMany([{
-        name:request.body.name,
-        size:request.body.size,
-        direction:request.body.directions,
-        surrounding:request.body.surrounding,
-        directSun:request.body.directSun,
-        userID:request.body.userID,
-        plants:[]
 
-    }])
+router.delete('/',(request,response)=>{
+User.deleteOne({_id:request.body._id})
 
     
 });

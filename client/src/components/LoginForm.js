@@ -6,8 +6,8 @@ import React from 'react';
 function LoginForm({user,setUser}){
   const inputRef=React.useRef();
   
-
-if(!user.userName)
+// check if the user redirected from register form or just trying to login
+if(user.userName==='registered'||!user.userName)
 return (
   <div>
     <section id="hero" className="d-flex align-items-center">
