@@ -6,19 +6,19 @@ export default function MyGardens(){
       <div className="col-lg-3">  {/*left buttons*/}
           <ul className="nav nav-tabs flex-column">
             <li className="nav-item">
-              <a className="nav-link active show" data-toggle="tab" href="#tab-1">My Gardens</a>
+              <a className="nav-link active show" data-toggle="tab" href="#tab-1">All Gardens</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-2">News Feed</a>
+              <a className="nav-link" data-toggle="tab" href="#tab-2">Bedroom</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-3">My Profile</a>
+              <a className="nav-link" data-toggle="tab" href="#tab-3">Living Room</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-4">About Us</a>
+              <a className="nav-link" data-toggle="tab" href="#tab-4">Balcony</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-5">The Plant Bible</a>
+              <a className="nav-link" data-toggle="tab" href="#tab-5">Add A Garden</a>
             </li>
           </ul>
         </div>
@@ -35,25 +35,6 @@ export default function MyGardens(){
         
         </div>
       </div>
-      <div className="col-lg-3"> {/*right buttons*/}
-          <ul className="nav nav-tabs flex-column"  style={{marginTop:"40%"}}>
-            <li className="nav-item">
-              <a className="nav-link active show"data-toggle="tab" href="#tab-1">All Gardens</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-2">Bedroom</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-3">Living Room</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-4">Balcony</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" href="#tab-5">Add A Garden</a>
-            </li>
-          </ul>
-        </div>
     </section>
     </div>
   );

@@ -1,5 +1,4 @@
-import '../css/LoginForm.css';
-import axios from 'axios';
+import '../css/Forms.css';
 import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';

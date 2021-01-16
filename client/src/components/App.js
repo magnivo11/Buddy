@@ -9,6 +9,7 @@ import MyGardens from './MyGardens';
 import Footer from './Footer';
 import Page from './Page';
 import FirstPage from './FirstPage';
+import Profile from './Profile';
 
 
 function App(){
@@ -34,6 +35,7 @@ function App(){
                 <FirstPage/>
                 <MyGardens/>
                 <Page/>
+                <Profile/>
                 <Footer/>
              </Route>
          
