@@ -6,10 +6,16 @@ import React from 'react';
 import HomePage from './HomePage'
 import Header from './Header';
 import MyGardens from './MyGardens';
-import Footer from './Footer';
-import Page from './Page';
+import SingleGarden from './SingleGarden';
+import AddAPlant from './AddAPlant';
+import AddAGarden from './AddAGarden';
+import Plant from './PlantPage';
+
+import PlantsBible from './PlantsBible';
 import FirstPage from './FirstPage';
 import Profile from './Profile';
+import AboutUs from './AboutUs';
+import Notifications from './Notifications';
 
 
 function App(){
@@ -22,27 +28,44 @@ function App(){
 
     <DataContext.Provider value={user}>
     <BrowserRouter>
+    <Header/>
+ 
+    <Switch>
+     
+            <Route exact path='/login'>
+                <LoginForm user={user} setUser={setUser}/></Route>
 
-         <Switch>
-         <Route exact path='/login'>
-                <LoginForm user={user} setUser={setUser}/>
-             </Route>
              <Route exact path='/register'>
-                 <RegisterForm user={user} setUser={setUser}/>
-             </Route>
-         <Route>
-                <Header/>
-                <FirstPage/>
-                <MyGardens/>
-                <Page/>
-                <Profile/>
-                <Footer/>
-             </Route>
-         
-            
+                 <RegisterForm user={user} setUser={setUser}/></Route>
 
-        </Switch>
-    
+             <Route exact path='/mygardens'>
+                 <MyGardens/></Route>
+
+             <Route exact path='/profile'>
+                 <Profile/></Route>
+
+             <Route exact path='/plantsbible'>
+                 <PlantsBible/> </Route>
+
+             <Route exact path='/singlegarden'>
+                 <SingleGarden/> </Route>
+
+             <Route exact path='/aboutus'>
+                 <AboutUs/></Route>
+
+            <Route exact path='/addaplant'>
+                 <AddAPlant/></Route>
+
+            <Route exact path='/addagarden'>
+                 <AddAGarden/></Route>
+
+            <Route exact path='/plant'>
+                 <Plant/></Route>
+
+             <Route exact path='/notifications'>
+                 <Notifications/></Route>
+    </Switch>
+    <FirstPage/>
      </BrowserRouter>
 
 </DataContext.Provider>
