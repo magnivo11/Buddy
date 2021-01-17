@@ -4,9 +4,10 @@ import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
 
-function RegisterForm({user,setUser}){
-  const inputRef=React.useRef();
-if(!user.userName)
+function RegisterForm(){
+
+  const[info,setInfo]=React.useState({showMessege:false,redirectToLogin:false});
+if(!info.redirectToLogin)
   return (
     <div>
 
@@ -19,13 +20,12 @@ if(!user.userName)
               
                 <img src={logo} id="icon" alt="Welcome Buddy" />
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Welcome to the family! </h1> 
+                {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
                 <h3 style= {{color:'#51361A'}}> Register </h3> 
           
               </div>
-              <form  onSubmit={(e)=>{
-                setUser({userName:'registered'})
-              register(e)}}>
-                <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" ref={inputRef} />
+              <form  onSubmit={(e)=>{register(e,setInfo)}}>
+                <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" />
                 <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" />
                 <input type="text" id="password" className="fadeIn third" name="register" placeholder="Password" />
@@ -46,17 +46,24 @@ if(!user.userName)
   return(<Redirect to="/login"/>);
   }
    
-function register(e){
+function register(e,setInfo){
 
   e.preventDefault();
-  const newUser= { 
+  axios.get('http://localhost:8080/user/'+document.getElementById('email').value).
+  then((Response)=>{
+    if(Response.data) 
+    setInfo({showMessege:true})
+  else {
+    const newUser= { 
       'firstName':document.getElementById('first_name').value ,
       'lastName': document.getElementById('last_name').value ,
       'email': document.getElementById('email').value ,
       'password': document.getElementById('password').value ,
   }
-  console.log(newUser);
-  axios.post('http://localhost:8080/user/',newUser).then((Response)=>{console.log(Response.data)})  
+  axios.post('http://localhost:8080/user/',newUser)
+    setInfo({redirectToLogin:true})
+  }
+})
 
 
 }

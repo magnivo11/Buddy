@@ -2,12 +2,13 @@ import '../css/Forms.css';
 import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
+import axios from 'axios'
+
 
 function LoginForm({user,setUser}){
-  const inputRef=React.useRef();
+  const[messege,setMessege]=React.useState({text:'',showMessege:false});
   
-// check if the user redirected from register form or just trying to login
-if(user.userName==='registered'||!user.userName)
+if(!user.email)
 return (
   <div>
     <section id="hero" className="d-flex align-items-center">
@@ -19,13 +20,12 @@ return (
               
                 <img src={logo} id="icon" alt="Welcome Buddy" />
                 <h1 style={{fontSize: '35px', color:'#51361A'}}>Nice to see you again! </h1> 
+                {messege.showMessege? <div>{messege.text}</div>:null }
                 <h3 style={{color:'#51361A'}}>Log in </h3> 
 
               </div>
-              <form  onSubmit={(e)=>{
-                setUser({userName:inputRef.current.value})
-                login(e)}}>
-                <input type="text" id="userName" className="fadeIn second" name="login" placeholder="User name" ref={inputRef} />
+              <form  onSubmit={(e)=>{login(e,setUser,setMessege)}}>
+                <input type="text" id="email" className="fadeIn second" name="login" placeholder="Email" />
                 <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" />
                 <input type="submit" className="fadeIn fourth"  value="Login"/>
               </form>
@@ -40,11 +40,23 @@ return (
 </div>
 );
 else
-return(<Redirect to="/home"/>);
+return(<Redirect to="/mygardens"/>);
 }
-function login(e){
+function login(e,setUser,setMessege){
     e.preventDefault();
-    console.log("LOGIN START");
+    var email=document.getElementById('email').value;
+    var password=document.getElementById('password').value;
+    axios.get('http://localhost:8080/user/'+email).
+    then(Response=>{
+      if(Response.data)
+          if(Response.data.password===password)
+             setUser({email:email}) 
+          else
+            setMessege({text:'password incorrect',showMessege:true})
+      else
+        setMessege({text:'invalid email',showMessege:true})
+      
+    })
 
 }
 
