@@ -20,8 +20,8 @@ import Notifications from './Notifications';
 
 function App(){
 
-    const[user,setUser]=React.useState({userName:null});
-    console.log("user name is " + user.userName);
+    const[user,setUser]=React.useState({email:null});
+    console.log("user email is " + user.email);
     
     
     return(
@@ -36,7 +36,7 @@ function App(){
                 <LoginForm user={user} setUser={setUser}/></Route>
 
              <Route exact path='/register'>
-                 <RegisterForm user={user} setUser={setUser}/></Route>
+                 <RegisterForm/></Route>
 
              <Route exact path='/mygardens'>
                  <MyGardens/></Route>

@@ -11,10 +11,10 @@ const { request } = require('express');
 
 
 
-//read / get user by id
-router.get('/:_id',(request,response)=>{
+//read / get user by email
+router.get('/:email',(request,response)=>{
 
-    const user=User.findById(request.params._id,(err,user)=>{
+    const user=User.findOne({email:request.params.email},(err,user)=>{
         if(err)
         response.send(err)
         else
@@ -48,7 +48,6 @@ response.send('new user is now registered');
 //update user details
 
 //request must include 
-//_id:request.body._id
 // name:request.body.firstName,
 // lastName:request.body.lastName,
 // email:request.body.email,
@@ -64,7 +63,7 @@ router.put('/',(request,response)=>{
         password:request.body.password
         }
         
-   User.findOneAndUpdate({_id:request.body._id},userUpdate,(err,user)=>{
+   User.findOneAndUpdate({email:request.body.email},userUpdate,(err,user)=>{
        if(err)
        response.send(err);
        else
@@ -78,11 +77,11 @@ router.put('/',(request,response)=>{
 
 // delete user
 //request must include 
-// _id:request.body._id
+// _id:request.body.email
 
 
 router.delete('/',(request,response)=>{
-User.deleteOne({_id:request.body._id})
+User.deleteOne({email:request.body.email})
 
     
 });
