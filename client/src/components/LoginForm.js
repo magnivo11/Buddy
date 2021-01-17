@@ -27,7 +27,7 @@ return (
                 login(e)}}>
                 <input type="text" id="userName" className="fadeIn second" name="login" placeholder="User name" ref={inputRef} />
                 <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" />
-                <input type="submit" className="fadeIn fourth" defaultValue="Log In"/>
+                <input type="submit" className="fadeIn fourth"  value="Login"/>
               </form>
               <div id="formFooter">
                 <Link className="underlineHover" style= {{color:'#51361A'}} to="/register">Don't have an account? Register!</Link>

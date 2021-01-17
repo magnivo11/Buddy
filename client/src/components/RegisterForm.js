@@ -30,7 +30,7 @@ function RegisterForm({user,setUser}){
                 <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name" ref={inputRef} />
                 <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" ref={inputRef} />
                 <input type="text" id="password" className="fadeIn third" name="register" placeholder="Password" />
-                <input type="submit" className="fadeIn fourth" defaultValue="register"/><br/>
+                <input type="submit" className="fadeIn fourth" defaultValue="register" value="Register"/><br/>
                 <Link style= {{color:'#51361A'}} className="underlineHover" to="/login">Already a member? Login!</Link>
 
               </form>
