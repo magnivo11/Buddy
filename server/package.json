@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "mongoose": "^5.11.9",
-    "router": "^1.3.5"
+    "router": "^1.3.5",
+    "socket.io": "^2.4.1"
   }
 }
