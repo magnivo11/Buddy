@@ -16,7 +16,8 @@ import FirstPage from './FirstPage';
 import Profile from './Profile';
 import AboutUs from './AboutUs';
 import Notifications from './Notifications';
-
+import io from "socket.io-client"; 
+const socket = io.connect("http://localhost:8080") ;
 
 function App(){
 
