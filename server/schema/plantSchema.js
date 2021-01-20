@@ -14,10 +14,22 @@ optimalSunCondition:Number,
 description:String,
 status:String,
 // the plants location in the garden 
-location:String,
-sensorID:String,
-photos:[String],  
-GardenID:String
+sensorID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"sensorsSchema"
+},
+photos:[
+    
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"photoSchema"
+        }
+    
+],  
+GardenID:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"gardenSchema"
+}
 
 
 })
