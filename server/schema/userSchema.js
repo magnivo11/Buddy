@@ -4,12 +4,16 @@ const Schema=mongoose.Schema;
 const userSchema=new Schema({
     name:String,
     lastName:String,
-    email:String,
+    email:{type:String,
+        index:{unique:true}},
     password:String,
     isAdmin:Boolean,
-    gardens:[String],
-    posts:[String]
-
+    gardens:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:"gardenSchema"
+        }
+    ]
 })
 
 module.exports=mongoose.model('users',userSchema);

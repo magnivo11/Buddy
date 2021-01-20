@@ -7,8 +7,14 @@ const gardenSchema=new Schema({
     direction:String,
     surrounding:String,
     directSun:Boolean,
-    userID:String,
-    plants:[String]
+    userID:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"userSchema"
+    },
+    plants:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"plantSchema"
+    }]
 
 })
 
