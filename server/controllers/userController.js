@@ -1,8 +1,7 @@
 const User=require('../schema/userSchema'); 
 
 const getUserByEmail = (request,response)=>{
-    //const user=
-    User.findOne({email:request.params.email},(err,user)=>{
+     User.findOne({email:request.params.email},(err,user)=>{
         if(err)
         {
         response.send(err)}
@@ -12,7 +11,6 @@ const getUserByEmail = (request,response)=>{
 };
 
 const createUser = (request,response)=>{
-   
     const newUser={
         name:request.body.firstName,
         lastName:request.body.lastName,
@@ -28,7 +26,6 @@ response.send('new user is now registered');
 
 
 const updateUser = (request,response)=>{
-
     const userUpdate={
         name:request.body.firstName,
         lastName:request.body.lastName,

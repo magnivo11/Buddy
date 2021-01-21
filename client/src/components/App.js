@@ -10,6 +10,8 @@ import SingleGarden from './SingleGarden';
 import AddAPlant from './AddAPlant';
 import AddAGarden from './AddAGarden';
 import Plant from './PlantPage';
+import PlantsBibleSinglePlant from './PlantsBibleSinglePlant';
+
 
 import PlantsBible from './PlantsBible';
 import FirstPage from './FirstPage';
@@ -65,6 +67,10 @@ function App(){
 
              <Route exact path='/notifications'>
                  <Notifications/></Route>
+
+                 
+             <Route exact path='/plantsbiblesingleplant'>
+                 <PlantsBibleSinglePlant/></Route>
     </Switch>
     <FirstPage/>
      </BrowserRouter>
