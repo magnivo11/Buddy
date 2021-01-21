@@ -1,15 +1,11 @@
 import { TableRow } from '@material-ui/core';
-import cherry from '../Images/Cherries.png'; 
-import corn from '../Images/Corn.png'; 
-import fennel from '../Images/Fennel.png'; 
-import roses from '../Images/roses.png'; 
-import tomatos from '../Images/Tomatoes.png'; 
-import space from '../Images/white.png'; 
-import flower from '../Images/YogaFlower.png'; 
-import statusRed from '../Images/statusRed.png';
-import statusGreen from '../Images/statusGreen.png';
-import statusYellow from '../Images/statusYellow.png';
-import passionShrub from '../Images/PassionShrub.png'; 
+import Pothos from '../Images/pothos.JPG';
+import Ivy from '../Images/ivy.JPG';
+import Cyclamen from '../Images/cyclamen.JPG';
+
+import statusRed from '../Images/status/red.jpg';
+import statusGreen from '../Images/status/green.jpg';
+import statusYellow from '../Images/status/yellow.jpg';
 
 
 
@@ -19,152 +15,93 @@ export default function SingleGarden(){
  return (
    <div>
     <section id="hero" className="d-flex align-items-center">
-      <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
-      <div className="col-lg-3">  {/*left buttons*/}
-          <ul className="nav nav-tabs flex-column">
-            <li className="nav-item">
-              <a className="nav-link active show" data-toggle="tab" href="#tab-1">All Gardens</a>
-            </li>
-            <li className="nav-item">
-              <a href="/singlegarden" className="nav-link"  >Bedroom</a>
-            </li>
-            <li className="nav-item">
-              <a href="/singlegarden" className="nav-link" >Living Room</a>
-            </li>
-            <li className="nav-item">
-              <a  href="/singlegarden" className="nav-link" >Balcony</a>
-            </li>
-            <li className="nav-item">
-              <a  href="/addagarden" className="nav-link" >Add A Garden</a>
-            </li>
-          </ul>
-         <br></br>
-         <br></br>
-         <br></br>
+    <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
+        <div className="container" data-aos="fade-up"  >
+            <div className="row" data-aos="fade-up" data-aos-delay={100}>
+            <div className="col-lg-3">
+                <ul className="nav nav-tabs flex-column">
+                  {/*Title*/}
+                  <div className="section-title" >
+                    <h2 style={{fontSize:'35px'}}>My Gardnes</h2>
+                    <p style={{fontSize:'30px'}}>Balcony</p>
+                  </div>
+                  {/*Left buttons*/}
 
-          <h4 style={{color:'white'}}>Choose a plant to see it's growth!</h4>
-         
-        </div>
-        
-        <div className="row" style={{position: "center"}}>
-          <div className="col-lg-8">
-            <h1>Single Garden </h1>
-            <br></br>
-          
-    
-            <div>
-              <meta charSet="utf-8" />
-              <style dangerouslySetInnerHTML={{__html: "\n a { padding: 1px; ; display: inline-block; }\n "}} />
-            <TableRow>
-            <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={roses} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={roses} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={roses} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={roses} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={roses} width={50}   />
-              </a> 
-            
-            
-              </TableRow>
-              <TableRow>
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={corn} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={corn} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={corn} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={corn} width={50}   />
-              </a> 
-              <a style={{backgroundColor: 'white'}} href="#" >
-                <img src={corn} width={50}   />
-              </a> 
-             
-              </TableRow>
-            
-          
+                  <li className="nav-item">
+                    <a className="nav-link"   href="/mygardens">All Gardens</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link active show" href="/singlegarden">Balcony</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link"   href="/singlegarden">Living Room</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link"  href="/singlegarden">Bedroom</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link"   href="/addagarden">Add A Garden</a>
+                </li>
+                </ul>
             </div>
-            <h2>Information</h2>
-            <div>
-              <meta charSet="utf-8" />
-              <style dangerouslySetInnerHTML={{__html: "\n a { padding: 1px; ; display: inline-block; }\n "}} />
-              <TableRow>
 
-              <a style={{backgroundColor: 'white'}}>
-                Species <img src={space} width={30}/><img src={space} width={10}/>
-              </a> 
-              <a style={{backgroundColor: 'white'}}>
-                Status <img src={space} width={30}/>
-              </a>  <a style={{backgroundColor: 'white'}} >
-                Cause <img src={space} width={30}/>
-              </a> 
-              </TableRow>
-           
-            <TableRow>
-              <a style={{backgroundColor: 'white'}} href="/plant" >
-              <img src={roses} width={30}/>
-                Roses 
-                <img src={space} width={30}/>
-                <img src={statusYellow} width={30}/>
-                </a>
-                <a style={{backgroundColor: 'white'}}>
-                <img src={space} width={30}/>
-                Low Humidity
-                <img src={space} width={5}/>
+            {/*Middle part*/}
 
-              </a>  
-              </TableRow>
-              <TableRow>
-              <a style={{backgroundColor: 'white'}} href="/plant" >
-              <img src={corn} width={30}/>
-                Corn 
-                <img src={space} width={30}/><img src={space} width={8}/>
-                <img src={statusGreen} width={30}/>
-                <img src={space} width={30}/><img src={space} width={30}/><img src={space} width={33}/><img src={space} width={35}/>
+            <div className="col-lg-9 mt-4 mt-lg-0">
+                <div className="tab-content">
+                <div className="tab-pane active show" id="tab-1">
+                    <div className="row">
+                    {/*Text*/}
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                
 
-              </a>  
-              </TableRow>
-             
+                    <div className="col-lg-8 details order-2 order-lg-1">
+                        <h3>Plants you grow in this garden:</h3>
+                    </div>
+                    <div className="col-lg-4 text-center order-1 order-lg-2">
+                        <img src="%PUBLIC_URL%/img/specials-1.png" alt="" className="img-fluid" />
+                    </div>
+                    </div>
+                    <table style={{width: '70%'}}>
+                        <tbody><tr>
+                            <th>Species</th>
+                            <th>Status</th>
+                            <th>Cause</th>
+                          </tr>
+                          <br></br>
+                          <tr>
+                            <a  href="/plant">Ivy</a>
+                            <td><img src={statusRed} width={"30px"}></img></td>
+                            <td>Low Humidity</td>
 
-              <TableRow>
-              <a style={{backgroundColor: 'white'}} href="/addaplant" >
-                <img src={space} width={30}/><img src={space} width={30}/><img src={space} width={30}/>
-                Add A Plant
-                <img src={space} width={30}/><img src={space} width={30}/><img src={space} width={30}/>
+                          </tr>
+                          <br></br>
 
-              </a> 
-              </TableRow>
+                          <tr>
+                          <a  href="/plant">Pothos</a>
+                            <td><img src={statusYellow} width={"30px"}></img></td>
+                            <td>Lack Of Water</td>
+                          </tr>
+                        </tbody></table>
+                        <br></br>
+                     
+                          <h4> Tip From Us!</h4>
+                        <h5> Based on information we collected, we recommend you to plant:</h5>
+                        <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
+                        <br></br>
+
+                        <button width ={"30px"} href={"/mygardens"}>Delete Garden</button>
+              {/*end of table*/}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <li className="nav-item">
-              <a href="/singlegarden" className="nav-link"  >Delete Garden</a>
-            </li>
-            </div>
-            <section>
-      <div>
-            <h2>Tip From Us!</h2>
-            <h5 style={{color:'white'}}>The system recommends you to plant: </h5>
-            <h4 style={{color:'white'}}>Passion Shrub! </h4>
-            <img src={passionShrub} width={60}/>
-            </div>
-    </section>
-           
-       </div>
-    
-      </div>
-   
-    </section>
-
+</section>
+</section>
     </div>
+    
   );
 }
