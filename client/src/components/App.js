@@ -16,8 +16,8 @@ import FirstPage from './FirstPage';
 import Profile from './Profile';
 import AboutUs from './AboutUs';
 import Notifications from './Notifications';
-import io from "socket.io-client"; 
-const socket = io.connect("http://localhost:8080") ;
+//import io from "socket.io-client"; 
+//const socket = io.connect("http://localhost:8080") ;
 
 function App(){
 
@@ -38,6 +38,7 @@ function App(){
 
              <Route exact path='/register'>
                  <RegisterForm/></Route>
+
 
              <Route exact path='/mygardens'>
                  <MyGardens/></Route>
