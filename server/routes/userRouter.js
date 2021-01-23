@@ -4,8 +4,9 @@ var router= express.Router();
 //import mongoose
 const mongoose= require('mongoose');
 const Schema=mongoose.Schema;
-const coneectionString='mongodb+srv://Nivo11:sheleg11@cluster0.k9bri.mongodb.net/Buddy_db?retryWrites=true&w=majority';
-mongoose.connect(coneectionString,{ useUnifiedTopology: true, useNewUrlParser: true  });
+// import custom env - who helps us to use enviroment varibles 
+require('custom-env').env(process.env.NODE_ENV,'./config'); 
+mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNewUrlParser: true  });
 // import controllers 
 const gardenController = require('../controllers/gardenController');  
 const photoController = require('../controllers/photoController'); 
