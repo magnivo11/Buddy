@@ -1,4 +1,4 @@
-import '../css/Forms.css'
+import '../css/AddForms.css'
 import axios from 'axios'
 import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
@@ -17,30 +17,43 @@ export default function AddAGarden({user,setUser}){
           <div className="wrapper fadeInDown">
             <div id="formContent">
               <div className="fadeIn first">
-              
-                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Add A Garden </h4> 
+              <br></br>
+                <h4 style= {{fontSize: '25px', color:'#51361A'}}>Add A Garden </h4> 
           
               </div>
-              <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+              <form style= {{fontSize: '12px'}}  onSubmit={(e)=>{
                 setUser({userName:inputRef.current.value})
               addAGarden(e)}}>
-                <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" ref={inputRef} />
-                <input style= {{fontSize: '12px'}} type="text" id="size" className="fadeIn second" name="addAGarden" placeholder="Size" ref={inputRef} />
-                <p>Direction:</p>
-                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
-                    <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
-                    <input type="radio" id="south" name="direction" /> <label htmlFor="south">South</label><br/>
-                    <input type="radio" id="east" name="direction" /> <label htmlFor="east">East</label><br/>
-                
-                    <p>Surroundings:</p>
-                    <input type="radio" id="outdoor" name="surroundings"  /> <label htmlFor="outdoor">Outdoor</label><br />
-                    <input type="radio" id="indoor" name="surroundings"  /><label htmlFor="indoor"> Indoor</label><br />
-                   
-                    <p>Direct Sunlight:</p>
-                    <input type="radio" id="yes_sunlight" name="sunlight"  /> <label htmlFor="yes_sunlight">Yes</label><br />
-                    <input type="radio" id="no_sunlight" name="sunlight"  /><label htmlFor="no_sunlight"> No</label><br />
-                   
-                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
+                <input style= {{fontSize: '14px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" ref={inputRef} />
+                <input style= {{fontSize: '14px'}} type="text" id="size" className="fadeIn second" name="addAGarden" placeholder="Size" ref={inputRef} />
+                <p style= {{fontSize: '14px'}} >Direction:</p>
+                  <label className="radio-inline">
+                      <input type="radio" name="notrh" /><label htmlFor="notrh">North</label> </label>
+                  <label className="radio-inline">
+                    <input type="radio" name="west"  /><label htmlFor="notrh">West</label> </label>
+                  <label className="radio-inline">
+                    <input type="radio" name="south"  /><label htmlFor="notrh">South</label> </label>
+                  <label className="radio-inline">
+                    <input type="radio" name="east"  /><label htmlFor="notrh">East</label>  </label>
+                  <br></br>
+                  <br></br>
+
+                  <p style= {{fontSize: '14px'}} >Surroundings:</p>
+                  <label className="radio-inline">
+                      <input type="radio" name="outdoor" /><label htmlFor="outdoor">Outdoor</label> </label>
+                  <label className="radio-inline">
+                    <input type="radio" name="indoor"  /><label htmlFor="indoor">Indoor</label> </label>
+                    <br></br>
+                    <br></br>
+
+                    <p style= {{fontSize: '14px'}} >Direct Sunlight:</p>
+                  <label className="radio-inline">
+                      <input type="radio" name="yes_sunlight" /><label htmlFor="yes_sunlight">Yes</label> </label>
+                  <label className="radio-inline">
+                    <input type="radio" name="no_sunlight"  /><label htmlFor="no_sunlight">No</label> </label>
+               <br></br>
+               <br></br>
+                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add Garden"/><br/>
               </form>
              
             </div>

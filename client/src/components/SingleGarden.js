@@ -84,6 +84,13 @@ export default function SingleGarden(){
                             <td><img src={statusYellow} width={"30px"}></img></td>
                             <td>Lack Of Water</td>
                           </tr>
+                          <br></br>
+
+                          <tr>
+                          <a  href="/addaplant">Add A Plant</a>
+                            <td></td>
+                            <td></td>
+                          </tr>
                         </tbody></table>
                         <br></br>
                      
@@ -91,8 +98,10 @@ export default function SingleGarden(){
                         <h5> Based on information we collected, we recommend you to plant:</h5>
                         <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
                         <br></br>
+                        
 
-                        <button width ={"30px"} href={"/mygardens"}>Delete Garden</button>
+                        <button style={{ color:'grey',font:'Poppins',width:'200px',padding:'10px',fontSize:'14px'}} href={"/mygardens"}>Delete Garden</button>
+                      
               {/*end of table*/}
                     </div>
                   </div>
