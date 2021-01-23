@@ -6,13 +6,12 @@ const mongoose= require('mongoose');
 const Schema=mongoose.Schema;
 const userRouter=require('./routes/userRouter')
 const socketIo = require('socket.io');
-
-const app = express();
+require('custom-env').env(process.env.NODE_ENV,'./config'); 
+ const app = express();
 const server = http.createServer(app);
-
 const io = socketIo(server/*,{
     cors: {
-        origins:["http://localhost:3000","http://localhost:4200"],
+        origins:[process.env.REACT_URL,process.env.ANGULAR_URL],
         methods:["GET","POST"] ,
         credentials: false
 
@@ -22,7 +21,7 @@ const io = socketIo(server/*,{
 // this socketio purpose is counting how many users are connecting to the web in real-time
 var count = 0; 
 io.on('connection',(socket)=>{
-if (socket.handshake.headers.origin ==="http://localhost:3000" ){
+if (socket.handshake.headers.origin === process.env.REACT_URL  ){
     count++;
     socket.broadcast.emit('count',count);
      socket.on('disconnect',()=>{
@@ -31,12 +30,12 @@ if (socket.handshake.headers.origin ==="http://localhost:3000" ){
      });
 }
 });
-
-
 app.use(cors());
-app.use(bodyParser.json())
-app.use('/user',userRouter)
+app.use(bodyParser.json());
+app.use('/user',userRouter);
 
-console.log("Server is runnig...");
 
-server.listen(8080);
+
+console.log("Server is runnig on port "+process.env.PORT);
+ 
+server.listen(process.env.PORT);
