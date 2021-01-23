@@ -32,7 +32,7 @@ if (socket.handshake.headers.origin ==="http://localhost:3000" ){
 }
 });
 
-
+app.get("/", (req,res)=>{res.send("hi!")})
 app.use(cors());
 app.use(bodyParser.json())
 app.use('/user',userRouter)

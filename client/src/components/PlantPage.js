@@ -1,9 +1,8 @@
 import '../css/Timeline.scss';
 import Pothos from '../Images/pothos.JPG';
 import Ivy from '../Images/ivy.JPG';
-import Ivy0 from '../Images/stages/0.jpg';
-import Ivy1 from '../Images/stages/1.JPG';
-import plus from '../Images/stages/plus.jpg';
+import Ivy0 from '../Images/PhotoStages/0.jpg';
+import Ivy1 from '../Images/PhotoStages/1.JPG';
 
 import Cyclamen from '../Images/cyclamen.JPG';
 import light24 from '../Images/Graphs/light1.JPG';
