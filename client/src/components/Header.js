@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom"
+import '../css/Header.css';
 import { TextField } from '@material-ui/core';
 
 export default function Header(){
@@ -15,17 +16,14 @@ export default function Header(){
               <ul>
               <li class="active"></li>
               <li><a href="/mygardens">My Gardens</a></li>
-              <li><a href="/profile">My Profile</a></li>
               <li><a href="/plantsbible">The Plant Bible</a></li>
               <li><a href="/aboutus" >About Us</a></li>
               <li></li>
 
-         
-              <input placeholder = "Search" className="form-control"></input>
-
                 <Link to="/mygardens" className="nav-item nav-link" ><i className="fa fa-leaf" /></Link>
                 <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link>
-                <Link to="/login" className="nav-item nav-link"><i className="fa fa-user-circle" /></Link>
+                <Link to="/login" className="nav-item nav-link"><i className="fa fa-key" /></Link>
+                <Link to="/profile" className="nav-item nav-link"><i className="fa fa-user-circle" /></Link>
                        
               </ul>
             </nav>

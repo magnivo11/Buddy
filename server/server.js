@@ -30,6 +30,7 @@ if (socket.handshake.headers.origin === process.env.REACT_URL  ){
      });
 }
 });
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/user',userRouter);

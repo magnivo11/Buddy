@@ -31,7 +31,7 @@ function App(){
 
     <DataContext.Provider value={user}>
     <BrowserRouter>
-    <Header/>
+   
  
     <Switch>
      
@@ -41,36 +41,37 @@ function App(){
              <Route exact path='/register'>
                  <RegisterForm/></Route>
 
+
              <Route exact path='/mygardens'>
-                 <MyGardens/></Route>
+             <Header/> <MyGardens/></Route>
 
              <Route exact path='/profile'>
-                 <Profile/></Route>
+             <Header/><Profile/></Route>
 
              <Route exact path='/plantsbible'>
-                 <PlantsBible/> </Route>
+             <Header/><PlantsBible/> </Route>
 
              <Route exact path='/singlegarden'>
-                 <SingleGarden/> </Route>
+             <Header/><SingleGarden/> </Route>
 
              <Route exact path='/aboutus'>
-                 <AboutUs/></Route>
+             <Header/><AboutUs/></Route>
 
             <Route exact path='/addaplant'>
-                 <AddAPlant/></Route>
+            <Header/><AddAPlant/></Route>
 
             <Route exact path='/addagarden'>
-                 <AddAGarden/></Route>
+            <Header/><AddAGarden/></Route>
 
             <Route exact path='/plant'>
-                 <Plant/></Route>
+            <Header/><Plant/></Route>
 
              <Route exact path='/notifications'>
-                 <Notifications/></Route>
+             <Header/><Notifications/></Route>
 
                  
              <Route exact path='/plantsbiblesingleplant'>
-                 <PlantsBibleSinglePlant/></Route>
+             <Header/><PlantsBibleSinglePlant/></Route>
     </Switch>
     <FirstPage/>
      </BrowserRouter>
