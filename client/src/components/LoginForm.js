@@ -8,7 +8,7 @@ import axios from 'axios'
 function LoginForm({user,setUser}){
   const[messege,setMessege]=React.useState({text:'',showMessege:false});
   
-if(!user.email)
+if(!user._id)
 return (
   <div>
     <section id="hero" className="d-flex align-items-center">
@@ -50,7 +50,13 @@ function login(e,setUser,setMessege){
     then(Response=>{
       if(Response.data)
           if(Response.data.password===password)
-             setUser({email:email}) 
+             setUser({_id:Response.data._id,
+                      name:Response.data.name,
+                      lastName:Response.data.lastName,
+                      email:email,
+                      isAdmin:Response.data.isAdmin,
+                      gardens:Response.data.gardens
+                      }) 
           else
             setMessege({text:'password incorrect',showMessege:true})
       else

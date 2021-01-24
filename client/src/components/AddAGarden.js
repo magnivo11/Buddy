@@ -1,12 +1,15 @@
-import '../css/AddForms.css'
+import '../css/Forms.css'
 import axios from 'axios'
 import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
+import DataContext from '../DataContext'
 
-export default function AddAGarden({user,setUser}){
-  const inputRef=React.useRef();
-
+export default function AddAGarden(){
+  const[gardenAdded,setGardenAdded]=React.useState(false)
+  const user=React.useContext(DataContext);
+ 
+if(!gardenAdded){
 
   return (
     <div>
@@ -17,43 +20,31 @@ export default function AddAGarden({user,setUser}){
           <div className="wrapper fadeInDown">
             <div id="formContent">
               <div className="fadeIn first">
-              <br></br>
-                <h4 style= {{fontSize: '25px', color:'#51361A'}}>Add A Garden </h4> 
+              
+                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Add A Garden </h4> 
           
               </div>
-              <form style= {{fontSize: '12px'}}  onSubmit={(e)=>{
-                setUser({userName:inputRef.current.value})
-              addAGarden(e)}}>
-                <input style= {{fontSize: '14px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" ref={inputRef} />
-                <input style= {{fontSize: '14px'}} type="text" id="size" className="fadeIn second" name="addAGarden" placeholder="Size" ref={inputRef} />
-                <p style= {{fontSize: '14px'}} >Direction:</p>
-                  <label className="radio-inline">
-                      <input type="radio" name="notrh" /><label htmlFor="notrh">North</label> </label>
-                  <label className="radio-inline">
-                    <input type="radio" name="west"  /><label htmlFor="notrh">West</label> </label>
-                  <label className="radio-inline">
-                    <input type="radio" name="south"  /><label htmlFor="notrh">South</label> </label>
-                  <label className="radio-inline">
-                    <input type="radio" name="east"  /><label htmlFor="notrh">East</label>  </label>
-                  <br></br>
-                  <br></br>
-
-                  <p style= {{fontSize: '14px'}} >Surroundings:</p>
-                  <label className="radio-inline">
-                      <input type="radio" name="outdoor" /><label htmlFor="outdoor">Outdoor</label> </label>
-                  <label className="radio-inline">
-                    <input type="radio" name="indoor"  /><label htmlFor="indoor">Indoor</label> </label>
-                    <br></br>
-                    <br></br>
-
-                    <p style= {{fontSize: '14px'}} >Direct Sunlight:</p>
-                  <label className="radio-inline">
-                      <input type="radio" name="yes_sunlight" /><label htmlFor="yes_sunlight">Yes</label> </label>
-                  <label className="radio-inline">
-                    <input type="radio" name="no_sunlight"  /><label htmlFor="no_sunlight">No</label> </label>
-               <br></br>
-               <br></br>
-                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add Garden"/><br/>
+              <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+              addAGarden(e,user)
+              setGardenAdded(true)
+            }}>
+                <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
+                <input style= {{fontSize: '12px'}} type="text" id="size" className="fadeIn second" name="addAGarden" placeholder="Size" />
+                <p>Direction:</p>
+                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
+                    <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
+                    <input type="radio" id="south" name="direction" /> <label htmlFor="south">South</label><br/>
+                    <input type="radio" id="east" name="direction" /> <label htmlFor="east">East</label><br/>
+                
+                    <p>Surroundings:</p>
+                    <input type="radio" id="outdoor" name="surroundings"  /> <label htmlFor="outdoor">Outdoor</label><br />
+                    <input type="radio" id="indoor" name="surroundings"  /><label htmlFor="indoor"> Indoor</label><br />
+                   
+                    <p>Direct Sunlight:</p>
+                    <input type="radio" id="yes_sunlight" name="sunlight"  /> <label htmlFor="yes_sunlight">Yes</label><br />
+                    <input type="radio" id="no_sunlight" name="sunlight"  /><label htmlFor="no_sunlight"> No</label><br />
+                   
+                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
               </form>
              
             </div>
@@ -62,28 +53,65 @@ export default function AddAGarden({user,setUser}){
       </section>
     </div>
   );
+              }
+              else{
+                return(<Redirect to="/mygardens"/>);
+
+              }
   }
    
 
-function addAGarden(e){
-/*
+function addAGarden(e,user){
+
   e.preventDefault();
-  const newUser= { 
-      'firstName':document.getElementById('first_name').value ,
-      'lastName': document.getElementById('last_name').value ,
-      'email': document.getElementById('email').value ,
-      'password': document.getElementById('password').value ,
+  const form = document.forms.gardenForm;
+  const directions = form.elements.direction;
+  const surroundings=form.elements.surroundings
+  const sunLight=form.elements.sunlight
+  var direction;
+  var surrounding;
+  var sunlight;
+  //getting name and size
+  const name=document.getElementById('name').value
+  const size=document.getElementById('size').value
+  //getting direction
+  for(var i = 0; i <directions.length; i++)
+    if(directions[i].checked)
+    direction=directions[i].id;
+    
+
+      // getting surrounsings
+      for(var i = 0; i <surroundings.length; i++)
+      if(surroundings[i].checked)
+      surrounding=surroundings[i].id;
+  
+
+     //getting sun light
+     for(var i = 0; i <sunLight.length; i++)
+     if(sunLight[i].checked)
+     if(i==0)
+     sunlight=true
+     else
+     sunlight=false
+ 
+ 
+  axios.get('http://localhost:8080/user/'+user.email).then((user)=>{
+     const newGarden= { 
+    name:name,
+    size:size,
+    direction:direction,
+    directSun :sunlight,
+    surroundings:surrounding,
+    userID:user
   }
-  console.log(newUser);
-  axios.post('http://localhost:8080/user/register',newUser).then((Response)=>{console.log(Response.data)})
+    axios.post('http://localhost:8080/garden/',newGarden).then(garden=>{
+
+    })
+
+  //  axios.put('http://localhost:8080/user/addGarden',request)
+    })
+
   
-  
-  //to test user update
-  //axios.post('http://localhost:8080/user/update',newUser)
 
 
-  
-  //need to add post to server//////
-
-}*/}
-
+}

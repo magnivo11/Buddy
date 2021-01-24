@@ -5,6 +5,8 @@ const http = require('http');
 const mongoose= require('mongoose');
 const Schema=mongoose.Schema;
 const userRouter=require('./routes/userRouter')
+const gardenRouter=require('./routes/gardenRouter')
+
 const socketIo = require('socket.io');
 require('custom-env').env(process.env.NODE_ENV,'./config'); 
  const app = express();
@@ -34,6 +36,7 @@ if (socket.handshake.headers.origin === process.env.REACT_URL  ){
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/user',userRouter);
+app.use('/garden',gardenRouter)
 
 
 

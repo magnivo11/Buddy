@@ -1,3 +1,5 @@
+const { request, response } = require('express');
+const { findByIdAndUpdate, findOneAndUpdate } = require('../schema/userSchema');
 const User=require('../schema/userSchema'); 
 
 const getUserByEmail = (request,response)=>{
@@ -8,6 +10,16 @@ const getUserByEmail = (request,response)=>{
         else{
         response.send(user)}
     })
+};
+
+const getUserById = (request,response)=>{
+    User.findOne({_id:request.params._id},(err,user)=>{
+       if(err)
+       {
+       response.send(err)}
+       else{
+       response.send(user)}
+   })
 };
 
 const createUser = (request,response)=>{
@@ -33,7 +45,7 @@ const updateUser = (request,response)=>{
         password:request.body.password
         }
         
-   User.findOneAndUpdate({email:request.body.email},userUpdate,(err,user)=>{
+   User.findOneAndUpdate({_id:request.body._id},userUpdate,(err,user)=>{
        if(err){
        response.send(err);}
        else{
@@ -42,8 +54,14 @@ const updateUser = (request,response)=>{
 }
 
 const deleteUser = (request,response)=>{
-    User.deleteOne({email:request.body.email})
+    User.deleteOne({_id:request.body._id})
+}
+
+const addGarden= (request,response)=>{
+    console.log(request.body)
+    User.findByIdAndUpdate(request.body._id,{"$push": { gardens: request.body.gardenId }},{},()=>{})
+
 }
 
 
-module.exports = {getUserByEmail,createUser,updateUser,deleteUser}; 
+module.exports = {getUserByEmail,createUser,updateUser,deleteUser,addGarden}; 

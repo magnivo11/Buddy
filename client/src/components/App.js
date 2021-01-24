@@ -23,8 +23,8 @@ const socket = io.connect("http://localhost:8080") ;
 
 function App(){
 
-    const[user,setUser]=React.useState({email:null});
-    console.log("user email is " + user.email);
+    const[user,setUser]=React.useState({email:null,name:null,lastName:null,_id:null,isAdmin:false,gardens:[]});
+    console.log("user is: " + user.email);
     
     
     return(
