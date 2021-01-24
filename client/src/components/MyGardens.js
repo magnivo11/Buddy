@@ -1,4 +1,5 @@
 import { TableRow } from '@material-ui/core';
+import {Link} from 'react-router-dom'
 
 
 export default function MyGardens(){
@@ -27,7 +28,7 @@ export default function MyGardens(){
                     <a className="nav-link" href="/singlegarden">Bedroom</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link"  href="/addagarden">Add A Garden</a>
+                    <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
                 </li>
                 </ul>
             </div>

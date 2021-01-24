@@ -29,6 +29,7 @@ router.post('/', userController.createUser);
 
 //update user details
 //request must include 
+// _id:request.body._id
 // name:request.body.firstName,
 // lastName:request.body.lastName,
 // email:request.body.email,
@@ -37,7 +38,11 @@ router.put('/',userController.updateUser);
 
 // delete user
 //request must include 
-// _id:request.body.email
+// _id:request.body._id
 router.delete('/',userController.deleteUser);
+
+//add a garden
+
+router.put('/addGarden',userController.addGarden)
 
 module.exports=router;
