@@ -59,8 +59,11 @@ const deleteUser = (request,response)=>{
 
 const addGarden= (request,response)=>{
     console.log(request.body)
-    User.findByIdAndUpdate(request.body._id,{"$push": { gardens: request.body.gardenId }},{},()=>{})
-
+    User.findById(request.body.userID,(err,user)=>{
+        user.gardens.push(request.body.garden._id)
+        user.save()
+    })
+    
 }
 
 
