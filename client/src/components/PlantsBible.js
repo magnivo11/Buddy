@@ -1,6 +1,7 @@
 import '../css/Bible.css';
 import React from 'react';
 import roses from '../Images/roses.png'; 
+import {Link} from 'react-router-dom'
 
 // replace with data from dataBase
 const plants = ['Cyclamen','Mint','Ivy','Sansevieria','Pothos','Australian violet','Basil','Elephant Ears(Colocasia)'];
@@ -18,7 +19,8 @@ export default function PlantsBible(){
         <h2 style={{fontSize:'35px'}}>Plants Bible</h2>
        <p style={{fontSize:'30px'}}>All the information in one place</p>
          <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category" />
-    
+         <Link className="nav-link" to='/addaplantbyadmin'>Add A Plant- Admin only!! </Link>
+
     
         {/* Portfolio Gallery Grid */}
         <div className="row">
@@ -51,6 +53,7 @@ export default function PlantsBible(){
        
        
         {/* END MAIN */}
+
       </div>     
 
         </div>

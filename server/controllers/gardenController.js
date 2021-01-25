@@ -1,12 +1,15 @@
-const Garden=require('../schema/gardenSchema')
+const Garden=require('../models/garden')
   
-
+const get=(request,response)=>{
+    Garden.find().then
+    (results=>
+        {response.json(results);});
+}
 
 const createGarden= (request,response)=>{
    
     var newGarden= new Garden({
         name:request.body.name,
-        size:request.body.size,
         direction:request.body.direction,
         directSun:request.body.directSun,
         surroundings:request.body.surrounding,
@@ -21,4 +24,4 @@ const createGarden= (request,response)=>{
     })
 }
 
-module.exports={createGarden};
+module.exports={createGarden,get};

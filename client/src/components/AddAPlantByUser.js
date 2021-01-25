@@ -11,9 +11,11 @@ import stage3 from '../Images/IconStages/stage 3.jpg';
 import stage4 from '../Images/IconStages/stage 4.jpg';
 import stage5 from '../Images/IconStages/stage 5.jpg';
 
-export default function AddAPlant({user,setUser}){
-  const inputRef=React.useRef();
-
+export default function AddAPlantByUser({gardenId}){
+  //console.log("id is:"+gardenId);
+  const[plantAdded,setPlantAdded]=React.useState(false)
+ 
+if(!plantAdded){
 
   return (
     <div>
@@ -32,9 +34,8 @@ export default function AddAPlant({user,setUser}){
           
               </div>
               <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-                setUser({userName:inputRef.current.value})
               addAPlant(e)}}>
-                <input style= {{fontSize: '14px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" ref={inputRef} />
+                <input style= {{fontSize: '14px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" />
                 <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
 
                   <label className="radio-inline">
@@ -70,7 +71,13 @@ export default function AddAPlant({user,setUser}){
       </section>
     </div>
   );
-  }
+}
+else{
+  return(<Redirect to="/mygardens"/>);
+
+}
+  
+}
    
 
 function addAPlant(e){
