@@ -87,7 +87,7 @@ export default function SingleGarden(){
 
                           <tr>
                         
-                          <Link to="/addaplantbyuser" >Add A Plant</Link>
+                          <Link to="/addaplantbyuser/123" >Add A Plant</Link>
                             <td></td>
                             <td></td>
                           </tr>
