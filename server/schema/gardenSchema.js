@@ -9,7 +9,7 @@ const gardenSchema=new Schema({
     directSun:Boolean,
     userID:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"userSchema"
+        ref:"users"
     },
     plants:[{
         type: mongoose.Schema.Types.ObjectId,
