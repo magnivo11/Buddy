@@ -1,19 +1,20 @@
 import { TableRow } from '@material-ui/core';
-import Pothos from '../Images/pothos.JPG';
-import Ivy from '../Images/ivy.JPG';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Cyclamen from '../Images/cyclamen.JPG';
-
 import statusRed from '../Images/status/red.jpg';
+import Header from './Header';
+import AddAPlantByUser from './AddAPlantByUser';
 import statusGreen from '../Images/status/green.jpg';
 import statusYellow from '../Images/status/yellow.jpg';
-
-
-
+import {Link} from 'react-router-dom'
 
 
 export default function SingleGarden(){
  return (
+
    <div>
+   
+
     <section id="hero" className="d-flex align-items-center">
     <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
         <div className="container" data-aos="fade-up"  >
@@ -40,7 +41,7 @@ export default function SingleGarden(){
                     <a className="nav-link"  href="/singlegarden">Bedroom</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link"   href="/addagarden">Add A Garden</a>
+                <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
                 </li>
                 </ul>
             </div>
@@ -60,9 +61,7 @@ export default function SingleGarden(){
                     <div className="col-lg-8 details order-2 order-lg-1">
                         <h3>Plants you grow in this garden:</h3>
                     </div>
-                    <div className="col-lg-4 text-center order-1 order-lg-2">
-                        <img src="%PUBLIC_URL%/img/specials-1.png" alt="" className="img-fluid" />
-                    </div>
+                   
                     </div>
                     <table style={{width: '70%'}}>
                         <tbody><tr>
@@ -87,7 +86,8 @@ export default function SingleGarden(){
                           <br></br>
 
                           <tr>
-                          <a  href="/addaplant">Add A Plant</a>
+                        
+                          <Link to="/addaplantbyuser" >Add A Plant</Link>
                             <td></td>
                             <td></td>
                           </tr>
@@ -111,6 +111,6 @@ export default function SingleGarden(){
 </section>
 </section>
     </div>
-    
+
   );
 }

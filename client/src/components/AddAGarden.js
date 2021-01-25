@@ -29,21 +29,35 @@ if(!gardenAdded){
               setGardenAdded(true)
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
-                <input style= {{fontSize: '12px'}} type="text" id="size" className="fadeIn second" name="addAGarden" placeholder="Size" />
                 <p>Direction:</p>
+                <label className="radio-inline">
                     <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
+                  </label>
+                    <label className="radio-inline">
                     <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
+                    </label>
+                    <label className="radio-inline">
                     <input type="radio" id="south" name="direction" /> <label htmlFor="south">South</label><br/>
+                  </label>
+                    <label className="radio-inline">
                     <input type="radio" id="east" name="direction" /> <label htmlFor="east">East</label><br/>
-                
+                    </label>                
                     <p>Surroundings:</p>
+                    <label className="radio-inline">
                     <input type="radio" id="outdoor" name="surroundings"  /> <label htmlFor="outdoor">Outdoor</label><br />
+                    </label>
+                    <label className="radio-inline">
                     <input type="radio" id="indoor" name="surroundings"  /><label htmlFor="indoor"> Indoor</label><br />
-                   
+                   </label>
                     <p>Direct Sunlight:</p>
+                    <label className="radio-inline">
                     <input type="radio" id="yes_sunlight" name="sunlight"  /> <label htmlFor="yes_sunlight">Yes</label><br />
+                    </label>
+                    <label className="radio-inline">
                     <input type="radio" id="no_sunlight" name="sunlight"  /><label htmlFor="no_sunlight"> No</label><br />
-                   
+                   </label>
+                   <br></br>
+                   <br></br>
                 <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
               </form>
              
@@ -73,7 +87,6 @@ function addAGarden(e,user){
   var sunlight;
   //getting name and size
   const name=document.getElementById('name').value
-  const size=document.getElementById('size').value
   //getting direction
   for(var i = 0; i <directions.length; i++)
     if(directions[i].checked)
@@ -97,7 +110,6 @@ function addAGarden(e,user){
  
      const newGarden= { 
     name:name,
-    size:size,
     direction:direction,
     directSun :sunlight,
     surroundings:surrounding,

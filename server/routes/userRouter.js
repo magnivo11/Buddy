@@ -18,6 +18,9 @@ const userController = require('../controllers/userController');
 //read / get user by email
 router.get('/:email',userController.getUserByEmail); 
 
+
+router.get('/',userController.getUsers); 
+
 //create user
 // request must include:
 // name:request.body.firstName,

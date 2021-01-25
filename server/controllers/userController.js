@@ -1,19 +1,23 @@
 const { request, response } = require('express');
-const { findByIdAndUpdate, findOneAndUpdate } = require('../schema/userSchema');
-const User=require('../schema/userSchema'); 
+const { findByIdAndUpdate, findOneAndUpdate } = require('../models/user');
+const User=require('../models/user'); 
+const userService = require('../services/user'); 
+
+
+const createUser = async (request,response)=>{
+    const newUser=
+    await userService.createUser(
+        request.body.firstName,
+        request.body.lastName,
+        request.body.email,
+        request.body.password)
+       
+     response.json(newUser);
+response.send('new user is now registered');
+}
 
 const getUserByEmail = (request,response)=>{
-     User.findOne({email:request.params.email},(err,user)=>{
-        if(err)
-        {
-        response.send(err)}
-        else{
-        response.send(user)}
-    })
-};
-
-const getUserById = (request,response)=>{
-    User.findOne({_id:request.params._id},(err,user)=>{
+    User.findOne({email:request.params.email},(err,user)=>{
        if(err)
        {
        response.send(err)}
@@ -22,40 +26,39 @@ const getUserById = (request,response)=>{
    })
 };
 
-const createUser = (request,response)=>{
-    const newUser={
-        name:request.body.firstName,
-        lastName:request.body.lastName,
-        email:request.body.email,
-        password:request.body.password,
-        isAdmin:false,
-        gardens:[],
-        posts:[],
-    }
-    User.insertMany([newUser]);
-response.send('new user is now registered');
+const getUsers= async (request,response)=>{
+    const users = await userService.getUsers();
+    response.json(users);
 }
 
+const getUserById = async(request,response)=>{
+    const user= await userService.getUserById(request.params.userID)
+   if (!user)
+    return response.status(404).json({errors:['User not found']});
+   response.jason(user);
+};
 
-const updateUser = (request,response)=>{
-    const userUpdate={
-        name:request.body.firstName,
-        lastName:request.body.lastName,
-        email:request.body.email,
-        password:request.body.password
-        }
-        
-   User.findOneAndUpdate({_id:request.body._id},userUpdate,(err,user)=>{
-       if(err){
-       response.send(err);}
-       else{
-       response.send('user updated successfully');}
-   }); 
-}
+const updateUser = async (request,response)=>{
+    const user= await userService.updateUser(
+        request.body.userID,
+        request.body.firstName,
+        request.body.lastName,
+        request.body.email,
+        request.body.password);
+    
+        if (!user)
+        return response.status(404).json({errors:['User not found']});
+    response.json(user);
+};
 
-const deleteUser = (request,response)=>{
-    User.deleteOne({_id:request.body._id})
-}
+
+const deleteUser = async (request,response)=>{
+    const user= await userService.updateUser(request.body.userID);
+    
+        if (!user)
+        return response.status(404).json({errors:['User not found']});
+    response.send();
+};
 
 const addGarden= (request,response)=>{
     console.log(request.body)
@@ -67,4 +70,4 @@ const addGarden= (request,response)=>{
 }
 
 
-module.exports = {getUserByEmail,createUser,updateUser,deleteUser,addGarden}; 
+module.exports = {createUser,getUserById,getUsers,updateUser,deleteUser,addGarden,getUserByEmail}; 

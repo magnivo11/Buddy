@@ -3,16 +3,15 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
 import React from 'react';
+import AddAPlantByUser from './AddAPlantByUser';
 import HomePage from './HomePage'
 import Header from './Header';
 import MyGardens from './MyGardens';
 import SingleGarden from './SingleGarden';
-import AddAPlant from './AddAPlant';
+import AddAPlantByAdmin from './AddAPlantByAdmin';
 import AddAGarden from './AddAGarden';
 import Plant from './PlantPage';
 import PlantsBibleSinglePlant from './PlantsBibleSinglePlant';
-
-
 import PlantsBible from './PlantsBible';
 import FirstPage from './FirstPage';
 import Profile from './Profile';
@@ -41,6 +40,8 @@ function App(){
              <Route exact path='/register'>
                  <RegisterForm/></Route>
 
+                 <Route exact path='/addaplantbyuser'>
+                 <Header/><AddAPlantByUser/></Route>
 
              <Route exact path='/mygardens'>
              <Header/> <MyGardens/></Route>
@@ -57,8 +58,10 @@ function App(){
              <Route exact path='/aboutus'>
              <Header/><AboutUs/></Route>
 
-            <Route exact path='/addaplant'>
-            <Header/><AddAPlant/></Route>
+
+
+             <Route exact path='/addaplantbyadmin'>
+            <Header/><AddAPlantByAdmin/></Route>
 
             <Route exact path='/addagarden'>
             <Header/><AddAGarden/></Route>
