@@ -2,7 +2,7 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
+import{Link, Redirect, useParams} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
 import stage1 from '../Images/IconStages/stage 1.jpg';
@@ -10,9 +10,12 @@ import stage2 from '../Images/IconStages/stage 2.jpg';
 import stage3 from '../Images/IconStages/stage 3.jpg';
 import stage4 from '../Images/IconStages/stage 4.jpg';
 import stage5 from '../Images/IconStages/stage 5.jpg';
+ 
 
-export default function AddAPlantByUser({gardenId}){
-  //console.log("id is:"+gardenId);
+
+export default function AddAPlantByUser(){
+  var index=window.location.toString().lastIndexOf('/')+1
+  const gardenID=window.location.toString().substring(index)
   const[plantAdded,setPlantAdded]=React.useState(false)
  
 if(!plantAdded){

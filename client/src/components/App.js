@@ -40,7 +40,7 @@ function App(){
              <Route exact path='/register'>
                  <RegisterForm/></Route>
 
-                 <Route exact path='/addaplantbyuser'>
+                 <Route exact path='/addaplantbyuser/:gardenID'>
                  <Header/><AddAPlantByUser/></Route>
 
              <Route exact path='/mygardens'>

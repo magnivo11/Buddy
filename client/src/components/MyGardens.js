@@ -1,8 +1,16 @@
 import { TableRow } from '@material-ui/core';
 import {Link} from 'react-router-dom'
+import GardenComponent from './GardenComponent';
+import List from './List';
+import DataContext from '../DataContext'
+import React from 'react'
+
 
 
 export default function MyGardens(){
+    const user=React.useContext(DataContext);
+    const ownerID=user._id
+
  return (
    <div>
     <section id="hero" className="d-flex align-items-center" >
@@ -32,23 +40,10 @@ export default function MyGardens(){
                 </li>
                 </ul>
             </div>
-            <div className="col-lg-9 mt-4 mt-lg-0">
-                <div className="tab-content">
-                <div className="tab-pane active show" id="tab-1">
-                    <div className="row">
-                    <div className="col-lg-8 details order-2 order-lg-1">
-                        <h3>Architecto ut aperiam autem id</h3>
-                        <p className="font-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                        <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
-                    </div>
-                
-                    </div>
-                </div>
-               
-                    
-                
-                </div>
-            </div>
+
+                {/* isernt gardens here */}
+                <List ownerID= {user._id}/>
+
             </div>
         </div>
     </section>{/* End Specials Section */}
