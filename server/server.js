@@ -6,6 +6,8 @@ const mongoose= require('mongoose');
 const Schema=mongoose.Schema;
 const userRouter=require('./routes/userRouter')
 const gardenRouter=require('./routes/gardenRouter')
+const plantRouter=require('./routes/plantRouter')
+
 
 const socketIo = require('socket.io');
 require('custom-env').env(process.env.NODE_ENV,'./config'); 
@@ -37,6 +39,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/user',userRouter);
 app.use('/garden',gardenRouter)
+app.use('/plant',plantRouter)
 
 
 

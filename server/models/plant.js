@@ -2,33 +2,28 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
 const plantSchema=new Schema({
-
-name:String,
 species:String,
-irrigationInstructors:String,
-// celsius
-optimalTemp:Number,
-// %
-optimalSoilMoisture:Number,
-optimalSunCondition:Number,
-description:String,
 status:String,
-// the plants location in the garden 
+irrigationInstructors:String, // celsius
+optimalTemp:Number, // %
+optimalSoilMoisture:Number,
+optimalSunExposure:Number,
+description:String,
 sensorID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"sensorsSchema"
+    ref:"sensors"
 },
 photos:[
     
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:"photoSchema"
+            ref:"photos"
         }
     
 ],  
 GardenID:{
     type: mongoose.Schema.Types.ObjectId,
-    ref:"gardenSchema"
+    ref:"gardens"
 }
 
 
