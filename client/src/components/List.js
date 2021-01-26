@@ -15,7 +15,7 @@ axios.get('http://localhost:8080/garden/'+ownerID).then(Response=>{
     return( 
         <div>
             {items.map((data,key)=>{
-                return <GardenComponent name={data.name} direction={data.direction} key={key}/>
+                return <GardenComponent id={data._id} name={data.name} direction={data.direction} key={key}/>
             })}
 
         </div>

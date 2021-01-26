@@ -52,7 +52,7 @@ function App(){
              <Route exact path='/plantsbible'>
              <Header/><PlantsBible/> </Route>
 
-             <Route exact path='/singlegarden'>
+             <Route exact path='/singlegarden/:gardenID'>
              <Header/><SingleGarden/> </Route>
 
              <Route exact path='/aboutus'>
