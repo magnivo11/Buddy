@@ -10,10 +10,13 @@ import {Link} from 'react-router-dom'
 
 
 export default function SingleGarden(){
+  var index=window.location.toString().lastIndexOf('/')+1
+  const gardenID=window.location.toString().substring(index)
+
  return (
 
    <div>
-   
+  
 
     <section id="hero" className="d-flex align-items-center">
     <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
