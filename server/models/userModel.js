@@ -11,7 +11,7 @@ const userSchema=new Schema({
     gardens:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:"gardenSchema"
+            ref:"gardens"
         }
     ]
 })

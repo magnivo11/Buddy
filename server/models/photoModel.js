@@ -6,4 +6,4 @@ const photoSchema=new Schema({
     date: { type: Date, default: Date.now }
 })
 
-module.exports=mongoose.model('photo',photoSchema);
+module.exports=mongoose.model('photos',photoSchema);

@@ -1,27 +1,41 @@
-const Garden=require('../models/garden')
-  
-const get=(request,response)=>{
-    Garden.find().then
-    (results=>
-        {response.json(results);});
-}
+const { request, response } = require('express');
+const Garden=require('../models/gardenModel')
+const gardenService = require('../services/gardenService'); 
 
-const createGarden= (request,response)=>{
+
+const createGarden=async (request,response)=>{
    
-    var newGarden= new Garden({
-        name:request.body.name,
-        direction:request.body.direction,
-        directSun:request.body.directSun,
-        surroundings:request.body.surrounding,
-        userID:request.body.userID
+     const newGarden=  
+    await gardenService.createGarden(  
+        request.body.name,
+        request.body.direction,
+        request.body.directSun,
+        request.body.surrounding,
+        request.body.userID
+        )
+        response.json(newGarden);
+        response.send('new garden was created');  
+    
+    }
 
-    })
-    newGarden.save((err,garden)=>{
-        if(err)
-        response.send(err)
-        else
-        response.send(garden)
-    })
-}
+   
+    const getAllGardens= async (request,response)=>{
+       const gardens = await gardenService.getAllGardens(); 
+       response.json(gardens);
 
-module.exports={createGarden,get};
+    }
+    
+    const getGardenById= async (request,response)=>{
+        console.log("Controller from get garden by id");
+        const garden = await gardenService.getGardenById(request.params.gardenID);
+        response.json(garden);
+    }
+
+    const getGardensByUserId = async (request,response)=>{
+        console.log("Controller from get garden by Userid");
+         const gardens = await gardenService.getGardensByUserId(request.params.userID);
+        response.json(gardens); 
+    }
+
+
+module.exports={createGarden,getAllGardens,getGardenById,getGardensByUserId};

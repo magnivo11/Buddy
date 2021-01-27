@@ -12,7 +12,7 @@ const gardenSchema=new Schema({
     },
     plants:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"usersPlants"
+        ref:"plants"
     }]
 
 })

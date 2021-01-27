@@ -1,7 +1,7 @@
 const { request, response } = require('express');
-const { findByIdAndUpdate, findOneAndUpdate } = require('../models/user');
-const User=require('../models/user'); 
-const userService = require('../services/user'); 
+const { findByIdAndUpdate, findOneAndUpdate } = require('../models/userModel');
+const User=require('../models/userModel'); 
+const userService = require('../services/userService'); 
 
 
 const createUser = async (request,response)=>{
@@ -46,8 +46,8 @@ const updateUser = async (request,response)=>{
         request.body.email,
         request.body.password);
     
-        if (!user)
-        return response.status(404).json({errors:['User not found']});
+        if (!user){
+        return response.status(404).json({errors:['User not found']});}
     response.json(user);
 };
 
@@ -55,8 +55,17 @@ const updateUser = async (request,response)=>{
 const deleteUser = async (request,response)=>{
     const user= await userService.updateUser(request.body.userID);
     
-        if (!user)
-        return response.status(404).json({errors:['User not found']});
+        if (!user){
+        return response.status(404).json({errors:['User not found']});}
+    response.send();
+};
+
+
+const getAllGardensFromUser = async (request,response)=>{
+    const allGardens= await userService.getAllGardensFromUser(request.params.userID);
+    
+        if (!allGardens){
+        return response.status(404).json({errors:['Gardens not found']});}
     response.send();
 };
 
@@ -70,4 +79,9 @@ const addGarden= (request,response)=>{
 }
 
 
-module.exports = {createUser,getUserById,getUsers,updateUser,deleteUser,addGarden,getUserByEmail}; 
+
+
+
+
+
+module.exports = {getAllGardensFromUser,createUser,getUserById,getUsers,updateUser,deleteUser,addGarden,getUserByEmail}; 

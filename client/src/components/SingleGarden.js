@@ -12,6 +12,8 @@ import {Link} from 'react-router-dom'
 export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
+  
+
 
  return (
 
@@ -27,7 +29,7 @@ export default function SingleGarden(){
                   {/*Title*/}
                   <div className="section-title" >
                     <h2 style={{fontSize:'35px'}}>My Gardnes</h2>
-                    <p style={{fontSize:'30px'}}>Balcony</p>
+                    <p style={{fontSize:'30px'}}>balcony</p>
                   </div>
                   {/*Left buttons*/}
 
