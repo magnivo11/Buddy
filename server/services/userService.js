@@ -1,5 +1,5 @@
 const { response } = require('express');
-const User = require('../models/user')
+const User = require('../models/userModel')
 
 const createUser = async(name,lastname,email,password)=>{
     const user= new User({
@@ -15,11 +15,11 @@ const createUser = async(name,lastname,email,password)=>{
 
 const getUserById = async(id)=>{return await User.findById(id)};
 
-const getUsers = async()=>{
-    
-     return await User.find({})
-};
+const getUsers = async()=>{return await User.find({})};
 
+const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
+    return await user.gardens ;
+};
 
 const updateUser = async(id,name,lastname,email,password) =>{
     const user= User.getUserById(id);
@@ -51,5 +51,6 @@ createUser,
 deleteUser,
 updateUser,
 getUserById,
-getUsers
+getUsers,
+getAllGardensFromUser
 };

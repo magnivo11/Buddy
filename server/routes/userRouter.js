@@ -7,11 +7,7 @@ const Schema=mongoose.Schema;
 // import custom env - who helps us to use enviroment varibles 
 require('custom-env').env(process.env.NODE_ENV,'./config'); 
 mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNewUrlParser: true  });
-// import controllers 
-const gardenController = require('../controllers/gardenController');  
-const photoController = require('../controllers/photoController'); 
-const plantController = require('../controllers/plantController');  
-const sensorsController = require('../controllers/sensorsController');  
+// import controllers   
 const userController = require('../controllers/userController');  
 
 

@@ -3,11 +3,18 @@ const Schema=mongoose.Schema;
 
 const plantSchema=new Schema({
 species:String,
-status:String,
+growthStatus:String,
+healthStatus:String,
+isUserPlant:Boolean,
+defaultPhotoID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"photos"
+}, 
 irrigationInstructors:String, // celsius
 optimalTemp:Number, // %
 optimalSoilMoisture:Number,
 optimalSunExposure:Number,
+
 description:String,
 sensorID: {
     type: mongoose.Schema.Types.ObjectId,

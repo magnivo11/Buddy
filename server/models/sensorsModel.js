@@ -11,7 +11,7 @@ const sensorsSchema=new Schema({
 
 })
 
-module.exports=mongoose.model('sensor',sensorsSchema);
+module.exports=mongoose.model('sensors',sensorsSchema);
 
 
 

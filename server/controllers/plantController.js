@@ -1,6 +1,6 @@
 const { request, response } = require('express');
-const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plant');
-const Plant=require('../models/plant');
+const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plantModel');
+const Plant=require('../models/plantModel');
   
 
 const createPlantByAdmin= (request,response)=>{
@@ -15,15 +15,18 @@ const createPlantByAdmin= (request,response)=>{
         status:null,
         sensorID:null,
         photos:null,
-        GardenID:null
-
+        GardenID:null,
+        growthStatus:null,
+        healthStatus:null,
+        isUserPlant:false,
+        defaultPhotoID:null 
 
     })
     newPlant.save((err,plant)=>{
-        if(err)
-        response.send(err)
-        else
-        response.send(plant)
+        if(err){
+        response.send(err)}
+        else{
+        response.send(plant)}
     })
 }
 
