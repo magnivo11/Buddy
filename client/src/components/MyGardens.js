@@ -24,16 +24,16 @@ export default function MyGardens(){
             <div className="col-lg-3">
                 <ul className="nav nav-tabs flex-column">
                 <li className="nav-item">
-                    <a className="nav-link active show" >All Gardens</a>
+                <Link className="nav-link active show" to='/singlegarden'>All Gardens </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/singlegarden">Balcony</a>
+                <Link className="nav-link" to='/singlegarden'>Balcony </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link"  href="/singlegarden">Living Room</a>
+                <Link className="nav-link" to='/singlegarden'>Living Room </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/singlegarden">Bedroom</a>
+                <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to='/addagarden'>Add A Garden </Link>

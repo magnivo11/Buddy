@@ -8,6 +8,8 @@ const userRouter=require('./routes/userRouter')
 const gardenRouter=require('./routes/gardenRouter')
 const plantRouter=require('./routes/plantRouter')
 const photoRouter=require('./routes/photoRouter')
+const sensorRouter = require('./routes/sensorRouter')
+ 
 
 
 const socketIo = require('socket.io');
@@ -41,7 +43,9 @@ app.use(bodyParser.json());
 app.use('/user',userRouter);
 app.use('/garden',gardenRouter)
 app.use('/plant',plantRouter)
-app.use('/photo',photoRouter)
+ app.use('/photo',photoRouter)
+ app.use('/sensor',sensorRouter)
+ 
 
 
 console.log("Server is runnig on port "+process.env.PORT);

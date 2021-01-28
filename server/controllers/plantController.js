@@ -1,68 +1,64 @@
 const { request, response } = require('express');
 const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plantModel');
 const Plant=require('../models/plantModel');
+const plantService = require('../services/plantService'); 
+
   
+const createPlantByUser= (request,repsonse)=>{
 
-const createPlantByAdmin= (request,response)=>{
-
-    var newPlant= new Plant({
-        species:request.body.species,
-        irrigationInstructors: request.body.irrigationInstructors,
-        optimalTemp: request.body.optimalTemp,
-        optimalSoilMoisture: request.body.optimalSoilMoisture,
-        optimalSunExposure: request.body.optimalSunExposure,
-        description :request.body.description,
-        status:null,
-        sensorID:null,
-        photos:null,
-        GardenID:null,
-        growthStatus:null,
-        healthStatus:null,
-        isUserPlant:false,
-        defaultPhotoID:null 
-
-    })
-    newPlant.save((err,plant)=>{
-        if(err){
-        response.send(err)}
-        else{
-        response.send(plant)}
-    })
-}
-
-const deletePlant = (request,response)=>{
-    Plant.deleteOne({_id:request.body._id})
-}
-const getPlantById = (request,response)=>{
-    Plant.findOne({_id:request.params._id},(err,user)=>{
-       if(err)
-       {
-       response.send(err)}
-       else{
-       response.send(user)}
-   })
 };
 
-const updatePlant = (request,response)=>{
-    const PlantUpdate={
-        species:request.body.species,
-        irrigationInstructors: request.body.irrigationInstructors,
-        optimalTemp: request.body.optimalTemp,
-        optimalSoilMoisture: request.body.optimalSoilMoisture,
-        optimalSunExposure: request.body.optimalSunExposure,
-        description :request.body.description,
-        status:request.body.status,
-        sensorID:request.body.sensorID,
-        photos:request.body.photos,
-        GardenID:request.body.GardenID
-        }
-        
-   User.findOneAndUpdate({_id:request.body._id},plantUpdate,(err,user)=>{
-       if(err){
-       response.send(err);}
-       else{
-       response.send('plant updated successfully');}
-   }); 
-}
+const createPlantByAdmin= async(request,response)=>{
+    const newPlant=  
+    await plantService.createPlantByAdmin(  
+        request.body.species,
+        request.body.irrigationInstructors,
+        request.body.optimalTemp,
+        request.body.optimalSoilMoisture,
+        request.body.optimalSunExposure,
+        request.body.description
+        )
+        response.json(newPlant);
+        response.send('new plant was created');  
+    
+    };
+   
 
-module.exports={createPlantByAdmin, updatePlant, getPlantById, deletePlant};
+
+const deletePlant = async(request,response)=>{
+    const plant= await userService.deletePlant(request.body.id);
+    
+    if (!plant){
+    return response.status(404).json({errors:['User not found']});}
+response.send();
+}
+const getPlantById = async(request,response)=>{
+    const plant= await plantService.getPlantById(request.params.id)
+    if (!plant)
+     return response.status(404).json({errors:['Plant not found']});
+    response.json(plant);
+};
+
+const updatePlant =async (request,response)=>{
+    const plant= await plantService.updatePlant(
+        request.body._id,
+        request.body.species,
+        request.body.irrigationInstructors,
+        request.body.optimalTemp,
+        request.body.optimalSoilMoisture,
+        request.body.optimalSunExposure,
+        request.body.description);
+       
+        
+    
+        if (!plant){
+        return response.status(404).json({errors:['Plant not found']});}
+    response.json(plant); 
+};
+
+const getAllPlants=async(request,response)=>{
+    const plants = await plantService.getAllPlants();
+    response.json(plants);
+};
+
+module.exports={createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants};

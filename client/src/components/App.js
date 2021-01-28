@@ -4,7 +4,9 @@ import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
 import React from 'react';
 import AddAPlantByUser from './AddAPlantByUser';
-import HomePage from './HomePage'
+import HomePage from './HomePage';
+import Footer from './Footer';
+
 import Header from './Header';
 import MyGardens from './MyGardens';
 import SingleGarden from './SingleGarden';
@@ -77,6 +79,7 @@ function App(){
              <Header/><PlantsBibleSinglePlant/></Route>
     </Switch>
     <FirstPage/>
+    <Footer/>
      </BrowserRouter>
 
 </DataContext.Provider>
