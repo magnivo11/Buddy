@@ -42,7 +42,7 @@ const deleteUser= async(id)=> {
         return null;
 
     else
-        await user.remove(user);
+        await user.remove();
     return user;
 };
 

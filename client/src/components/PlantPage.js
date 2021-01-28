@@ -3,20 +3,24 @@ import Pothos from '../Images/pothos.JPG';
 import Ivy from '../Images/ivy.JPG';
 import Ivy0 from '../Images/PhotoStages/0.jpg';
 import Ivy1 from '../Images/PhotoStages/1.JPG';
-
+import {Link} from 'react-router-dom'
+import axios from 'axios'
+import React from 'react';
 import Cyclamen from '../Images/cyclamen.JPG';
 import light24 from '../Images/Graphs/light1.JPG';
 import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
+const data = require ('../files/data.json'); 
+
 
 
 
 
 export default function Plant(){
-
+  const[sensorAdded,setSensorAdded]=React.useState(false)
+ 
     return (
       <div>
-            
       <section id="hero" className="d-flex align-items-center">
          <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
            <div className="container" data-aos="fade-up"  >
@@ -27,29 +31,38 @@ export default function Plant(){
                 <div className="col-lg-3"> {/*left buttons*/}
                     <ul className="nav nav-tabs flex-column">
                     <li className="nav-item">
-                        <a className="nav-link active show" >All Gardens</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/singlegarden">Balcony</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link"  href="/singlegarden">Living Room</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/singlegarden">Bedroom</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link"  href="/addagarden">Add A Garden</a>
-                    </li>
+                      <Link className="nav-link" to='/singlegarden'>All Gardens </Link>
+                      </li>
+                      <li className="nav-item">
+                      <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>
+                      </li>
+                      <li className="nav-item">
+                      <Link className="nav-link" to='/singlegarden'>Living Room </Link>
+                      </li>
+                      <li className="nav-item">
+                      <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
+                      </li>
+                      <li className="nav-item">
+                          <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
+                      </li>
                     </ul>
                 </div>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+
+
+                <form  style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+            addSensor(e)
+            setSensorAdded(true)
+          }}>
+               <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
+            
+            </form>
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
                       <li><a style={{fontSize:'22px'}}>Display:</a></li>
-                      <li class="active"><a style={{fontSize:'20px'}} href="/mygardens">Last 24 Hours</a></li>
-                      <li><a style={{fontSize:'20px'}} href="/profile">Last 3 Days</a></li>
-                      <li><a style={{fontSize:'20px'}} href="/plantsbible">Last Week</a></li>
+                      <li class="active"><Link to="/mygardens" style={{fontSize:'20px'}} >Last 24 Hours</Link></li>
+                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last 3 Days</Link></li>
+                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last Week</Link></li>
                       <li></li>
           
                       </ul>
@@ -109,4 +122,21 @@ export default function Plant(){
        </section>
        </div>
      );
+
    }
+
+ 
+  
+   function addSensor(e){
+    console.log("add sensor func");
+
+    e.preventDefault();
+  
+    const newSensor= { 
+      temperature:data.data.temp[0],
+      light:data.data.light[0],
+      soil:data.data.soil[0],
+    }
+    console.log(data.data.temp[0]);
+      axios.post('http://localhost:8080/sensor/',newSensor);
+  }

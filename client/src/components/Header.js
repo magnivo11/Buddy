@@ -11,13 +11,13 @@ export default function Header(){
         <header id="header" className="fixed-top">
                 <div className="container d-flex align-items-center">
             
-            <h1 className="logo mr-auto" style={{marginRight: '100%'}}><a href="index.html">Little Buddy</a></h1>
+            <h1 className="logo mr-auto" style={{marginRight: '100%'}}><Link to="/mygardens">Little Buddy</Link></h1>
             <nav className="nav-menu d-none d-lg-block">
               <ul>
-              <li class="active"></li>
-              <li><a href="/mygardens">My Gardens</a></li>
-              <li><a href="/plantsbible">The Plant Bible</a></li>
-              <li><a href="/aboutus" >About Us</a></li>
+              <li></li>
+              <li><Link to="/mygardens">My Gardens </Link></li>
+              <li><Link to="/plantsbible">The Plant Bible</Link></li>
+              <li><Link to="/aboutus" >About Us</Link></li>
               <li></li>
 
                 <Link to="/mygardens" className="nav-item nav-link" ><i className="fa fa-leaf" /></Link>

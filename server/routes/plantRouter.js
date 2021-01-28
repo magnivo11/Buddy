@@ -8,7 +8,22 @@ const coneectionString='mongodb+srv://Nivo11:sheleg11@cluster0.k9bri.mongodb.net
 mongoose.connect(coneectionString,{ useUnifiedTopology: true, useNewUrlParser: true  });
 const plantController = require('../controllers/plantController');
 
+
+
+router.get('/',plantController.getAllPlants);
+
 router.post('/',plantController.createPlantByAdmin)
+
+router.post('/ByUser',plantController.createPlantByUser);
+
+router.get('/:id',plantController.getPlantById);
+
+router.patch('/:id',plantController.updatePlant);
+
+router.delete('/:id ',plantController.deletePlant);
+
+
+
 
 
 

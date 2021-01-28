@@ -1,0 +1,11 @@
+{
+    "title":"sensor details",
+        "data":
+    {
+        "temp":[22,34,34],
+         "light":[30,43,43],
+        "soil":[30,43,10]
+
+    }
+
+}
