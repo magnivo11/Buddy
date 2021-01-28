@@ -37,5 +37,27 @@ const createGarden=async (request,response)=>{
         response.json(gardens); 
     }
 
+    const editGarden = async (request,response)=>{
+        const garden = await gardenService.editGarden(request.params.id,
+            request.body.name,request.body.direction,request.body.surrounding,request.body.directSun);
+            if(garden==true)
+            {
+            response.send(' garden was updated');  }
+        }
 
-module.exports={createGarden,getAllGardens,getGardenById,getGardensByUserId};
+        const deleteGarden = async (request,response)=>{
+              const garden = await gardenService.deleteGarden(request.params.gardenID);
+              if(garden==true)
+              {
+              response.send(' garden was deleted');  }        }
+
+        const deletePlantInGarden = async (request,response)=>{
+              const deletePlant = await gardenService.deletePlantInGarden(request.params.gardenID,request.params.plantID);
+              if(deletePlant==true)
+              {
+              response.send('plant was deleted'); 
+             } 
+                      }
+
+
+module.exports={createGarden,deletePlantInGarden,deleteGarden,getAllGardens,getGardenById,editGarden,getGardensByUserId};
