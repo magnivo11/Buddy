@@ -26,9 +26,9 @@ export default function PlantsBible(){
         <div className="row">
           <div className="column">
             <div className="content">
-              <a href="/plantsbiblesingleplant">
+              <Link to="/plantsbiblesingleplant">
                <img src={roses} alt="Roses" style={{width: '100%'}} />
-              </a>
+              </Link>
                <p>Rose</p>
                <h3>Click on the image for more info</h3>
 

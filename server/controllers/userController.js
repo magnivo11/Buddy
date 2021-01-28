@@ -32,7 +32,7 @@ const getUsers= async (request,response)=>{
 }
 
 const getUserById = async(request,response)=>{
-    const user= await userService.getUserById(request.params.userID)
+    console.log(request.params.id)
    if (!user)
     return response.status(404).json({errors:['User not found']});
    response.jason(user);
@@ -53,7 +53,7 @@ const updateUser = async (request,response)=>{
 
 
 const deleteUser = async (request,response)=>{
-    const user= await userService.updateUser(request.body.userID);
+    const user= await userService.deleteUser(request.body.userID);
     
         if (!user){
         return response.status(404).json({errors:['User not found']});}

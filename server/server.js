@@ -7,6 +7,7 @@ const Schema=mongoose.Schema;
 const userRouter=require('./routes/userRouter')
 const gardenRouter=require('./routes/gardenRouter')
 const plantRouter=require('./routes/plantRouter')
+const sensorRouter = require('./routes/sensorRouter')
 
 
 const socketIo = require('socket.io');
@@ -40,6 +41,8 @@ app.use(bodyParser.json());
 app.use('/user',userRouter);
 app.use('/garden',gardenRouter)
 app.use('/plant',plantRouter)
+app.use('/sensor',sensorRouter)
+
 
 
 
