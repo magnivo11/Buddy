@@ -6,14 +6,17 @@ import Header from './Header';
 import AddAPlantByUser from './AddAPlantByUser';
 import statusGreen from '../Images/status/green.jpg';
 import statusYellow from '../Images/status/yellow.jpg';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+import React from 'react'
+
+
 
 
 export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   
-
 
  return (
 
@@ -29,24 +32,24 @@ export default function SingleGarden(){
                   {/*Title*/}
                   <div className="section-title" >
                     <h2 style={{fontSize:'35px'}}>My Gardnes</h2>
-                    <p style={{fontSize:'30px'}}>balcony</p>
+                    <p style={{fontSize:'30px'}}>{gardenID}</p>
                   </div>
                   {/*Left buttons*/}
 
-                  <li className="nav-item">
-                    <a className="nav-link"   href="/mygardens">All Gardens</a>
+                <li className="nav-item">
+                <Link className="nav-link" to='/singlegarden'>All Gardens </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link active show" href="/singlegarden">Balcony</a>
+                <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link"   href="/singlegarden">Living Room</a>
+                <Link className="nav-link" to='/singlegarden'>Living Room </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link"  href="/singlegarden">Bedroom</a>
+                <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
                 </li>
                 <li className="nav-item">
-                <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
+                    <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
                 </li>
                 </ul>
             </div>
@@ -76,7 +79,7 @@ export default function SingleGarden(){
                           </tr>
                           <br></br>
                           <tr>
-                            <a  href="/plant">Ivy</a>
+                          <Link to="/plant" >Ivy</Link>
                             <td><img src={statusRed} width={"30px"}></img></td>
                             <td>Low Humidity</td>
 
@@ -84,7 +87,7 @@ export default function SingleGarden(){
                           <br></br>
 
                           <tr>
-                          <a  href="/plant">Pothos</a>
+                          <Link to="/plant" >Pothos</Link>
                             <td><img src={statusYellow} width={"30px"}></img></td>
                             <td>Lack Of Water</td>
                           </tr>
@@ -105,7 +108,7 @@ export default function SingleGarden(){
                         <br></br>
                         
 
-                        <button style={{ color:'grey',font:'Poppins',width:'200px',padding:'10px',fontSize:'14px'}} href={"/mygardens"}>Delete Garden</button>
+                        <li><Link to="/mygardens">Delete Garden </Link></li>
                       
               {/*end of table*/}
                     </div>
