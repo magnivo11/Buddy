@@ -1,7 +1,6 @@
 const { response } = require('express');
 const Sensor = require('../models/sensorsModel')
 const Plant = require('../models/plantModel')
-const data = require ('../files/data.json'); 
 
 
 const createSensor = async(temperature,light,soilMoisture)=>{
