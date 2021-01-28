@@ -13,7 +13,7 @@ const { request } = require('express');
 router.post('/',gardenController.createGarden)
 router.get('/',gardenController.getAllGardens)
 // get gardens by userID
- //router.get('/:userID', gardenController.getGardensByUserId); 
+ router.get('/:userID', gardenController.getGardensByUserId); 
  //router.get('/:gardenID', gardenController.getGardenById); 
 
 

@@ -54,8 +54,7 @@ function login(e,setUser,setMessege){
                       name:Response.data.name,
                       lastName:Response.data.lastName,
                       email:email,
-                      isAdmin:Response.data.isAdmin,
-                      gardens:Response.data.gardens
+                      isAdmin:Response.data.isAdmin
                       }) 
           else
             setMessege({text:'password incorrect',showMessege:true})
