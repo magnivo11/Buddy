@@ -12,6 +12,8 @@ const createPhoto = async(link)=>{
 
 const getPhoto = async(id)=>{return await Photo.findById(id)};
 
+const getAllPhotos = async()=>{return await Photo.find({});}
+
  
 
 const editPhoto = async(id,link) =>{
@@ -40,5 +42,6 @@ module.exports={
     createPhoto,
     deletePhoto,
     editPhoto,
-    getPhoto
+    getPhoto,
+    getAllPhotos
 };
