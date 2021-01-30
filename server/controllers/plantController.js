@@ -4,9 +4,18 @@ const Plant=require('../models/plantModel');
 const plantService = require('../services/plantService'); 
 
   
-const createPlantByUser= (request,repsonse)=>{
+const createPlantByUser= async(request,repsonse)=>{
+    const newPlant=  
+    await plantService.createPlantByUser(  
+        request.body.species,
+        request.body.isUserPlant,
+        request.body.growthStatus,
+        request.body.GardenID
+        )
+        response.json(newPlant);
+    
+    };
 
-};
 
 const createPlantByAdmin= async(request,response)=>{
     const newPlant=  
@@ -19,7 +28,6 @@ const createPlantByAdmin= async(request,response)=>{
         request.body.description
         )
         response.json(newPlant);
-        response.send('new plant was created');  
     
     };
    
@@ -61,4 +69,10 @@ const getAllPlants=async(request,response)=>{
     response.json(plants);
 };
 
-module.exports={createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants};
+
+const getAllAdminPlants=async(request,response)=>{
+    const plants = await plantService.getAllAdminPlants();
+    response.json(plants);
+};
+
+module.exports={createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};

@@ -21,7 +21,6 @@ sensorID: {
     ref:"sensors"
 },
 photos:[
-    
         {
             type: mongoose.Schema.Types.ObjectId,
             ref:"photos"

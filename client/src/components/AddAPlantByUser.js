@@ -1,10 +1,13 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
-
 import axios from 'axios'
 import{Link, Redirect, useParams} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
+import VirtualizedSelect from 'react-virtualized-select';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
+
 import stage1 from '../Images/IconStages/stage 1.jpg';
 import stage2 from '../Images/IconStages/stage 2.jpg';
 import stage3 from '../Images/IconStages/stage 3.jpg';
@@ -12,16 +15,43 @@ import stage4 from '../Images/IconStages/stage 4.jpg';
 import stage5 from '../Images/IconStages/stage 5.jpg';
  
 
-
 export default function AddAPlantByUser(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const[plantAdded,setPlantAdded]=React.useState(false)
- 
+  const [selected,setSelected]=React.useState('Select plant')
+
+  const [plants,setPlants]=React.useState([])
+  var plantsInfo=[];
+  axios.get('http://localhost:8080/plant/admin').then((Response)=> {
+    if(plants.length!=Response.data.length)
+    {
+      Response.data.forEach(plant => {
+        plantsInfo.push({label:plant.species, value:plant.species})
+      });
+    setPlants(plantsInfo);
+    }
+  })
+console.log(plants)
+
+
+
+const imaginaryThings = [
+  { label: 'Thing 2', value: 2 },
+  { label: 'Thing 3', value: 3 },
+  { label: 'Thing 4', value: 4 },
+  { label: 'Thing 5', value: 5 },
+];
+const _handleSelect = (selectChoice) => {
+console.log("shiroko")};
+
+
 if(!plantAdded){
 
   return (
     <div>
+
+        <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.0/dist/react-select.css"></link>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
@@ -36,30 +66,43 @@ if(!plantAdded){
                 <h4 style= {{fontSize: '25px', color:'#51361A'}}>Add A Plant </h4> 
           
               </div>
-              <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              addAPlant(e)}}>
-                <input style= {{fontSize: '14px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name" />
+              
+              <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+              addAPlant(e,gardenID,selected)
+              setPlantAdded(true)}}>
+            <label>Imaginary Thing</label>
+              <VirtualizedSelect
+                name="Species"
+                placeholder= {selected}
+                value={plants.value}
+                options={plants}
+                onChange={(e)=>{
+                  setSelected(e.value)}} />
+                   
+
+                
+                
                 <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
 
                   <label className="radio-inline">
-                    <input type="radio" name="stage1"  />
+                    <input type="radio" id="Seed" name="growthStatus"  />
                     <img src={stage1} width={40}></img>Seed
                   </label>
                 
                   <label className="radio-inline">
-                    <input type="radio" name="stage2"  />
+                    <input type="radio" id="Seedling" name="growthStatus"  />
                     <img src={stage2} width={40}></img>Seedling
                   </label>
                   <label className="radio-inline">
-                    <input type="radio" name="stage3"  />
+                    <input type="radio" id="Vegetative" name="growthStatus"  />
                     <img src={stage3} width={40}></img>Vegetative
                   </label>
                   <label className="radio-inline">
-                    <input type="radio" name="stage4"  />
+                    <input type="radio" id="Flowering" name="growthStatus"   />
                     <img src={stage4} width={40}></img>Flowering
 
                   </label> <label className="radio-inline">
-                    <input type="radio" name="stage5"  />
+                    <input type="radio" id="Ripening" name="growthStatus"  />
                     <img src={stage5} width={40}></img>Ripening
                   </label>
                     <br></br>
@@ -83,26 +126,23 @@ else{
 }
    
 
-function addAPlant(e){
-/*
+function addAPlant(e,gardenID,selected){
   e.preventDefault();
-  const newUser= { 
-      'firstName':document.getElementById('first_name').value ,
-      'lastName': document.getElementById('last_name').value ,
-      'email': document.getElementById('email').value ,
-      'password': document.getElementById('password').value ,
-  }
-  console.log(newUser);
-  axios.post('http://localhost:8080/user/register',newUser).then((Response)=>{console.log(Response.data)})
-  
-  
-  //to test user update
-  //axios.post('http://localhost:8080/user/update',newUser)
+  const form = document.forms.plantUserForm;
+  const growthStatus = form.elements.growthStatus;
+  var status;
 
+  for(var i = 0; i <growthStatus.length; i++)
+  if(growthStatus[i].checked)
+  status=growthStatus[i].id;
 
-  
-  //need to add post to server//////
+ const newPlant={
 
-}*/}
+  species:selected,
+  isUserPlant:true,
+  growthStatus:status,
+  GardenID:gardenID
+ }
+ axios.post('http://localhost:8080/plant/ByUser',newPlant);
 
- 
+}

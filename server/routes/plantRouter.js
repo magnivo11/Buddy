@@ -12,6 +12,9 @@ const plantController = require('../controllers/plantController');
 
 router.get('/',plantController.getAllPlants);
 
+router.get('/admin',plantController.getAllAdminPlants);
+
+
 router.post('/',plantController.createPlantByAdmin)
 
 router.post('/ByUser',plantController.createPlantByUser);
@@ -28,4 +31,4 @@ router.delete('/:id ',plantController.deletePlant);
 
 
 
-module.exports=router; 
+module.exports=router;
