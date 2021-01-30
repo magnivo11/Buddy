@@ -15,7 +15,7 @@ router.get('/',gardenController.getAllGardens) // good
 router.put('/edit/:gardenID',gardenController.editGarden);
 router.get('/find/:gardenID', gardenController.getGardenById); // good 
 router.get('/:userID', gardenController.getGardensByUserId);  // good 
-router.delete('/:gardenID',gardenController.deleteGarden); 
+router.delete('/',gardenController.deleteGarden); 
 router.delete('/:gardenID'/':plantID',gardenController.deletePlantInGarden); 
 
 

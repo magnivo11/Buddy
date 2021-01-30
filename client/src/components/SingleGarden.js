@@ -9,6 +9,7 @@ import statusYellow from '../Images/status/yellow.jpg';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
+import DataContext from '../DataContext'
 
 
 
@@ -16,6 +17,7 @@ import React from 'react'
 export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
+  const user=React.useContext(DataContext);
   
 
  return (
@@ -107,8 +109,11 @@ export default function SingleGarden(){
                         <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
                         <br></br>
                         
-
-                        <li><Link to="/mygardens">Delete Garden </Link></li>
+                        {/* delete example */}
+                          <button onClick={()=>{
+                            axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
+                          }}> delete garden </button>
+                        {/* <li><Link to="/mygardens">Delete Garden </Link></li> */}
                       
               {/*end of table*/}
                     </div>
