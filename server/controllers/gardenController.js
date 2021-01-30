@@ -46,7 +46,7 @@ const createGarden=async (request,response)=>{
         }
 
         const deleteGarden = async (request,response)=>{
-              const garden = await gardenService.deleteGarden(request.params.gardenID);
+              const garden = await gardenService.deleteGarden(request.body.gardenID,request.body.userID);
               if(garden==true)
               {
               response.send(' garden was deleted');  }        }

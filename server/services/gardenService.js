@@ -4,7 +4,7 @@ const User = require('../models/userModel')
 const Plant = require('../models/plantModel');
  
 
-
+// create a garden and save ref to user gardens array
 const createGarden = async(name,direction,surrounding,directSun,userID)=>{
      const garden= new Garden({
     name:name,
@@ -14,6 +14,12 @@ const createGarden = async(name,direction,surrounding,directSun,userID)=>{
     userID:userID,
     plants:[]
     }); 
+    User.findById(userID,(err,user)=>{
+        if(user)
+            user.gardens.push(garden)
+        
+
+    })
     return await garden.save();
 };
 
@@ -52,15 +58,22 @@ const deletePlantInGarden = async(gardenID,plantID)=>{
     return await true;
 }
 
-const deleteGarden = async(id)=>{
-    const garden = await getGardenById(id);
+const deleteGarden = async(gardenID,userID)=>{
+    const garden = await getGardenById(gardenID);
     if (garden.plants.length>0)
     {
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlantInGarden(id,garden.plants[i]); 
+            deletePlantInGarden(gardenID,garden.plants[i]); 
         }
     }
+    //deleting garden ref from user 
+   //need to add 
+
+            
+        
+
+
     await garden.remove(); 
     return true;
 };
