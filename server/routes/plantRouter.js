@@ -10,7 +10,7 @@ const plantController = require('../controllers/plantController');
 
 
 
-router.get('/',plantController.getAllPlants);
+router.get('/',plantController.getAllPlants); 
 
 router.get('/admin',plantController.getAllAdminPlants);
 
