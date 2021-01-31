@@ -46,6 +46,13 @@ const createPlantByUser= async(species,isUserPlant,growthStatus,GardenID)=>{
         isUserPlant:true,
         defaultPhotoID:null });
         console.log(userPlant);
+
+        Garden.findById(GardenID,(err,garden)=>{
+            if(garden){
+            garden.plants.push(userPlant)
+            garden.save()
+            }
+        })
         return await userPlant.save();})
     
 
