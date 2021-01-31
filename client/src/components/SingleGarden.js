@@ -111,12 +111,11 @@ if(!redirectToGardens)
                         <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
                         <br></br>
                         
-                        {/* delete example */}
                           <button onClick={()=>{
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
                             setRedirectToGardens(true)
                           }}> delete garden </button>
-                        {/* <li><Link to="/mygardens">Delete Garden </Link></li> */}
+        
                       
               {/*end of table*/}
                     </div>
