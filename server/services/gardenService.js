@@ -50,10 +50,11 @@ const getGardensByUserId = async(userID)=>{
 const getAllGardens = async()=>{return await Garden.find({})
 };
 
-const deletePlantInGarden = async(gardenID,plantID)=>{
-    const garden = await getGardenById(gardenID);
-    const plant = await garden.plants.findById(plantID);
-    plant.remove();
+const deletePlantInGarden = async(plantID)=>{
+    Plant.findById(plantID,(err,plant)=>{
+        if(plant)
+        plant.remove();
+    })
 
     return await true;
 }
@@ -64,7 +65,7 @@ const deleteGarden = async(gardenID,userID)=>{
     {
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlantInGarden(gardenID,garden.plants[i]); 
+            deletePlantInGarden(garden.plants[i]); 
         }
     }
     //deleting garden ref from user 
