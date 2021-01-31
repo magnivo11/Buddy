@@ -1,5 +1,5 @@
 import { TableRow } from '@material-ui/core';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Cyclamen from '../Images/cyclamen.JPG';
 import statusRed from '../Images/status/red.jpg';
 import Header from './Header';
@@ -18,8 +18,10 @@ export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const user=React.useContext(DataContext);
+  const[redirectToGardens,setRedirectToGardens]=React.useState(false)
   
-
+if(!redirectToGardens)
+{
  return (
 
    <div>
@@ -112,6 +114,7 @@ export default function SingleGarden(){
                         {/* delete example */}
                           <button onClick={()=>{
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
+                            setRedirectToGardens(true)
                           }}> delete garden </button>
                         {/* <li><Link to="/mygardens">Delete Garden </Link></li> */}
                       
@@ -126,4 +129,7 @@ export default function SingleGarden(){
     </div>
 
   );
+                        }
+                        else
+                        return(<Redirect to="/mygardens"/>)
 }

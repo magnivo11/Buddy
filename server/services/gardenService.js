@@ -69,12 +69,18 @@ const deleteGarden = async(gardenID,userID)=>{
     }
     //deleting garden ref from user 
    //need to add 
+   User.findById(userID,(err,user)=>{
+       var removeIndex;
+       if(user.gardens.length){
+            for(let i=0;i<user.gardens.length;i++)
+                if(user.gardens[i]==gardenID)
+                    removeIndex=i
+            user.gardens.splice(removeIndex,1)
+            user.save()    
+       }
+   })
 
-            
-        
-
-
-    await garden.remove(); 
+     await garden.remove(); 
     return true;
 };
 
