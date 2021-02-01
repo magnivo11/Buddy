@@ -68,7 +68,7 @@ function App(){
             <Route exact path='/addagarden'>
             <Header/><AddAGarden/></Route>
 
-            <Route exact path='/plant'>
+            <Route exact path='/plant/:PlantID'>
             <Header/><Plant/></Route>
 
              <Route exact path='/notifications'>

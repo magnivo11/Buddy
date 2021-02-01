@@ -18,6 +18,8 @@ const data = require ('../files/data.json');
 
 export default function Plant(){
   const[sensorAdded,setSensorAdded]=React.useState(false)
+  var index=window.location.toString().lastIndexOf('/')+1
+  const plantID=window.location.toString().substring(index)
  
     return (
       <div>
