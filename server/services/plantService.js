@@ -62,6 +62,10 @@ const createPlantByUser= async(species,isUserPlant,growthStatus,GardenID)=>{
 
 const getPlantById = async(id)=>{return await Plant.findById(id)};
 
+const getPlantsByGardenId = async(gardenId)=>{
+       return await Plant.find({GardenID:gardenId}); 
+};
+
 const getAllPlants = async()=>{return await Plant.find({})
 };
 
@@ -105,4 +109,4 @@ const deletePlant= async(id)=> {
 };
 
 
-module.exports={createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };

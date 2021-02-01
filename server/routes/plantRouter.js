@@ -14,6 +14,8 @@ router.get('/',plantController.getAllPlants);
 
 router.get('/admin',plantController.getAllAdminPlants);
 
+router.get('/:gardenId', plantController.getPlantsByGardenId);
+
 
 router.post('/',plantController.createPlantByAdmin)
 
