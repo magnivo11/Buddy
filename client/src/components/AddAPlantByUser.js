@@ -32,18 +32,7 @@ export default function AddAPlantByUser(){
     setPlants(plantsInfo);
     }
   })
-console.log(plants)
 
-
-
-const imaginaryThings = [
-  { label: 'Thing 2', value: 2 },
-  { label: 'Thing 3', value: 3 },
-  { label: 'Thing 4', value: 4 },
-  { label: 'Thing 5', value: 5 },
-];
-const _handleSelect = (selectChoice) => {
-console.log("shiroko")};
 
 
 if(!plantAdded){
@@ -79,9 +68,6 @@ if(!plantAdded){
                 onChange={(e)=>{
                   setSelected(e.value)}} />
                    
-
-                
-                
                 <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
 
                   <label className="radio-inline">

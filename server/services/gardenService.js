@@ -2,6 +2,7 @@ const { response } = require('express');
 const Garden = require('../models/gardenModel')
 const User = require('../models/userModel')
 const Plant = require('../models/plantModel');
+const { deletePlant } = require('./plantService');
  
 
 // create a garden and save ref to user gardens array
@@ -50,14 +51,7 @@ const getGardensByUserId = async(userID)=>{
 const getAllGardens = async()=>{return await Garden.find({})
 };
 
-const deletePlantInGarden = async(plantID)=>{
-    Plant.findById(plantID,(err,plant)=>{
-        if(plant)
-        plant.remove();
-    })
 
-    return await true;
-}
 
 const deleteGarden = async(gardenID,userID)=>{
     const garden = await getGardenById(gardenID);
@@ -65,7 +59,7 @@ const deleteGarden = async(gardenID,userID)=>{
     {
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlantInGarden(garden.plants[i]); 
+            deletePlant(garden.plants[i]); 
         }
     }
     //deleting garden ref from user 
@@ -89,7 +83,6 @@ module.exports={
 createGarden,
 getAllGardens,
 deleteGarden,
-deletePlantInGarden,
 getGardenById,
 getGardensByUserId,
 editGarden

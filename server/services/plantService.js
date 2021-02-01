@@ -2,6 +2,9 @@ const { response } = require('express');
 const Sensor = require('../models/sensorsModel')
 const Plant = require('../models/plantModel')
 const Garden = require('../models/gardenModel')
+const Photo = require('../models/photoModel');
+const { deletePhoto } = require('./photoService');
+const { deleteSensor } = require('./sensorService');
 
 
 
@@ -103,8 +106,17 @@ const deletePlant= async(id)=> {
     if (!plant)
         return null;
 
-    else
+    else{
+        if (plant.photos.length>0)
+        {
+            for (let i=0; i<plant.photos.length ; i++)
+            {
+                 deletePhoto(plant.photos[i])
+            }
+        }
+        deleteSensor(plant.sensorID);
         await plant.remove();
+    }
     return plant;
 };
 

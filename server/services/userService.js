@@ -1,5 +1,7 @@
 const { response } = require('express');
 const User = require('../models/userModel')
+const Garden = require('../models/gardenModel')
+
 
 const createUser = async(name,lastname,email,password)=>{
     const user= new User({
@@ -42,7 +44,19 @@ const deleteUser= async(id)=> {
         return null;
 
     else
+    {
+        if(user.gardens.length){
+             for(let i=0;i<user.gardens.length;i++){
+                 Garden.findById(user.gardens[i].id,(err,garden)=>
+                 {if (garden)
+                     deleteGarden(garden.id,user.id);
+                    }
+                 )
+             }
+             user.save()    
+        }
         await user.remove();
+    }
     return user;
 };
 
