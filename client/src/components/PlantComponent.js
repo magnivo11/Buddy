@@ -11,7 +11,7 @@ export default function PlantComponent({plantid}){
                          
 
                     
-             <Link to="/plant" >{plantid}</Link>
+             <Link to={`/plant/${plantid}`} >{plantid}</Link>
                             <td><img src={statusRed} width={"30px"}></img></td>
                             <td>Low Humidity</td>
                          
