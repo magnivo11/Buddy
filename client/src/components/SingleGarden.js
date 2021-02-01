@@ -100,6 +100,6 @@ if(!redirectToGardens)
 
   );
                         }
-                        else
-                        return(<Redirect to="/mygardens"/>)
+                        else{
+                        return(<Redirect to="/mygardens"/>)}
 }

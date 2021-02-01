@@ -132,7 +132,7 @@ function addAPlant(e,gardenID,selected){
   const growthStatus = form.elements.growthStatus;
   var status;
 
-  for(var i = 0; i <growthStatus.length; i++)
+  for(var i = 0; i <growthStatus.length; i++){
   if(growthStatus[i].checked)
   status=growthStatus[i].id;
 
@@ -144,5 +144,5 @@ function addAPlant(e,gardenID,selected){
   GardenID:gardenID
  }
  axios.post('http://localhost:8080/plant/ByUser',newPlant);
-
+  }
 }
