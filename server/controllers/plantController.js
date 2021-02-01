@@ -47,6 +47,12 @@ const getPlantById = async(request,response)=>{
     response.json(plant);
 };
 
+const getPlantsByGardenId = async (request,response)=>{
+     const gardens = await plantService.getPlantsByGardenId(request.params.gardenId);
+    response.json(gardens); 
+}
+
+
 const updatePlant =async (request,response)=>{
     const plant= await plantService.updatePlant(
         request.body._id,
@@ -75,4 +81,4 @@ const getAllAdminPlants=async(request,response)=>{
     response.json(plants);
 };
 
-module.exports={createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};

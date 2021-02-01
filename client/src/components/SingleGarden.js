@@ -10,6 +10,9 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
 import DataContext from '../DataContext'
+import plantsList from './plantsList';
+import PlantComponent from './PlantComponent';
+import PlantsList from './plantsList';
 
 
 
@@ -73,43 +76,11 @@ if(!redirectToGardens)
                     <div className="col-lg-8 details order-2 order-lg-1">
                         <h3>Plants you grow in this garden:</h3>
                     </div>
-                   
+                 
                     </div>
-                    <table style={{width: '70%'}}>
-                        <tbody><tr>
-                            <th>Species</th>
-                            <th>Status</th>
-                            <th>Cause</th>
-                          </tr>
-                          <br></br>
-                          <tr>
-                          <Link to="/plant" >Ivy</Link>
-                            <td><img src={statusRed} width={"30px"}></img></td>
-                            <td>Low Humidity</td>
 
-                          </tr>
-                          <br></br>
-
-                          <tr>
-                          <Link to="/plant" >Pothos</Link>
-                            <td><img src={statusYellow} width={"30px"}></img></td>
-                            <td>Lack Of Water</td>
-                          </tr>
-                          <br></br>
-
-                          <tr>
-                        
-                          <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        </tbody></table>
-                        <br></br>
-                     
-                          <h4> Tip From Us!</h4>
-                        <h5> Based on information we collected, we recommend you to plant:</h5>
-                        <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
-                        <br></br>
+                    <PlantsList gardenID={gardenID}/>  
+                   
                         
                           <button onClick={()=>{
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
