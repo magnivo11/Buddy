@@ -4,7 +4,7 @@ var router= express.Router();
 //import mongoose
 const mongoose= require('mongoose');
 require('custom-env').env(process.env.NODE_ENV,'./config'); 
-mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNewUrlParser: true  });mongoose.connect(coneectionString,{ useUnifiedTopology: true, useNewUrlParser: true  });
+mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNewUrlParser: true  });
 const sensorsController = require('../controllers/sensorsController');
 const { request } = require('express');
 

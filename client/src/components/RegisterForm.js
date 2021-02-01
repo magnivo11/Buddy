@@ -42,8 +42,7 @@ if(!info.redirectToLogin)
       </section>
     </div>
   );
-  else
-  return(<Redirect to="/login"/>);
+  else{  return(<Redirect to="/login"/>);}
   }
    
 function register(e,setInfo){
@@ -51,8 +50,8 @@ function register(e,setInfo){
   e.preventDefault();
   axios.get('http://localhost:8080/user/'+document.getElementById('email').value).
   then((Response)=>{
-    if(Response.data) 
-    setInfo({showMessege:true})
+    if(Response.data) {
+    setInfo({showMessege:true})}
   else {
     const newUser= { 
       'firstName':document.getElementById('first_name').value ,
