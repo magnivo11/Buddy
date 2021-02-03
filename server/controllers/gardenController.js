@@ -5,6 +5,8 @@ const gardenService = require('../services/gardenService');
 
 const createGarden=async (request,response)=>{
    
+    console.log( "controller" )
+    console.log( request.body  )
      const newGarden=  
     await gardenService.createGarden(  
         request.body.name,
@@ -13,9 +15,7 @@ const createGarden=async (request,response)=>{
         request.body.surrounding,
         request.body.userID
         )
-        response.json(newGarden);
-        response.send('new garden was created');  
-    
+        response.json(newGarden);    
     }
 
    

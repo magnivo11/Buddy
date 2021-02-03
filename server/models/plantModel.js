@@ -21,10 +21,10 @@ sensorID: {
     ref:"sensors"
 },
 photos:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"photos"
-        }
+    {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"photos"
+    }
     
 ],  
 GardenID:{

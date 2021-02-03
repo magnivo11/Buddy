@@ -6,12 +6,13 @@ const { deletePlant } = require('./plantService');
  
 
 // create a garden and save ref to user gardens array
-const createGarden = async(name,direction,surrounding,directSun,userID)=>{
+const createGarden = async(name,direction,directSun,surrounding,userID)=>{
+    console.log("controller"+surrounding)
      const garden= new Garden({
     name:name,
     direction:direction,
-    surrounding:surrounding,
     directSun:directSun,
+    surrounding:surrounding,
     userID:userID,
     plants:[]
     }); 

@@ -115,6 +115,7 @@ function addAGarden(e,user){
     surroundings:surrounding,
     userID:user._id
   }
+  console.log(newGarden);
     axios.post('http://localhost:8080/garden/',newGarden).then(garden=>{
       axios.put('http://localhost:8080/user/addGarden',{garden:garden.data,userID:user._id})
 

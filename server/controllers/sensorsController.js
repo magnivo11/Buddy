@@ -11,7 +11,8 @@ const createSensor = async (request,response)=>{
     await SensorService.createSensor(
         request.body.temperature,
         request.body.light,
-        request.body.soil)
+        request.body.soil,
+        request.body.plantID)
        
      response.json(newSensor);
 }

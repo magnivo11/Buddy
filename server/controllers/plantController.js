@@ -80,5 +80,10 @@ const getAllAdminPlants=async(request,response)=>{
     const plants = await plantService.getAllAdminPlants();
     response.json(plants);
 };
-
-module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};
+const addSensor= async(request,response)=>{
+    const plant= await plantService.addSensor(
+        request.body.id,
+        request.body.sensorID);
+    response.json(plant);
+}
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants, getAllAdminPlants, addSensor};
