@@ -19,7 +19,19 @@ const data = require ('../files/data.json');
 export default function Plant(){
   const[sensorAdded,setSensorAdded]=React.useState(false)
   var index=window.location.toString().lastIndexOf('/')+1
+  const [plant,setPlant]=React.useState('');
+  var plantResponse;
   const plantID=window.location.toString().substring(index)
+  axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
+    if(plant.length!=Response.data.length)
+    {
+    plantResponse={species: Response.data.species, status:Response.data.healtStatus};
+    setPlant(plantResponse);
+    
+    }
+  })
+
+  const plantName = plant.species;
  
     return (
       <div>
@@ -27,7 +39,8 @@ export default function Plant(){
          <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
            <div className="container" data-aos="fade-up"  >
             <div className="section-title" >
-              <h2 style={{fontSize:'40px'}}>Ivy</h2>
+              <br></br><br></br><br></br><br></br>
+              <h2 style={{fontSize:'30px'}}>{plantName}</h2>
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
                 <div className="col-lg-3"> {/*left buttons*/}
@@ -48,17 +61,18 @@ export default function Plant(){
                           <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
                       </li>
                     </ul>
-                </div>
-                <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-
-
+                    
                 <form  style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-            addSensor(e)
+            addSensor(e,plantID)
             setSensorAdded(true)
           }}>
                <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
             
             </form>
+                </div>
+                <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+
+
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
                       <li><a style={{fontSize:'22px'}}>Display:</a></li>
@@ -114,11 +128,12 @@ export default function Plant(){
                                 </div>
                               </li>
                             </ul>
+                            
                           </div>
                         </div>
-
                 </div> 
               </div>
+
             </div>
          </section>
        </section>
@@ -129,16 +144,20 @@ export default function Plant(){
 
  
   
-   function addSensor(e){
-    console.log("add sensor func");
+   function addSensor(e,plantID){
 
     e.preventDefault();
-  
+
     const newSensor= { 
       temperature:data.data.temp[0],
       light:data.data.light[0],
       soil:data.data.soil[0],
+      plantID:plantID
     }
-    console.log(data.data.temp[0]);
-      axios.post('http://localhost:8080/sensor/',newSensor);
+    axios.post('http://localhost:8080/sensor/',newSensor);
+    /*.then((Response)=>
+    {
+      axios.post('http://localhost:8080/plant/addSensor',Response.data._id);
+    }
+    );*/
   }

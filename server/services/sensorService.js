@@ -3,16 +3,20 @@ const Sensor = require('../models/sensorsModel')
 const Plant = require('../models/plantModel')
 
 
-const createSensor = async(temperature,light,soilMoisture)=>{
-   console.log("service");
-
+const createSensor = async(temperature,light,soil,plantID)=>{
     const sensor= new Sensor({
       temperature: [{curTemp:temperature}],
       light: [{curLight:light}],
-      soilMoisture: [{currMoist:soilMoisture}]
+      soilMoisture: [{currMoist:soil}],
+      plantID: plantID
    }); 
-   
-   return await sensor.save();
+     await sensor.save((err,sensor)=>{
+         Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{
+            console.log(plant);
+         })
+         return sensor;
+      });
+      
 };
 
  

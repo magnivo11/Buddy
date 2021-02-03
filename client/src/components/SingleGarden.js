@@ -21,7 +21,20 @@ export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const user=React.useContext(DataContext);
-  const[redirectToGardens,setRedirectToGardens]=React.useState(false)
+  const[redirectToGardens,setRedirectToGardens]=React.useState(false);
+
+  const [garden,setGarden]=React.useState({_id:null});
+  axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
+    if(Response.data){
+
+    if(garden._id!=Response.data._id)
+    {
+      setGarden(Response.data);
+    }
+  }
+  })
+  console.log(garden);
+  const gardenName = garden.name;
   
 if(!redirectToGardens)
 {
@@ -38,13 +51,13 @@ if(!redirectToGardens)
                 <ul className="nav nav-tabs flex-column">
                   {/*Title*/}
                   <div className="section-title" >
-                    <h2 style={{fontSize:'35px'}}>My Gardnes</h2>
-                    <p style={{fontSize:'30px'}}>{gardenID}</p>
+                    <h2 style={{fontSize:'25px'}}>My Gardnes</h2>
+                    <p style={{fontSize:'30px'}}>{gardenName}</p>
                   </div>
                   {/*Left buttons*/}
 
                 <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>All Gardens </Link>
+                <Link className="nav-link" to='/mygardens'>All Gardens </Link>
                 </li>
                 <li className="nav-item">
                 <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>

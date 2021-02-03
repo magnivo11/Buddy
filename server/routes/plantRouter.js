@@ -10,14 +10,15 @@ const plantController = require('../controllers/plantController');
 
 
 
-router.get('/',plantController.getAllPlants); 
+router.get('/',plantController.getAllPlants); //good
 
-router.get('/admin',plantController.getAllAdminPlants);
+router.get('/admin',plantController.getAllAdminPlants);//good
 
-router.get('/:gardenId', plantController.getPlantsByGardenId);
-
+router.get('/byGarden/:gardenId', plantController.getPlantsByGardenId);
 
 router.post('/',plantController.createPlantByAdmin)
+
+router.post('/addSensor/:sensorId',plantController.addSensor)
 
 router.post('/ByUser',plantController.createPlantByUser);
 

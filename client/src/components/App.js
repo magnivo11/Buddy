@@ -36,6 +36,9 @@ function App(){
  
     <Switch>
      
+            <Route exact path='/'>
+            <FirstPage/></Route>
+
             <Route exact path='/login'>
                 <LoginForm user={user} setUser={setUser}/></Route>
 
@@ -78,7 +81,6 @@ function App(){
              <Route exact path='/plantsbiblesingleplant'>
              <Header/><PlantsBibleSinglePlant/></Route>
     </Switch>
-    <FirstPage/>
     <Footer/>
      </BrowserRouter>
 

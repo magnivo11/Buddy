@@ -31,16 +31,16 @@ const createPlantByAdmin = async(species,irrigationInstructors,optimalTemp,optim
 //(err,adminPlant)=>{
  
 const createPlantByUser= async(species,isUserPlant,growthStatus,GardenID)=>{
-
-    Plant.find({species:species,isUserPlant:false},async(err,adminPlant)=>{
+    
+    Plant.findOne({species:species,isUserPlant:false},async(err,adminPlant)=>{
     
      const userPlant= new Plant({
-        species:adminPlant[0].species,
-        irrigationInstructors: adminPlant[0].irrigationInstructors,
-        optimalTemp: adminPlant[0].optimalTemp,
-        optimalSoilMoisture: adminPlant[0].optimalSoilMoisture,
-        optimalSunExposure: adminPlant[0].optimalSunExposure,
-        description :adminPlant[0].description,
+        species:adminPlant.species,
+        irrigationInstructors: adminPlant.irrigationInstructors,
+        optimalTemp: adminPlant.optimalTemp,
+        optimalSoilMoisture: adminPlant.optimalSoilMoisture,
+        optimalSunExposure: adminPlant.optimalSunExposure,
+        description :adminPlant.description,
         sensorID:null,
         photos:null,
         GardenID:GardenID,
@@ -119,6 +119,16 @@ const deletePlant= async(id)=> {
     }
     return plant;
 };
+const addSensor=async (id,sensorID)=>{
+    const plant = Plant.getUserById(id);
+    if (!plant){
+        return null;}
+    else
+    {
+    plant.sensorID=sensorID;
+    };
+    await plant.save();
+    return plant;
+}
 
-
-module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants, addSensor };

@@ -11,7 +11,7 @@ import statusRed from '../Images/status/red.jpg';
 export default function PlantsList({gardenID}){
 
    const [plants,setPlants]=React.useState([])
-    axios.get('http://localhost:8080/plant/'+gardenID).then(Response=>{
+    axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
         if(plants.length!=Response.data.length)
         setPlants(Response.data)
 
@@ -29,13 +29,13 @@ return(
                           </tr>
                           <br></br>
                          {plants.map((data,key)=>{
-                             return <PlantComponent plantid={data._id} key={key}/>
+                             return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
 
                          })}
                           <br></br>
 
                           <tr>
-                          <Link to="/plant" >Pothos</Link>
+                          <Link to="/plant" >Lilly</Link>
                             <td><img src={statusYellow} width={"30px"}></img></td>
                             <td>Lack Of Water</td>
                           </tr>

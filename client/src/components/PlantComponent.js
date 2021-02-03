@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import statusRed from '../Images/status/red.jpg';
 
 
-export default function PlantComponent({plantid}){
+export default function PlantComponent({plantName, plantid}){
    
 
     return(
@@ -11,8 +11,11 @@ export default function PlantComponent({plantid}){
                          
 
                     
-             <Link to={`/plant/${plantid}`} >{plantid}</Link>
-                            <td><img src={statusRed} width={"30px"}></img></td>
+             <Link to={`/plant/${plantid}`} >{plantName}</Link>
+                             <td></td>
+                            <td><img src={statusRed} 
+                            width={"30px"}></img></td>
+                            <td></td>
                             <td>Low Humidity</td>
                          
 

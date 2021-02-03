@@ -59,7 +59,6 @@ if(!plantAdded){
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               addAPlant(e,gardenID,selected)
               setPlantAdded(true)}}>
-            <label>Imaginary Thing</label>
               <VirtualizedSelect
                 name="Species"
                 placeholder= {selected}
@@ -105,7 +104,7 @@ if(!plantAdded){
   );
 }
 else{
-  return(<Redirect to="/mygardens"/>);
+  return(<Redirect to={`/singlegarden/${gardenID}`}/>);
 
 }
   
@@ -119,8 +118,10 @@ function addAPlant(e,gardenID,selected){
   var status;
 
   for(var i = 0; i <growthStatus.length; i++){
-  if(growthStatus[i].checked)
+  if(growthStatus[i].checked){
   status=growthStatus[i].id;
+  }}
+
 
  const newPlant={
 
@@ -130,5 +131,5 @@ function addAPlant(e,gardenID,selected){
   GardenID:gardenID
  }
  axios.post('http://localhost:8080/plant/ByUser',newPlant);
-  }
+  
 }
