@@ -17,9 +17,7 @@ router.post('/',sensorsController.createSensor);
 
 router.get('/:id',sensorsController.getSensorById);
 
-router.delete('/:id ',sensorsController.deleteSensor);
-
-
+router.delete('/:id',sensorsController.deleteSensor);
 
 
 module.exports=router; 

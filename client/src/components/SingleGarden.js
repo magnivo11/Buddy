@@ -98,7 +98,7 @@ if(!redirectToGardens)
                           <button onClick={()=>{
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
                             setRedirectToGardens(true)
-                          }}> delete garden </button>
+                          }}> Delete garden </button>
         
                       
               {/*end of table*/}

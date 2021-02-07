@@ -1,5 +1,6 @@
 import '../css/Timeline.scss';
 import Pothos from '../Images/pothos.JPG';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Ivy from '../Images/ivy.JPG';
 import Ivy0 from '../Images/PhotoStages/0.jpg';
 import Ivy1 from '../Images/PhotoStages/1.JPG';
@@ -10,6 +11,8 @@ import Cyclamen from '../Images/cyclamen.JPG';
 import light24 from '../Images/Graphs/light1.JPG';
 import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
+import DataContext from '../DataContext'
+
 const data = require ('../files/data.json'); 
 
 
@@ -19,20 +22,21 @@ const data = require ('../files/data.json');
 export default function Plant(){
   const[sensorAdded,setSensorAdded]=React.useState(false)
   var index=window.location.toString().lastIndexOf('/')+1
+  const user=React.useContext(DataContext);
+  const[redirectToGarden,setRedirectToGarden]=React.useState(false);
   const [plant,setPlant]=React.useState('');
   var plantResponse;
   const plantID=window.location.toString().substring(index)
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
     if(plant.length!=Response.data.length)
     {
-    plantResponse={species: Response.data.species, status:Response.data.healtStatus};
+    plantResponse={species: Response.data.species, status:Response.data.healtStatus, gardenID:Response.data.GardenID};
     setPlant(plantResponse);
     
     }
   })
-
-  const plantName = plant.species;
- 
+  if(!redirectToGarden)
+  { 
     return (
       <div>
       <section id="hero" className="d-flex align-items-center">
@@ -40,7 +44,10 @@ export default function Plant(){
            <div className="container" data-aos="fade-up"  >
             <div className="section-title" >
               <br></br><br></br><br></br><br></br>
-              <h2 style={{fontSize:'30px'}}>{plantName}</h2>
+              <h2 style={{fontSize:'30px'}}>{plant.species}</h2>
+              <br></br>
+              <h2 style={{fontSize:'10px'}}>{"ID:"+plantID}</h2>
+
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
                 <div className="col-lg-3"> {/*left buttons*/}
@@ -69,6 +76,11 @@ export default function Plant(){
                <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
             
             </form>
+            <button onClick={()=>{
+                            axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
+                            setRedirectToGarden(true)
+                          }}> Delete plant </button>
+        
                 </div>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
 
@@ -141,9 +153,11 @@ export default function Plant(){
      );
 
    }
-
- 
   
+  else{
+  return(<Redirect to="/mygardens"/>)}
+}
+
    function addSensor(e,plantID){
 
     e.preventDefault();
@@ -155,9 +169,5 @@ export default function Plant(){
       plantID:plantID
     }
     axios.post('http://localhost:8080/sensor/',newSensor);
-    /*.then((Response)=>
-    {
-      axios.post('http://localhost:8080/plant/addSensor',Response.data._id);
-    }
-    );*/
+   
   }
