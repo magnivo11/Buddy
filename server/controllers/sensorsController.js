@@ -5,7 +5,6 @@ const SensorService = require('../services/sensorService');
 
 
 const createSensor = async (request,response)=>{
-    console.log("controller");
 
     const newSensor=
     await SensorService.createSensor(

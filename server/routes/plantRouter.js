@@ -18,15 +18,13 @@ router.get('/byGarden/:gardenId', plantController.getPlantsByGardenId);
 
 router.post('/',plantController.createPlantByAdmin)
 
-router.post('/addSensor/:sensorId',plantController.addSensor)
-
 router.post('/ByUser',plantController.createPlantByUser);
 
 router.get('/:id',plantController.getPlantById);
 
 router.patch('/:id',plantController.updatePlant);
 
-router.delete('/:id ',plantController.deletePlant);
+router.delete('/',plantController.deletePlant);
 
 
 

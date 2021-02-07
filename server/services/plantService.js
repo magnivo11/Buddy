@@ -19,7 +19,7 @@ const createPlantByAdmin = async(species,irrigationInstructors,optimalTemp,optim
         optimalSunExposure: optimalSunExposure,
         description :description,
         sensorID:null,
-        photos:null,
+        photos:[],
         GardenID:null,
         growthStatus:null,
         healthStatus:null,
@@ -42,13 +42,12 @@ const createPlantByUser= async(species,isUserPlant,growthStatus,GardenID)=>{
         optimalSunExposure: adminPlant.optimalSunExposure,
         description :adminPlant.description,
         sensorID:null,
-        photos:null,
+        photos:[],
         GardenID:GardenID,
         growthStatus:growthStatus,
         healthStatus:null,
         isUserPlant:true,
         defaultPhotoID:null });
-        console.log(userPlant);
 
         Garden.findById(GardenID,(err,garden)=>{
             if(garden){
@@ -101,12 +100,14 @@ const updatePlant = async(id,
     return plant
     };
 
-const deletePlant= async(id)=> {
-    const plant = Plant.getUserById(id);
+const deletePlant= async(plantID,gardenID)=> {
+    const plant = await getPlantById(plantID);
+
     if (!plant)
         return null;
 
     else{
+        //deleting photos
         if (plant.photos.length>0)
         {
             for (let i=0; i<plant.photos.length ; i++)
@@ -114,21 +115,21 @@ const deletePlant= async(id)=> {
                  deletePhoto(plant.photos[i])
             }
         }
+        //deleting ref plant from garden
+        Garden.findById(gardenID,(err,garden)=>{
+            var removeIndex;
+            if(garden.plants.length){
+                 for(let i=0;i<garden.plants.length;i++)
+                     if(garden.plants[i]==plantID)
+                         removeIndex=i
+                garden.plants.splice(removeIndex,1)
+                 garden.save()    
+            }
+        })
         deleteSensor(plant.sensorID);
         await plant.remove();
     }
     return plant;
 };
-const addSensor=async (id,sensorID)=>{
-    const plant = Plant.getUserById(id);
-    if (!plant){
-        return null;}
-    else
-    {
-    plant.sensorID=sensorID;
-    };
-    await plant.save();
-    return plant;
-}
 
-module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants, addSensor };
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };
