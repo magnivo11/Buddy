@@ -11,16 +11,14 @@ import Cyclamen from '../Images/cyclamen.JPG';
 import light24 from '../Images/Graphs/light1.JPG';
 import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
-import DataContext from '../DataContext'
+import DataContext from '../DataContext';
 
 const data = require ('../files/data.json'); 
 
-
-
-
-
 export default function Plant(){
   const[sensorAdded,setSensorAdded]=React.useState(false)
+  const[photoAdded,setPhotoAdded]=React.useState(false)
+  var photo;
   var index=window.location.toString().lastIndexOf('/')+1
   const user=React.useContext(DataContext);
   const[redirectToGarden,setRedirectToGarden]=React.useState(false);
@@ -30,15 +28,18 @@ export default function Plant(){
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
     if(plant.length!=Response.data.length)
     {
-    plantResponse={species: Response.data.species, status:Response.data.healtStatus, gardenID:Response.data.GardenID};
+    plantResponse={species: Response.data.species, 
+      status:Response.data.healtStatus, 
+      gardenID:Response.data.GardenID};
     setPlant(plantResponse);
-    
     }
   })
+
   if(!redirectToGarden)
   { 
     return (
       <div>
+      
       <section id="hero" className="d-flex align-items-center">
          <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
            <div className="container" data-aos="fade-up"  >
@@ -47,6 +48,7 @@ export default function Plant(){
               <h2 style={{fontSize:'30px'}}>{plant.species}</h2>
               <br></br>
               <h2 style={{fontSize:'10px'}}>{"ID:"+plantID}</h2>
+
 
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
@@ -69,13 +71,14 @@ export default function Plant(){
                       </li>
                     </ul>
                     
-                <form  style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+                <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addSensor(e,plantID)
             setSensorAdded(true)
           }}>
                <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
             
             </form>
+
             <button onClick={()=>{
                             axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
                             setRedirectToGarden(true)
@@ -83,7 +86,6 @@ export default function Plant(){
         
                 </div>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-
 
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
@@ -109,6 +111,14 @@ export default function Plant(){
                       </tr>
 
                     </tbody></table>
+                    
+            <form name="addAPhoto" action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={(e)=>{
+        addPhoto(e,plantID)
+        setPhotoAdded(true)}}>
+        <input style= {{fontSize: '12px'}} type="text"  id="photoLink" className="fadeIn second" name="addAGarden" placeholder="Name"  />
+        <input type="submit" value="send" defaultValue="Submit" 
+        style={{backgroundColor: 'green', color: 'white', padding: '8px', fontSize: '10px', border: 'none'}} />
+      </form>
                
                     <div className="col-md-12" style={{width: '75%'}}>  {/*timeline*/}
                           <div style={{display: 'inline-block', width: '100%', overflowY: 'auto'}}>
@@ -158,7 +168,8 @@ export default function Plant(){
   return(<Redirect to="/mygardens"/>)}
 }
 
-   function addSensor(e,plantID){
+  
+  function addSensor(e,plantID){
 
     e.preventDefault();
 
@@ -169,5 +180,17 @@ export default function Plant(){
       plantID:plantID
     }
     axios.post('http://localhost:8080/sensor/',newSensor);
+   
+  }
+  
+  function addPhoto(e,plantID)
+  {
+    e.preventDefault();
+    document.getElementById('photoLink').value='Uploaded';
+    const newPhoto= {
+      link:document.getElementById('photoLink').value,
+      plantID:plantID}
+   
+    axios.post('http://localhost:8080/photo/',newPhoto);
    
   }

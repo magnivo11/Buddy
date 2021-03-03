@@ -111,7 +111,7 @@ const deletePlant= async(plantID,gardenID)=> {
         if (plant.photos.length>0)
         {
             for (let i=0; i<plant.photos.length ; i++)
-            {
+            {   
                  deletePhoto(plant.photos[i])
             }
         }

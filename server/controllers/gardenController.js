@@ -5,15 +5,14 @@ const gardenService = require('../services/gardenService');
 
 const createGarden=async (request,response)=>{
    
-    console.log( "controller" )
-    console.log( request.body  )
+ 
      const newGarden=  
     await gardenService.createGarden(  
         request.body.name,
         request.body.direction,
         request.body.directSun,
         request.body.surrounding,
-        request.body.userID
+        request.body.userID,
         )
         response.json(newGarden);    
     }

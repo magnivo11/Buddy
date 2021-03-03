@@ -1,14 +1,29 @@
 const { response } = require('express');
 const Photo = require('../models/photoModel')
+const Plant = require('../models/plantModel')
+
 
  
+const createPhoto = async(link, plantID)=>{
+    console.log("SESRVICE createPhoto"); 
+    console.log(plantID); 
 
-const createPhoto = async(link)=>{
+
     const photo= new Photo({
-        link:link
+        link:link,
+        plantID:plantID
+    });
+
+    Plant.findById(plantID,(err,plant)=>{
+        if (plant){
+            plant.photos.push(photo);
+            plant.save();
+        }
     });
     return await photo.save();
+
 };
+
 
 const getPhoto = async(id)=>{return await Photo.findById(id)};
 
@@ -29,10 +44,9 @@ const editPhoto = async(id,link) =>{
     };
 
 const deletePhoto= async(id)=> {
-    const delPhoto = photo.getPhoto(id);
+    const delPhoto = await getPhoto(id);
     if (!delPhoto)
         return null;
-
     else
         await delPhoto.remove();
     return true;
