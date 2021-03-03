@@ -2,7 +2,10 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
 const plantSchema=new Schema({
-species:String,
+species: {
+    type: String,
+    required: true
+  },
 growthStatus:String,
 healthStatus:String,
 isUserPlant:Boolean,
@@ -11,10 +14,26 @@ defaultPhotoID: {
     ref:"photos"
 }, 
 irrigationInstructors:String, // celsius
-optimalTemp:Number, // %
-optimalSoilMoisture:Number,
-optimalSunExposure:Number,
 
+optimalTemp: {
+    type: Number,
+    min: (-12),
+    max: 50
+  },
+
+  optimalSunExposure: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+
+  optimalSoilMoisture: {
+    type: Number,
+    min: 0,
+    max: 100
+  },
+
+ 
 description:String,
 sensorID: {
     type: mongoose.Schema.Types.ObjectId,
