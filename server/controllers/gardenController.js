@@ -5,8 +5,7 @@ const gardenService = require('../services/gardenService');
 
 const createGarden=async (request,response)=>{
    
-    console.log( "controller" )
-    console.log( request.body  )
+ 
      const newGarden=  
     await gardenService.createGarden(  
         request.body.name,
