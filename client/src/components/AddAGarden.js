@@ -86,7 +86,7 @@ function addAGarden(e,user){
   var surrounding;
   var sunlight;
   //getting name and size
-  const name=document.getElementById('name').value
+  const name=document.getElementById('name').value;
   //getting direction
   for(var i = 0; i <directions.length; i++)
     if(directions[i].checked)

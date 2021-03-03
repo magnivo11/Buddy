@@ -3,17 +3,12 @@ const Photo=require('../models/photoModel')
 const photoService = require('../services/photoService'); 
 const scrapeService = require('../services/scrapeService'); 
 
-
 const createPhoto=async (request,response)=>{
    
      const newPhoto=  
-    await photoService.createPhoto(request.body.link)
-        response.json(newPhoto);
-        response.send('new photo was created');  
-    
+    await photoService.createPhoto(request.body.link, request.body.plantID)
+        response.json(newPhoto);    
     }
-
-
    
     const getPhoto= async (request,response)=>{
          const photo = await photoService.getPhoto(request.params.photoID);

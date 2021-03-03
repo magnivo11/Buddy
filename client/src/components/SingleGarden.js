@@ -33,6 +33,7 @@ export default function SingleGarden(){
     }
   }
   })
+  console.log("yupi");
   console.log(garden);
   const gardenName = garden.name;
   
@@ -84,7 +85,7 @@ if(!redirectToGardens)
                     <br></br>
                     <br></br>
                     <br></br>
-                
+                <img src={garden.photo} ></img>
 
                     <div className="col-lg-8 details order-2 order-lg-1">
                         <h3>Plants you grow in this garden:</h3>

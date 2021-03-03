@@ -13,7 +13,7 @@ const createGarden=async (request,response)=>{
         request.body.direction,
         request.body.directSun,
         request.body.surrounding,
-        request.body.userID
+        request.body.userID,
         )
         response.json(newGarden);    
     }

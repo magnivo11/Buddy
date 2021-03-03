@@ -4,6 +4,7 @@ import GardenComponent from './GardenComponent';
 import List from './List';
 import DataContext from '../DataContext'
 import React from 'react'
+import ButtonsList from './ButtonsList';
 
 
 
@@ -21,29 +22,10 @@ export default function MyGardens(){
             <p style={{fontSize:'30px'}}>All Gardens</p>
             </div>
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
-            <div className="col-lg-3">
-                <ul className="nav nav-tabs flex-column">
-                <li className="nav-item">
-                <Link className="nav-link active show" to='/singlegarden'>All Gardens </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>Balcony </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>Living Room </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
-                </li>
-                </ul>
-            </div>
-
+            <ButtonsList ownerID= {user._id}/>
+         
                 {/* isernt gardens here */}
                 <List ownerID= {user._id}/>
-
             </div>
         </div>
     </section>{/* End Specials Section */}

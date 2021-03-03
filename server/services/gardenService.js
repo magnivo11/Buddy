@@ -2,6 +2,8 @@ const { response } = require('express');
 const Garden = require('../models/gardenModel')
 const User = require('../models/userModel')
 const Plant = require('../models/plantModel');
+const Photo = require('../models/photoModel');
+
 const { deletePlant } = require('./plantService');
  
 
@@ -32,7 +34,7 @@ const getGardensByUserId = async(userID)=>{
 };
  const getGardenById = async(id)=>{return await Garden.findById(id)};
 
- const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID=null)=>{
+ const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID=null,photo=null)=>{
     const garden = await getGardenById(id);
     if (!garden)
     {
@@ -46,6 +48,8 @@ const getGardensByUserId = async(userID)=>{
         garden.surrounding = surrounding;}
     if (directSun!=null){
         garden.directSun = directSun;}
+    if(photo!=null){
+    garden.photo=photo;}
     await garden.save(); 
      return true };
 
