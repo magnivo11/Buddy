@@ -3,10 +3,12 @@ const User = require('../models/userModel')
 const Garden = require('../models/gardenModel')
 
 
-const createUser = async(name,lastname,email,password)=>{
+const createUser = async(name,lastName,email,password)=>{
+    console.log("ser"+lastName);
+
     const user= new User({
         name:name,
-        lastname:lastname,
+        lastName:lastName,
         email:email,
         password:password,
         isAdmin:false,
@@ -23,19 +25,19 @@ const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
     return await user.gardens ;
 };
 
-const updateUser = async(id,name,lastname,email,password) =>{
-    const user= User.getUserById(id);
-    if (!user)
-        return null;
-    else
-    {
+const updateUser = async(id,name,lastName,email,password) =>{
+    console.log("ser"+id);
+
+    User.findById(id,(err,user)=>{
         user.name=name;
-        user.lastname=lastname;
+        user.lastName=lastName;
         user.email=email;
         user.password=password;
-    }
-    await user.save;
-    return user
+        user.save();
+        console.log(user);
+
+    });
+    return true;
     };
 
 const deleteUser= async(id)=> {

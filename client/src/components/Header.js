@@ -24,7 +24,7 @@ export default function Header(){
                 <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link>
                 <Link to="/login" className="nav-item nav-link"><i className="fa fa-key" /></Link>
                 <Link to="/profile" className="nav-item nav-link"><i className="fa fa-user-circle" /></Link>
-                       
+                
               </ul>
             </nav>
             </div>

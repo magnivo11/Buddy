@@ -13,7 +13,15 @@ export default function ButtonsList({ownerID}){
 
 })
     if (items.length<1)
-    return("" );
+    return(
+        <div>
+            <ul className="nav nav-tabs flex-column">
+                <li className="nav-item">
+            <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>
+                </li>
+            </ul>       
+        </div>
+    );
 
     return( 
         <div>

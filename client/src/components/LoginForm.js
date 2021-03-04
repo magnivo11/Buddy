@@ -46,7 +46,7 @@ function login(e,setUser,setMessege){
     e.preventDefault();
     var email=document.getElementById('email').value;
     var password=document.getElementById('password').value;
-    axios.get('http://localhost:8080/user/'+email).
+    axios.get('http://localhost:8080/user/byemail/'+email).
     then(Response=>{
       if(Response.data)
           if(Response.data.password===password)

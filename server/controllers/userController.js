@@ -5,9 +5,10 @@ const userService = require('../services/userService');
 
 
 const createUser = async (request,response)=>{
+    console.log("con"+  request.body.name,);
     const newUser=
     await userService.createUser(
-        request.body.firstName,
+        request.body.name,
         request.body.lastName,
         request.body.email,
         request.body.password)
@@ -32,16 +33,19 @@ const getUsers= async (request,response)=>{
 }
 
 const getUserById = async(request,response)=>{
-    console.log(request.params.id)
+    const user= await userService.getUserById(request.params.id)
    if (!user)
     return response.status(404).json({errors:['User not found']});
-   response.jason(user);
+   response.json(user);
 };
 
+
 const updateUser = async (request,response)=>{
+    console.log("con"+request.body.id);
+
     const user= await userService.updateUser(
-        request.body.userID,
-        request.body.firstName,
+        request.body.id,
+        request.body.name,
         request.body.lastName,
         request.body.email,
         request.body.password);
@@ -69,14 +73,6 @@ const getAllGardensFromUser = async (request,response)=>{
     response.send();
 };
 
-const addGarden= (request,response)=>{
-    console.log(request.body)
-    User.findById(request.body.userID,(err,user)=>{
-        user.gardens.push(request.body.garden._id)
-        user.save()
-    })
-    
-}
 
 
 
@@ -84,4 +80,4 @@ const addGarden= (request,response)=>{
 
 
 
-module.exports = {getAllGardensFromUser,createUser,getUserById,getUsers,updateUser,deleteUser,addGarden,getUserByEmail}; 
+module.exports = {getAllGardensFromUser,createUser,getUserById,getUsers,updateUser,deleteUser,getUserByEmail}; 
