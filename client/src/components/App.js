@@ -21,6 +21,7 @@ import AboutUs from './AboutUs';
 import Notifications from './Notifications';
 import io from "socket.io-client"; 
 import EditGarden from './EditGarden';
+import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 const socket = io.connect("http://localhost:8080") ;
 
@@ -52,6 +53,9 @@ function App(){
 
             <Route exact path='/editgarden/:gardenID'>
              <Header/> <EditGarden/></Route>
+
+             <Route exact path='/edituser/:userID'>
+             <Header/> <EditUser/></Route>
 
              <Route exact path='/editplant/:plantID'>
              <Header/> <EditPlantByUser/></Route>

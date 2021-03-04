@@ -11,37 +11,18 @@ mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNe
 const userController = require('../controllers/userController');  
 
 
-//read / get user by email
-router.get('/:email',userController.getUserByEmail); 
 
+router.get('/byemail/:email',userController.getUserByEmail); 
+
+router.get('/:id',userController.getUserById); 
 
 router.get('/',userController.getUsers); 
-
-//create user
-// request must include:
-// name:request.body.firstName,
-// lastName:request.body.lastName,
-// email:request.body.email,
-// password:request.body.password,               
+              
 router.post('/', userController.createUser);
 
-
-//update user details
-//request must include 
-// _id:request.body._id
-// name:request.body.firstName,
-// lastName:request.body.lastName,
-// email:request.body.email,
-// password:request.body.password,
 router.put('/',userController.updateUser);
 
-// delete user
-//request must include 
-// _id:request.body._id
 router.delete('/',userController.deleteUser);
 
-//add a garden
-
-router.put('/addGarden',userController.addGarden)
 
 module.exports=router;
