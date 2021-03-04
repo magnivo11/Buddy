@@ -83,6 +83,10 @@ export default function Plant(){
                             axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
                             setRedirectToGarden(true)
                           }}> Delete plant </button>
+                          
+                   <li className="nav-item">
+                  <Link className="nav-link" to={`/editPlant/${plantID}`}>Edit plant </Link>
+                  </li>
         
                 </div>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}

@@ -4,8 +4,6 @@ const gardenService = require('../services/gardenService');
 
 
 const createGarden=async (request,response)=>{
-   
- 
      const newGarden=  
     await gardenService.createGarden(  
         request.body.name,
@@ -21,7 +19,6 @@ const createGarden=async (request,response)=>{
     const getAllGardens= async (request,response)=>{
        const gardens = await gardenService.getAllGardens(); 
        response.json(gardens);
-
     }
     
     const getGardenById= async (request,response)=>{
@@ -37,7 +34,7 @@ const createGarden=async (request,response)=>{
     }
 
     const editGarden = async (request,response)=>{
-        const garden = await gardenService.editGarden(request.params.id,
+        const garden = await gardenService.editGarden(request.body.id,
             request.body.name,request.body.direction,request.body.surrounding,request.body.directSun);
             if(garden==true)
             {

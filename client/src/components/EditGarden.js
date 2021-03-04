@@ -5,11 +5,13 @@ import logo from '../Images/LB.png';
 import React from 'react';
 import DataContext from '../DataContext'
 
-export default function AddAGarden(){
-  const[gardenAdded,setGardenAdded]=React.useState(false)
+export default function EditGarden(){
+  var index=window.location.toString().lastIndexOf('/')+1
+  const gardenID=window.location.toString().substring(index)
+  const[gardenEdited,setGardenEdited]=React.useState(false)
   const user=React.useContext(DataContext);
  
-if(!gardenAdded){
+if(!gardenEdited){
 
   return (
     <div>
@@ -21,12 +23,12 @@ if(!gardenAdded){
             <div id="formContent">
               <div className="fadeIn first">
               
-                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Add A Garden </h4> 
+                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Edit Garden </h4> 
           
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              addAGarden(e,user)
-              setGardenAdded(true)
+              editGarden(e,user,gardenID)
+              setGardenEdited(true)
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
                 <p>Direction:</p>
@@ -58,7 +60,7 @@ if(!gardenAdded){
                    </label>
                    <br></br>
                    <br></br>
-                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
+                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
               </form>
              
             </div>
@@ -75,7 +77,7 @@ if(!gardenAdded){
   }
    
 
-function addAGarden(e,user){
+function editGarden(e,user,gardenID){
 
   e.preventDefault();
   const form = document.forms.gardenForm;
@@ -107,15 +109,19 @@ function addAGarden(e,user){
       else{
         sunlight=false}}}
  
- 
-    const newGarden= { 
-    name:name,
-    direction:direction,
-    directSun :sunlight,
-    surroundings:surrounding,
-    userID:user._id
+  const newGarden= { 
+  name:name,
+  id:gardenID,
+  direction:direction,
+  directSun :sunlight,
+  surroundings:surrounding,
   }
+ 
+  axios.put('http://localhost:8080/garden/',newGarden);
 
-    axios.post('http://localhost:8080/garden/',newGarden);
+ 
+
+  
+
 
 }

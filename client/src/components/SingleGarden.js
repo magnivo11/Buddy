@@ -10,9 +10,10 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
 import DataContext from '../DataContext'
-import plantsList from './plantsList';
 import PlantComponent from './PlantComponent';
-import PlantsList from './plantsList';
+import PlantsList from './PlantsList';
+import ButtonsList from './ButtonsList';
+
 
 
 
@@ -21,6 +22,8 @@ export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const user=React.useContext(DataContext);
+  const ownerID=user._id;
+
   const[redirectToGardens,setRedirectToGardens]=React.useState(false);
 
   const [garden,setGarden]=React.useState({_id:null});
@@ -33,8 +36,7 @@ export default function SingleGarden(){
     }
   }
   })
-  console.log("yupi");
-  console.log(garden);
+
   const gardenName = garden.name;
   
 if(!redirectToGardens)
@@ -56,22 +58,8 @@ if(!redirectToGardens)
                     <p style={{fontSize:'30px'}}>{gardenName}</p>
                   </div>
                   {/*Left buttons*/}
+                  <ButtonsList ownerID= {user._id}/>
 
-                <li className="nav-item">
-                <Link className="nav-link" to='/mygardens'>All Gardens </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>Living Room </Link>
-                </li>
-                <li className="nav-item">
-                <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
-                </li>
                 </ul>
             </div>
 
@@ -100,7 +88,12 @@ if(!redirectToGardens)
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
                             setRedirectToGardens(true)
                           }}> Delete garden </button>
+
+                   <li className="nav-item">
+                  <Link className="nav-link" to={`/editgarden/${gardenID}`}>Edit garden </Link>
+                  </li>
         
+                      
                       
               {/*end of table*/}
                     </div>
