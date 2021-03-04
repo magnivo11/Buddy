@@ -74,31 +74,40 @@ const getAllPlants = async()=>{return await Plant.find({})
 const getAllAdminPlants = async()=>{return await Plant.find({isUserPlant:false})
 };
 
-const updatePlant = async(id,
+const updatePlantByUser = async(id,species = null,growthStatus=null)=>{
+    
+    Plant.findById(id,(err,plant)=>{
+        if (species!=null){
+            plant.species=species}
+        if (growthStatus!=null){
+            plant.growthStatus=growthStatus}
+        plant.save();
+    })
+    return true;  
+    };
+    
+const updatePlantByAdmin = async(id,
     species = null,irrigationInstructors=null,optimalTemp=null,
     optimalSoilMoisture=null,optimalSunExposure=null,description=null)=>{
     
-    const plant= Plant.getUserById(id);
-    if (!plant)
-        return null;
-    else
-    {
-        if (species!=null){
-        plant.species=species}
-        if (irrigationInstructors!=null){
-        plant.irrigationInstructors=irrigationInstructors}
-        if (optimalTemp!=null){
-        plant.optimalTemp=optimalTemp}
-        if (optimalSoilMoisture!=null){
-        plant.optimalSoilMoisture= optimalSoilMoisture}
-        if (optimalSunExposure!=null){
-        plant.optimalSunExposure= optimalSunExposure}
-        if (description!=null){
-        plant.description =description}
-    }
-    await plant.save;
-    return plant
-    };
+        Plant.findById(id,(err,plant)=>{
+            if (species!=null){
+                plant.species=species}
+            if (irrigationInstructors!=null){
+            plant.irrigationInstructors=irrigationInstructors}
+            if (optimalTemp!=null){
+            plant.optimalTemp=optimalTemp}
+            if (optimalSoilMoisture!=null){
+            plant.optimalSoilMoisture= optimalSoilMoisture}
+            if (optimalSunExposure!=null){
+            plant.optimalSunExposure= optimalSunExposure}
+            if (description!=null){
+            plant.description =description}
+            plant.save();
+        })
+        return true;  
+        };
+  
 
 const deletePlant= async(plantID,gardenID)=> {
     const plant = await getPlantById(plantID);
@@ -132,4 +141,5 @@ const deletePlant= async(plantID,gardenID)=> {
     return plant;
 };
 
-module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, updatePlant, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };
+module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, 
+    updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlant, getAllPlants,getAllAdminPlants };

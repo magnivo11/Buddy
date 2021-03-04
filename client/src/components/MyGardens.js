@@ -11,6 +11,7 @@ import ButtonsList from './ButtonsList';
 export default function MyGardens(){
     const user=React.useContext(DataContext);
     const ownerID=user._id
+    
 
  return (
    <div>
@@ -23,9 +24,6 @@ export default function MyGardens(){
             </div>
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
             <ButtonsList ownerID= {user._id}/>
-         
-                {/* isernt gardens here */}
-                <List ownerID= {user._id}/>
             </div>
         </div>
     </section>{/* End Specials Section */}

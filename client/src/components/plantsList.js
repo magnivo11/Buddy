@@ -18,50 +18,50 @@ export default function PlantsList({gardenID}){
 })
 if(plants.length)
 return(
+  <div>
+    <table style={{width: '70%'}}>
+    <tbody>
+      <tr>
+        <th>Species</th>
+        <th>Status</th>
+        <th>Cause</th>
+      </tr>
+      <br></br>
+      {plants.map((data,key)=>{
+          return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
 
-    <div>
+      })}
+      <br></br>
 
-                        <table style={{width: '70%'}}>
-                        <tbody><tr>
-                            <th>Species</th>
-                            <th>Status</th>
-                            <th>Cause</th>
-                          </tr>
-                          <br></br>
-                         {plants.map((data,key)=>{
-                             return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
+      <tr>
+      <Link to="/plant" >Lilly</Link>
+        <td><img src={statusYellow} width={"30px"}></img></td>
+        <td>Lack Of Water</td>
+      </tr>
+      <br></br>
 
-                         })}
-                          <br></br>
-
-                          <tr>
-                          <Link to="/plant" >Lilly</Link>
-                            <td><img src={statusYellow} width={"30px"}></img></td>
-                            <td>Lack Of Water</td>
-                          </tr>
-                          <br></br>
-
-                          <tr>
-                        
-                          <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        </tbody></table>
-                        <br></br>
-                     
-                          <h4> Tip From Us!</h4>
-                        <h5> Based on information we collected, we recommend you to plant:</h5>
-                        <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
-                        <br></br>
-
-
-
+      <tr>
+    
+      <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+    </table>
+    <br></br>
+  
+      <h4> Tip From Us!</h4>
+    <h5> Based on information we collected, we recommend you to plant:</h5>
+    <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
+    <br></br>
     </div>
+
+
+
 );
 
 else 
-return (<dib>
+return (<div>
 
 <tr>
                         
@@ -69,6 +69,6 @@ return (<dib>
                           <td></td>
                           <td></td>
  </tr>
-</dib>
+</div>
 );
 }

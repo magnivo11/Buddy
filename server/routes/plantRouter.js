@@ -22,7 +22,10 @@ router.post('/ByUser',plantController.createPlantByUser);
 
 router.get('/:id',plantController.getPlantById);
 
-router.patch('/:id',plantController.updatePlant);
+router.put('/byuser/',plantController.updatePlantByUser);
+
+router.put('/byAdmin/',plantController.updatePlantByAdmin);
+
 
 router.delete('/',plantController.deletePlant);
 

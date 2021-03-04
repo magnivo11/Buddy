@@ -21,8 +21,6 @@ const createGarden = async(name,direction,directSun,surrounding,userID)=>{
     User.findById(userID,(err,user)=>{
         if(user)
             user.gardens.push(garden)
-        
-
     })
     return await garden.save();
 };
@@ -34,23 +32,20 @@ const getGardensByUserId = async(userID)=>{
 };
  const getGardenById = async(id)=>{return await Garden.findById(id)};
 
- const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID=null,photo=null)=>{
-    const garden = await getGardenById(id);
-    if (!garden)
-    {
-        return null;
-    }
-    if (name!=null){
-        garden.name = name;     }
-     if (direction!=null){
-        garden.direction = direction;}
-     if (surrounding!=null){
-        garden.surrounding = surrounding;}
-    if (directSun!=null){
-        garden.directSun = directSun;}
-    if(photo!=null){
-    garden.photo=photo;}
-    await garden.save(); 
+ const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null)=>{
+    Garden.findById(id,(err,garden)=>{
+        if (name!=null){
+            garden.name = name;     }
+         if (direction!=null){
+            garden.direction = direction;}
+         if (surrounding!=null){
+            garden.surrounding = surrounding;}
+        if (directSun!=null){
+            garden.directSun = directSun;}
+            garden.save();
+    
+    });
+   
      return true };
 
 const getAllGardens = async()=>{return await Garden.find({})
