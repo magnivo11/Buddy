@@ -26,19 +26,10 @@ return(
         <th>Status</th>
         <th>Cause</th>
       </tr>
-      <br></br>
       {plants.map((data,key)=>{
           return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
 
       })}
-      <br></br>
-
-      <tr>
-      <Link to="/plant" >Lilly</Link>
-        <td><img src={statusYellow} width={"30px"}></img></td>
-        <td>Lack Of Water</td>
-      </tr>
-      <br></br>
 
       <tr>
     

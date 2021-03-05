@@ -49,13 +49,18 @@ function login(e,setUser,setMessege){
     axios.get('http://localhost:8080/user/byemail/'+email).
     then(Response=>{
       if(Response.data)
-          if(Response.data.password===password)
-             setUser({_id:Response.data._id,
-                      name:Response.data.name,
-                      lastName:Response.data.lastName,
-                      email:email,
-                      isAdmin:Response.data.isAdmin
-                      }) 
+          if(Response.data.password===password){
+         /*   const user=({"_id:Response.data._id,
+                        "name":Response.data.name,
+                        "lastName":Response.data.lastName,
+                        "email":email,
+                        "isAdmin":Response.data.isAdmin
+                      });
+                      setUser(user);*/
+                      setUser({_id:Response.data._id});
+                      window.sessionStorage.setItem('userID',Response.data._id);
+
+                    }
           else
             setMessege({text:'password incorrect',showMessege:true})
       else

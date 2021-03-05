@@ -10,7 +10,7 @@ import ButtonsList from './ButtonsList';
 
 export default function MyGardens(){
     const user=React.useContext(DataContext);
-    const ownerID=user._id
+    const ownerID= window.sessionStorage.getItem('userID');
     
 
  return (
@@ -23,7 +23,7 @@ export default function MyGardens(){
             <p style={{fontSize:'30px'}}>All Gardens</p>
             </div>
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
-            <ButtonsList ownerID= {user._id}/>
+            <ButtonsList ownerID={ownerID} />
             </div>
         </div>
     </section>{/* End Specials Section */}

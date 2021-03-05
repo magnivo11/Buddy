@@ -58,7 +58,7 @@ if(!gardenAdded){
                    </label>
                    <br></br>
                    <br></br>
-                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
+                <input type="submit" className="fadeIn fourth"  value="Add"/><br/>
               </form>
              
             </div>

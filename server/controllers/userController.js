@@ -17,14 +17,11 @@ const createUser = async (request,response)=>{
 response.send('new user is now registered');
 }
 
-const getUserByEmail = (request,response)=>{
-    User.findOne({email:request.params.email},(err,user)=>{
-       if(err)
-       {
-       response.send(err)}
-       else{
-       response.send(user)}
-   })
+const getUserByEmail = async (request,response)=>{
+    const user = await userService.getUserByEmail(request.params.email);
+    if (!user)
+    response.json(null);
+    response.json(user);
 };
 
 const getUsers= async (request,response)=>{

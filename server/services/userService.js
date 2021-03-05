@@ -39,7 +39,14 @@ const updateUser = async(id,name,lastName,email,password) =>{
     });
     return true;
     };
-
+const getUserByEmail = async(email)=>{
+    console.log(email)
+    const user = User.findOne({email:email});
+        if(!user){
+            return null;}
+        else{
+            return user;}
+}
 const deleteUser= async(id)=> {
     const user = User.getUserById(id);
     if (!user)
@@ -67,6 +74,7 @@ createUser,
 deleteUser,
 updateUser,
 getUserById,
+getUserByEmail,
 getUsers,
 getAllGardensFromUser
 };
