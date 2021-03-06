@@ -1,4 +1,5 @@
 export default function Notifications(){
+
     return (
       <div>
           
@@ -6,8 +7,7 @@ export default function Notifications(){
          <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
            
              <div className="col-lg-8">
-               <h1>Notifications</h1>
-              
+               <h1>Notifications</h1>              
            
            </div>
          </div>
@@ -16,3 +16,5 @@ export default function Notifications(){
        </div>
      );
    }
+
+ 

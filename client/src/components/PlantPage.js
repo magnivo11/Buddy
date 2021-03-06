@@ -12,17 +12,23 @@ import light24 from '../Images/Graphs/light1.JPG';
 import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
 import DataContext from '../DataContext';
+import DrawGraph from './Graph'
 
 const data = require ('../files/data.json'); 
 
 export default function Plant(){
+
   const[sensorAdded,setSensorAdded]=React.useState(false)
   const[photoAdded,setPhotoAdded]=React.useState(false)
+
   var photo;
+
   var index=window.location.toString().lastIndexOf('/')+1
   const user=React.useContext(DataContext);
+
   const[redirectToGarden,setRedirectToGarden]=React.useState(false);
   const [plant,setPlant]=React.useState('');
+
   var plantResponse;
   const plantID=window.location.toString().substring(index)
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
@@ -34,6 +40,25 @@ export default function Plant(){
     setPlant(plantResponse);
     }
   })
+
+  React.useEffect(()=>{
+
+    //this is a fake data just for the tset
+    const data = [
+      { name: '10.3.21', score: 80 },
+      { name: '11.3.21', score: 76 },
+      { name: '12.3.21', score: 90 },
+      { name: '13.3.21', score: 82 },
+      { name: '14.3.21', score: 90 },
+      { name: '15.3.21', score: 75 },
+      { name: '16.3.21', score: 86 },
+    ];
+
+
+    DrawGraph(data,'d3-container')
+
+
+  },[])
 
   if(!redirectToGarden)
   { 
@@ -104,14 +129,16 @@ export default function Plant(){
                   <br></br>
                   <table style={{width: '80%'}}> {/*graphs */}
                     <tbody><tr>
-                        <th>Light Exposure</th>
+                        {/* <th>Light Exposure</th>
                         <th>Soil Moisure</th>
                         <th>Temperature</th>
                       </tr>
                       <tr>
                         <td><img src={light24}width={'150px'}></img></td> 
                         <td><img src={soil24}width={'150px'}></img></td> 
-                        <td> <img src={temp24}width={'150px'}></img></td> 
+                        <td> <img src={temp24}width={'150px'}></img></td>  */}
+
+                        <dib id='d3-container'></dib>
                       </tr>
 
                     </tbody></table>
