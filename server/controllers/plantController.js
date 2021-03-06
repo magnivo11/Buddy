@@ -67,6 +67,12 @@ const updatePlantByAdmin =async (request,response)=>{
     response.json(plant); 
 };
 
+const getPlantByName =async (request,response)=>{
+    const plants = await plantService.getPlantByName(request.params.species);
+    if(!plants)
+    return response.status(404).json({errors:['plants not found']});
+    response.json(plants);
+  };
 
 const updatePlantByUser =async (request,response)=>{
     const plant= await plantService.updatePlantByUser(
@@ -89,5 +95,5 @@ const getAllAdminPlants=async(request,response)=>{
     response.json(plants);
 };
 
-module.exports={getPlantsByGardenId, createPlantByAdmin, createPlantByUser, 
+module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
     updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};
