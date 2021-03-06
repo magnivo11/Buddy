@@ -13,6 +13,8 @@ import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
 import DataContext from '../DataContext';
 import DrawGraph from './Graph'
+import * as d3 from "d3"
+
 
 const data = require ('../files/data.json'); 
 
@@ -43,8 +45,14 @@ export default function Plant(){
 
   React.useEffect(()=>{
 
+    //clear old charts
+
+    d3.selectAll('svg').remove()
+
+
+
     //this is a fake data just for the tset
-    const data = [
+    const humidity = [
       { name: '10.3.21', score: 80 },
       { name: '11.3.21', score: 76 },
       { name: '12.3.21', score: 90 },
@@ -55,10 +63,23 @@ export default function Plant(){
     ];
 
 
-    DrawGraph(data,'d3-container')
+    const temperature = [
+      { name: '10.3.21', score: 40 },
+      { name: '11.3.21', score: 50 },
+      { name: '12.3.21', score: 60 },
+      { name: '13.3.21', score: 80 },
+      { name: '14.3.21', score: 70 },
+      { name: '15.3.21', score: 75 },
+      { name: '16.3.21', score: 50 },
+    ];
+
+// pick the data you want to show,the ID of the container in the html,the color of each bar
+
+    DrawGraph(humidity,'d3-container','royalblue')
+    DrawGraph(temperature,'temperature','green')
 
 
-  },[])
+  })
 
   if(!redirectToGarden)
   { 
@@ -138,7 +159,9 @@ export default function Plant(){
                         <td><img src={soil24}width={'150px'}></img></td> 
                         <td> <img src={temp24}width={'150px'}></img></td>  */}
 
-                        <dib id='d3-container'></dib>
+                        <div id='d3-container'></div>
+                        <br></br>
+                        <div id='temperature'></div>
                       </tr>
 
                     </tbody></table>
