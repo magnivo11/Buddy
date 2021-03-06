@@ -1,6 +1,7 @@
 import * as d3 from "d3"
 
-export default function DrawGraph(data,containerID) {
+export default function DrawGraph(data,containerID,color) {
+
 
     
     const width = 450;
@@ -24,7 +25,7 @@ export default function DrawGraph(data,containerID) {
     
     svg
       .append("g")
-      .attr("fill", 'royalblue')
+      .attr("fill", color)
       .selectAll("rect")
       .data(data.sort((a, b) => a.score))
       .join("rect")
