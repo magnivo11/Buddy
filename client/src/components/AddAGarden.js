@@ -1,7 +1,6 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
+import{ Redirect} from 'react-router-dom';
 import React from 'react';
 import DataContext from '../DataContext'
 

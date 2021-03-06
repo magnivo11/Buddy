@@ -31,7 +31,7 @@ if(!info.redirectToProfile)
                 <input type="text" id="last_name" className="fadeIn second"  placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second"  placeholder="Email Address" />
                 <input type="text" id="password" className="fadeIn third"  placeholder="Password" />
-                <input type="submit" className="fadeIn fourth" defaultValue="register" value="Save"/><br/>
+                <input type="submit" className="fadeIn fourth" value="Save"/><br/>
 
               </form>
              

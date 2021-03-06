@@ -4,8 +4,6 @@ const Garden = require('../models/gardenModel')
 
 
 const createUser = async(name,lastName,email,password)=>{
-    console.log("ser"+lastName);
-
     const user= new User({
         name:name,
         lastName:lastName,
@@ -26,7 +24,6 @@ const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
 };
 
 const updateUser = async(id,name,lastName,email,password) =>{
-    console.log("ser"+id);
 
     User.findById(id,(err,user)=>{
         user.name=name;

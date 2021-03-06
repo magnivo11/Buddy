@@ -5,7 +5,6 @@ const userService = require('../services/userService');
 
 
 const createUser = async (request,response)=>{
-    console.log("con"+  request.body.name,);
     const newUser=
     await userService.createUser(
         request.body.name,
@@ -38,7 +37,6 @@ const getUserById = async(request,response)=>{
 
 
 const updateUser = async (request,response)=>{
-    console.log("con"+request.body.id);
 
     const user= await userService.updateUser(
         request.body.id,
