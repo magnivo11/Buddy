@@ -93,7 +93,7 @@ if(!plantAdded){
                     <br></br>
                     <br></br>
 
-                <input type="submit" className="fadeIn fourth" defaultValue="addA" value="Add Plant"/><br/>
+                <input type="submit" className="fadeIn fourth"  value="Add Plant"/><br/>
               </form>
              
             </div>

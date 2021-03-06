@@ -6,11 +6,10 @@ import axios from 'axios';
 
 export default function Profile(){
 
-  const user=React.useContext(DataContext);
-  var userID= user._id;
+  const userIDfromSession= window.sessionStorage.getItem('userID');
   const[redirectToProfile,setRedirectToProflie]=React.useState(false);
   const [currentUser,setUser]=React.useState({_id:null});
-  axios.get('http://localhost:8080/user/'+userID).then((Response)=> {
+  axios.get('http://localhost:8080/user/'+userIDfromSession).then((Response)=> {
     if(Response.data){
     if(currentUser._id!=Response.data._id)
     {
@@ -45,7 +44,7 @@ if(!redirectToProfile)
                               <p className="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" className="w3-circle" style={{height: '106px', width: '106px'}} alt="Avatar" /></p>
                               <hr />
                               <p className="w3-center"><i className="fa fa-envelope fa-fw w3-margin-right w3-text-theme" /> {currentUser.email}</p>
-                              <Link className="w3-center"  to={`/edituser/${user._id}`} onClick={()=>{setRedirectToProflie(true)}}>
+                              <Link className="w3-center"  to={`/edituser/${userIDfromSession}`} onClick={()=>{setRedirectToProflie(true)}}>
                                 <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" /> Edit My Profile</Link>
 
                       

@@ -27,9 +27,9 @@ const socket = io.connect("http://localhost:8080") ;
 
 function App(){
 
-    const[user,setUser]=React.useState({email:null,name:null,lastName:null,_id:null,isAdmin:false,gardens:[]});
-    console.log("user is: " + user._id);
-    
+    const[user,setUser]=React.useState({_id:null,name:null,lastName:null,email:null,isAdmin:false,gardens:[]});
+    const userIDfromSession= window.sessionStorage.getItem('userID');
+    console.log(userIDfromSession);
     
     return(
 
@@ -54,7 +54,7 @@ function App(){
             <Route exact path='/editgarden/:gardenID'>
              <Header/> <EditGarden/></Route>
 
-             <Route exact path='/edituser/:userID'>
+             <Route exact path='/edituser'>
              <Header/> <EditUser/></Route>
 
              <Route exact path='/editplant/:plantID'>

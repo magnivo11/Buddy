@@ -1,7 +1,6 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
+import{ Redirect} from 'react-router-dom';
 import React from 'react';
 import DataContext from '../DataContext'
 
@@ -58,7 +57,7 @@ if(!gardenAdded){
                    </label>
                    <br></br>
                    <br></br>
-                <input type="submit" className="fadeIn fourth" defaultValue="addAGarden" value="Add"/><br/>
+                <input type="submit" className="fadeIn fourth"  value="Add"/><br/>
               </form>
              
             </div>

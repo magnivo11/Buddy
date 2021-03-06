@@ -5,7 +5,6 @@ const userService = require('../services/userService');
 
 
 const createUser = async (request,response)=>{
-    console.log("con"+  request.body.name,);
     const newUser=
     await userService.createUser(
         request.body.name,
@@ -17,14 +16,11 @@ const createUser = async (request,response)=>{
 response.send('new user is now registered');
 }
 
-const getUserByEmail = (request,response)=>{
-    User.findOne({email:request.params.email},(err,user)=>{
-       if(err)
-       {
-       response.send(err)}
-       else{
-       response.send(user)}
-   })
+const getUserByEmail = async (request,response)=>{
+    const user = await userService.getUserByEmail(request.params.email);
+    if (!user)
+    response.json(null);
+    response.json(user);
 };
 
 const getUsers= async (request,response)=>{
@@ -41,7 +37,6 @@ const getUserById = async(request,response)=>{
 
 
 const updateUser = async (request,response)=>{
-    console.log("con"+request.body.id);
 
     const user= await userService.updateUser(
         request.body.id,

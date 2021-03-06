@@ -6,10 +6,11 @@ import logo from '../Images/LB.png';
 import React from 'react';
 
 export default function EditUser(){
-  const user=React.useContext(DataContext);
-  var userID= user._id;
-  const[info,setInfo]=React.useState({showMessege:false,redirectToLogin:false});
-if(!info.redirectToLogin)
+  //const user=React.useContext(DataContext);
+  const userIDfromSession= window.sessionStorage.getItem('userID');
+  ;
+  const[info,setInfo]=React.useState({showMessege:false,redirectToProfile:false});
+if(!info.redirectToProfile)
   return (
     <div>
 
@@ -25,12 +26,12 @@ if(!info.redirectToLogin)
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
           
               </div>
-              <form  onSubmit={(e)=>{editUser(e,userID,setInfo)}}>
+              <form  onSubmit={(e)=>{editUser(e,userIDfromSession,setInfo)}}>
                 <input type="text" id="first_name" className="fadeIn second"  placeholder="First name" />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second"  placeholder="Email Address" />
                 <input type="text" id="password" className="fadeIn third"  placeholder="Password" />
-                <input type="submit" className="fadeIn fourth" defaultValue="register" value="Save"/><br/>
+                <input type="submit" className="fadeIn fourth" value="Save"/><br/>
 
               </form>
              
@@ -43,19 +44,19 @@ if(!info.redirectToLogin)
   else{  return(<Redirect  to={`/profile`}/>);}
   }
    
-function editUser(e,userID,setInfo){
+function editUser(e,userIDfromSession,setInfo){
 
   e.preventDefault();
   axios.get('http://localhost:8080/user/byemail/'+document.getElementById('email').value).
   then((Response)=>{
     console.log(Response)
     if(Response.data){
-      if(Response.data._id!=userID) {
+      if(Response.data._id!=userIDfromSession) {
         setInfo({showMessege:true})}
     } 
   else {
     const newUser= { 
-      id:userID,
+      id:userIDfromSession,
       name:document.getElementById('first_name').value ,
       lastName: document.getElementById('last_name').value ,
       email: document.getElementById('email').value ,
@@ -63,7 +64,7 @@ function editUser(e,userID,setInfo){
   }
   console.log(newUser);
   axios.put('http://localhost:8080/user/',newUser)
-    setInfo({redirectToLogin:true})
+    setInfo({redirectToProfile:true})
   }
 })
 
