@@ -6,7 +6,7 @@ import React from 'react';
 import AddAPlantByUser from './AddAPlantByUser';
 import HomePage from './HomePage';
 import Footer from './Footer';
-
+import BibleSearch from './BibleSearch';
 import Header from './Header';
 import MyGardens from './MyGardens';
 import SingleGarden from './SingleGarden';
@@ -66,6 +66,9 @@ function App(){
              <Route exact path='/profile'>
              <Header/><Profile/></Route>
 
+             <Route path='/biblesearch'>
+             <Header/><BibleSearch/> </Route>
+
              <Route exact path='/plantsbible'>
              <Header/><PlantsBible/> </Route>
 
@@ -74,8 +77,6 @@ function App(){
 
              <Route exact path='/aboutus'>
              <Header/><AboutUs/></Route>
-
-
 
              <Route exact path='/addaplantbyadmin'>
             <Header/><AddAPlantByAdmin/></Route>
