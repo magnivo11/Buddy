@@ -33,6 +33,7 @@ const deleteSensor = async(id)=>{
 };
 
 
+
 module.exports={
    getAllSensors, 
    createSensor,

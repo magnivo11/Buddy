@@ -30,6 +30,14 @@ function App(){
     const[user,setUser]=React.useState({_id:null,name:null,lastName:null,email:null,isAdmin:false,gardens:[]});
     const userIDfromSession= window.sessionStorage.getItem('userID');
     console.log(userIDfromSession);
+
+//     React.useEffect(()=>{
+
+//         const checkWeather=setInterval(()=>{
+// console.log('test')
+
+//         },5000)
+//     },[])
     
     return(
 
