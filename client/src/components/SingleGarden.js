@@ -11,7 +11,7 @@ import axios from 'axios';
 import React from 'react'
 import DataContext from '../DataContext'
 import PlantComponent from './PlantComponent';
-import PlantsList from './plantsList'
+import PlantsList from './PlantsList'
 import ButtonsList from './ButtonsList';
 
 
