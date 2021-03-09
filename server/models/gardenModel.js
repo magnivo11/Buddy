@@ -9,11 +9,11 @@ const gardenSchema = new Schema({
 
     direction: {
         type: String,
-        enum: ['West', 'East', 'South', 'North'],
+        enum: ['west', 'east', 'south', 'north'],
     },
     surrounding: {
         type: String,
-        enum: ['Outdoor', 'Indoor'],
+        enum: ['outdoor', 'indoor'],
     },
     directSun: Boolean,
     userID: {

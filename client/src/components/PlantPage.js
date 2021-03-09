@@ -27,7 +27,7 @@ export default function Plant(){
   var photo;
 
   var index=window.location.toString().lastIndexOf('/')+1
-  const user=React.useContext(DataContext);
+
 
   const[redirectToGarden,setRedirectToGarden]=React.useState(false);
   const [plant,setPlant]=React.useState('');

@@ -27,21 +27,10 @@ import EditPlantByUser from './EditPlantByUser';
 
 function App(){
 
-    const[user,setUser]=React.useState({_id:null,name:null,lastName:null,email:null,isAdmin:false,gardens:[]});
-    const userIDfromSession= window.sessionStorage.getItem('userID');
-    console.log(userIDfromSession);
-
-//     React.useEffect(()=>{
-
-//         const checkWeather=setInterval(()=>{
-// console.log('test')
-
-//         },5000)
-//     },[])
-    
+   
     return(
 
-    <DataContext.Provider value={user}>
+    //<DataContext.Provider value={user}>
     <BrowserRouter>
    
  
@@ -51,7 +40,7 @@ function App(){
             <FirstPage/></Route>
 
             <Route exact path='/login'>
-                <LoginForm user={user} setUser={setUser}/></Route>
+                <LoginForm/></Route>
 
              <Route exact path='/register'>
                  <RegisterForm/></Route>
@@ -103,7 +92,7 @@ function App(){
     <Footer/>
      </BrowserRouter>
 
-</DataContext.Provider>
+//</DataContext.Provider>
     );
 }
 export default App;

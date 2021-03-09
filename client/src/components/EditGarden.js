@@ -9,7 +9,9 @@ export default function EditGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const[gardenEdited,setGardenEdited]=React.useState(false)
-  const user=React.useContext(DataContext);
+  //const user=React.useContext(DataContext);
+  
+
  
 if(!gardenEdited){
 
@@ -27,7 +29,7 @@ if(!gardenEdited){
           
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editGarden(e,user,gardenID)
+              editGarden(e,gardenID)
               setGardenEdited(true)
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
@@ -77,7 +79,7 @@ if(!gardenEdited){
   }
    
 
-function editGarden(e,user,gardenID){
+function editGarden(e,gardenID){
 
   e.preventDefault();
   const form = document.forms.gardenForm;

@@ -7,9 +7,21 @@ import PlantsBibleGrid from './PlantsBibleGrid';
 
 
 
-export default function PlantsBible() {
-  const user = React.useContext(DataContext);
-  const isAuth = user.isAdmin;
+ export default function PlantsBible({ q }) {
+ // const user = React.useContext(DataContext);
+ var isAuth;
+ const ownerID= window.sessionStorage.getItem('userID');
+ const [currentUser,setUser]=React.useState({_id:null});
+ axios.get('http://localhost:8080/user/'+ownerID).then((Response)=> {
+   if(Response.data){
+   if(currentUser._id!=Response.data._id)
+   {
+    isAuth = Response.data.isAdmin;
+     setUser(Response.data);
+   }
+ }
+ })
+ 
   const [plants, setPlants] = React.useState([])
  
   React.useEffect(() => {
