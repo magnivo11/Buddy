@@ -9,7 +9,7 @@ import ButtonsList from './ButtonsList';
 
 
 export default function MyGardens(){
-    const user=React.useContext(DataContext);
+    //const user=React.useContext(DataContext);
     const ownerID= window.sessionStorage.getItem('userID');
     
 
