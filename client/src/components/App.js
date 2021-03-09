@@ -23,7 +23,7 @@ import io from "socket.io-client";
 import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
-const socket = io.connect("http://localhost:8080") ;
+ const socket = io.connect("http://localhost:8080") ;
 
 function App(){
 
@@ -97,8 +97,7 @@ function App(){
              <Route exact path='/notifications'>
              <Header/><Notifications/></Route>
 
-                 
-             <Route exact path='/plantsbiblesingleplant'>
+             <Route exact path='/plantsbiblesingleplant/:plantID'>
              <Header/><PlantsBibleSinglePlant/></Route>
     </Switch>
     <Footer/>
