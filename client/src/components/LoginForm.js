@@ -5,10 +5,11 @@ import React from 'react';
 import axios from 'axios'
 
 
-function LoginForm({user,setUser}){
+function LoginForm(){
   const[messege,setMessege]=React.useState({text:'',showMessege:false});
-  
-if(!user._id)
+  const[loggedIn,setLoggedIn]=React.useState(false);
+
+if(!loggedIn){
 return (
   <div>
     <section id="hero" className="d-flex align-items-center">
@@ -24,7 +25,7 @@ return (
                 <h3 style={{color:'#51361A'}}>Log in </h3> 
 
               </div>
-              <form  onSubmit={(e)=>{login(e,setUser,setMessege)}}>
+              <form  onSubmit={(e)=>{login(e,setLoggedIn,setMessege)}}>
                 <input type="text" id="email" className="fadeIn second" name="login" placeholder="Email" />
                 <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" />
                 <input type="submit" className="fadeIn fourth"  value="Login"/>
@@ -39,10 +40,11 @@ return (
    </section>
 </div>
 );
+}
 else
 return(<Redirect to="/mygardens"/>);
 }
-function login(e,setUser,setMessege){
+function login(e,setLoggedIn,setMessege){
     e.preventDefault();
     var email=document.getElementById('email').value;
     var password=document.getElementById('password').value;
@@ -57,9 +59,9 @@ function login(e,setUser,setMessege){
                         "isAdmin":Response.data.isAdmin
                       });
                       setUser(user);*/
-                      setUser({_id:Response.data._id});
+                      //setUser({_id:Response.data._id});
                       window.sessionStorage.setItem('userID',Response.data._id);
-
+                      setLoggedIn(true);
                     }
           else
             setMessege({text:'password incorrect',showMessege:true})

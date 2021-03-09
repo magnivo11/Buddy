@@ -6,7 +6,9 @@ import DataContext from '../DataContext'
 
 export default function AddAGarden(){
   const[gardenAdded,setGardenAdded]=React.useState(false)
-  const user=React.useContext(DataContext);
+  //const user=React.useContext(DataContext);
+  const userId= window.sessionStorage.getItem('userID');
+
  
 if(!gardenAdded){
 
@@ -24,7 +26,7 @@ if(!gardenAdded){
           
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              addAGarden(e,user)
+              addAGarden(e,userId)
               setGardenAdded(true)
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
@@ -74,7 +76,7 @@ if(!gardenAdded){
   }
    
 
-function addAGarden(e,user){
+function addAGarden(e,userId){
 
   e.preventDefault();
   const form = document.forms.gardenForm;
@@ -112,7 +114,7 @@ function addAGarden(e,user){
     direction:direction,
     directSun :sunlight,
     surroundings:surrounding,
-    userID:user._id
+    userID:userId
   }
 
     axios.post('http://localhost:8080/garden/',newGarden);

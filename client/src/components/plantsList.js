@@ -41,10 +41,6 @@ return(
     </table>
     <br></br>
   
-      <h4> Tip From Us!</h4>
-    <h5> Based on information we collected, we recommend you to plant:</h5>
-    <h4> Cyclamen! <img src={Cyclamen} width={40} /></h4>
-    <br></br>
     </div>
 
 

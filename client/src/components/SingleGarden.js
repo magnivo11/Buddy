@@ -21,8 +21,10 @@ import ButtonsList from './ButtonsList';
 export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
-  const user=React.useContext(DataContext);
-  const ownerID=user._id;
+  // const user=React.useContext(DataContext);
+  // const ownerID=user._id;
+  const ownerID= window.sessionStorage.getItem('userID');
+
 
   const[redirectToGardens,setRedirectToGardens]=React.useState(false);
 
@@ -58,7 +60,7 @@ if(!redirectToGardens)
                     <p style={{fontSize:'30px'}}>{gardenName}</p>
                   </div>
                   {/*Left buttons*/}
-                  <ButtonsList ownerID= {user._id}/>
+                  <ButtonsList ownerID= {ownerID}/>
 
                 </ul>
             </div>
@@ -85,7 +87,7 @@ if(!redirectToGardens)
                    
                         
                           <button onClick={()=>{
-                            axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:user._id}})
+                            axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
                             setRedirectToGardens(true)
                           }}> Delete garden </button>
 

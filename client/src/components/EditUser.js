@@ -7,7 +7,7 @@ import React from 'react';
 
 export default function EditUser(){
   //const user=React.useContext(DataContext);
-  const userIDfromSession= window.sessionStorage.getItem('userID');
+  const userId= window.sessionStorage.getItem('userID');
   ;
   const[info,setInfo]=React.useState({showMessege:false,redirectToProfile:false});
 if(!info.redirectToProfile)
@@ -26,7 +26,7 @@ if(!info.redirectToProfile)
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
           
               </div>
-              <form  onSubmit={(e)=>{editUser(e,userIDfromSession,setInfo)}}>
+              <form  onSubmit={(e)=>{editUser(e,userId,setInfo)}}>
                 <input type="text" id="first_name" className="fadeIn second"  placeholder="First name" />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second"  placeholder="Email Address" />
@@ -44,19 +44,19 @@ if(!info.redirectToProfile)
   else{  return(<Redirect  to={`/profile`}/>);}
   }
    
-function editUser(e,userIDfromSession,setInfo){
+function editUser(e,userId,setInfo){
 
   e.preventDefault();
   axios.get('http://localhost:8080/user/byemail/'+document.getElementById('email').value).
   then((Response)=>{
     console.log(Response)
     if(Response.data){
-      if(Response.data._id!=userIDfromSession) {
+      if(Response.data._id!=userId) {
         setInfo({showMessege:true})}
     } 
   else {
     const newUser= { 
-      id:userIDfromSession,
+      id:userId,
       name:document.getElementById('first_name').value ,
       lastName: document.getElementById('last_name').value ,
       email: document.getElementById('email').value ,
