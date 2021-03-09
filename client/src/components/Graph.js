@@ -4,9 +4,11 @@ export default function DrawGraph(data,containerID,color) {
 
 
     
-    const width = 450;
+    const width = 700;
     const height = 225;
     const margin = { top: 25, bottom: 25, left: 25, right: 25 };
+
+    if(data.length>0){
     
     const svg = d3.select('#'+containerID)
       .append('svg')
@@ -55,6 +57,6 @@ export default function DrawGraph(data,containerID,color) {
 
 
 
-    
+  }
 
    }
