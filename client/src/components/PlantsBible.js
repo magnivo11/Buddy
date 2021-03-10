@@ -5,17 +5,17 @@ import axios from 'axios';
 import DataContext from '../DataContext'
 import PlantsBibleGrid from './PlantsBibleGrid';
  
- export default function PlantsBible({ q }) {
- // const user = React.useContext(DataContext);
- var isAuth;
+ export default function PlantsBible() {
  const ownerID= window.sessionStorage.getItem('userID');
  const [currentUser,setUser]=React.useState({_id:null});
+ const [isAdmin,setAdmin]=React.useState(false);
+
  axios.get('http://localhost:8080/user/'+ownerID).then((Response)=> {
    if(Response.data){
    if(currentUser._id!=Response.data._id)
    {
-    isAuth = Response.data.isAdmin;
-     setUser(Response.data);
+     setAdmin(Response.data.isAdmin);
+      setUser(Response.data);
    }
  }
  })
@@ -24,11 +24,11 @@ import PlantsBibleGrid from './PlantsBibleGrid';
   
 
   React.useEffect(() => {
-
-    var url = 'http://localhost:8080/plant/admin'
+     var url = 'http://localhost:8080/plant/admin'
     axios.get(url).then((Response) => {
       if (plants.length != Response.data.length)
         setPlants(Response.data);
+     
     })
   }, []);
 
@@ -37,13 +37,16 @@ import PlantsBibleGrid from './PlantsBibleGrid';
 
   return (
     <div>
+      <br></br>
+      <br></br>
+      <br></br>
       <section id="hero" className="d-flex align-items-center">
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '19%', marginLeft: '9%', marginRight: '9%', marginBottom: '20%' }}>
           <div className="container" data-aos="fade-up">
             <div className="section-title">
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
               <p style={{ fontSize: '30px' }}>All the information in one place</p>
-               {isAuth ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
+               {isAdmin ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
               <PlantsBibleGrid plants={plants} />
             </div>
           </div>
