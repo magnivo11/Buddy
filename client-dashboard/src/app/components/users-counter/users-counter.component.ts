@@ -10,6 +10,7 @@ export class UsersCounterComponent  {
 
 constructor(private service:RealtimeService)
 {
+  this.currCounter=0;
   service.currentCounter.subscribe(currCounter=>this.currCounter=currCounter);
 }
 

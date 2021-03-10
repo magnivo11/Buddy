@@ -44,6 +44,7 @@ export default function Plant(){
 //maybe to show all the graphs make every data set a state
 
   React.useEffect(()=>{
+
     //this is a fake data just for the tset
     const humidity = [
       { name: '10.3.21', score: 80 },
@@ -74,6 +75,8 @@ export default function Plant(){
       { name: '16.3.21', score: 50 },
     ];
 
+
+   
 // pick the data you want to show,the ID of the container in the html,the color of each bar
 
 if(plant.sensorID!=null){
