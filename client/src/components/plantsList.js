@@ -3,10 +3,7 @@ import React from 'react'
 import axios from 'axios';
 import PlantComponent from './PlantComponent'
 import {Link} from 'react-router-dom';
-import statusGreen from '../Images/status/green.jpg';
-import statusYellow from '../Images/status/yellow.jpg';
-import Cyclamen from '../Images/cyclamen.JPG';
-import statusRed from '../Images/status/red.jpg';
+
 
 export default function PlantsList({gardenID}){
 
@@ -19,7 +16,16 @@ export default function PlantsList({gardenID}){
 if(plants.length)
 return(
   <div>
-    <table style={{width: '70%'}}>
+      <div className="row">
+                      {/*Text*/}
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                        <div className="col-lg-8 details order-2 order-lg-1">
+                            <h3>Plants you grow in this garden:</h3>
+                        </div>
+                    </div>
+    <table style={{width: '100%'}}>
     <tbody>
       <tr>
         <th>Species</th>
@@ -27,16 +33,14 @@ return(
         <th>Cause</th>
       </tr>
       {plants.map((data,key)=>{
-          return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
-
+          return  <tr> <PlantComponent plantName= {data.species} plantid={data._id} key={key}/></tr>
       })}
-
-      <tr>
-    
-      <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-        <td></td>
-        <td></td>
-      </tr>
+          <li className="nav-item">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                       className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
+          </li>
+       
+     
     </tbody>
     </table>
     <br></br>

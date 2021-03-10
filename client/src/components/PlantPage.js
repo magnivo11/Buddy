@@ -13,6 +13,8 @@ import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
 import DataContext from '../DataContext';
 import DrawGraph from './Graph'
+import ButtonsList from './ButtonsList';
+
 
 const data = require ('../files/data.json'); 
 
@@ -20,15 +22,10 @@ export default function Plant(){
 
   const[sensorAdded,setSensorAdded]=React.useState(false)
   const[photoAdded,setPhotoAdded]=React.useState(false)
-
-  var photo;
-
+  const ownerID= window.sessionStorage.getItem('userID');
   var index=window.location.toString().lastIndexOf('/')+1
-
-
   const[redirectToGarden,setRedirectToGarden]=React.useState(false);
   const [plant,setPlant]=React.useState('');
-
   var plantResponse;
   const plantID=window.location.toString().substring(index)
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
@@ -40,7 +37,7 @@ export default function Plant(){
     setPlant(plantResponse);
     }
   })
-
+/*
   React.useEffect(()=>{
 
     //this is a fake data just for the tset
@@ -53,13 +50,9 @@ export default function Plant(){
       { name: '15.3.21', score: 75 },
       { name: '16.3.21', score: 86 },
     ];
-
-
     DrawGraph(data,'d3-container')
-
-
   },[])
-
+*/
   if(!redirectToGarden)
   { 
     return (
@@ -74,28 +67,11 @@ export default function Plant(){
               <br></br>
               <h2 style={{fontSize:'10px'}}>{"ID:"+plantID}</h2>
 
-
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                <div className="col-lg-3"> {/*left buttons*/}
-                    <ul className="nav nav-tabs flex-column">
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>All Gardens </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>Living Room </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
-                      </li>
-                      <li className="nav-item">
-                          <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
-                      </li>
-                    </ul>
-                    
+                <div className="col-lg-3">
+                <ButtonsList ownerID={ownerID} />
+
                 <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addSensor(e,plantID)
             setSensorAdded(true)
@@ -103,29 +79,17 @@ export default function Plant(){
                <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
             
             </form>
-
-            <button onClick={()=>{
-                            axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
-                            setRedirectToGarden(true)
-                          }}> Delete plant </button>
-                          
-                   <li className="nav-item">
-                  <Link className="nav-link" to={`/editPlant/${plantID}`}>Edit plant </Link>
-                  </li>
-        
                 </div>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
 
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
-                      <li><a style={{fontSize:'22px'}}>Display:</a></li>
-                      <li class="active"><Link to="/mygardens" style={{fontSize:'20px'}} >Last 24 Hours</Link></li>
-                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last 3 Days</Link></li>
-                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last Week</Link></li>
+                      <li><a style={{fontSize:'22px'}}>Temperature Graph:</a></li>
                       <li></li>
           
                       </ul>
                     </nav>
+
                   <br></br>
                   <table style={{width: '80%'}}> {/*graphs */}
                     <tbody><tr>
@@ -136,22 +100,30 @@ export default function Plant(){
                       <tr>
                         <td><img src={light24}width={'150px'}></img></td> 
                         <td><img src={soil24}width={'150px'}></img></td> 
-                        <td> <img src={temp24}width={'150px'}></img></td>  */}
+                        <td> <img src={temp24}width={'150px'}></img></td>  
 
-                        <dib id='d3-container'></dib>
+                        <dib id='d3-container'></dib>*/}
                       </tr>
 
                     </tbody></table>
-                    
+                    <button onClick={()=>{
+                            axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
+                            setRedirectToGarden(true)
+                          }}> Delete plant </button>
+                           <li className="nav-item">
+                  <Link className="nav-link" to={`/editPlant/${plantID}`}>Edit plant </Link>
+                  </li>
+                          
+                { /*   
             <form name="addAPhoto" action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={(e)=>{
         addPhoto(e,plantID)
         setPhotoAdded(true)}}>
         <input style= {{fontSize: '12px'}} type="text"  id="photoLink" className="fadeIn second" name="addAGarden" placeholder="Name"  />
         <input type="submit" value="send" defaultValue="Submit" 
         style={{backgroundColor: 'green', color: 'white', padding: '8px', fontSize: '10px', border: 'none'}} />
-      </form>
-               
-                    <div className="col-md-12" style={{width: '75%'}}>  {/*timeline*/}
+            </form>*/}
+               {/*
+                    <div className="col-md-12" style={{width: '75%'}}>  {/*timeline*//*}
                           <div style={{display: 'inline-block', width: '100%', overflowY: 'auto'}}>
                             <ul className="timeline timeline-horizontal">
                               <li className="timeline-item" >
@@ -184,9 +156,9 @@ export default function Plant(){
                             
                           </div>
                         </div>
+                        */}
                 </div> 
-              </div>
-
+                </div>
             </div>
          </section>
        </section>
