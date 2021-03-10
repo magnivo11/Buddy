@@ -27,7 +27,7 @@ return(
         <th>Cause</th>
       </tr>
       {plants.map((data,key)=>{
-          return <PlantComponent plantName= {data.species} plantid={data._id} key={key}/>
+          return <PlantComponent plantName= {data.species} plantsensorid={data.sensorID} plantid={data._id} key={key}/>
 
       })}
 

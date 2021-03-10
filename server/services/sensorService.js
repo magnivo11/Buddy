@@ -26,10 +26,9 @@ const createSensor = async(temperature,light,soil,plantID)=>{
       
 };
 
- 
 const getSensorById = async(id)=>{return await Sensor.findById(id)};
 const getAllSensors = async()=>{return await Sensor.find({})};
-
+ 
 const deleteSensor = async(id)=>{
    const sensor = await getSensorById(id);
    if(!sensor)
