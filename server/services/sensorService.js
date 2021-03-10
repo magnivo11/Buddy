@@ -15,6 +15,13 @@ const createSensor = async(temperature,light,soil,plantID)=>{
       console.log(sensor._id);
          Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{
          })
+
+         // setInterval(function() {
+         //    if(i<20){
+         //    var rand= Math.floor(Math.random() * 10);     // returns a random integer from 0 to 9
+         //    fabricateData(sensor._id,i,rand);
+         //    i++;}
+         // }, 60 * 1000);
          var rand;
          for(var i=0;i<7;i++)
          {

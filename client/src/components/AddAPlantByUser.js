@@ -130,6 +130,7 @@ function addAPlant(e,gardenID,selected){
   growthStatus:status,
   GardenID:gardenID
  }
+ 
  axios.post('http://localhost:8080/plant/ByUser',newPlant);
   
 }

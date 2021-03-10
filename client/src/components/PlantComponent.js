@@ -7,18 +7,10 @@ export default function PlantComponent({plantName, plantid}){
 
     return(
         <div>
-             <tr>
-                         
-
-                    
-             <Link to={`/plant/${plantid}`} >{plantName}</Link>
-                             <td></td>
-                            <td><img src={statusRed} 
-                            width={"30px"}></img></td>
-                            <td></td>
-                            <td>Low Humidity</td>
-                         
-
+             <tr>  
+             <td ><img src={statusRed} width={"15px"}></img></td>
+ 
+             <Link to={`/plant/${plantid}`}>{plantName}</Link>
             </tr>
         </div>
     );

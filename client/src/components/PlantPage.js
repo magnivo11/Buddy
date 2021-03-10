@@ -13,6 +13,7 @@ import soil24 from '../Images/Graphs/soil 1.jpg';
 import temp24 from '../Images/Graphs/temp 1.jpg';
 import DataContext from '../DataContext';
 import DrawGraph from './Graph'
+import ButtonsList from './ButtonsList';
 import * as d3 from "d3"
 
 
@@ -22,16 +23,10 @@ export default function Plant(){
 
   const[soilMoisture,setSoilmoisture]=React.useState([])
   const[sensorAdded,setSensorAdded]=React.useState(false)
-  const[photoAdded,setPhotoAdded]=React.useState(false)
-
-  var photo;
-
+  const ownerID= window.sessionStorage.getItem('userID');
   var index=window.location.toString().lastIndexOf('/')+1
-
-
   const[redirectToGarden,setRedirectToGarden]=React.useState(false);
   const [plant,setPlant]=React.useState('');
-
   var plantResponse;
   const plantID=window.location.toString().substring(index)
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
@@ -50,10 +45,35 @@ export default function Plant(){
 
   React.useEffect(()=>{
 
-    
+    //this is a fake data just for the tset
+    const humidity = [
+      { name: '10.3.21', score: 80 },
+      { name: '11.3.21', score: 76 },
+      { name: '12.3.21', score: 90 },
+      { name: '13.3.21', score: 82 },
+      { name: '14.3.21', score: 90 },
+      { name: '15.3.21', score: 75 },
+      { name: '16.3.21', score: 86 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 },
+      { name: '10.3.21', score: 80 }
+    ];
 
-  
 
+    const temperature = [
+      { name: '10.3.21', score: 40 },
+      { name: '11.3.21', score: 50 },
+      { name: '12.3.21', score: 60 },
+      { name: '13.3.21', score: 80 },
+      { name: '14.3.21', score: 70 },
+      { name: '15.3.21', score: 75 },
+      { name: '16.3.21', score: 50 },
+    ];
 
 
    
@@ -98,115 +118,46 @@ DrawGraph(soilMoisture,'d3-container','royalblue')
 
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                <div className="col-lg-3"> {/*left buttons*/}
-                    <ul className="nav nav-tabs flex-column">
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>All Gardens </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link active show" to='/singlegarden'>Balcony </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>Living Room </Link>
-                      </li>
-                      <li className="nav-item">
-                      <Link className="nav-link" to='/singlegarden'>Bedroom </Link>
-                      </li>
-                      <li className="nav-item">
-                          <Link className="nav-link" to='/addagarden'>Add A Garden </Link>
-                      </li>
-                    </ul>
-                    
-                <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-            addSensor(e,plantID)
-            setSensorAdded(true)
-          }}>
-               <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
-            
-            </form>
-
-            <button onClick={()=>{
-                            axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
-                            setRedirectToGarden(true)
-                          }}> Delete plant </button>
-                          
-                   <li className="nav-item">
-                  <Link className="nav-link" to={`/editPlant/${plantID}`}>Edit plant </Link>
-                  </li>
-        
-                </div>
+                       {/*Left buttons*/}
+                       <ButtonsList ownerID= {ownerID}/>
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
 
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
                       <li><a style={{fontSize:'22px'}}>Display:</a></li>
-                      <li class="active"><Link to="/mygardens" style={{fontSize:'20px'}} >Last 24 Hours</Link></li>
-                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last 3 Days</Link></li>
-                      <li><Link to="/mygardens" style={{fontSize:'20px'}} >Last Week</Link></li>
-                      <li></li>
+                      
           
                       </ul>
                     </nav>
                   <br></br>
                   <table style={{width: '80%'}}> {/*graphs */}
                     <tbody><tr>
-                        {/* <th>Light Exposure</th>
-                        <th>Soil Moisure</th>
-                        <th>Temperature</th>
-                      </tr>
-                      <tr>
-                        <td><img src={light24}width={'150px'}></img></td> 
-                        <td><img src={soil24}width={'150px'}></img></td> 
-                        <td> <img src={temp24}width={'150px'}></img></td>  */}
-
                         <div id='d3-container'></div>
                         <br></br>
                         <div id='temperature'></div>
                       </tr>
 
                     </tbody></table>
-                    
-            <form name="addAPhoto" action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={(e)=>{
-        addPhoto(e,plantID)
-        setPhotoAdded(true)}}>
-        <input style= {{fontSize: '12px'}} type="text"  id="photoLink" className="fadeIn second" name="addAGarden" placeholder="Name"  />
-        <input type="submit" value="send" defaultValue="Submit" 
-        style={{backgroundColor: 'green', color: 'white', padding: '8px', fontSize: '10px', border: 'none'}} />
-      </form>
+                    <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+            addSensor(e,plantID)
+            setSensorAdded(true)
+          }}>
+               <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
+            
+            </form>
+            <li className="nav-item">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                       className="nav-link" to={`/editPlant/${plantID}`}>Edit plant  </Link>
+          </li>
+          <br></br>
+
+          <button style={{color:"black",background:"white",borderWidth:"thin",fontSize:"14px" , height:"42px",width:"110px"}} onClick={()=>{
+                            axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
+                            setRedirectToGarden(true)
+                          }}> Delete plant </button>
+                   
                
-                    <div className="col-md-12" style={{width: '75%'}}>  {/*timeline*/}
-                          <div style={{display: 'inline-block', width: '100%', overflowY: 'auto'}}>
-                            <ul className="timeline timeline-horizontal">
-                              <li className="timeline-item" >
-                                <div className="timeline-badge primary">
-                                <a style={{fontSize:'11px' ,color:'white'}}>14.01.20</a></div>
-                                <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                <img src={Ivy0} width={'60px'}></img>
-                                  </div>
-                                </div>
-                              </li>
-                              <li className="timeline-item" >
-                                <div className="timeline-badge primary">
-                                <a style={{fontSize:'11px' ,color:'white'}}>14.02.20</a></div>
-                                <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                <img src={Ivy1} width={'60px'}></img>
-                                  </div>
-                                </div>
-                              </li> <li className="timeline-item" >
-                                <div className="timeline-badge primary">
-                                <a style={{fontSize:'11px' ,color:'white'}}>14.03.20</a></div>
-                                <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                <img src={Ivy} width={'60px'}></img>
-                                  </div>
-                                </div>
-                              </li>
-                            </ul>
-                            
-                          </div>
-                        </div>
+                   
                 </div> 
               </div>
 
@@ -248,3 +199,6 @@ DrawGraph(soilMoisture,'d3-container','royalblue')
     axios.post('http://localhost:8080/photo/',newPhoto);
    
   }
+
+
+
