@@ -1,10 +1,8 @@
-import { TableRow } from '@material-ui/core';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
 import DataContext from '../DataContext'
-import PlantComponent from './PlantComponent';
 import PlantsList from './PlantsList'
 import ButtonsList from './ButtonsList';
 
@@ -18,10 +16,7 @@ export default function SingleGarden(){
   // const user=React.useContext(DataContext);
   // const ownerID=user._id;
   const ownerID= window.sessionStorage.getItem('userID');
-
-
   const[redirectToGardens,setRedirectToGardens]=React.useState(false);
-
   const [garden,setGarden]=React.useState({_id:null});
   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
@@ -56,24 +51,23 @@ if(!redirectToGardens)
                   </ul>
               </div>
               {/*Middle part*/}
-
+              
             <div className="col-lg-9 mt-4 mt-lg-0">
               <div className="tab-content">
-                <div className="tab-pane active show" id="tab-1">
-                  
-                    <PlantsList gardenID={gardenID}/>  
-                      <button style={{color:"black",background:"white",borderWidth:"thin",fontSize:"14px" , height:"42px",width:"110px"}} onClick={()=>{
+                   <div>
+                    <PlantsList gardenID={gardenID}/> 
+                    <button style={{color:"black",background:"white",borderWidth:"thin",fontSize:"14px" , height:"42px",width:"110px"}} onClick={()=>{
                         axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
                         setRedirectToGardens(true)
                       }}> Delete garden </button>
                     <li className="nav-item">
                        <Link style={{color:"black",background:"white",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
                        className="nav-link" to={`/editgarden/${gardenID}`}>Edit garden </Link>
-                    </li>
-                {/*end of table*/}
-                </div>
+                    </li> 
+                    </div>
               </div>
             </div>
+            
           </div>
         </div>
   </section>
@@ -81,7 +75,7 @@ if(!redirectToGardens)
     </div>
 
   );
-                        }
-                        else{
-                        return(<Redirect to="/mygardens"/>)}
+  }
+  else{
+  return(<Redirect to="/mygardens"/>)}
 }

@@ -7,12 +7,16 @@ import {Link} from 'react-router-dom';
 
 export default function PlantsList({gardenID}){
 
-   const [plants,setPlants]=React.useState([])
+  const [plants,setPlants]=React.useState([])
+
+  React.useEffect(() => {
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
         if(plants.length!=Response.data.length)
         setPlants(Response.data)
 
 })
+}, []);
+
 if(plants.length)
 return(
   <div>
@@ -21,18 +25,14 @@ return(
                       <br></br>
                       <br></br>
                       <br></br>
-                        <div className="col-lg-8 details order-2 order-lg-1">
-                            <h3>Plants you grow in this garden:</h3>
+                        <div className="nav-menu d-none d-lg-block">
+                            <h1 style={{fontSize:"30px"}}className="nav-menu d-none d-lg-block">Plants you grow in this garden:</h1>
                         </div>
                     </div>
     <table style={{width: '100%'}}>
     <tbody>
-      <tr>
-        <th>Species</th>
-        <th>Status</th>
-        <th>Cause</th>
-      </tr>
       {plants.map((data,key)=>{
+
           return  <tr> <PlantComponent plantName= {data.species} plantid={data._id} key={key}/></tr>
       })}
           <li className="nav-item">
