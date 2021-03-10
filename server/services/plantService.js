@@ -134,6 +134,7 @@ const updatePlantByAdmin = async (id,
 
 const deletePlant = async (plantID, gardenID) => {
     const plant = await getPlantById(plantID);
+    console.log("ioi")
 
     if (!plant)
         return null;
@@ -148,7 +149,7 @@ const deletePlant = async (plantID, gardenID) => {
         //deleting ref plant from garden
         Garden.findById(gardenID, (err, garden) => {
             var removeIndex;
-            if (garden.plants.length) {
+            if (garden.plants.length>0) {
                 for (let i = 0; i < garden.plants.length; i++)
                     if (garden.plants[i] == plantID)
                         removeIndex = i

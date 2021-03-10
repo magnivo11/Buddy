@@ -7,16 +7,13 @@ import {Link} from 'react-router-dom';
 
 export default function PlantsList({gardenID}){
 
-  const [plants,setPlants]=React.useState([])
-
-  React.useEffect(() => {
+  const [plants,setPlants]=React.useState([]);
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
         if(plants.length!=Response.data.length)
         setPlants(Response.data)
 
 })
-}, []);
-
+console.log("io")
 if(plants.length)
 return(
   <div>
@@ -53,13 +50,11 @@ return(
 
 else 
 return (<div>
-
-<tr>
-                        
-                        <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-                          <td></td>
-                          <td></td>
- </tr>
+ <li className="nav-item">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                       className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
+          </li>
+          <br></br>
 </div>
 );
 }
