@@ -26,6 +26,7 @@ router.put('/byuser/',plantController.updatePlantByUser);
 
 router.put('/byAdmin/',plantController.updatePlantByAdmin);
 
+router.get('/byName/:species',plantController.getPlantByName);
 
 router.delete('/',plantController.deletePlant);
 

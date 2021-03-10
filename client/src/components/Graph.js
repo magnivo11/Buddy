@@ -1,11 +1,14 @@
 import * as d3 from "d3"
 
-export default function DrawGraph(data,containerID) {
+export default function DrawGraph(data,containerID,color) {
+
 
     
-    const width = 450;
+    const width = 700;
     const height = 225;
     const margin = { top: 25, bottom: 25, left: 25, right: 25 };
+
+    if(data.length>0){
     
     const svg = d3.select('#'+containerID)
       .append('svg')
@@ -24,7 +27,7 @@ export default function DrawGraph(data,containerID) {
     
     svg
       .append("g")
-      .attr("fill", 'royalblue')
+      .attr("fill", color)
       .selectAll("rect")
       .data(data.sort((a, b) => a.score))
       .join("rect")
@@ -54,6 +57,6 @@ export default function DrawGraph(data,containerID) {
 
 
 
-    
+  }
 
    }
