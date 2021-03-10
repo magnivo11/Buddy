@@ -52,10 +52,7 @@ export default function Plant(){
 
     
 
-    //clear old charts
-
-    d3.selectAll('svg').remove()
-    
+  
 
 
 
@@ -95,22 +92,21 @@ if(plant.sensorID!=null){
   console.log('sensor: '+plant.sensorID)
 axios.get('http://localhost:8080/sensor/soilMoisture/'+plant.sensorID).then((Response)=>{
 
-if(Response.data.length>3)
-{
+
 var soilMoisture=[]
 Response.data.map((data,key)=>{
 soilMoisture.push({name:'',score:data.curMoist})
 })
 console.log(soilMoisture)
+  //clear old charts
+
+  d3.selectAll('svg').remove()
+    
 DrawGraph(soilMoisture,'d3-container','royalblue')
-}
 
 
 })
 }
-
-    DrawGraph(temperature,'temperature','green')
-
 
   })
 
