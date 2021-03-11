@@ -54,7 +54,15 @@ const createGarden=async (request,response)=>{
               response.send('plant was deleted'); 
              } 
                       }
+
+            const getAllSelectedGardens= async (request,response)=>{
+
+                        const gardens = await gardenService.getAllSelectedGardens(request.params.direction,request.params.directSun,request.params.surrounding); 
+                        response.json(gardens);
+                       
+                            
+                    }
                       
 
 
-module.exports={createGarden,deletePlantInGarden,deleteGarden,getAllGardens,getGardenById,editGarden,getGardensByUserId};
+module.exports={createGarden,deletePlantInGarden,deleteGarden,getAllGardens,getGardenById,editGarden,getGardensByUserId,getAllSelectedGardens};
