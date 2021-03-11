@@ -25,7 +25,7 @@ const getSensorById = async(request,response)=>{
     const sensor= await SensorService.getSensorById(request.params.id)
    if (!sensor)
     return response.status(404).json({errors:['sensor not found']});
-   response.jason(sensor);
+   response.json(sensor);
 };
 const deleteSensor = async (request,response)=>{
     const sensor= await SensorService.deleteSensor(request.body.id);

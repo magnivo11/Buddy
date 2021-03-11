@@ -30,8 +30,9 @@ return(
     <tbody>
       {plants.map((data,key)=>{
 
-          return  <tr> <PlantComponent plantName= {data.species} plantid={data._id} key={key}/></tr>
-      })}
+          return <PlantComponent plantName= {data.species} plantsensorid={data.sensorID} plantid={data._id} key={key}/>
+  
+       })}
           <li className="nav-item">
                        <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
                        className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
