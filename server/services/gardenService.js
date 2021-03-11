@@ -83,11 +83,25 @@ const deleteGarden = async(gardenID,userID)=>{
     return true;
 };
 
+const getAllSelectedGardens = async(Direction,DirectSun,Surrounding)=>{
+    var gar;
+  await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
+      if(gardens)
+      gar=gardens
+      else
+      return gar='no gardens found'
+
+  })
+  return gar
+
+}
+
 module.exports={
 createGarden,
 getAllGardens,
 deleteGarden,
 getGardenById,
 getGardensByUserId,
-editGarden
+editGarden,
+getAllSelectedGardens
 };
