@@ -1,0 +1,10 @@
+<hr>
+<div class="w3-container">
+  <h5>Recent Users</h5>
+  <ul class="w3-ul w3-card-4 w3-white">
+    <li class="w3-padding-16" *ngFor="let user of users" (click)="onClick(user)"> {{user.name}}
+        
+    </li>
+  </ul>
+</div>
+<hr>

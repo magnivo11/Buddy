@@ -113,9 +113,6 @@ DrawGraph(soilMoisture,'d3-container','royalblue')
               <br></br><br></br><br></br><br></br>
               <h2 style={{fontSize:'30px'}}>{plant.species}</h2>
               <br></br>
-              <h2 style={{fontSize:'10px'}}>{"ID:"+plantID}</h2>
-
-
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
                        {/*Left buttons*/}
