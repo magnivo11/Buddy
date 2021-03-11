@@ -7,7 +7,7 @@ import React from 'react';
 import axios from 'axios'
 
 
-export default function PlantComponent({ plantName, plantid, plantsensorid }) {
+ export default function PlantComponent({ plantName, plantid, plantsensorid }) {
 
     const StatusColor = () => {
         var status1 = 0;
@@ -65,6 +65,6 @@ return (
     </div>
 );
 
-
+ 
 
 }

@@ -32,7 +32,7 @@ if(!gardenAdded){
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
                 <p>Direction:</p>
                 <label className="radio-inline">
-                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
+                    <input type="radio" id="north" name="direction"  /> <label htmlFor="north">North</label><br />
                   </label>
                     <label className="radio-inline">
                     <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />

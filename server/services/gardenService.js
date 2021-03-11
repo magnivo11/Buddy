@@ -55,11 +55,15 @@ const getAllGardens = async()=>{return await Garden.find({})
 
 const deleteGarden = async(gardenID,userID)=>{
     const garden = await getGardenById(gardenID);
+    console.log(garden);
+
+
     if (garden.plants.length>0)
     {
+        console.log(garden.plants.length);
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlant(garden.plants[i]); 
+            deletePlant(garden.plants[i].id,gardenID); 
         }
     }
     //deleting garden ref from user 
@@ -79,11 +83,25 @@ const deleteGarden = async(gardenID,userID)=>{
     return true;
 };
 
+const getAllSelectedGardens = async(Direction,DirectSun,Surrounding)=>{
+    var gar;
+  await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
+      if(gardens)
+      gar=gardens
+      else
+      return gar='no gardens found'
+
+  })
+  return gar
+
+}
+
 module.exports={
 createGarden,
 getAllGardens,
 deleteGarden,
 getGardenById,
 getGardensByUserId,
-editGarden
+editGarden,
+getAllSelectedGardens
 };

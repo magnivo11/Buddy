@@ -17,6 +17,8 @@ router.get('/find/:gardenID', gardenController.getGardenById); // good
 router.get('/:userID', gardenController.getGardensByUserId);  // good 
 router.delete('/',gardenController.deleteGarden); 
 router.delete('/:gardenID'/':plantID',gardenController.deletePlantInGarden); 
+router.get('/:direction/:directSun/:surrounding',gardenController.getAllSelectedGardens)
+
 
 
 

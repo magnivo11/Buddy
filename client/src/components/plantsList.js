@@ -3,40 +3,42 @@ import React from 'react'
 import axios from 'axios';
 import PlantComponent from './PlantComponent'
 import {Link} from 'react-router-dom';
-import statusGreen from '../Images/status/green.jpg';
-import statusYellow from '../Images/status/yellow.jpg';
-import Cyclamen from '../Images/cyclamen.JPG';
-import statusRed from '../Images/status/red.jpg';
+
 
 export default function PlantsList({gardenID}){
 
-   const [plants,setPlants]=React.useState([])
+  const [plants,setPlants]=React.useState([]);
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
         if(plants.length!=Response.data.length)
         setPlants(Response.data)
 
 })
+console.log("io")
 if(plants.length)
 return(
   <div>
-    <table style={{width: '70%'}}>
+      <div className="row">
+                      {/*Text*/}
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                        <div className="nav-menu d-none d-lg-block">
+                            <h1 style={{fontSize:"30px"}}className="nav-menu d-none d-lg-block">Plants you grow in this garden:</h1>
+                        </div>
+                    </div>
+    <table style={{width: '100%'}}>
     <tbody>
-      <tr>
-        <th>Species</th>
-        <th>Status</th>
-        <th>Cause</th>
-      </tr>
       {plants.map((data,key)=>{
+
           return <PlantComponent plantName= {data.species} plantsensorid={data.sensorID} plantid={data._id} key={key}/>
-
-      })}
-
-      <tr>
-    
-      <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-        <td></td>
-        <td></td>
-      </tr>
+  
+       })}
+          <li className="nav-item">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                       className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
+          </li>
+       
+     
     </tbody>
     </table>
     <br></br>
@@ -49,13 +51,11 @@ return(
 
 else 
 return (<div>
-
-<tr>
-                        
-                        <Link to = {`/addaplantbyuser/${gardenID}`} >Add A Plant</Link>
-                          <td></td>
-                          <td></td>
- </tr>
+ <li className="nav-item">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                       className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
+          </li>
+          <br></br>
 </div>
 );
 }
