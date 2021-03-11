@@ -1,12 +1,10 @@
 import '../css/Bible.css';
 import React from 'react';
 import { Link } from 'react-router-dom'
- import axios from 'axios';
+import axios from 'axios';
 import DataContext from '../DataContext'
 import PlantsBibleGrid from './PlantsBibleGrid';
-
-
-
+ 
  export default function PlantsBible({ q }) {
  // const user = React.useContext(DataContext);
  var isAuth;
@@ -22,11 +20,12 @@ import PlantsBibleGrid from './PlantsBibleGrid';
  }
  })
  
-  const [plants, setPlants] = React.useState([])
- 
+   const [plants, setPlants] = React.useState([])
+  
+
   React.useEffect(() => {
 
-    let url = 'http://localhost:8080/plant/admin'
+    var url = 'http://localhost:8080/plant/admin'
     axios.get(url).then((Response) => {
       if (plants.length != Response.data.length)
         setPlants(Response.data);
@@ -44,12 +43,9 @@ import PlantsBibleGrid from './PlantsBibleGrid';
             <div className="section-title">
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
               <p style={{ fontSize: '30px' }}>All the information in one place</p>
-              {/* <input type="text" id="mySearch" placeholder="Search" onChange={doSearch} className="form-control" /> */}
-              {isAuth ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
+               {isAuth ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
               <PlantsBibleGrid plants={plants} />
-
             </div>
-
           </div>
         </section>
       </section>

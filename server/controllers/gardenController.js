@@ -9,7 +9,7 @@ const createGarden=async (request,response)=>{
         request.body.name,
         request.body.direction,
         request.body.directSun,
-        request.body.surrounding,
+        request.body.surroundings,
         request.body.userID,
         )
         response.json(newGarden);    
@@ -54,6 +54,7 @@ const createGarden=async (request,response)=>{
               response.send('plant was deleted'); 
              } 
                       }
+                      
 
 
 module.exports={createGarden,deletePlantInGarden,deleteGarden,getAllGardens,getGardenById,editGarden,getGardensByUserId};
