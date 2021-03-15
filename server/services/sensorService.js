@@ -23,7 +23,7 @@ const createSensor = async(temperature,light,soil,plantID)=>{
          //    i++;}
          // }, 60 * 1000);
          var rand;
-         for(var i=0;i<7;i++)
+         for(var i=0;i<5;i++)
          {
             rand= Math.floor(Math.random() * 10);     // returns a random integer from 0 to 9
             fabricateData(sensor._id,i,rand);
