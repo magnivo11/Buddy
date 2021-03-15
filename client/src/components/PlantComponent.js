@@ -13,16 +13,15 @@ import axios from 'axios'
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
-        const [sensor, setSensor] = React.useState([]);
+        const [sensor, setSensor] = React.useState();
         React.useEffect(() => {
             var url = 'http://localhost:8080/sensor/' + plantsensorid;
             axios.get(url).then((Response) => {
-                if (sensor.length != Response.data.length) {
+                if (!sensor) {
                     setSensor(Response.data);
                 }
             })
         }, []);
-        console.log(sensor.temperature);
         if (sensor != null && sensor.light.length > 15) {
 
             for (let i = 0; i < 10; i++) {

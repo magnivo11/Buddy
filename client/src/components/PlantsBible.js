@@ -14,6 +14,7 @@ import PlantsBibleGrid from './PlantsBibleGrid';
    if(Response.data){
    if(currentUser._id!=Response.data._id)
    {
+    
      setAdmin(Response.data.isAdmin);
       setUser(Response.data);
    }

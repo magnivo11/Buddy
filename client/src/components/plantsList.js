@@ -13,7 +13,6 @@ export default function PlantsList({gardenID}){
         setPlants(Response.data)
 
 })
-console.log("io")
 if(plants.length)
 return(
   <div>
