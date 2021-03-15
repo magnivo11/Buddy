@@ -5,16 +5,18 @@ import axios from 'axios';
    
 
 
-export default function PlantsBibleGrid({plants}) {
+export default function PlantsBibleGrid({Q}) {
 
-//     const [plants, setPlants] = React.useState([])
-//     React.useEffect(() => {
-//        var url = 'http://localhost:8080/plant/byName/'+Q;
-//        axios.get(url).then((Response) => {
-//            if (plants.length != Response.data.length)
-//                setPlants(Response.data);
-//        })
-//    }, []);
+    const [plants, setPlants] = React.useState([])
+    React.useEffect(() => {
+       var url = 'http://localhost:8080/plant/byName/'+Q;
+       axios.get(url).then((Response) => {
+           if (plants.length != Response.data.length)
+               setPlants(Response.data);
+       })
+   }, []);
+
+   if(plants.length>0)
 
     return (
         <>
@@ -30,6 +32,8 @@ export default function PlantsBibleGrid({plants}) {
 
         </>
     );
+    else
+    return ('');
 
 }
 

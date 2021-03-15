@@ -5,7 +5,7 @@ import axios from 'axios';
 import ButtonComponent from './ButtonComponent'
 
 
-export default function ButtonsList({ownerID}){
+export default function ButtonsList({ownerID,buttonClicked}){
     const [items,setItems]=React.useState([])
     axios.get('http://localhost:8080/garden/'+ownerID).then(Response=>{
         if(items.length!=Response.data.length)
@@ -30,7 +30,7 @@ export default function ButtonsList({ownerID}){
                 <Link style={{width:'260px'}} className="nav-link" to='/mygardens'>All Gardens </Link>
             </li>
                 {items.map((data,key)=>{
-                return <ButtonComponent id={data._id} name={data.name} key={key}/>
+                return <ButtonComponent id={data._id} name={data.name} buttonClicked={buttonClicked} key={key}/>
             })}
                  <li className="nav-menu d-none d-lg-block">
                 <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>

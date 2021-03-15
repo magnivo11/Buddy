@@ -12,7 +12,6 @@ import ButtonsList from './ButtonsList';
 
 
 
-
 export default function SingleGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
@@ -20,7 +19,8 @@ export default function SingleGarden(){
   // const ownerID=user._id;
   const ownerID= window.sessionStorage.getItem('userID');
   const[redirectToGardens,setRedirectToGardens]=React.useState(false);
-  const [garden,setGarden]=React.useState({_id:null});
+  const [garden,setGarden]=React.useState({_id:''});
+  if(garden._id!=gardenID)
   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
 
@@ -29,6 +29,11 @@ export default function SingleGarden(){
       setGarden(Response.data);
     }
   }
+  })
+
+
+  React.useEffect(()=>{
+    console.log(gardenID)
   })
 
   const gardenName = garden.name;
@@ -50,7 +55,7 @@ if(!redirectToGardens)
                         <p style={{fontSize:'30px'}}>{gardenName}</p>
                       </div>
                     {/*Left buttons*/}
-                    <ButtonsList ownerID= {ownerID}/>
+                    <ButtonsList ownerID= {ownerID} buttonClicked={buttonClicked}/>
                   </ul>
               </div>
               {/*Middle part*/}
@@ -81,4 +86,12 @@ if(!redirectToGardens)
   }
   else{
   return(<Redirect to="/mygardens"/>)}
+}
+
+ function buttonClicked(id) {
+  var index=window.location.toString().lastIndexOf('/')+1
+  const gardenID=window.location.toString().substring(index)
+  console.log(gardenID)
+ 
+
 }
