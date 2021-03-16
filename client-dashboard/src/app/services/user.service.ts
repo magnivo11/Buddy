@@ -8,11 +8,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 
-
-
-@Injectable({
-  providedIn: 'root',
-})
 export class UserService {
   private usersUrl = environment.usersUrl;
 
@@ -26,6 +21,12 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
+  getUsersGroupedByAdmin(): Observable<User[]> {
+    
+    const url = this.usersUrl+`/groupedbyadmin`;
+    return this.http.get<User[]>(url);
+  }
+
 
 /*
   addArticle(title: string): Observable<Article> {

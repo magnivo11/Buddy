@@ -13,6 +13,8 @@ const { request } = require('express');
 
 router.get('/',sensorsController.getAllSensors);
 
+router.get('/byserial/:serialNumber',sensorsController.getSensorBySerialNumber); 
+
 router.get('/soilMoisture/:_id',sensorsController.getSensorSoilMoisture);
 
 router.get('/temperature/:_id',sensorsController.getSensorTemp);

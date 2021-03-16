@@ -8,9 +8,6 @@ const createSensor = async (request,response)=>{
 
     const newSensor=
     await SensorService.createSensor(
-        request.body.temperature,
-        request.body.light,
-        request.body.soil,
         request.body.plantID)
        
      response.json(newSensor);
@@ -69,6 +66,14 @@ const getSensorLight = async(request,response)=>{
     response.send(sensor.soilMoisture)
 }
 
+
+const getSensorBySerialNumber = async (request,response)=>{
+    const sensor = await SensorService.getSensorBySerialNumber(request.params.serialNumber);
+    if (!sensor)
+    response.json(null);
+    response.json(sensor);
+};
+
 module.exports={
     createSensor,
     getAllSensors,
@@ -76,5 +81,6 @@ module.exports={
     deleteSensor,
     getSensorSoilMoisture,
     getSensorTemp,
-    getSensorLight
+    getSensorLight,
+    getSensorBySerialNumber
  };

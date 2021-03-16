@@ -1,6 +1,8 @@
 <div>
-    <p>show me gardens</p>
+    <p>Gardens</p>
     <label for="search "></label>
+
+<p>Search garden by features:</p>
 
 <select id="directions" (change)='selectDirection($event)'>
   <option value="north" selected>north</option>
@@ -11,7 +13,6 @@
 <br/>
 <select id="directSun" (change)='selectDirectSun($event)'>
     <label for="cars">Choose a car:</label>
-
     <option value="true" selected>direct sun</option>
     <option value="false">no direct sun</option>
   </select>
@@ -21,9 +22,11 @@
     <option value="indoor" selected>indoor</option>
     <option value="outdoor">outdoor</option>
   </select>
-
-  <button (click)='getAllGardens()'>show me all gardens</button>
-  <button (click)='getAllSelectedGardens()'>show me selected gardens</button>
+<br>
+  <button (click)='getAllSelectedGardens()'>Search</button>
+<br>
+<br>
+  <button (click)='getAllGardens()'>All gardens</button>
 
   <div *ngIf='((gardensList)&&(gardensList.length>0))'>
     <p> Gardens</p>

@@ -1,10 +1,7 @@
 import * as d3 from "d3"
 
 export default function DrawGraph(data,containerID,color) {
-
-
-    
-    const width = 700;
+    const width = 800;
     const height = 225;
     const margin = { top: 25, bottom: 25, left: 25, right: 25 };
 
@@ -46,17 +43,13 @@ export default function DrawGraph(data,containerID,color) {
     
     function xAxis(g) {
       g.attr("transform", `translate(0,${height - margin.bottom})`)
-        .call(d3.axisBottom(x).tickFormat(i => data[i].name))
+        .call(d3.axisBottom(x).tickFormat(i =>(data[i].name.substring(5,10)+" "+data[i].name.substring(11,16))))
         .attr("font-size", '10px')
     }
     
     svg.append("g").call(xAxis);
     svg.append("g").call(yAxis);
     svg.node();
-
-
-
-
   }
 
    }

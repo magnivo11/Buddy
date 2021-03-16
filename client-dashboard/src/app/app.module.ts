@@ -10,7 +10,6 @@ import { UsersCounterComponent } from './components/users-counter/users-counter.
 import { SocketIoModule , SocketIoConfig } from 'ngx-socket-io';
 import { ViewsComponent } from './components/views/views.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
-import { UsersDetailsComponent } from './components/users-details/users-details.component'; 
 import { PlantsCounterComponent } from './plants-counter/plants-counter.component';
 import { GardenDetailsComponent } from './components/garden-details/garden-details.component';
 import { GardenListComponent } from './components/garden-list/garden-list.component';
@@ -24,8 +23,6 @@ const config: SocketIoConfig = { url: 'http://localhost:8080' , options:{}};
     UsersListComponent,
     UsersCounterComponent,
     ViewsComponent,
-    UsersListComponent,
-    UsersDetailsComponent,
     PlantsCounterComponent,
     GardenDetailsComponent,
     GardenListComponent,
