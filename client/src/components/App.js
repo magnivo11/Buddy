@@ -26,11 +26,12 @@ import EditPlantByUser from './EditPlantByUser';
  const socket = io.connect("http://localhost:8080") ;
 
 function App(){
+    const [forceRender,setForceRender]=React.useState(false)
 
    
     return(
 
-    //<DataContext.Provider value={user}>
+    <DataContext.Provider value={{forceRender,setForceRender}}>
     <BrowserRouter>
    
  
@@ -60,7 +61,7 @@ function App(){
              <Route exact path='/mygardens'>
              <Header/> <MyGardens/></Route>
 
-             <Route exact path='/profile'>
+             <Route exact path='/profile'>z
              <Header/><Profile/></Route>
 
              <Route path='/biblesearch'>
@@ -93,7 +94,7 @@ function App(){
     <Footer/>
      </BrowserRouter>
 
-//</DataContext.Provider>
+</DataContext.Provider>
     );
 }
 export default App;

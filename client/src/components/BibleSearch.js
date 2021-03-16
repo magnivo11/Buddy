@@ -7,12 +7,7 @@ import Header from './Header';
 
 
 export default function BibleSearch() {
-     const [q,setQ] =React.useState( window.location.search.toString().substring(3));
-     console.log(q)
-    React.useEffect(()=>{
-        if(q!==window.location.search.toString().substring(3))
-        setQ(window.location.search.toString().substring(3))
-    })
+     const q =window.location.search.toString().substring(3);
    
     return (
          <div>
