@@ -14,7 +14,7 @@ export default function PlantsBibleGrid({Q}) {
            if (plants.length != Response.data.length)
                setPlants(Response.data);
        })
-   }, []);
+   }, [Q]);
 
    if(plants.length>0)
 
