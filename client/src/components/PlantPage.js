@@ -15,6 +15,7 @@ import DataContext from '../DataContext';
 import DrawGraph from './Graph'
 import ButtonsList from './ButtonsList';
 import * as d3 from "d3"
+import { forceCenter } from 'd3';
 
 
 const data = require ('../files/data.json'); 
@@ -86,14 +87,14 @@ axios.get('http://localhost:8080/sensor/soilMoisture/'+plant.sensorID).then((Res
 
 var soilMoisture=[]
 Response.data.map((data,key)=>{
-soilMoisture.push({name:'',score:data.curMoist})
+soilMoisture.push({name:data.date,score:data.curMoist})
 })
 console.log(soilMoisture)
   //clear old charts
 
   d3.selectAll('svg').remove()
     
-DrawGraph(soilMoisture,'d3-container','royalblue')
+DrawGraph(soilMoisture,'d3-container','#78281F')
 
 
 })
@@ -110,50 +111,48 @@ DrawGraph(soilMoisture,'d3-container','royalblue')
          <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
            <div className="container" data-aos="fade-up"  >
             <div className="section-title" >
-              <br></br><br></br><br></br><br></br>
-              <h2 style={{fontSize:'30px'}}>{plant.species}</h2>
+              <br></br>
               <br></br>
               </div>
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
                        {/*Left buttons*/}
                        <ButtonsList ownerID= {ownerID}/>
+                           
+                    
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+                <h2 style={{fontSize:'30px'}}>{plant.species}</h2>
 
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                       <ul>
-                      <li><a style={{fontSize:'22px'}}>Display:</a></li>
+                      <li><a style={{fontSize:'20px'}}>Soil moistrue of the last 3 days:</a></li>
                       
           
                       </ul>
                     </nav>
                   <br></br>
-                  <table style={{width: '80%'}}> {/*graphs */}
-                    <tbody><tr>
+                
                         <div id='d3-container'></div>
                         <br></br>
                         <div id='temperature'></div>
-                      </tr>
-
-                    </tbody></table>
-                    <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-            addSensor(e,plantID)
-            setSensorAdded(true)
-          }}>
-               <input type="submit" className="fadeIn fourth"  value="Add sensor"/><br/>
-            
-            </form>
-            <li className="nav-item">
-                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+                 
+         
+            <li className="fadeIn fourth">
+                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"30px" ,width:"110px"}}
                        className="nav-link" to={`/editPlant/${plantID}`}>Edit plant  </Link>
           </li>
           <br></br>
-
-          <button style={{color:"black",background:"white",borderWidth:"thin",fontSize:"14px" , height:"42px",width:"110px"}} onClick={()=>{
+          <button  className="fadeIn fourth" style={{color:"black",background:"white",borderWidth:"thin",fontSize:"14px" , height:"30px",width:"110px"}} onClick={()=>{
                             axios.delete('http://localhost:8080/plant/',{data:{plantID:plantID,gardenID:plant.gardenID}})
                             setRedirectToGarden(true)
                           }}> Delete plant </button>
-                   
-               
+                   <form style= {{fontSize: '8px'}}  onSubmit={(e)=>{
+            addSensor(e,plantID)
+            setSensorAdded(true)
+          }}>
+               <input type="submit" className="fadeIn fourth"  style={{
+                 backgroundColor:'#463827',color:'white',
+                 align:'center', forceCenter:true}}value="Add sensor"/><br/>
+            </form>
                    
                 </div> 
               </div>
@@ -176,9 +175,6 @@ DrawGraph(soilMoisture,'d3-container','royalblue')
     e.preventDefault();
 
     const newSensor= { 
-      temperature:data.data.temp[0],
-      light:data.data.light[0],
-      soil:data.data.soil[0],
       plantID:plantID
     }
     axios.post('http://localhost:8080/sensor/',newSensor);

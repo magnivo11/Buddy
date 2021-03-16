@@ -1,42 +1,34 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { CurrentUserService } from 'src/app/services/current-user.service';
-import { User } from 'src/app/models/userModel';
-
-
+import { Component, OnInit } from '@angular/core';
+import{User} from '../../models/userModel'
+import{UserService} from '../../services/user.service'
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
-export class UsersListComponent  implements OnInit {
+export class UsersListComponent implements OnInit {
 
-  @Output() userList = new EventEmitter<string>(); 
+  usersList:User[]=[]
+  adminList:String[]=[]
 
-  users : User[] = [];  
+  constructor(private userService:UserService) { }
 
-  constructor(private UserService : UserService,
-              private CurrentUserService: CurrentUserService) {}
-
-  ngOnInit() {
-    this.load();
+  ngOnInit(): void {
   }
 
- load(){
-   this.UserService.getUsers().subscribe(data => {
-    this.users = data;
-   })
- }
- handlePanel(action : string){
-  this.load();
-}
+  getAllUsers(){
 
-   
- onClick(user : User){
-   /*
-  this.CurrentUserService.changeCurrentArticle(user);
-  */
+    this.userService.getUsers().subscribe((users)=>{this.usersList=users})
+  }
+  getUsersGroupedByAdmin(){
+    this.userService.getUsersGroupedByAdmin().subscribe((admins)=>{
+      admins.forEach(admin => {
+        this.adminList.push(admin.name);
+      });
+    })
+  }
 }
+ 
 
-}
+

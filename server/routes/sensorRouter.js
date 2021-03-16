@@ -13,12 +13,13 @@ const { request } = require('express');
 
 router.get('/',sensorsController.getAllSensors);
 
+router.get('/byserial/:serialNumber',sensorsController.getSensorBySerialNumber); 
+
 router.get('/soilMoisture/:_id',sensorsController.getSensorSoilMoisture);
 
-// router.get('/temperature/:_id',sensorsController.getSensorTemperature);
+router.get('/temperature/:_id',sensorsController.getSensorTemp);
 
-// router.get('/sunExposure/:_id',sensorsController.getSensorSunExposure);
-
+router.get('/light/:_id',sensorsController.getSensorLight);
 
 router.post('/',sensorsController.createSensor);
 

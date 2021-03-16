@@ -1,10 +1,17 @@
-<hr>
-<div class="w3-container">
-  <h5>Recent Users</h5>
-  <ul class="w3-ul w3-card-4 w3-white">
-    <li class="w3-padding-16" *ngFor="let user of users" (click)="onClick(user)"> {{user.name}}
-        
-    </li>
-  </ul>
+<div>
+  <p>Users</p>
+<button (click)='getAllUsers()'>All users</button>
+
+<div *ngIf='((usersList)&&(usersList.length>0))'>
+  <p> Users</p>
+  <li *ngFor='let user of usersList'>{{user.name}} </li>
 </div>
-<hr>
+<br>
+<!-- 
+<button (click)='getUsersGroupedByAdmin()'>Users grouped by admin</button>
+<div *ngIf='((adminList)&&(adminList.length>0))'>
+  <p> Admins</p>
+  <li *ngFor='let user of adminList'>{{user}} 
+  </li>
+</div> -->
+</div>
