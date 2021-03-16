@@ -1,19 +1,14 @@
 import '../css/Bible.css';
 import React from 'react';
 import { Link } from 'react-router-dom'
-
  import PlantsBibleGrid from './PlantsBibleGrid';
 import Header from './Header';
 
 
 export default function BibleSearch() {
-     const [q,setQ] =React.useState( window.location.search.toString().substring(3));
-     console.log(q)
-    React.useEffect(()=>{
-        if(q!==window.location.search.toString().substring(3))
-        setQ(window.location.search.toString().substring(3))
-    })
-   
+     
+    const q = window.location.search.toString().substring(3);
+      
     return (
          <div>
             <section id="hero" className="d-flex align-items-center">
@@ -22,7 +17,7 @@ export default function BibleSearch() {
                         <div className="section-title">
                             <h2 style={{ fontSize: '35px' }}>Your search resutls</h2>
                             <p style={{ fontSize: '30px' }}>for plants with "{q}"</p>
-                             <PlantsBibleGrid Q={q} />
+                             <PlantsBibleGrid q={'/byName/'+q} />
                         </div>
                     </div>
                 </section>

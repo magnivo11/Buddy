@@ -2,7 +2,6 @@ import '../css/Bible.css';
 import React from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import DataContext from '../DataContext'
 import PlantsBibleGrid from './PlantsBibleGrid';
  
  export default function PlantsBible() {
@@ -19,21 +18,6 @@ import PlantsBibleGrid from './PlantsBibleGrid';
    }
  }
  })
- 
-   const [plants, setPlants] = React.useState([])
-  
-
-  React.useEffect(() => {
-     var url = 'http://localhost:8080/plant/admin'
-    axios.get(url).then((Response) => {
-      if (plants.length != Response.data.length)
-        setPlants(Response.data);
-     
-    })
-  }, []);
-
-  if (plants.length < 1)
-    return ("");
 
   return (
     <div>
@@ -47,7 +31,7 @@ import PlantsBibleGrid from './PlantsBibleGrid';
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
               <p style={{ fontSize: '30px' }}>All the information in one place</p>
                {isAdmin ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
-              <PlantsBibleGrid plants={plants} />
+              <PlantsBibleGrid q={''}/>
             </div>
           </div>
         </section>

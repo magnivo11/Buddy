@@ -42,7 +42,7 @@ export default function Header() {
           <nav className="nav-menu d-none d-lg-block">
             <ul>
               <li ></li>
-              <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" />
+              <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" autofocus/>
               <li><Link to="/mygardens">My Gardens </Link></li>
               <li><Link to="/plantsbible">The Plant Bible</Link></li>
               <li><Link to="/aboutus" >About Us</Link></li>

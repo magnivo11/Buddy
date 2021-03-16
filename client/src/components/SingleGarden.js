@@ -6,7 +6,7 @@ import DataContext from '../DataContext'
 
 import PlantComponent from './PlantComponent';
 
-import PlantsList from './PlantsList'
+import PlantsList from './PlantsList';
 import ButtonsList from './ButtonsList';
 
 
