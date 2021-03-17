@@ -9,19 +9,22 @@ import axios from 'axios'
 
  export default function PlantComponent({ plantName, plantid, plantsensorid }) {
 
+    
     const StatusColor = () => {
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
+      
         const [sensor, setSensor] = React.useState();
         React.useEffect(() => {
+            if (plantsensorid!=null){
             var url = 'http://localhost:8080/sensor/' + plantsensorid;
             axios.get(url).then((Response) => {
                 if (!sensor) {
                     setSensor(Response.data);
                 }
             })
-        }, []);
+        }}, []);
         if (sensor != null && sensor.light.length > 15) {
 
             for (let i = 0; i < 10; i++) {
@@ -45,6 +48,7 @@ import axios from 'axios'
         }
 
     }
+
 
 
 return (

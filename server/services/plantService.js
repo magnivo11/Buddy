@@ -28,13 +28,12 @@ const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, o
     });
     return await plant.save();
 };
-//(err,adminPlant)=>{
 
 const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) => {
 
-    Plant.findOne({ species: species, isUserPlant: false }, async (err, adminPlant) => {
+    await Plant.findOne({ species: species, isUserPlant: false },async (err, adminPlant) => {
 
-        const userPlant = new Plant({
+         const userPlant = await new Plant({
             species: adminPlant.species,
             irrigationInstructors: adminPlant.irrigationInstructors,
             optimalTemp: adminPlant.optimalTemp,
@@ -50,7 +49,8 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
             defaultPhotoID: null
         });
 
-        Garden.findById(GardenID, (err, garden) => {
+
+        await Garden.findById(GardenID, (err, garden) => {
             if (garden) {
                 garden.plants.push(userPlant)
                 garden.save()
@@ -134,7 +134,6 @@ const updatePlantByAdmin = async (id,
 
 const deletePlant = async (plantID, gardenID) => {
     const plant = await getPlantById(plantID);
-    console.log("ioi")
 
     if (!plant)
         return null;

@@ -22,13 +22,15 @@ const getUsers = async()=>{return await User.find({})};
 
 //how many admins are registered
 const getUsersGroupedByAdmin = async()=>{
-     return await User.aggregate(
+        var adminNames=new Array();
+      const users = await User.aggregate(
         [
             {$match: {isAdmin:true}},
             {$group: {_id:{name:"$name",isAdmin:"$isAdmin"}}},
             {$sort:{"_id.name":1}}
-           ]
-    )
+        ]);
+        users.forEach((user)=>adminNames.push(user._id.name));
+        return adminNames;
 };
 
 

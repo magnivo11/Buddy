@@ -22,13 +22,11 @@ const createGarden=async (request,response)=>{
     }
     
     const getGardenById= async (request,response)=>{
-        console.log("Controller from get garden by id");
         const garden = await gardenService.getGardenById(request.params.gardenID);
         response.json(garden);
     }
 
     const getGardensByUserId = async (request,response)=>{
-        console.log("Controller from get garden by Userid");
          const gardens = await gardenService.getGardensByUserId(request.params.userID);
         response.json(gardens); 
     }

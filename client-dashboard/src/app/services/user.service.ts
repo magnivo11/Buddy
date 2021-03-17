@@ -21,10 +21,10 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
-  getUsersGroupedByAdmin(): Observable<User[]> {
+  getUsersGroupedByAdmin(): Observable<String[]> {
     
     const url = this.usersUrl+`/groupedbyadmin`;
-    return this.http.get<User[]>(url);
+    return this.http.get<String[]>(url);
   }
 
 
