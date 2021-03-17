@@ -177,6 +177,7 @@ DrawGraph(soilMoisture,'d3-container','#78281F')
     const newSensor= { 
       plantID:plantID
     }
+    console.log(newSensor);
     axios.post('http://localhost:8080/sensor/',newSensor);
    
   }

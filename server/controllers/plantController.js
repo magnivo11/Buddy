@@ -5,16 +5,16 @@ const plantService = require('../services/plantService');
 
   
 const createPlantByUser= async(request,repsonse)=>{
+
     const newPlant=  
-    await plantService.createPlantByUser(  
+        await plantService.createPlantByUser(  
         request.body.species,
         request.body.isUserPlant,
         request.body.growthStatus,
         request.body.GardenID
         )
-        response.json(newPlant);
-    
     };
+
 
 
 const createPlantByAdmin= async(request,response)=>{
