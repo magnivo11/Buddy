@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import{FormsModule} from '@angular/forms'
 
 
 
@@ -13,7 +14,8 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { PlantsCounterComponent } from './plants-counter/plants-counter.component';
 import { GardenDetailsComponent } from './components/garden-details/garden-details.component';
 import { GardenListComponent } from './components/garden-list/garden-list.component';
-import { GardensViewComponent } from './components/gardens-view/gardens-view.component'; 
+import { GardensViewComponent } from './components/gardens-view/gardens-view.component';
+import { ToDoListComponent } from './components/to-do-list/to-do-list.component'; 
 const config: SocketIoConfig = { url: 'http://localhost:8080' , options:{}}; 
 
 
@@ -26,13 +28,15 @@ const config: SocketIoConfig = { url: 'http://localhost:8080' , options:{}};
     PlantsCounterComponent,
     GardenDetailsComponent,
     GardenListComponent,
-    GardensViewComponent
+    GardensViewComponent,
+    ToDoListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
