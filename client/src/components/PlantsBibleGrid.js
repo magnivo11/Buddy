@@ -4,35 +4,49 @@ import PlantBibleBox from './PlantBibleBox'
      
 
 
-export default function PlantsBibleGrid({q=''}) {
+// <<<<<<< gal
+// export default function PlantsBibleGrid({q=''}) {
+
+//     const [plants, setPlants] = React.useState([])
+  
+//     // React.useEffect(() => {
+//     //     var url = 'http://localhost:8080/plant/admin';
+
+//     //     if (q!=='' && q!==null)
+//     //     {
+//     //         url = 'http://localhost:8080/plant/byName/'+q ; 
+//     //     }
+//     //    axios.get(url).then((Response) => {
+//     //     if (plants.length != Response.data.length)
+//     //       setPlants(Response.data);
+       
+//     //   })
+//     // }, [q]);
+
+//     React.useEffect(() => {        
+//         fetch('http://localhost:8080/plant/admin'+q)
+//         .then((response) => response.json())
+//         .then((data) => setPlants(data));
+//      }, [q]);
+
+
+//     //  if (plants.length < 1)
+//     //  return "";
+     
+// =======
+export default function PlantsBibleGrid({Q}) {
 
     const [plants, setPlants] = React.useState([])
-  
-    // React.useEffect(() => {
-    //     var url = 'http://localhost:8080/plant/admin';
+    React.useEffect(() => {
+       var url = 'http://localhost:8080/plant/byName/'+Q;
+       axios.get(url).then((Response) => {
+           if (plants.length != Response.data.length)
+               setPlants(Response.data);
+       })
+   }, [Q]);
 
-    //     if (q!=='' && q!==null)
-    //     {
-    //         url = 'http://localhost:8080/plant/byName/'+q ; 
-    //     }
-    //    axios.get(url).then((Response) => {
-    //     if (plants.length != Response.data.length)
-    //       setPlants(Response.data);
-       
-    //   })
-    // }, [q]);
-
-    React.useEffect(() => {        
-        fetch('http://localhost:8080/plant/admin'+q)
-        .then((response) => response.json())
-        .then((data) => setPlants(data));
-     }, [q]);
-
-
-    //  if (plants.length < 1)
-    //  return "";
-     
-
+   if(plants.length>0)
+ 
     return (
         <>
             {/* Portfolio Gallery Grid */}
@@ -47,6 +61,8 @@ export default function PlantsBibleGrid({q=''}) {
 
         </>
     );
+    else
+    return ('');
 
 }
 

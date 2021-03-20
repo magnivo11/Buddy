@@ -1,0 +1,17 @@
+<div>
+  <p>Users</p>
+<button (click)='getAllUsers()'>All users</button>
+
+<div *ngIf='((usersList)&&(usersList.length>0))'>
+  <p> Users</p>
+  <li *ngFor='let user of usersList'>{{user.name}} </li>
+</div>
+<br>
+
+<button (click)='getUsersGroupedByAdmin()'>Users grouped by admin</button>
+<div *ngIf='((adminList)&&(adminList.length>0))'>
+  <p> Admins</p>
+  <li *ngFor='let user of adminList'>{{user}} 
+  </li>
+</div> 
+</div>

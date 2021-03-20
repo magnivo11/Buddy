@@ -1,6 +1,7 @@
 const { response } = require('express');
 const User = require('../models/userModel')
-const Garden = require('../models/gardenModel')
+const Garden = require('../models/gardenModel');
+const { group } = require('d3-array');
 
 
 const createUser = async(name,lastName,email,password)=>{
@@ -18,6 +19,20 @@ const createUser = async(name,lastName,email,password)=>{
 const getUserById = async(id)=>{return await User.findById(id)};
 
 const getUsers = async()=>{return await User.find({})};
+
+//how many admins are registered
+const getUsersGroupedByAdmin = async()=>{
+        var adminNames=new Array();
+      const users = await User.aggregate(
+        [
+            {$match: {isAdmin:true}},
+            {$group: {_id:{name:"$name",isAdmin:"$isAdmin"}}},
+            {$sort:{"_id.name":1}}
+        ]);
+        users.forEach((user)=>adminNames.push(user._id.name));
+        return adminNames;
+};
+
 
 const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
     return await user.gardens ;
@@ -73,5 +88,6 @@ updateUser,
 getUserById,
 getUserByEmail,
 getUsers,
-getAllGardensFromUser
+getAllGardensFromUser,
+getUsersGroupedByAdmin
 };

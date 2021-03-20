@@ -1,0 +1,38 @@
+<div>
+    <p>Gardens</p>
+    <label for="search "></label>
+
+<p>Search garden by features:</p>
+
+<select id="directions" (change)='selectDirection($event)'>
+  <option value="north" selected>north</option>
+  <option value="south">south</option>
+  <option value="east">east</option>
+  <option value="west" >west</option>
+</select>
+<br/>
+<select id="directSun" (change)='selectDirectSun($event)'>
+    <label for="cars">Choose a car:</label>
+    <option value="true" selected>direct sun</option>
+    <option value="false">no direct sun</option>
+  </select>
+  <br/>
+
+  <select id="surroundings"  (change)='selectSurroundings($event)'>
+    <option value="indoor" selected>indoor</option>
+    <option value="outdoor">outdoor</option>
+  </select>
+<br>
+  <button (click)='getAllSelectedGardens()'>Search</button>
+<br>
+<br>
+  <button (click)='getAllGardens()'>All gardens</button>
+
+  <div *ngIf='((gardensList)&&(gardensList.length>0))'>
+    <p> Gardens</p>
+    <li *ngFor='let garden of gardensList'>{{garden.name}}</li>
+
+  </div>
+  
+
+</div>

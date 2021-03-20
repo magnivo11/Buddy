@@ -8,9 +8,6 @@ const createSensor = async (request,response)=>{
 
     const newSensor=
     await SensorService.createSensor(
-        request.body.temperature,
-        request.body.light,
-        request.body.soil,
         request.body.plantID)
        
      response.json(newSensor);
@@ -39,19 +36,51 @@ const getSensorSoilMoisture = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
     console.log('eror')
-    if(sensor.soilMoisture.length>14){
-        const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-14,sensor.soilMoisture.length-1)
+    if(sensor.soilMoisture.length>10){
+        const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
     }
     else
     response.send(sensor.soilMoisture)
-
 }
+const getSensorTemp = async(request,response)=>{
+    const sensor=await SensorService.getSensorById(request.params._id)
+    if(!sensor)
+    console.log('eror')
+    if(sensor.temperature.length>10){
+        const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
+        response.send(data)
+    }
+    else
+    response.send(sensor.soilMoisture)
+}
+const getSensorLight = async(request,response)=>{
+    const sensor=await SensorService.getSensorById(request.params._id)
+    if(!sensor)
+    console.log('eror')
+    if(sensor.light.length>10){
+        const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
+        response.send(data)
+    }
+    else
+    response.send(sensor.soilMoisture)
+}
+
+
+const getSensorBySerialNumber = async (request,response)=>{
+    const sensor = await SensorService.getSensorBySerialNumber(request.params.serialNumber);
+    if (!sensor)
+    response.json(null);
+    response.json(sensor);
+};
 
 module.exports={
     createSensor,
     getAllSensors,
     getSensorById,
     deleteSensor,
-    getSensorSoilMoisture
+    getSensorSoilMoisture,
+    getSensorTemp,
+    getSensorLight,
+    getSensorBySerialNumber
  };

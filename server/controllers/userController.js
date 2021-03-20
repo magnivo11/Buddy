@@ -69,10 +69,11 @@ const getAllGardensFromUser = async (request,response)=>{
 };
 
 
+const getUsersGroupedByAdmin= async (request,response)=>{
+        const users = await userService.getUsersGroupedByAdmin();
+        response.json(users);
+    }
 
 
 
-
-
-
-module.exports = {getAllGardensFromUser,createUser,getUserById,getUsers,updateUser,deleteUser,getUserByEmail}; 
+module.exports = {getAllGardensFromUser,createUser,getUserById,getUsers,updateUser,deleteUser,getUserByEmail, getUsersGroupedByAdmin}; 

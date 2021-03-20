@@ -6,13 +6,15 @@ import statusBlue from '../Images/status/blue.png';
 import React from 'react';
 import axios from 'axios'
 
-
-export default function PlantComponent({ plantName, plantid, plantsensorid }) {
  
+ export default function PlantComponent({ plantName, plantid, plantsensorid }) {
+
+
     const StatusColor = () => {
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
+ 
              const [sensor, setSensor] = React.useState([]);
             React.useEffect(() => {
                 var url = 'http://localhost:8080/sensor/' + plantsensorid;
@@ -41,7 +43,6 @@ export default function PlantComponent({ plantName, plantid, plantsensorid }) {
                         return statusRed;
                     }
 
-
                 }
             }
             else{return statusBlue;}
@@ -54,7 +55,6 @@ export default function PlantComponent({ plantName, plantid, plantsensorid }) {
     return (
         <div>
             <tr>
-
 
 
                 <Link to={`/plant/${plantid}`} >{plantName}</Link>

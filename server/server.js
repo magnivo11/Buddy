@@ -27,6 +27,7 @@ const io = socketIo(server/*,{
 
 // this socketio purpose is counting how many users are connecting to the web in real-time
 var count = 0; 
+var adminMessage=''
 io.on('connection',(socket)=>{
 if (socket.handshake.headers.origin === process.env.REACT_URL  ){
     count++;
@@ -35,7 +36,16 @@ if (socket.handshake.headers.origin === process.env.REACT_URL  ){
         count--;
         socket.broadcast.emit('count',count);
      });
+
+    
 }
+
+socket.on('message',(message)=>{
+    adminMessage=message;
+    socket.broadcast.emit('message',adminMessage);
+
+})
+
 });
 
 app.use(cors());

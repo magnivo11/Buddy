@@ -6,9 +6,10 @@ import Header from './Header';
 
 
 export default function BibleSearch() {
+ 
      
-    const q = window.location.search.toString().substring(3);
-      
+     const q =window.location.search.toString().substring(3);
+   
     return (
          <div>
             <section id="hero" className="d-flex align-items-center">

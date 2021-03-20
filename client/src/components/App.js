@@ -24,12 +24,22 @@ import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 const socket = io.connect("http://localhost:8080");
+ 
+function App(){
+    const [forceRender,setForceRender]=React.useState(false)
+ 
 
-function App() {
-
-
-    return (
-
+     return (
+=======
+    <DataContext.Provider value={{forceRender,setForceRender}}>
+    <BrowserRouter>
+   
+ 
+    <Switch>
+     
+            <Route exact path='/'>
+            <FirstPage/></Route>
+ 
         //<DataContext.Provider value={user}>
         <BrowserRouter>
 
@@ -48,9 +58,10 @@ function App() {
                 <Route exact path='/addaplantbyuser/:gardenID'>
                     <Header /><AddAPlantByUser /></Route>
 
-                <Route exact path='/editgarden/:gardenID'>
+                 <Route exact path='/editgarden/:gardenID'>
                     <Header /> <EditGarden /></Route>
 
+      
                 <Route exact path='/edituser'>
                     <Header /> <EditUser /></Route>
 
@@ -63,10 +74,10 @@ function App() {
                 <Route exact path='/profile'>
                     <Header /><Profile /></Route>
 
-                {/* <Route path='/biblesearch'>
-             <Header/><BibleSearch/> </Route> */}
+                {<Route path='/biblesearch'>
+             <Header/><BibleSearch/> </Route>}
 
-                <Route path="/biblesearch" component={() => <><Header/><BibleSearch/></>} />
+//                 <Route path="/biblesearch" component={() => <><Header/><BibleSearch/></>} />
 
                 <Route exact path='/plantsbible'>
                     <Header /><PlantsBible /> </Route>
@@ -77,7 +88,7 @@ function App() {
                 <Route exact path='/aboutus'>
                     <Header /><AboutUs /></Route>
 
-                <Route exact path='/addaplantbyadmin'>
+                 <Route exact path='/addaplantbyadmin'>
                     <Header /><AddAPlantByAdmin /></Route>
 
                 <Route exact path='/addagarden'>
@@ -96,6 +107,8 @@ function App() {
         </BrowserRouter>
 
         //</DataContext.Provider>
-    );
+=======
+</DataContext.Provider>
+     );
 }
 export default App;

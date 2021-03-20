@@ -27,7 +27,6 @@ const createGarden = async(name,direction,directSun,surrounding,userID)=>{
 
   
 const getGardensByUserId = async(userID)=>{
-    console.log("SESRVICE getGardensByUserId"); 
        return await Garden.find({userID:userID}); 
 };
  const getGardenById = async(id)=>{return await Garden.findById(id)};
