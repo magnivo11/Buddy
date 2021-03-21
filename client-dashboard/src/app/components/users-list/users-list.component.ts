@@ -23,9 +23,7 @@ export class UsersListComponent implements OnInit {
   }
   getUsersGroupedByAdmin(){
     this.userService.getUsersGroupedByAdmin().subscribe((admins)=>{
-      admins.forEach(admin => {
-        this.adminList.push(admin);
-      });
+      this.adminList=admins;
     })
   }
 }
