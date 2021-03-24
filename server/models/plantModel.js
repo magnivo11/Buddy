@@ -7,7 +7,10 @@ species: {
     required: true
   },
 growthStatus:String,
-healthStatus:String,
+healthStatus:Number,
+tempStatus:Number,
+lightStatus:Number,
+moistStatus:Number,
 isUserPlant:Boolean,
 defaultPhotoID: {
     type: mongoose.Schema.Types.ObjectId,

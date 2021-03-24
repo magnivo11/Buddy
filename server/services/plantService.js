@@ -23,6 +23,9 @@ const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, o
         GardenID: null,
         growthStatus: null,
         healthStatus: null,
+        tempStatus: null,
+        lightStatus: null,
+        moistStatus: null,
         isUserPlant: false,
         defaultPhotoID: null
     });
@@ -45,6 +48,9 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
             GardenID: GardenID,
             growthStatus: growthStatus,
             healthStatus: null,
+            tempStatus: null,
+            lightStatus: null,
+            moistStatus: null,
             isUserPlant: true,
             defaultPhotoID: null
         });
