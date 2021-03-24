@@ -26,7 +26,7 @@ import EditPlantByUser from './EditPlantByUser';
 const socket = io.connect("http://localhost:8080");
 
 function App() {
-  //  const [forceRender, setForceRender] = React.useState(false)
+    const [forceRender, setForceRender] = React.useState(false)
 
 
     return (
