@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  usersUrl: 'http://localhost:8080/user',
-  gardensUrl: 'http://localhost:8080/garden'
+  baseUrl : 'http://localhost:8080',
+  plantUrl : 'http://localhost:8080/plant',
+  photoUrl : 'http://localhost:8080/photo',
+  gardenUrl : 'http://localhost:8080/garden',
 };
 
 /*
