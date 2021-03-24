@@ -2,11 +2,12 @@
 {
     width:80%;
     text-align: center;
-    display:block;
+    display:inline-block;
 
 }
 .inner
 {
-    display:block;
+    display:inline-block;
+    border-color:'black';
  }
  

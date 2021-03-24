@@ -2,29 +2,31 @@ import { Link } from 'react-router-dom';
 import statusRed from '../Images/status/red.jpg';
 import statusYellow from '../Images/status/yellow.jpg';
 import statusGreen from '../Images/status/green.jpg';
+import statusBlue from '../Images/status/statusBlue.png';
 
 import React from 'react';
 import axios from 'axios'
 
 
- export default function PlantComponent({ plantName, plantid, plantsensorid }) {
+export default function PlantComponent({ plantName, plantid, plantsensorid }) {
 
-    
+
     const StatusColor = () => {
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
-      
+
         const [sensor, setSensor] = React.useState();
         React.useEffect(() => {
-            if (plantsensorid!=null){
-            var url = 'http://localhost:8080/sensor/' + plantsensorid;
-            axios.get(url).then((Response) => {
-                if (!sensor) {
-                    setSensor(Response.data);
-                }
-            })
-        }}, []);
+            if (plantsensorid != null) {
+                var url = 'http://localhost:8080/sensor/' + plantsensorid;
+                axios.get(url).then((Response) => {
+                    if (!sensor) {
+                        setSensor(Response.data);
+                    }
+                })
+            }
+        }, []);
         if (sensor != null && sensor.light.length > 15) {
 
             for (let i = 0; i < 10; i++) {
@@ -46,28 +48,29 @@ import axios from 'axios'
 
 
         }
+        else { return statusBlue; }
 
     }
 
 
 
-return (
-    <div>
-        <tr>
+    return (
+        <div>
+            <tr>
 
 
 
-            <Link to={`/plant/${plantid}`} >{plantName}</Link>
-            <td></td>
-            <td><img src={StatusColor()}
-                width={"30px"}></img></td>
-            <td></td>
- 
+                <Link to={`/plant/${plantid}`} >{plantName}</Link>
+                <td></td>
+                <td><img src={StatusColor()}
+                    width={"30px"}></img></td>
+                <td></td>
 
-        </tr>
-    </div>
-);
 
- 
+            </tr>
+        </div>
+    );
+
+
 
 }

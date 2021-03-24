@@ -127,19 +127,20 @@ export default function Plant() {
 
 
                   <div id="outer">
-                    <div class="inner" > <li className="button" style={{ backgroundColor: 'black', color: 'white', border: 'none', padding: '15px 32px', textAlign: 'center', textDecoration: 'none', display: 'contents', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }}>
-                      <Link style={{ color: 'white', textDecoration: 'none' }} className="nav-link2" to={`/editPlant/${plantID}`}>Edit plant</Link>
-                    </li></div>
-                    <div class="inner">  <button className="button" style={{overflow:'hidden', backgroundColor: 'black', color: 'white', border: 'none', padding: '15px 32px', textAlign: 'center', textDecoration: 'none', display: 'contents', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
+                 
+                    <div class="inner">  <button className="button"style={{backgroundColor:'#C0C0C0',color: 'white',borderColor:'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
                       axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
                       setRedirectToGarden(true)
-                    }}>Delete plant</button></div>
+                    }}>DELETE</button></div>
+                      <div class="inner" > <li className="button" style={{ color:'white',backgroundColor: '#C0C0C0', border: '3px', padding: '15px 36px', textAlign: 'center',textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px' }}>
+                      <Link style={{ color: 'white', textDecoration: 'none' }} className="nav-link2" to={`/editPlant/${plantID}`}>EDIT</Link>
+                    </li></div>
                     <div class="inner" >
-                      {!sensorAdded ? <form onSubmit={(e) => {
+                      {(!sensorAdded) ? <form onSubmit={(e) => {
                         addSensor(e, plantID)
                         setSensorAdded(true)
                       }}>
-                        <input type="submit" style={{ backgroundColor: 'black', color: 'white', border: 'none', padding: '15px 32px', textAlign: 'center', textDecoration: 'none', display: 'block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} value="Add sensor" /><br />
+                        <input type="submit" style={{ backgroundColor: '#C0C0C0', color: 'white', border: 'none', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} value="Add sensor" /><br />
                       </form> : null}
                     </div>
                   </div>

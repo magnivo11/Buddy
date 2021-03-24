@@ -1,18 +1,16 @@
 import '../css/Header.css';
 import { TextField } from '@material-ui/core';
-import DataContext from '../DataContext';
 import React from 'react';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Header() {
-  const data =
-  React.useContext(DataContext);
+  //const data = React.useContext(DataContext);
   const userIDfromSession = window.sessionStorage.getItem('userID');
   const [currentUser, setUser] = React.useState({ _id: null });
   const history = useHistory();
-  const logOut =(e)=>{
-    if(userIDfromSession)
+  const logOut = (e) => {
+    if (userIDfromSession)
       window.sessionStorage.removeItem('userID');
   }
   const doSearch = (e) => {
@@ -21,7 +19,7 @@ export default function Header() {
     }
     else {
       history.push('/biblesearch?q=' + e.target.value);
-      data.setForceRender(!data.forceRender)
+      // data.setForceRender(!data.forceRender)
     }
   }
   axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
