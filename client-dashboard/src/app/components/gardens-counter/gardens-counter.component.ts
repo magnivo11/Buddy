@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { gardenCounter } from '../gardens-view/gardens-view.component';
-@Component({
+import{GardenService} from '../../services/garden.service'
+
+ @Component({
   selector: 'app-gardens-counter',
   templateUrl: './gardens-counter.component.html',
   styleUrls: ['./gardens-counter.component.css']
 })
-export class GardensCounterComponent implements OnInit {
+export class GardensCounterComponent     {
 
+ gardenCount!: number; 
+
+  constructor(private gardenService:GardenService) {
+  this.gardenService.getGardens().subscribe((gardens)=>{this.gardenCount=gardens.length})
+
+ }
  
-  constructor() { }
-
-  ngOnInit(): void {
-   
-  }
-  
 
 }

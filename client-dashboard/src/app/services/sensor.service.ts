@@ -13,4 +13,9 @@ export class SensorService {
 private sensorURL = environment.sensorUrl;
 
 constructor(private http: HttpClient) {}
+
+getSensors(): Observable<Sensor[]> {
+  return this.http.get<Sensor[]>(this.sensorURL);
+}
+
 }

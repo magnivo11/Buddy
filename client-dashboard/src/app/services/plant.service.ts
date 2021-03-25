@@ -12,4 +12,10 @@ private plantURL = environment.plantUrl;
 
 
 constructor(private http: HttpClient) {}
+
+getPlants(): Observable<Plant[]> {
+  return this.http.get<Plant[]>(this.plantURL);
+}
+ 
+
 }

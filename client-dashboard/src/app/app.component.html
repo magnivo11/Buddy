@@ -9,11 +9,10 @@
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calculator fa-fw"></i> Statistics</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-search fa-fw"></i>Search</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-list fa-fw"></i>To Do List</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-photo fa-fw"></i>Photos</a>
-  </div>
+    <a class="w3-bar-item w3-button w3-padding" routerLink="/statistics"><i class="fa fa-calculator fa-fw"></i> Statistics  & search </a>
+     <a class="w3-bar-item w3-button w3-padding" routerLink="/todo-tab" ><i class="fa fa-list fa-fw"></i>To Do List</a>
+    <a class="w3-bar-item w3-button w3-padding" routerLink="/photos-tab"><i class="fa fa-photo fa-fw"></i>Photos</a>
+   </div>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -28,19 +27,8 @@
     <h5><b><i class="fa fa-dashboard"></i> Admin Dashboard</b></h5>
   </header>
 
-  <div class="w3-row-padding w3-margin-bottom">
-    <app-plants-counter></app-plants-counter>
-    <app-gardens-counter></app-gardens-counter>
-    <app-sensors-counter></app-sensors-counter>
-    <app-users-counter></app-users-counter>
-  </div>
+  <router-outlet></router-outlet>
 
-  <div class="w3-row-padding w3-margin-bottom">
-  <app-gardens-view></app-gardens-view>
-  <app-users-list></app-users-list>
-  <app-to-do-list></app-to-do-list>
-</div>
-
-
+ 
 
 </div>

@@ -15,7 +15,12 @@ import { ToDoListComponent } from './components/to-do-list/to-do-list.component'
 import {PlantsCounterComponent} from './components/plants-counter/plants-counter.component';
 import { GardensCounterComponent } from './components/gardens-counter/gardens-counter.component';
 import { SensorsCounterComponent } from './components/sensors-counter/sensors-counter.component';
- const config: SocketIoConfig = { url: 'http://localhost:8080' , options:{}}; 
+import {ToDoTabComponent} from './components/to-do-tab/to-do-tab.component';
+import {PhotosTabComponent} from './components/photos-tab/photos-tab.component';
+import { StatisticsComponent } from './components/statistics/statistics.component'; 
+import { RouterModule } from '@angular/router';
+
+const config: SocketIoConfig = { url: 'http://localhost:8080' , options:{}}; 
 
 
 @NgModule({
@@ -31,13 +36,21 @@ import { SensorsCounterComponent } from './components/sensors-counter/sensors-co
     PlantsCounterComponent,
     GardensCounterComponent,
     SensorsCounterComponent,
+    ToDoTabComponent,
+    StatisticsComponent,
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([
+      {path: 'todo-tab', component: ToDoTabComponent},
+      {path: 'photos-tab', component: PhotosTabComponent},
+      {path: 'statistics', component: StatisticsComponent},
+      {path: '', redirectTo: '/statistics', pathMatch: 'full'},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

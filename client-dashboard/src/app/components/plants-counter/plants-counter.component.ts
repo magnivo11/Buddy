@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { PlantService } from '../../services/plant.service'
 
 @Component({
   selector: 'app-plants-counter',
   templateUrl: './plants-counter.component.html',
   styleUrls: ['./plants-counter.component.css']
 })
-export class PlantsCounterComponent implements OnInit {
+export class PlantsCounterComponent {
+  plantCount!: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private plantService: PlantService) {
+    this.plantService.getPlants().subscribe((plants) => { this.plantCount = plants.length })
   }
+
 
 }
