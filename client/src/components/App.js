@@ -34,8 +34,7 @@ function App() {
         <DataContext.Provider value={{ forceRender, setForceRender }}>
             <BrowserRouter>
 
-
-                <Switch>
+                 <Switch>
 
                     <Route exact path='/'>
                         <FirstPage /></Route>

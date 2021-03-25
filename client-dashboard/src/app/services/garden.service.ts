@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class GardenService {
-  private gardensUrl = environment.gardensUrl;
+  private gardensUrl = environment.gardenUrl;
 
   constructor(private http: HttpClient) {
     
