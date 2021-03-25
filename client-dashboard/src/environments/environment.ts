@@ -8,6 +8,7 @@ export const environment = {
   plantUrl : 'http://localhost:8080/plant',
   photoUrl : 'http://localhost:8080/photo',
   gardenUrl : 'http://localhost:8080/garden',
+  userUrl:    'http://localhost:8080/user',
 };
 
 /*

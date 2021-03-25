@@ -5,7 +5,6 @@ import { Link, useHistory, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Header() {
-  //const data = React.useContext(DataContext);
   const userIDfromSession = window.sessionStorage.getItem('userID');
   const [currentUser, setUser] = React.useState({ _id: null });
   const history = useHistory();
@@ -19,7 +18,6 @@ export default function Header() {
     }
     else {
       history.push('/biblesearch?q=' + e.target.value);
-      // data.setForceRender(!data.forceRender)
     }
   }
   axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
