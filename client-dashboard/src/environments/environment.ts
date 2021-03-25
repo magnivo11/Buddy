@@ -5,9 +5,12 @@
 export const environment = {
   production: false,
   baseUrl : 'http://localhost:8080',
+  userUrl : 'http://localhost:8080/user',
   plantUrl : 'http://localhost:8080/plant',
   photoUrl : 'http://localhost:8080/photo',
   gardenUrl : 'http://localhost:8080/garden',
+  sensorUrl : 'http://localhost:8080/sensor',
+ 
 };
 
 /*

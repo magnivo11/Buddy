@@ -5,14 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './plants-counter.component.html',
   styleUrls: ['./plants-counter.component.css']
 })
-export class PlantsCounterComponent {
-  curPlantsCounter?:Number;  
+export class PlantsCounterComponent implements OnInit {
 
-  constructor() {
-   this.curPlantsCounter=99;
-   }
- 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
 
 }
-
- 

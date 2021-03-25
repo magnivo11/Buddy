@@ -3,7 +3,7 @@
 <button (click)='getAllUsers()'>All users</button>
 
 <div *ngIf='((usersList)&&(usersList.length>0))'>
-  <p> Users</p>
+  <h5> Users</h5>
   <li *ngFor='let user of usersList'>{{user.name}} </li>
 </div>
 <br>
