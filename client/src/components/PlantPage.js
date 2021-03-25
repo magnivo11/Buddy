@@ -37,35 +37,7 @@ export default function Plant() {
 
   React.useEffect(() => {
 
-    //this is a fake data just for the tset
-    const humidity = [
-      { name: '10.3.21', score: 80 },
-      { name: '11.3.21', score: 76 },
-      { name: '12.3.21', score: 90 },
-      { name: '13.3.21', score: 82 },
-      { name: '14.3.21', score: 90 },
-      { name: '15.3.21', score: 75 },
-      { name: '16.3.21', score: 86 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 },
-      { name: '10.3.21', score: 80 }
-    ];
 
-
-    const temperature = [
-      { name: '10.3.21', score: 40 },
-      { name: '11.3.21', score: 50 },
-      { name: '12.3.21', score: 60 },
-      { name: '13.3.21', score: 80 },
-      { name: '14.3.21', score: 70 },
-      { name: '15.3.21', score: 75 },
-      { name: '16.3.21', score: 50 },
-    ];
 
     // pick the data you want to show,the ID of the container in the html,the color of each bar
 
@@ -78,7 +50,7 @@ export default function Plant() {
         Response.data.map((data, key) => {
           soilMoisture.push({ name: data.date, score: data.curMoist })
         })
-        console.log(soilMoisture)
+        
         //clear old charts
 
         d3.selectAll('svg').remove()
