@@ -5,11 +5,13 @@
 export const environment = {
   production: false,
   baseUrl : 'http://localhost:8080',
+  userUrl : 'http://localhost:8080/user',
   plantUrl : 'http://localhost:8080/plant',
   photoUrl : 'http://localhost:8080/photo',
   gardenUrl : 'http://localhost:8080/garden',
-  userUrl:    'http://localhost:8080/user',
-};
+   sensorUrl : 'http://localhost:8080/sensor',
+ 
+  };
 
 /*
  * For easier debugging in development mode, you can import the following file

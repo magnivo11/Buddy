@@ -1,0 +1,27 @@
+<div>
+    <p>Scrape photos by species:</p>
+    <select id="species" (change)='selectName($event)'>
+        <option *ngFor="let plant of plantsList">
+            {{plant.species}}
+        </option>
+    </select>
+    <button (click)='getAllSelectedPhotos()'>Scrape</button>
+  
+
+
+    <button (click)='getAllPhotos()'>All photos </button>
+    <div *ngIf='((photosList)&&(photosList.length>0))'>
+        <p>Photos</p>
+        <ul>
+            <li *ngFor='let photo of photosList'>
+                <div class="container">
+                    <img src={{photo.link}} alt="photo not found">
+                    <button (click)='choosenPhoto()'>make me default photo</button>
+                    <button (click)='deletePhoto(photo._id)'>delete me</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

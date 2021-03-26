@@ -28,16 +28,16 @@ const createPhoto=async (request,response)=>{
         }
 
         const deletePhoto = async (request,response)=>{
-              const photo = await photoService.deletePhoto(request.params.gardenID);
+              const photo = await photoService.deletePhoto(request.params.photoID);
               if(photo==true)
               {
-              response.send(' photo was deleted');  }        }
+              response.send('photo was deleted');  }        }
  
         
         const scrapePhoto = async (request,response)=>{
-            const photos = await scrapeService.scrapePhoto(); 
-            if (photos){
-            response.send("photos was scraped");}     
+            const photos = await scrapeService.scrapePhoto(request.params.name); 
+            if (!photos){
+            return response.status(404).json({errors:['scrape failed']})}     
         }
    
    

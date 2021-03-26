@@ -32,12 +32,10 @@ return(
           return <PlantComponent plantName= {data.species} plantsensorid={data.sensorID} plantid={data._id} key={key}/>
   
        })}
-          <li className="nav-item">
+                     <br></br>
                        <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
                        className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
-          </li>
        
-     
     </tbody>
     </table>
     <br></br>
@@ -50,11 +48,11 @@ return(
 
 else 
 return (<div>
- <li className="nav-item">
-                       <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
+             <br></br>
+             <br></br>
+                        <Link style={{color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"40px" ,width:"110px"}}
                        className="nav-link" to = {`/addaplantbyuser/${gardenID}`} >Add A Plant </Link>
-          </li>
-          <br></br>
+           <br></br>
 </div>
 );
 }

@@ -12,7 +12,7 @@ const data = require('../files/data.json');
 
 export default function Plant() {
 
-  const [soilMoisture, setSoilmoisture] = React.useState([])
+  //const [soilMoisture, setSoilmoisture] = React.useState([])
   const [sensorAdded, setSensorAdded] = React.useState(false)
   const ownerID = window.sessionStorage.getItem('userID');
   var index = window.location.toString().lastIndexOf('/') + 1
@@ -32,15 +32,9 @@ export default function Plant() {
     }
   })
 
-
   //maybe to show all the graphs make every data set a state
-
   React.useEffect(() => {
-
-
-
     // pick the data you want to show,the ID of the container in the html,the color of each bar
-
     if (plant.sensorID != null) {
       console.log('sensor: ' + plant.sensorID)
       axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
@@ -86,9 +80,8 @@ export default function Plant() {
 
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                     <ul>
-                      <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
-
-
+                      {(plant.sensorID) ? <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
+                        : null}
                     </ul>
                   </nav>
                   <br></br>
@@ -99,16 +92,16 @@ export default function Plant() {
 
 
                   <div id="outer">
-                 
-                    <div class="inner">  <button className="button"style={{backgroundColor:'#C0C0C0',color: 'white',borderColor:'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
+
+                    <div class="inner">  <button className="button" style={{ backgroundColor: '#C0C0C0', color: 'white', borderColor: 'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
                       axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
                       setRedirectToGarden(true)
                     }}>DELETE</button></div>
-                      <div class="inner" > <li className="button" style={{ color:'white',backgroundColor: '#C0C0C0', border: '3px', padding: '15px 36px', textAlign: 'center',textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px' }}>
+                    <div class="inner" > <li className="button" style={{ color: 'white', backgroundColor: '#C0C0C0', border: '3px', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px' }}>
                       <Link style={{ color: 'white', textDecoration: 'none' }} className="nav-link2" to={`/editPlant/${plantID}`}>EDIT</Link>
                     </li></div>
                     <div class="inner" >
-                      {(!sensorAdded) ? <form onSubmit={(e) => {
+                      {(!plant.sensorID) ? <form onSubmit={(e) => {
                         addSensor(e, plantID)
                         setSensorAdded(true)
                       }}>

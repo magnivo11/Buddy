@@ -4,7 +4,6 @@ import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
 import React from 'react';
 import AddAPlantByUser from './AddAPlantByUser';
-import HomePage from './HomePage';
 import Footer from './Footer';
 import BibleSearch from './BibleSearch';
 import Header from './Header';
@@ -32,8 +31,7 @@ function App() {
         <DataContext.Provider>
             <BrowserRouter>
 
-
-                <Switch>
+                 <Switch>
 
                     <Route exact path='/'>
                         <FirstPage /></Route>
