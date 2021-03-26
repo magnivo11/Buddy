@@ -13,7 +13,7 @@ import ButtonsList from './ButtonsList';
 
 
 export default function SingleGarden(){
-  const [render,setRender]=React.useState(false)
+  
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   // const user=React.useContext(DataContext);
@@ -35,13 +35,6 @@ export default function SingleGarden(){
   const gardenName = garden.name;
 
 
- // this function forces the component of singleGarden to render and being used in the button component
-
-  function buttonClicked() {
-    setRender(!render)
-   
-  
-  }
   
 if(!redirectToGardens)
 {
@@ -60,7 +53,7 @@ if(!redirectToGardens)
                         <p style={{fontSize:'30px'}}>{gardenName}</p>
                       </div>
                     {/*Left buttons*/}
-                    <ButtonsList ownerID= {ownerID} buttonClicked={buttonClicked}/>
+                    <ButtonsList ownerID= {ownerID}/>
                   </ul>
               </div>
               {/*Middle part*/}

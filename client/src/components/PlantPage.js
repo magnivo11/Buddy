@@ -32,13 +32,9 @@ export default function Plant() {
     }
   })
 
-
   //maybe to show all the graphs make every data set a state
-
   React.useEffect(() => {
- 
     // pick the data you want to show,the ID of the container in the html,the color of each bar
-
     if (plant.sensorID != null) {
       console.log('sensor: ' + plant.sensorID)
       axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
@@ -48,7 +44,7 @@ export default function Plant() {
         Response.data.map((data, key) => {
           soilMoisture.push({ name: data.date, score: data.curMoist })
         })
-        console.log(soilMoisture)
+        
         //clear old charts
 
         d3.selectAll('svg').remove()

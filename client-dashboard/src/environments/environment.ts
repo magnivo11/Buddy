@@ -9,9 +9,9 @@ export const environment = {
   plantUrl : 'http://localhost:8080/plant',
   photoUrl : 'http://localhost:8080/photo',
   gardenUrl : 'http://localhost:8080/garden',
-  sensorUrl : 'http://localhost:8080/sensor',
+   sensorUrl : 'http://localhost:8080/sensor',
  
-};
+  };
 
 /*
  * For easier debugging in development mode, you can import the following file
