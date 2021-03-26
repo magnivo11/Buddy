@@ -109,6 +109,7 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
     return true;
 };
 
+
 const updatePlantByAdmin = async (id,
     species = null, irrigationInstructors = null, optimalTemp = null,
     optimalSoilMoisture = null, optimalSunExposure = null, description = null) => {
