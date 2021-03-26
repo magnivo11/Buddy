@@ -112,9 +112,8 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
 
 const updatePlantByAdmin = async (id,
     species = null, irrigationInstructors = null, optimalTemp = null,
-    optimalSoilMoisture = null, optimalSunExposure = null, description = null) => {
-
-    Plant.findById(id, (err, plant) => {
+    optimalSoilMoisture = null, optimalSunExposure = null, description = null,defaultPhotoID=null) => {
+     Plant.findById(id, (err, plant) => {
         if (species != null) {
             plant.species = species
         }
@@ -132,6 +131,9 @@ const updatePlantByAdmin = async (id,
         }
         if (description != null) {
             plant.description = description
+        }
+        if (defaultPhotoID != null) {
+            plant.defaultPhotoID = defaultPhotoID
         }
         plant.save();
     })

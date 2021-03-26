@@ -8,7 +8,8 @@ const photoSchema=new Schema({
     plantID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"plants"
-    }
+    },
+    name:String
 })
 
 

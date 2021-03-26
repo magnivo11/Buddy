@@ -2,5 +2,6 @@
     _id:string,
     link: string,
     date: Date,
-    plantID : string
+    plantID : string,
+    name:string
     }

@@ -1,9 +1,7 @@
 import '../css/Bible.css';
 import React from 'react';
 import PlantBibleBox from './PlantBibleBox'
-import axios from 'axios';
-
-
+ 
 
 export default function PlantsBibleGrid({ q = '' }) {
 
