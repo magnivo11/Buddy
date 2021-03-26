@@ -17,5 +17,9 @@ getPlants(): Observable<Plant[]> {
   return this.http.get<Plant[]>(this.plantURL);
 }
  
+getAdminPlants(): Observable<Plant[]> {
+  return this.http.get<Plant[]>(this.plantURL+'/admin');
+}
+
 
 }
