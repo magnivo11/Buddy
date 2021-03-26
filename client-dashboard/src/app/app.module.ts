@@ -19,7 +19,7 @@ import { ToDoTabComponent } from './components/to-do-tab/to-do-tab.component';
 import { PhotosTabComponent } from './components/photos-tab/photos-tab.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { RouterModule } from '@angular/router';
- 
+  
 const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 
@@ -39,7 +39,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     SensorsCounterComponent,
     ToDoTabComponent,
     StatisticsComponent,
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

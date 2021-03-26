@@ -5,13 +5,6 @@ import PlantBibleBox from './PlantBibleBox'
 
 export default function PlantsBibleGrid({ q = '' }) {
 
-    //     React.useEffect(() => {
-    //        var url = 'http://localhost:8080/plant/byName/'+Q;
-    //        axios.get(url).then((Response) => {
-    //            if (plants.length != Response.data.length)
-    //                setPlants(Response.data);
-    //        })
-    //    }, [Q]);
 
     const [plants, setPlants] = React.useState([])
     React.useEffect(() => {
