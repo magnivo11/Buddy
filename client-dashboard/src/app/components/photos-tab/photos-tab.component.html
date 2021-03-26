@@ -16,7 +16,7 @@
             <li *ngFor='let photo of photosList'>
                 <div class="container">
                     <img src={{photo.link}} alt="photo not found">
-                    <button (click)='choosenPhoto()'>make me default photo</button>
+                    <button (click)='choosenPhoto(photo)'>make me default photo</button>
                     <button (click)='deletePhoto(photo._id)'>delete me</button>
                 </div>
             </li>

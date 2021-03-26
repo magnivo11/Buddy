@@ -3,7 +3,8 @@ import { PhotoService } from '../../services/photo.service';
 import { PlantService } from '../../services/plant.service';
 import { Plant } from '../../models/plantModel';
 import { Photo } from '../../models/photoModel';
-
+import { ThisReceiver } from '@angular/compiler';
+  
 
 @Component({
   selector: 'app-photos-tab',
@@ -14,7 +15,7 @@ export class PhotosTabComponent {
   photosList: Photo[] = []
   photoCount!: number;
   plantsList: Plant[] = []
-   name = 'Ivy'
+  name = 'Lilly'
 
   constructor(private photoService: PhotoService, private plantsService: PlantService) {
     this.getAdminPlants()
@@ -28,19 +29,27 @@ export class PhotosTabComponent {
     this.photoService.getSelectedPhotos(this.name).subscribe((photos) => { this.photosList = photos });
   }
 
-  choosenPhoto() {
-     
+  choosenPhoto(photo: Photo) {
+for (var i=0 ; i<this.plantsList.length ; i++)    {
+      if ((this.plantsList[i].species).localeCompare(photo.name)==0)
+      {
+        console.log(this.plantsList[i].species);
+        console.log(this.plantsList[i]._id);
+        console.log(photo._id);
+        this.plantsService.updatePlant(this.plantsList[i]._id,photo._id).subscribe(()=>{});
+      }
+    } 
   }
 
   deletePhoto(selectedPhotoID: string) {
-     this.photoService.deletePhoto(selectedPhotoID).subscribe(()=>{});
+    this.photoService.deletePhoto(selectedPhotoID).subscribe(() => { });
   }
 
   getAllPhotos() {
     this.photoService.getPhotos().subscribe((photos) => {
       this.photosList = photos
       this.photoCount = photos.length;
-      console.log(this.photosList); 
+      console.log(this.photosList);
     })
   }
   getAdminPlants() {

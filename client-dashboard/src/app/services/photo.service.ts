@@ -20,6 +20,6 @@ export class PhotoService {
     return this.http.get<Photo[]>(this.photoURL + '/scrape/' + name);
   }
   deletePhoto(id: string): Observable<Photo> {
-     return this.http.delete<Photo>(this.photoURL+'/'+id);
+    return this.http.delete<Photo>(this.photoURL + '/' + id);
   }
 }

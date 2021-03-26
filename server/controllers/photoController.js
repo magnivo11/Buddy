@@ -6,7 +6,7 @@ const scrapeService = require('../services/scrapeService');
 const createPhoto=async (request,response)=>{
    
      const newPhoto=  
-    await photoService.createPhoto(request.body.link, request.body.plantID)
+    await photoService.createPhoto(request.body.link, request.body.plantID,request.body.name)
         response.json(newPhoto);    
     }
    

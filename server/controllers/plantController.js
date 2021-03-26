@@ -54,14 +54,15 @@ const getPlantsByGardenId = async (request,response)=>{
 
 
 const updatePlantByAdmin =async (request,response)=>{
-    const plant= await plantService.updatePlantByAdmin(
+     const plant= await plantService.updatePlantByAdmin(
         request.body.id,
         request.body.species,
         request.body.irrigationInstructors,
         request.body.optimalTemp,
         request.body.optimalSoilMoisture,
         request.body.optimalSunExposure,
-        request.body.description);
+        request.body.description,
+        request.body.defaultPhotoID);
         if (!plant){
         return response.status(404).json({errors:['Plant not found']});}
     response.json(plant); 
