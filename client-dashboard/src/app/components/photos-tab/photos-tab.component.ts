@@ -3,8 +3,7 @@ import { PhotoService } from '../../services/photo.service';
 import { PlantService } from '../../services/plant.service';
 import { Plant } from '../../models/plantModel';
 import { Photo } from '../../models/photoModel';
-import { ThisReceiver } from '@angular/compiler';
-  
+   
 
 @Component({
   selector: 'app-photos-tab',
