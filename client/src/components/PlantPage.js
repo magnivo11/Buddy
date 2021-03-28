@@ -103,7 +103,7 @@ export default function Plant() {
                     <div class="inner" >
                       {(!plant.sensorID) ? <form onSubmit={(e) => {
                         addSensor(e, plantID)
-                        setSensorAdded(true)
+                        setRedirectToGarden(true)
                       }}>
                         <input type="submit" style={{ backgroundColor: '#C0C0C0', color: 'white', border: 'none', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} value="Add sensor" /><br />
                       </form> : null}
