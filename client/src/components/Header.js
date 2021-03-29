@@ -37,7 +37,7 @@ export default function Header() {
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
 
-          <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Little Buddy</Link></h1>
+          <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Little<br></br> Buddy</Link></h1>
           <nav className="nav-menu d-none d-lg-block">
             <ul>
               <li ></li>
