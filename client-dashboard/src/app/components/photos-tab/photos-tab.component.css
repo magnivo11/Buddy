@@ -5,6 +5,16 @@ p{
 h4{
     font-size:medium;
  }
+ button{
+   margin: 1%;
+border: white;
+   padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+ }
+  
  
  select{
     margin: 2%;

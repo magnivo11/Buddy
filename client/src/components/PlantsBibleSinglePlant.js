@@ -55,16 +55,8 @@ export default function PlantsBibleSinglePlant() {
                 <div class="column">
                   <div class="card">  <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Description <i class="fa fa-book"></i>   {plant.description}</dt>
                   </div>
-
                 </div>
-
               </div>
-              <div class="column">
-                <div class="card"> <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Photo</dt>
-                  <dd style={{ fontSize: '10px', fontWeight: 'bold' }}>{plant.defaultPhotoID}</dd></div>
-              </div>
-
-
             </div>
           </div>
         </section>

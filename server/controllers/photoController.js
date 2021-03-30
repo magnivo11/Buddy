@@ -6,7 +6,7 @@ const scrapeService = require('../services/scrapeService');
 const createPhoto=async (request,response)=>{
    
      const newPhoto=  
-    await photoService.createPhoto(request.body.link, request.body.plantID)
+    await photoService.createPhoto(request.body.link, request.body.plantID,request.body.name)
         response.json(newPhoto);    
     }
    
@@ -28,16 +28,16 @@ const createPhoto=async (request,response)=>{
         }
 
         const deletePhoto = async (request,response)=>{
-              const photo = await photoService.deletePhoto(request.params.gardenID);
+              const photo = await photoService.deletePhoto(request.params.photoID);
               if(photo==true)
               {
-              response.send(' photo was deleted');  }        }
+              response.send('photo was deleted');  }        }
  
         
         const scrapePhoto = async (request,response)=>{
-            const photos = await scrapeService.scrapePhoto(); 
-            if (photos){
-            response.send("photos was scraped");}     
+            const photos = await scrapeService.scrapePhoto(request.params.name); 
+            if (!photos){
+            return response.status(404).json({errors:['scrape failed']})}     
         }
    
    

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import statusRed from '../Images/status/red.jpg';
 import statusYellow from '../Images/status/yellow.jpg';
 import statusGreen from '../Images/status/green.jpg';
+import statusBlue from '../Images/status/statusBlue.png';
 
 import React from 'react';
 import axios from 'axios'
@@ -45,7 +46,8 @@ import axios from 'axios'
             }
 
 
-        }
+        }         
+           else{return statusBlue;}
 
     }
 
@@ -57,9 +59,9 @@ return (
 
 
 
-            <Link to={`/plant/${plantid}`} >{plantName}</Link>
+            <Link style={{fontSize:'20px'}} to={`/plant/${plantid}`} >{plantName}</Link>
             <td></td>
-            <td><img src={StatusColor()}
+            <td>  &nbsp;&nbsp; <img style={{width:'30px',height:'30px'}} src={StatusColor()}
                 width={"30px"}></img></td>
             <td></td>
  

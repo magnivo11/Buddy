@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlantService } from '../../services/plant.service'
 
 @Component({
   selector: 'app-plants-counter',
@@ -6,13 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plants-counter.component.css']
 })
 export class PlantsCounterComponent {
-  curPlantsCounter?:Number;  
+  plantCount!: number;
 
-  constructor() {
-   this.curPlantsCounter=99;
-   }
- 
+  constructor(private plantService: PlantService) {
+    this.plantService.getPlants().subscribe((plants) => { this.plantCount = plants.length })
+  }
+
 
 }
-
- 

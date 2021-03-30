@@ -1,0 +1,36 @@
+<div>
+    <p>Scrape photos by species:</p> <div class="w3-quarter">
+    <div class="w3-container w3-purple margin w3-right">
+       <div class="w3-clear"></div>
+      <h4><em class="fa fa-photo w3-xlarge"></em> Number of photos  {{photosList.length}}</h4>
+     </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <select id="species" (change)='selectName($event)'>
+        <option *ngFor="let plant of plantsList">
+            {{plant.species}}
+        </option>
+    </select>
+    <button class="w3-button w3-dark-grey" (click)='getAllSelectedPhotos()'>Scrape from wikipedia</button>
+    <button class="w3-button w3-dark-grey" (click)='getAllPhotos()'>Display&refresh All photos </button>
+    <div *ngIf='((photosList)&&(photosList.length>0))'>
+        <p>Photos</p>
+        <table class="table" >
+            <th id='tableheader'></th>
+            <tr *ngFor='let photo of photosList'>
+                <div class="container">
+                    <img style="margin-left: 2% ; width: 120px; height: 120px;" src={{photo.link}} alt="photo not found">
+
+                    <td style="margin-top: 0%;">
+                        <button class="w3-button w3-dark-grey " style="padding: 6px 16px; font-size: 10px;" (click)='choosenPhoto(photo)'>make me default
+                            photo</button>
+                        <button class="w3-button w3-dark-grey" style="padding: 6px 16px; font-size: 10px;"(click)='deletePhoto(photo._id)'>delete me</button>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+ 
+</div>

@@ -4,14 +4,12 @@ const Plant = require('../models/plantModel')
 
 
  
-const createPhoto = async(link, plantID)=>{
-    console.log("SESRVICE createPhoto"); 
-    console.log(plantID); 
-
-
+const createPhoto = async(link, plantID,name)=>{
+ 
     const photo= new Photo({
         link:link,
-        plantID:plantID
+        plantID:plantID,
+        name:name
     });
 
     Plant.findById(plantID,(err,plant)=>{
