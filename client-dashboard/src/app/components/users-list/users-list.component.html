@@ -1,13 +1,13 @@
 <div>
-  <p>Users imformation:</p>
-<button class="w3-button w3-dark-grey" (click)='getAllUsers()'>Display All users</button>
-<div *ngIf='((usersList)&&(usersList.length>0))'>
+  <p>Users information:</p>
+<button class="w3-button w3-dark-grey" (click)='getAllUsers()'>{{usersButton}}</button>
+<div *ngIf='((usersList)&&(usersList.length>0)&&(showUser))'>
 <p>Users</p>
   <li *ngFor='let user of usersList'>{{user.name}} </li>
 </div>
 <br><br>
- <button class="w3-button w3-dark-grey" (click)='getUsersGroupedByAdmin()'>Users grouped by admin</button>
-<div *ngIf='((adminList)&&(adminList.length>0))'>
+ <button class="w3-button w3-dark-grey" (click)='getUsersGroupedByAdmin()'>{{adminsButton}}</button>
+<div *ngIf='((adminList)&&(adminList.length>0)&&(showAdmin))'>
   <p>Admins</p>
   <li *ngFor='let user of adminList'>{{user}} 
   </li>
