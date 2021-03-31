@@ -18,6 +18,7 @@ const createPlantByUser= async(request,repsonse)=>{
 
 
 const createPlantByAdmin= async(request,response)=>{
+
     const newPlant=  
     await plantService.createPlantByAdmin(  
         request.body.species,

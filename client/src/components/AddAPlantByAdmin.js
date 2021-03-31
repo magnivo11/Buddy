@@ -25,7 +25,7 @@ if(!plantAdded){
               <h4 style= {{fontSize: '20px', color:'#51361A'}}>Add A Palnt- Admin </h4> 
         
             </div>
-            <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+            <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addAPlantByAdmin(e)
             setPlantAdded(true)
           }}>
@@ -49,7 +49,7 @@ if(!plantAdded){
   );
 }
 else{
-  return(<Redirect to="/mygardens"/>);
+  return(<Redirect to="/plantsbible"/>);
 
 }
 }
@@ -65,5 +65,7 @@ function addAPlantByAdmin(e){
   optimalSoilMoisture:document.getElementById('optimalSoilMoisture').value,
   description: document.getElementById('description').value
   }
+  console.log(newPlant);
+
     axios.post('http://localhost:8080/plant/',newPlant);
 }

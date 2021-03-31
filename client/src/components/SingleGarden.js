@@ -63,14 +63,16 @@ if(!redirectToGardens)
                    <div>
                     <PlantsList gardenID={gardenID}/> 
                     <div className='inner' style={{display:'inline-block'}}>
-                    <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
-                        axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
-                        setRedirectToGardens(true)
-                      }}> Delete garden </button>
-                              &nbsp;&nbsp;&nbsp;
+
 
                         <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
                        className="nav-link" to={`/editgarden/${gardenID}`}>Edit garden </Link>
+                              &nbsp;&nbsp;&nbsp;
+
+                      <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
+                        axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
+                        setRedirectToGardens(true)
+                      }}> Delete garden </button>
                      </div>
                     </div>
               </div>

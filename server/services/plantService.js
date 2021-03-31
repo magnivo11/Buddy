@@ -10,6 +10,7 @@ const { deleteSensor } = require('./sensorService');
 
 
 const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, optimalSoilMoisture, optimalSunExposure, description) => {
+
     const plant = new Plant({
 
         species: species,
