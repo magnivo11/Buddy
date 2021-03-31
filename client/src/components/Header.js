@@ -48,7 +48,7 @@ export default function Header() {
 
               <li></li>
               <Link to="/login" onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
-              <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link>
+              {/* <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link> */}
               <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>
               <li style={{ color: "white" }}>Hey {currentUser.name} {currentUser.lastName}</li>
 

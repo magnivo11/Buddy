@@ -34,11 +34,8 @@ import axios from 'axios';
 
   return (
     <div>
-      <br></br>
-      <br></br>
-      <br></br>
       <section id="hero" className="d-flex align-items-center">
-        <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '19%', marginLeft: '9%', marginRight: '9%', marginBottom: '20%' }}>
+        <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%', marginBottom: '5%' }}>
           <div className="container" data-aos="fade-up">
             <div className="section-title">
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
