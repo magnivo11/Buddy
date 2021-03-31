@@ -33,10 +33,10 @@ const createPlantByAdmin= async(request,response)=>{
    
 
 
-const deletePlant = async(request,response)=>{
-    const plant= await plantService.deletePlant(request.body.plantID,request.body.gardenID);
+const deletePlantUser = async(request,response)=>{
+    const plant= await plantService.deletePlantUser(request.body.plantID,request.body.gardenID);
     if (!plant){
-    return response.status(404).json({errors:['User not found']});}
+    return response.status(404).json({errors:['Plant not found']});}
 response.send();
 }
 
@@ -71,7 +71,7 @@ const updatePlantByAdmin =async (request,response)=>{
 const getPlantByName =async (request,response)=>{
     const plants = await plantService.getPlantByName(request.params.species);
     if(!plants)
-    return response.status(404).json({errors:['plants not found']});
+    return response.status(404).json({errors:['Plant not found']});
     response.json(plants);
   };
 
@@ -96,5 +96,12 @@ const getAllAdminPlants=async(request,response)=>{
     response.json(plants);
 };
 
+const deletePlantAdmin = async(request,response)=>{
+    const plant= await plantService.deletePlantAdmin(request.body.plantID);
+    if (!plant){
+    return response.status(404).json({errors:['Plant not found']});}
+response.send();
+}
+
 module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
-    updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};
+    updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants};

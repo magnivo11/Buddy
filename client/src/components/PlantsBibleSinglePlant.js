@@ -1,5 +1,8 @@
 import axios from 'axios'
 import React from 'react';
+
+import {Redirect,Link} from 'react-router-dom';
+
 import '../css/PlantsBibleSinglePlant.css';
 
 export default function PlantsBibleSinglePlant() {
@@ -7,6 +10,8 @@ export default function PlantsBibleSinglePlant() {
   var index = window.location.toString().lastIndexOf('/') + 1;
   const plantID = window.location.toString().substring(index);
   const [plant, setPlant] = React.useState(false);
+  const[redirectToBible,setRedirectToBible]=React.useState(false);
+
 
   React.useEffect(() => {
     axios.get('http://localhost:8080/plant/' + plantID).then((Response) => {
@@ -16,14 +21,16 @@ export default function PlantsBibleSinglePlant() {
       }
     });
   }, []);
-
+  if(!redirectToBible)
+  {
   return (
     <div>
       <section id="hero" className="d-flex align-items-center">
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%', marginBottom: '0%' }}>
           <div className="container" data-aos="fade-up">
             <div className="section-title">
-              <h2 style={{ fontSize: '35px' }}>Plants Information</h2>
+              <br></br>
+              <h2 style={{ fontSize: '30px' }}>Plant Information</h2>
               <p style={{ fontSize: '30px' }}>{plant.species}</p>
               <br></br>
 
@@ -32,7 +39,7 @@ export default function PlantsBibleSinglePlant() {
                   <div class="card">
                     <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Irrigation Instructors</dt>
                     <i class="fa fa-shower fa-lg" aria-hidden="true"></i>
-                    <dd style={{ fontSize: '30px', fontWeight: 'bold' }}>{plant.irrigationInstructors}</dd></div>
+                    <dd style={{ fontSize: '20px', fontWeight: 'bold' }}>{plant.irrigationInstructors}</dd></div>
                 </div>
                 <div class="column">
                   <div class="card">
@@ -57,6 +64,14 @@ export default function PlantsBibleSinglePlant() {
                   </div>
                 </div>
               </div>
+              <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
+                       className="nav-link"  to={`/editPlantByAdmin/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
+                              &nbsp;&nbsp;&nbsp;
+
+              <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
+                  axios.delete('http://localhost:8080/plant/byAdmin',{data:{plantID:plantID}})
+                  setRedirectToBible(true)
+                }}> Delete plant </button>
             </div>
           </div>
         </section>
@@ -64,4 +79,8 @@ export default function PlantsBibleSinglePlant() {
     </div>
 
   );
+  }
+  else{
+    return(<Redirect to="/plantbible"/>)
+  }
 }

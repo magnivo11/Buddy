@@ -22,6 +22,8 @@ import io from "socket.io-client";
 import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
+import EditPlantByAdmin from './EditPlantByAdmin';
+
 const socket = io.connect("http://localhost:8080");
 
 function App() {
@@ -53,6 +55,9 @@ function App() {
 
                     <Route exact path='/editplant/:plantID'>
                         <Header /> <EditPlantByUser /></Route>
+
+                        <Route exact path='/editplantbyadmin/:plantID'>
+                        <Header /> <EditPlantByAdmin /></Route>
 
                     <Route exact path='/mygardens'>
                         <Header /> <MyGardens /></Route>

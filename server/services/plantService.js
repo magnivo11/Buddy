@@ -141,7 +141,7 @@ const updatePlantByAdmin = async (id,
 };
 
 
-const deletePlant = async (plantID, gardenID) => {
+const deletePlantUser = async (plantID, gardenID) => {
     const plant = await getPlantById(plantID);
 
     if (!plant)
@@ -171,7 +171,16 @@ const deletePlant = async (plantID, gardenID) => {
     return plant;
 };
 
+const deletePlantAdmin = async(plantID)=> {
+    const plant = await getPlantById(plantID);
+    if (!plant)
+        return null;
+    else
+        await plant.remove();
+    return true;
+};
+
 module.exports = {
     getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants
+    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants
 };
