@@ -1,14 +1,11 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import DataContext from '../DataContext';
-import{Link, Redirect} from 'react-router-dom';
+import{ Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
 
 export default function EditUser(){
-  //const user=React.useContext(DataContext);
   const userId= window.sessionStorage.getItem('userID');
-  ;
   const[info,setInfo]=React.useState({showMessege:false,redirectToProfile:false});
 if(!info.redirectToProfile)
   return (

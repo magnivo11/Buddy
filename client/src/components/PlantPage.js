@@ -38,17 +38,13 @@ export default function Plant() {
     if (plant.sensorID != null) {
       console.log('sensor: ' + plant.sensorID)
       axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
-
-
         var soilMoisture = []
         Response.data.map((data, key) => {
           soilMoisture.push({ name: data.date, score: data.curMoist })
         })
-        
+      
         //clear old charts
-
         d3.selectAll('svg').remove()
-
         DrawGraph(soilMoisture, 'd3-container', '#78281F')
 
 

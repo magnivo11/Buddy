@@ -1,9 +1,7 @@
 import '../css/Bible.css';
 import React from 'react';
-import { Link } from 'react-router-dom'
-import PlantsBibleGrid from './PlantsBibleGrid';
-import Header from './Header';
-
+ import PlantsBibleGrid from './PlantsBibleGrid';
+ 
 
 export default function BibleSearch() {
     const q = window.location.search.toString().substring(3);

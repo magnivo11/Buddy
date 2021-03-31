@@ -1,10 +1,8 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
-import React from 'react';
-import DataContext from '../DataContext'
-
+import{ Redirect} from 'react-router-dom';
+ import React from 'react';
+ 
 export default function EditGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
@@ -92,19 +90,19 @@ function editGarden(e,gardenID){
   //getting name and size
   const name=document.getElementById('name').value;
   //getting direction
-  for(var i = 0; i <directions.length; i++){
+  for(let i = 0; i <directions.length; i++){
     if(directions[i].checked){
       direction=directions[i].id;}}
     
 
   // getting surrounsings
-  for(var i = 0; i <surroundings.length; i++){
+  for(let i = 0; i <surroundings.length; i++){
     if(surroundings[i].checked){
       surrounding=surroundings[i].id;}}
   
 
   //getting sun light
-  for(var i = 0; i <sunLight.length; i++){
+  for(let i = 0; i <sunLight.length; i++){
     if(sunLight[i].checked){
       if(i==0){
         sunlight=true}
