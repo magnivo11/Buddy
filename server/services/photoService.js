@@ -4,11 +4,10 @@ const Plant = require('../models/plantModel')
 
 
  
-const createPhoto = async(link, plantID,name)=>{
+const createPhoto = async(link,name)=>{
  
     const photo= new Photo({
         link:link,
-        plantID:plantID,
         name:name
     });
 
