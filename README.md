@@ -7,3 +7,4 @@ In this app we have integrated the following technologies: <br></br>
 Frontside: **React**<br></br>
 Backside: **Node.js.**<br></br>
 Admin panel is implemented by **Angular**<br></br>
+Data Base is managed in **MongoDB**
