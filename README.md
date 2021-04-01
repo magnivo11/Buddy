@@ -1,4 +1,6 @@
-![image](https://user-images.githubusercontent.com/67112374/113357420-a893fb00-934c-11eb-8dd8-44eccbc75b1d.png)<br></br>
+![image](https://user-images.githubusercontent.com/67112374/113358481-89966880-934e-11eb-9446-8aab2d00851b.png)
+
+<br></br>
 A web application for amature gardeners.<br></br>
 The app keeps track of your house plants and reflect their current state of wellbeing.
 
