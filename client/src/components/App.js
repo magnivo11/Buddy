@@ -27,10 +27,11 @@ import EditPlantByAdmin from './EditPlantByAdmin';
 const socket = io.connect("http://localhost:8080");
 
 function App() {
+    const [render,forceRender]=React.useState(false);
 
     return (
 
-        <DataContext.Provider>
+        <DataContext.Provider value ={{render:render,forceRender:forceRender}}>
             <BrowserRouter>
 
                  <Switch>

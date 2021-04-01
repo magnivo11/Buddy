@@ -6,8 +6,9 @@ import logo from '../Images/LB.png';
 import React from 'react';
 
 export default function EditUser(){
-  //const user=React.useContext(DataContext);
+  const data=React.useContext(DataContext);
   const userId= window.sessionStorage.getItem('userID');
+
   const [user,setUser]=React.useState({_id:''});
   if(user._id!=userId)
   axios.get('http://localhost:8080/user/'+userId).then((Response)=> {
@@ -37,7 +38,7 @@ if(!info.redirectToGardens)
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Edit My Profile </h1> 
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
               </div>
-              <form  onSubmit={(e)=>{editUser(e,user.name,user.lastName,user.email,user.password,userId,setInfo)}}>
+              <form  onSubmit={(e)=>{editUser(e,data,user.name,user.lastName,user.email,user.password,userId,setInfo)}}>
                 <input type="text" id="first_name" className="fadeIn second"  placeholder={user.name} />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder={user.lastName}  />
                 <input type="text" id="email" className="fadeIn second"  placeholder={user.email} />
@@ -55,8 +56,7 @@ if(!info.redirectToGardens)
   else{  return(<Redirect  to={`/mygardens`}/>);}
   }
    
-function editUser(e,oldFirstName, oldLastName, oldEmail,oldPassword,userId,setInfo){
-  console.log(oldFirstName+oldLastName+oldEmail+oldPassword);
+function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldPassword,userId,setInfo){
 
   e.preventDefault();
     var firstName;
@@ -72,7 +72,6 @@ function editUser(e,oldFirstName, oldLastName, oldEmail,oldPassword,userId,setIn
     if (document.getElementById('password').value.length==0) password= oldPassword;
       else password=document.getElementById('password').value;
 
-    console.log(firstName+lastName+email+password);
 
     axios.get('http://localhost:8080/user/byemail/'+email).then((Response)=>{
       if(Response.data){
@@ -87,7 +86,10 @@ function editUser(e,oldFirstName, oldLastName, oldEmail,oldPassword,userId,setIn
             password: password
              }
         axios.put('http://localhost:8080/user/',newUser)
-          setInfo({redirectToGardens:true})
+        /////////////  forceRender renders app  /////////////
+             data.forceRender(!data.render);
+            setInfo({redirectToGardens:true})
+            
         }
     }});
     
