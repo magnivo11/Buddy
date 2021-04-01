@@ -12,7 +12,17 @@ export default function EditPlantByAdmin(){
   var index=window.location.toString().lastIndexOf('/')+1
   const plantID=window.location.toString().substring(index)
   const[plantEdited,setPlantEdited]=React.useState(false)
- 
+  const [plant,setPlant]=React.useState({_id:''});
+  if(plant._id!=plantID)
+  axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
+    if(Response.data){
+
+    if(plant._id!=Response.data._id)
+    {
+      setPlant(Response.data);
+    }
+  }
+  })
 if(!plantEdited){
   return (
     <div>
@@ -28,19 +38,20 @@ if(!plantEdited){
         
             </div>
             <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-            editPlantByAdmin(e,plantID)
+            editPlantByAdmin(e,plant.species,plant.irrigationInstructors,plant.optimalTemp,plant.optimalSunExposure,
+              plant.optimalSoilMoisture,plant.description,plantID)
             setPlantEdited(true)
           }}>
               <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder="Species"  />
-              <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder="Irrigation Instructors"  />
-              <input style= {{fontSize: '12px'}} type="number"  id="optimalTemp" className="fadeIn second"  placeholder="Optimal Temperature"  />
+              <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder={plant.irrigationInstructors}  />
+              <input style= {{fontSize: '12px'}} type="number"  id="optimalTemp" className="fadeIn second"  placeholder={plant.optimalTemp}  />
               <br></br>               <br></br>
-              <input style= {{fontSize: '12px', hight:'50px'}} type="number"  id="optimalSunExposure" className="fadeIn second"  placeholder="Optimal Sun Exposure"  />
+              <input style= {{fontSize: '12px', hight:'50px'}} type="number"  id="optimalSunExposure" className="fadeIn second"  placeholder={plant.optimalSunExposure}  />
               <br></br>               <br></br>
 
-              <input style= {{fontSize: '12px'}} type="number"  id="optimalSoilMoisture" className="fadeIn second"  placeholder="Optimal Soil Moisture"  />
-              <input style= {{fontSize: '12px'}} type="text"  id="description" className="fadeIn second"  placeholder="Description"  />
-               <input type="submit" className="fadeIn fourth"  value="Add Plant To DB"/><br/>
+              <input style= {{fontSize: '12px'}} type="number"  id="optimalSoilMoisture" className="fadeIn second"  placeholder={plant.optimalSoilMoisture}  />
+              <input style= {{fontSize: '12px'}} type="text"  id="description" className="fadeIn second"  placeholder={plant.description}  />
+               <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
             </form>
            
           </div>
@@ -55,18 +66,38 @@ else{
 
 }
 }
-function editPlantByAdmin(e,plantID){
+function editPlantByAdmin(e,species,irrigationInstructors,optimalTemp,optimalSunExposure,
+  optimalSoilMoisture,description,plantID){
 
+    var species;
+    var irrigationInstructors;
+    var optimalTemp;
+    var optimalSunExposure;
+    var optimalSoilMoisture;
+    var description;
+
+    if (document.getElementById('species').value.length==0) species= species;
+      else species=document.getElementById('species').value;
+    if (document.getElementById('irrigationInstructors').value.length==0) irrigationInstructors= irrigationInstructors;
+      else irrigationInstructors=document.getElementById('irrigationInstructors').value;
+    if (document.getElementById('optimalTemp').value.length==0) optimalTemp= optimalTemp;
+      else optimalTemp=document.getElementById('optimalTemp').value;
+      if (document.getElementById('optimalSunExposure').value.length==0) optimalSunExposure= optimalSunExposure;
+      else optimalSunExposure=document.getElementById('optimalSunExposure').value;
+    if (document.getElementById('optimalSoilMoisture').value.length==0) optimalSoilMoisture= optimalSoilMoisture;
+      else optimalSoilMoisture=document.getElementById('optimalSoilMoisture').value;
+      if (document.getElementById('description').value.length==0) description= description;
+      else description=document.getElementById('description').value;
   e.preventDefault();
 
   const newPlant= { 
   id:plantID,
-  species:document.getElementById('species').value,
-  irrigationInstructors:document.getElementById('irrigationInstructors').value,
-  optimalTemp:document.getElementById('optimalTemp').value,
-  optimalSunExposure:document.getElementById('optimalSunExposure').value,
-  optimalSoilMoisture:document.getElementById('optimalSoilMoisture').value,
-  description: document.getElementById('description').value
+  species:species,
+  irrigationInstructors:irrigationInstructors,
+  optimalTemp:optimalTemp,
+  optimalSunExposure:optimalSunExposure,
+  optimalSoilMoisture:optimalSoilMoisture,
+  description:description
   }
     axios.put('http://localhost:8080/plant/byadmin',newPlant);
 }
