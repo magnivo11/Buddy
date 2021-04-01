@@ -21,6 +21,7 @@ export default function EditPlantByUser(){
   const[plantEdited,setPlantEdited]=React.useState(false)
   const [selected,setSelected]=React.useState('Select plant')
 
+//Get Admin plants from server
   const [plants,setPlants]=React.useState([])
   var plantsInfo=[];
   axios.get('http://localhost:8080/plant/admin').then((Response)=> {
