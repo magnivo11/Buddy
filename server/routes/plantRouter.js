@@ -30,7 +30,7 @@ router.get('/admin/byName/:species',plantController.getPlantByName);
 
 router.delete('/',plantController.deletePlant);
 
-
+router.get('/popularity/all',plantController.plantsPopularity);
 
 
 

@@ -52,6 +52,10 @@ const getPlantsByGardenId = async (request,response)=>{
     response.json(gardens); 
 }
 
+const plantsPopularity = async (request,response)=>{
+    const pop = await plantService.plantsPopularity();
+     response.json(pop);
+}
 
 const updatePlantByAdmin =async (request,response)=>{
      const plant= await plantService.updatePlantByAdmin(
@@ -96,5 +100,5 @@ const getAllAdminPlants=async(request,response)=>{
     response.json(plants);
 };
 
-module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
+module.exports={getPlantsByGardenId,plantsPopularity,getPlantByName, createPlantByAdmin, createPlantByUser, 
     updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants};
