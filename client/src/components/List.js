@@ -1,4 +1,3 @@
-import DataContext from '../DataContext'
 import React from 'react'
 import axios from 'axios';
 import GardenComponent from './GardenComponent'

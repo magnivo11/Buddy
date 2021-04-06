@@ -2,11 +2,9 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
-import React from 'react';
-import DataContext from '../DataContext'
-
+import{ Redirect} from 'react-router-dom';
+ import React from 'react';
+ 
 
 export default function AddAPlantByAdmin(){
   const[plantAdded,setPlantAdded]=React.useState(false)

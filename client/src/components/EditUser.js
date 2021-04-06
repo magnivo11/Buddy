@@ -1,12 +1,14 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import DataContext from '../DataContext';
-import{Link, Redirect} from 'react-router-dom';
+import{ Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
 
 export default function EditUser(){
-  const data=React.useContext(DataContext);
+ //   const userId= window.sessionStorage.getItem('userID');
+//   const[info,setInfo]=React.useState({showMessege:false,redirectToProfile:false});
+// if(!info.redirectToProfile)
+   const data=React.useContext(DataContext);
   const userId= window.sessionStorage.getItem('userID');
 
   const [user,setUser]=React.useState({_id:''});
@@ -24,7 +26,7 @@ export default function EditUser(){
   ;
   const[info,setInfo]=React.useState({showMessege:false,redirectToGardens:false});
 if(!info.redirectToGardens)
-  return (
+   return (
     <div>
 
       <section id="hero" className="d-flex align-items-center">

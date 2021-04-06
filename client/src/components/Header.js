@@ -1,7 +1,6 @@
 import '../css/Header.css';
-import { TextField } from '@material-ui/core';
-import React from 'react';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+ import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Header() {
