@@ -45,7 +45,10 @@ export default function Plant() {
       
         //clear old charts
         d3.selectAll('svg').remove()
-        DrawGraph(soilMoisture, 'd3-container', '#78281F')
+  
+
+        DrawGraph(soilMoisture, 'd3-container', '#140c04')
+ 
 
 
       })
@@ -60,10 +63,7 @@ export default function Plant() {
         <section id="hero" className="d-flex align-items-center">
           <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
             <div className="container" data-aos="fade-up"  >
-              <div className="section-title" >
-                <br></br>
-                <br></br>
-              </div>
+
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
                 {/*Left buttons*/}
                 <ButtonsList ownerID={ownerID} />
@@ -89,17 +89,28 @@ export default function Plant() {
 
                   <div id="outer">
 
-                    <div class="inner">  <button className="button" style={{ backgroundColor: '#C0C0C0', color: 'white', borderColor: 'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
+                    {/* <div class="inner">  <button className="button" style={{ backgroundColor: '#C0C0C0', color: 'white', borderColor: 'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
                       axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
                       setRedirectToGarden(true)
                     }}>DELETE</button></div>
                     <div class="inner" > <li className="button" style={{ color: 'white', backgroundColor: '#C0C0C0', border: '3px', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px' }}>
                       <Link style={{ color: 'white', textDecoration: 'none' }} className="nav-link2" to={`/editPlant/${plantID}`}>EDIT</Link>
-                    </li></div>
+                    </li></div> */}
+
+                    <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
+                       className="nav-link"  tto={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
+                              &nbsp;&nbsp;&nbsp;
+
+              <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
+                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
+                      setRedirectToGarden(true)
+                }}> Delete plant </button>
+
+
                     <div class="inner" >
                       {(!plant.sensorID) ? <form onSubmit={(e) => {
                         addSensor(e, plantID)
-                        setSensorAdded(true)
+                        setRedirectToGarden(true)
                       }}>
                         <input type="submit" style={{ backgroundColor: '#C0C0C0', color: 'white', border: 'none', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} value="Add sensor" /><br />
                       </form> : null}

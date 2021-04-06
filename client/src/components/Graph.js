@@ -1,7 +1,7 @@
 import * as d3 from "d3"
 
 export default function DrawGraph(data,containerID,color) {
-    const width = 800;
+    const width = 600;
     const height = 225;
     const margin = { top: 25, bottom: 25, left: 25, right: 25 };
 

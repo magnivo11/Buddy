@@ -49,7 +49,7 @@ socket.on('message',(message)=>{
 });
 
 app.use(cors());
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use('/user',userRouter);
 app.use('/garden',gardenRouter)
 app.use('/plant',plantRouter)

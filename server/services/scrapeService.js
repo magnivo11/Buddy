@@ -9,7 +9,7 @@ const scrapePhoto = async (name) => {
     const $ = cheerio.load(wikiPage.data);
     $('img').map(function(){ 
         let link = $(this).attr('src') ;
-        photoService.createPhoto(link,null,name)
+        photoService.createPhoto(link,name)
      });
  return true;   
 }
