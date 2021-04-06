@@ -9,28 +9,31 @@
   <button class="w3-button w3-dark-grey" (click)='getAllGardens()'>Display All gardens</button>
   <div *ngIf='((gardensList)&&(gardensList.length>0))'>
     <p>Gardens</p>
-    <li *ngFor='let garden of gardensList'>{{garden.name}}</li>
+    <ul>
+      <li *ngFor='let garden of gardensList'>{{garden.name}}</li>
+    </ul>
   </div>
   <br>
-   <h4 style="display: inline-block">Search garden by features:</h4>
-    <select style="display: inline-block" id="directions" (change)='selectDirection($event)'>
-      <option value="north" selected>north</option>
-      <option value="south">south</option>
-      <option value="east">east</option>
-      <option value="west">west</option>
-    </select>
-    <select style="display: inline-block" id="directSun" (change)='selectDirectSun($event)'>
-      <label for="cars">Choose a car:</label>
-      <option value="true" selected>direct sun</option>
-      <option value="false">no direct sun</option>
-    </select>
-    <select style="display: inline-block" id="surroundings" (change)='selectSurroundings($event)'>
-      <option value="indoor" selected>indoor</option>
-      <option value="outdoor">outdoor</option>
-    </select>
-    <button (click)='getAllSelectedGardens()' class="w3-button w3-dark-grey">Search<i class="fa fa-arrow-right"></i></button>
- 
-   <br>
+  <h4 style="display: inline-block">Search garden by features:</h4>
+  <select style="display: inline-block" id="directions" (change)='selectDirection($event)'>
+    <option value="north" selected>north</option>
+    <option value="south">south</option>
+    <option value="east">east</option>
+    <option value="west">west</option>
+  </select>
+  <select style="display: inline-block" id="directSun" (change)='selectDirectSun($event)'>
+    <label for="cars">Choose a car:</label>
+    <option value="true" selected>direct sun</option>
+    <option value="false">no direct sun</option>
+  </select>
+  <select style="display: inline-block" id="surroundings" (change)='selectSurroundings($event)'>
+    <option value="indoor" selected>indoor</option>
+    <option value="outdoor">outdoor</option>
+  </select>
+  <button (click)='getAllSelectedGardens()' class="w3-button w3-dark-grey">Search<i
+      class="fa fa-arrow-right"></i></button>
+
+  <br>
   <br>
 
 
