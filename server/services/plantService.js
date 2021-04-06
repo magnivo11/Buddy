@@ -10,6 +10,7 @@ const { deleteSensor } = require('./sensorService');
 
 
 const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, optimalSoilMoisture, optimalSunExposure, description) => {
+
     const plant = new Plant({
 
         species: species,
@@ -141,7 +142,7 @@ const updatePlantByAdmin = async (id,
 };
 
 
-const plantsPopularity = async () => {
+ const plantsPopularity = async () => {
     const allPlants = await getAllPlants();
     var max = 0; 
     var name = 'none'; 
@@ -158,8 +159,9 @@ const plantsPopularity = async () => {
        return name;
 }
 
-const deletePlant = async (plantID, gardenID) => {
-    const plant = await getPlantById(plantID);
+// const deletePlant = async (plantID, gardenID) => {
+ const deletePlantUser = async (plantID, gardenID) => {
+     const plant = await getPlantById(plantID);
 
     if (!plant)
         return null;
@@ -188,7 +190,16 @@ const deletePlant = async (plantID, gardenID) => {
     return plant;
 };
 
+const deletePlantAdmin = async(plantID)=> {
+    const plant = await getPlantById(plantID);
+    if (!plant)
+        return null;
+    else
+        await plant.remove();
+    return true;
+};
+
 module.exports = {
-    getPlantsByGardenId, plantsPopularity, getPlantByName, createPlantByAdmin, createPlantByUser,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants
+    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,
+    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants
 };
