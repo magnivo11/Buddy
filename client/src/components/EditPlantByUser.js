@@ -3,8 +3,7 @@ import axios from 'axios'
 import React from 'react';
 import '../css/AddForms.css'
 import '../css/AddAPlant.css'
-import{Link, Redirect, useParams} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
+import{Redirect} from 'react-router-dom';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -21,6 +20,7 @@ export default function EditPlantByUser(){
   const[plantEdited,setPlantEdited]=React.useState(false)
   const [selected,setSelected]=React.useState('Select plant')
 
+//Get Admin plants from server
   const [plants,setPlants]=React.useState([])
   var plantsInfo=[];
   axios.get('http://localhost:8080/plant/admin').then((Response)=> {

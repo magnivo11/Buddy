@@ -78,6 +78,10 @@ const getPlantsByGardenId = async (request,response)=>{
     response.json(gardens); 
 }
 
+const plantsPopularity = async (request,response)=>{
+    const pop = await plantService.plantsPopularity();
+     response.json(pop);
+}
 
 const updatePlantByAdmin =async (request,response)=>{
      const plant= await plantService.updatePlantByAdmin(
@@ -131,3 +135,4 @@ response.send();
 
 module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
     updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants};
+ 

@@ -1,9 +1,8 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
-import{Link, Redirect, useParams} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
-import React from 'react';
+import{Redirect} from 'react-router-dom';
+ import React from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';

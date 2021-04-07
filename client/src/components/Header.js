@@ -1,7 +1,6 @@
 import '../css/Header.css';
-import { TextField } from '@material-ui/core';
-import React from 'react';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+ import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Header() {
@@ -22,8 +21,9 @@ export default function Header() {
   }
   axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
     if (Response.data) {
-      if (currentUser._id != Response.data._id) {
+      if (currentUser._id != Response.data._id || currentUser.name!=Response.data.name || currentUser.lastName!=Response.data.lastName) {
         setUser(Response.data);
+
       }
     }
   })

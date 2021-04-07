@@ -1,16 +1,27 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
-import React from 'react';
-import DataContext from '../DataContext'
-
+import{ Redirect} from 'react-router-dom';
+ import React from 'react';
+ 
 export default function EditGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const[gardenEdited,setGardenEdited]=React.useState(false)
   //const user=React.useContext(DataContext);
-  
+  const [garden,setGarden]=React.useState({_id:''});
+  if(garden._id!=gardenID)
+  axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
+    if(Response.data){
+
+    if(garden._id!=Response.data._id)
+    {
+      setGarden(Response.data);
+    }
+  }
+  })
+
+  const gardenName = garden.name;
+
 
  
 if(!gardenEdited){
@@ -29,10 +40,10 @@ if(!gardenEdited){
           
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editGarden(e,gardenID)
+              editGarden(e,gardenName,gardenID)
               setGardenEdited(true)
             }}>
-                <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
+                <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName}  />
                 <p>Direction:</p>
                 <label className="radio-inline">
                     <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
@@ -79,7 +90,7 @@ if(!gardenEdited){
   }
    
 
-function editGarden(e,gardenID){
+function editGarden(e,gardenName,gardenID){
 
   e.preventDefault();
   const form = document.forms.gardenForm;
@@ -90,21 +101,24 @@ function editGarden(e,gardenID){
   var surrounding;
   var sunlight;
   //getting name and size
-  const name=document.getElementById('name').value;
+  var name;
+  if(document.getElementById('name').value.length==0) name=gardenName;
+  else name = document.getElementById('name').value;
+
   //getting direction
-  for(var i = 0; i <directions.length; i++){
+  for(let i = 0; i <directions.length; i++){
     if(directions[i].checked){
       direction=directions[i].id;}}
     
 
   // getting surrounsings
-  for(var i = 0; i <surroundings.length; i++){
+  for(let i = 0; i <surroundings.length; i++){
     if(surroundings[i].checked){
       surrounding=surroundings[i].id;}}
   
 
   //getting sun light
-  for(var i = 0; i <sunLight.length; i++){
+  for(let i = 0; i <sunLight.length; i++){
     if(sunLight[i].checked){
       if(i==0){
         sunlight=true}
