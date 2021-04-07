@@ -29,7 +29,13 @@ const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, o
         isUserPlant: false,
         defaultPhotoID: null
     });
-    return await plant.save();
+     await plant.save((err,plant)=>{
+        if(err){
+        return err.message
+        }
+        else
+        return plant
+    });
 };
 
 const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) => {
@@ -141,7 +147,7 @@ const updatePlantByAdmin = async (id,
 };
 
 
-const deletePlantUser = async (plantID, gardenID) => {
+const deletePlant = async (plantID, gardenID) => {
     const plant = await getPlantById(plantID);
 
     if (!plant)
@@ -171,16 +177,7 @@ const deletePlantUser = async (plantID, gardenID) => {
     return plant;
 };
 
-const deletePlantAdmin = async(plantID)=> {
-    const plant = await getPlantById(plantID);
-    if (!plant)
-        return null;
-    else
-        await plant.remove();
-    return true;
-};
-
 module.exports = {
     getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants
+    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlant, getAllPlants, getAllAdminPlants
 };

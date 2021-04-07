@@ -6,9 +6,13 @@ import{Link, Redirect} from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
 import DataContext from '../DataContext'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 
 
 export default function AddAPlantByAdmin(){
+
   const[plantAdded,setPlantAdded]=React.useState(false)
  
 if(!plantAdded){
@@ -27,7 +31,7 @@ if(!plantAdded){
             </div>
             <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addAPlantByAdmin(e)
-            setPlantAdded(true)
+             setPlantAdded(true)
           }}>
               <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder="Species"  />
               <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder="Irrigation Instructors"  />
@@ -65,5 +69,9 @@ function addAPlantByAdmin(e){
   optimalSoilMoisture:document.getElementById('optimalSoilMoisture').value,
   description: document.getElementById('description').value
   }
-    axios.post('http://localhost:8080/plant/',newPlant);
+    axios.post('http://localhost:8080/plant/',newPlant).then((Response)=>{
+      if(Response.data.message){
+      toast(Response.data.message)
+      }
+    });
 }

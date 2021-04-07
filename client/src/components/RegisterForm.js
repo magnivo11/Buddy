@@ -6,7 +6,7 @@ import React from 'react';
 
 function RegisterForm(){
 
-  const[info,setInfo]=React.useState({showMessege:false,redirectToLogin:false});
+  const[info,setInfo]=React.useState({showMessege:false,redirectToLogin:false,message:''});
 if(!info.redirectToLogin)
   return (
     <div>
@@ -20,7 +20,7 @@ if(!info.redirectToLogin)
               
                 <img src={logo} id="icon" alt="Welcome Buddy" />
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Welcome to the family! </h1> 
-                {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
+                {info.showMessege? <div>{info.message}</div>:null }
                 <h3 style= {{color:'#51361A'}}> Register </h3> 
           
               </div>
@@ -48,10 +48,13 @@ if(!info.redirectToLogin)
 function register(e,setInfo){
 
   e.preventDefault();
+  if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(document.getElementById('email').value)))
+  setInfo({showMessege:true,message:'invalid email adress'})
+  else{
   axios.get('http://localhost:8080/user/byemail/'+document.getElementById('email').value).
   then((Response)=>{
     if(Response.data) {
-    setInfo({showMessege:true})}
+    setInfo({showMessege:true,message:'this email is  taken, please use a different one'})}
   else {
     const newUser= { 
       name:document.getElementById('first_name').value ,
@@ -64,6 +67,7 @@ function register(e,setInfo){
     setInfo({redirectToLogin:true})
   }
 })
+  }
 
 
 }
