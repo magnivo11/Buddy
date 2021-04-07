@@ -153,7 +153,7 @@ const updatePlantByAdmin = async (id,
     var max = 0; 
     var name = 'none'; 
      const plantsSpecies = allPlants.map(plant => plant.species)
-    const byPop = plantsSpecies.reduce((a, b) => {
+     plantsSpecies.reduce((a, b) => {
         a[b] = a[b] + 1 || 1;
         if (max<a[b])
          {

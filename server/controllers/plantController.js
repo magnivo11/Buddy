@@ -133,6 +133,6 @@ const deletePlantAdmin = async(request,response)=>{
 response.send();
 }
 
-module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
+module.exports={getPlantsByGardenId,plantsPopularity,getPlantByName, createPlantByAdmin, createPlantByUser, 
     updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants};
  
