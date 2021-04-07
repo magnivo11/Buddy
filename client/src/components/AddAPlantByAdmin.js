@@ -2,11 +2,17 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
- import React from 'react';
- 
+import{Link, Redirect} from 'react-router-dom';
+import logo from '../Images/LB.png'; 
+import React from 'react';
+import DataContext from '../DataContext'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
+
 
 export default function AddAPlantByAdmin(){
+
   const[plantAdded,setPlantAdded]=React.useState(false)
  
 if(!plantAdded){
@@ -23,9 +29,9 @@ if(!plantAdded){
               <h4 style= {{fontSize: '20px', color:'#51361A'}}>Add A Palnt- Admin </h4> 
         
             </div>
-            <form style= {{fontSize: '10px'}}  onSubmit={(e)=>{
+            <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addAPlantByAdmin(e)
-            setPlantAdded(true)
+             setPlantAdded(true)
           }}>
               <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder="Species"  />
               <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder="Irrigation Instructors"  />
@@ -47,7 +53,7 @@ if(!plantAdded){
   );
 }
 else{
-  return(<Redirect to="/plantsbible"/>);
+  return(<Redirect to="/mygardens"/>);
 
 }
 }
@@ -63,7 +69,9 @@ function addAPlantByAdmin(e){
   optimalSoilMoisture:document.getElementById('optimalSoilMoisture').value,
   description: document.getElementById('description').value
   }
-  console.log(newPlant);
-
-    axios.post('http://localhost:8080/plant/',newPlant);
+    axios.post('http://localhost:8080/plant/',newPlant).then((Response)=>{
+      if(Response.data.message){
+      toast(Response.data.message)
+      }
+    });
 }
