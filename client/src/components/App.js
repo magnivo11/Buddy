@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
@@ -28,10 +28,21 @@ const socket = io.connect("http://localhost:8080");
 
 function App() {
     const [render,forceRender]=React.useState(false);
+    
+    ///////////// function to prevent getting into the app without log in ////////////
 
+    const validUser=()=>{
+      if(!window.sessionStorage.getItem('userID')){
+        window.history.replaceState(null, "New Page Title", '/register')
+        window.location.reload()
+    
+      }
+      }
+
+////////////////////////////////////
     return (
 
-        <DataContext.Provider value ={{render:render,forceRender:forceRender}}>
+        <DataContext.Provider value ={{render:render,forceRender:forceRender,validUser:validUser}}>
             <BrowserRouter>
 
                  <Switch>

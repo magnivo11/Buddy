@@ -2,17 +2,23 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
- import React from 'react';
-import DataContext from '../DataContext'
+ import{Link, Redirect,useHistory } from 'react-router-dom';
+import logo from '../Images/LB.png'; 
+import React from 'react';
+ import DataContext from '../DataContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 toast.configure()
 
 
 export default function AddAPlantByAdmin(){
 
   const[plantAdded,setPlantAdded]=React.useState(false)
+  const data=React.useContext(DataContext);
+data.validUser()
+
+
  
 if(!plantAdded){
   return (
