@@ -25,8 +25,8 @@ export default function PlantsBibleSinglePlant() {
   {
   return (
     <div>
-      <section id="hero" className="d-flex align-items-center">
-        <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%', marginBottom: '0%' }}>
+    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
+          <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
           <div className="container" data-aos="fade-up">
             <div className="section-title">
               <br></br>

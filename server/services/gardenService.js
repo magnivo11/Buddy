@@ -9,8 +9,8 @@ const { deletePlantUser } = require('./plantService');
 
 // create a garden and save ref to user gardens array
 const createGarden = async(name,direction,directSun,surrounding,userID)=>{
-    console.log("controller"+surrounding)
-     const garden= new Garden({
+
+    const garden= new Garden({
     name:name,
     direction:direction,
     directSun:directSun,
@@ -54,12 +54,11 @@ const getAllGardens = async()=>{return await Garden.find({})
 
 const deleteGarden = async(gardenID,userID)=>{
     const garden = await getGardenById(gardenID);
-    console.log(garden);
-
+ 
 
     if (garden.plants.length>0)
     {
-        console.log(garden.plants.length);
+
         for (let i=0; i<garden.plants.length ; i++)
         {
             deletePlantUser(garden.plants[i].id,gardenID); 

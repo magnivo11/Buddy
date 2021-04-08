@@ -5,7 +5,6 @@ import GardenComponent from './GardenComponent'
 
 export default function List({ownerID}){
     const [items,setItems]=React.useState([])
-    console.log('list')
     if(items.length==0){
     axios.get('http://localhost:8080/garden/'+ownerID).then(Response=>{
         if(items.length!=Response.data.length)

@@ -46,14 +46,12 @@ const updateUser = async(id,name,lastName,email,password) =>{
         user.email=email;
         user.password=password;
         user.save();
-        console.log(user);
-
+ 
     });
     return true;
     };
 const getUserByEmail = async(email)=>{
-    console.log(email)
-    const user = User.findOne({email:email});
+     const user = User.findOne({email:email});
         if(!user){
             return null;}
         else{

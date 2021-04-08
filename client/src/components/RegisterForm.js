@@ -11,27 +11,24 @@ if(!info.redirectToLogin)
   return (
     <div>
 
-      <section id="hero" className="d-flex align-items-center">
-        <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+<section id="hero" className="d-flex align-items-center" style={{overflow:'auto'}}>
+                   <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
   
           <div className="wrapper fadeInDown">
             <div id="formContent">
               <div className="fadeIn first">
-              
                 <img src={logo} id="icon" alt="Welcome Buddy" />
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Welcome to the family! </h1> 
                 {info.showMessege? <div>{info.message}</div>:null }
                 <h3 style= {{color:'#51361A'}}> Register </h3> 
-          
               </div>
               <form  onSubmit={(e)=>{register(e,setInfo)}}>
                 <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" />
                 <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" />
                 <input type="text" id="password" className="fadeIn third" name="register" placeholder="Password" />
-                <input type="submit" className="fadeIn fourth" defaultValue="register" value="Register"/><br/>
+                <input type="submit" className="fadeIn fourth" defaultValue="register" value="Register"/><br></br>
                 <Link style= {{color:'#51361A'}} className="underlineHover" to="/login">Already a member? Login!</Link>
-
               </form>
               <div id="formFooter">
                 <Link style= {{color:'#51361A'}} className="underlineHover" to="/login"> </Link>
@@ -62,8 +59,7 @@ function register(e,setInfo){
       email: document.getElementById('email').value ,
       password: document.getElementById('password').value ,
   }
-  console.log(newUser);
-  axios.post('http://localhost:8080/user/',newUser)
+   axios.post('http://localhost:8080/user/',newUser)
     setInfo({redirectToLogin:true})
   }
 })

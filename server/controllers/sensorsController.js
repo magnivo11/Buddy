@@ -35,7 +35,7 @@ const deleteSensor = async (request,response)=>{
 const getSensorSoilMoisture = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.soilMoisture.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
@@ -46,7 +46,7 @@ const getSensorSoilMoisture = async(request,response)=>{
 const getSensorTemp = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.temperature.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
@@ -57,7 +57,7 @@ const getSensorTemp = async(request,response)=>{
 const getSensorLight = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.light.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
