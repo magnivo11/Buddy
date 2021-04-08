@@ -1,12 +1,15 @@
 import React from 'react'
 import ButtonsList from './ButtonsList';
 import indoorPlants from '../Images/Indoor-plants.jpg';
+import DataContext from '../DataContext';
+
 
 
 
 
 export default function MyGardens(){
-    //const user=React.useContext(DataContext);
+    const data=React.useContext(DataContext);
+    data.validUser()
     const ownerID= window.sessionStorage.getItem('userID');
     
 
