@@ -197,6 +197,6 @@ const updatePlantByAdmin = async (id,
 };
 
 module.exports = {
-    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,
+    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,plantsPopularity,
     updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser, getAllPlants, getAllAdminPlants
 };
