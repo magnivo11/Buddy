@@ -4,7 +4,7 @@ const User = require('../models/userModel')
 const Plant = require('../models/plantModel');
 const Photo = require('../models/photoModel');
 
-const { deletePlant } = require('./plantService');
+const { deletePlantUser } = require('./plantService');
  
 
 // create a garden and save ref to user gardens array
@@ -62,7 +62,7 @@ const deleteGarden = async(gardenID,userID)=>{
         console.log(garden.plants.length);
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlant(garden.plants[i].id,gardenID); 
+            deletePlantUser(garden.plants[i].id,gardenID); 
         }
     }
     //deleting garden ref from user 
