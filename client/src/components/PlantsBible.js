@@ -42,7 +42,7 @@ export default function PlantsBible() {
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
               <p style={{ fontSize: '30px' }}>All the information in one place</p>
               {isAdmin ? <Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link> : null}
-              <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+              <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll' ,overflowX: 'hidden' }}>
                 <PlantsBibleGrid q={''} />
               </div>
             </div>
