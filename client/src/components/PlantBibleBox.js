@@ -27,12 +27,10 @@ export default function PlantBibleBox({ id, species, photo }) {
         <div className="column">
             <div className="content">
                 <Link to={`/PlantsBibleSinglePlant/${id}`} >
-                    <img src={addPhoto} alt={species} style={{ width:'150px' ,height: '190px' }} />
+                    <img src={addPhoto} alt={species} style={{ width:'180px' ,height: '190px' }} />
                 </Link>
                 <p style={{ fontSize:'32px',textAlign: "center" }}>{species}</p>
                 <h6 style={{ textAlign: "center" }}>Click on the image for more info</h6>
-
-
             </div>
         </div>
     )
