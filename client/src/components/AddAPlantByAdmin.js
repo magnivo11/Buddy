@@ -2,10 +2,10 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{Link, Redirect,useHistory } from 'react-router-dom';
+ import{Link, Redirect,useHistory } from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
-import DataContext from '../DataContext'
+ import DataContext from '../DataContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,8 +23,7 @@ data.validUser()
 if(!plantAdded){
   return (
     <div>
-
-    <section id="hero" className="d-flex align-items-center">
+    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
       <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
 
         <div className="wrapper fadeInDown">

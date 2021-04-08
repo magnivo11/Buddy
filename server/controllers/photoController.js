@@ -35,7 +35,7 @@ const createPhoto=async (request,response)=>{
  
         
         const scrapePhoto = async (request,response)=>{
-            const photos = await scrapeService.scrapePhoto(request.params.name); 
+             const photos = await scrapeService.scrapePhoto(request.params.name); 
             if (!photos){
             return response.status(404).json({errors:['scrape failed']})}     
         }

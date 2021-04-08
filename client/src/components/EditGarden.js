@@ -28,8 +28,7 @@ if(!gardenEdited){
 
   return (
     <div>
-
-      <section id="hero" className="d-flex align-items-center">
+    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
         <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
   
           <div className="wrapper fadeInDown">

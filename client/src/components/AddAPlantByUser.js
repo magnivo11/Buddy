@@ -121,7 +121,6 @@ function addAPlant(e,gardenID,selected){
   status=growthStatus[i].id;
   }}
 
-console.log("here add a plant by user");
  const newPlant={
 
   species:selected,

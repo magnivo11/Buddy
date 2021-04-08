@@ -1,7 +1,7 @@
 import '../css/Bible.css';
 import React from 'react';
- import PlantsBibleGrid from './PlantsBibleGrid';
- 
+import PlantsBibleGrid from './PlantsBibleGrid';
+
 
 export default function BibleSearch() {
     const q = window.location.search.toString().substring(3);
@@ -14,7 +14,9 @@ export default function BibleSearch() {
                         <div className="section-title">
                             <h2 style={{ fontSize: '35px' }}>Your search resutls</h2>
                             <p style={{ fontSize: '30px' }}>for plants with "{q}"</p>
-                            <PlantsBibleGrid q={'/byName/'+q} />
+                            <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll', overflowX: 'hidden' }}>
+                                <PlantsBibleGrid q={'/byName/' + q} />
+                            </div>
                         </div>
                     </div>
                 </section>
