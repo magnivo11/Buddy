@@ -24,25 +24,19 @@ import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 import EditPlantByAdmin from './EditPlantByAdmin';
 
+
 const socket = io.connect("http://localhost:8080");
 
 function App() {
     const [render,forceRender]=React.useState(false);
-    
-    ///////////// function to prevent getting into the app without log in ////////////
 
-    const validUser=()=>{
-      if(!window.sessionStorage.getItem('userID')){
-        window.history.replaceState(null, "New Page Title", '/register')
-        window.location.reload()
-    
-      }
-      }
+      if(!window.sessionStorage.getItem('userID'))
+        window.history.replaceState(null, "New Page Title", "/")
+     
 
-////////////////////////////////////
     return (
 
-        <DataContext.Provider value ={{render:render,forceRender:forceRender,validUser:validUser}}>
+        <DataContext.Provider value ={{render:render,forceRender:forceRender}}>
             <BrowserRouter>
 
                  <Switch>

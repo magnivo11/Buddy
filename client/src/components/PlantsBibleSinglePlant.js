@@ -1,16 +1,16 @@
 import axios from 'axios'
 import React from 'react';
 
-import {Redirect,Link} from 'react-router-dom';
+import {Redirect,Link,useHistory} from 'react-router-dom';
 
 import '../css/PlantsBibleSinglePlant.css';
 
 export default function PlantsBibleSinglePlant() {
-
+  
+  const history = useHistory();
   var index = window.location.toString().lastIndexOf('/') + 1;
   const plantID = window.location.toString().substring(index);
   const [plant, setPlant] = React.useState(false);
-  const[redirectToBible,setRedirectToBible]=React.useState(false);
 
 
   React.useEffect(() => {
@@ -21,8 +21,7 @@ export default function PlantsBibleSinglePlant() {
       }
     });
   }, []);
-  if(!redirectToBible)
-  {
+ 
   return (
     <div>
     <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
@@ -75,7 +74,7 @@ export default function PlantsBibleSinglePlant() {
 
               <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
                   axios.delete('http://localhost:8080/plant/byAdmin',{data:{plantID:plantID}})
-                  setRedirectToBible(true)
+                  history.push('/plantsBible')
                 }}> Delete plant </button>
             </div>
             </div>
@@ -85,8 +84,5 @@ export default function PlantsBibleSinglePlant() {
     </div>
 
   );
-  }
-  else{
-    return(<Redirect to="/plantsbible"/>)
-  }
+  
 }

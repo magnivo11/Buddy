@@ -1,14 +1,12 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
+import{ Redirect,useHistory} from 'react-router-dom';
 import React from 'react';
  
 export default function AddAGarden(){
   const[gardenAdded,setGardenAdded]=React.useState(false)
   const userId= window.sessionStorage.getItem('userID');
-
- 
-if(!gardenAdded){
+  const history = useHistory();
 
   return (
     <div>
@@ -24,7 +22,7 @@ if(!gardenAdded){
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               addAGarden(e,userId)
-              setGardenAdded(true)
+            history.push('/myGardens')
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
                 <p>Direction:</p>
@@ -65,11 +63,7 @@ if(!gardenAdded){
       </section>
     </div>
   );
-              }
-              else{
-                return(<Redirect to="/mygardens"/>);
-
-              }
+              
   }
    
 

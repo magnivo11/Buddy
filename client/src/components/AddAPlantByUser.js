@@ -1,7 +1,7 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
-import{Redirect} from 'react-router-dom';
+import{Redirect,useHistory} from 'react-router-dom';
  import React from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
@@ -17,8 +17,8 @@ import stage5 from '../Images/IconStages/stage 5.jpg';
 export default function AddAPlantByUser(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
-  const[plantAdded,setPlantAdded]=React.useState(false)
   const [selected,setSelected]=React.useState('Select plant')
+   const history = useHistory();
 
   const [plants,setPlants]=React.useState([])
   var plantsInfo=[];
@@ -33,8 +33,6 @@ export default function AddAPlantByUser(){
   })
 
 
-
-if(!plantAdded){
 
   return (
     <div>
@@ -57,7 +55,7 @@ if(!plantAdded){
               
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               addAPlant(e,gardenID,selected)
-              setPlantAdded(true)}}>
+            history.push('/singleGarden/'+gardenID)}}>
               <VirtualizedSelect
                 name="Species"
                 placeholder= {selected}
@@ -101,11 +99,7 @@ if(!plantAdded){
       </section>
     </div>
   );
-}
-else{
-  return(<Redirect to={`/singlegarden/${gardenID}`}/>);
 
-}
   
 }
    

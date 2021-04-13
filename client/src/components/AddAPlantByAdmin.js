@@ -5,7 +5,6 @@ import axios from 'axios'
  import{Link, Redirect,useHistory } from 'react-router-dom';
 import logo from '../Images/LB.png'; 
 import React from 'react';
- import DataContext from '../DataContext'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,12 +14,10 @@ toast.configure()
 export default function AddAPlantByAdmin(){
 
   const[plantAdded,setPlantAdded]=React.useState(false)
-  const data=React.useContext(DataContext);
-data.validUser()
+  const history = useHistory();
 
 
  
-if(!plantAdded){
   return (
     <div>
     <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
@@ -35,7 +32,7 @@ if(!plantAdded){
             </div>
             <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             addAPlantByAdmin(e)
-             setPlantAdded(true)
+             history.push('myGardens')
           }}>
               <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder="Species"  />
               <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder="Irrigation Instructors"  />
@@ -56,11 +53,7 @@ if(!plantAdded){
   </div>
   );
 }
-else{
-  return(<Redirect to="/mygardens"/>);
 
-}
-}
 function addAPlantByAdmin(e){
 
   e.preventDefault();
