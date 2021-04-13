@@ -13,7 +13,6 @@ import axios from 'axios'
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
-      
         const [sensor, setSensor] = React.useState();
         React.useEffect(() => {
             if (plantsensorid!=null){

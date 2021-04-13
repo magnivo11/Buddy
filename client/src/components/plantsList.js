@@ -25,7 +25,7 @@ return(
        <tbody>
          {plants.map((data,key)=>{
           return <PlantComponent plantName= {data.species} plantsensorid={data.sensorID} plantid={data._id} key={key}/>})}<br></br>
-          <Link to = {`/addaplantbyuser/${gardenID}`} params={{ setChange:setChange}} style={{width:'120px',background: 'white'}}className="button" >
+          <Link to = {`/addaplantbyuser/${gardenID}`} style={{width:'120px',background: 'white'}}className="button" >
           <span style={{color:'black'}}>Add A Plant</span></Link>
         </tbody>
     </table>
