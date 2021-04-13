@@ -23,16 +23,14 @@ export default function PlantsBibleSinglePlant() {
   }, []);
  
   return (
-    <div>
+    <div  style={{fontFamily: "Open Sans"}}>
     <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-          <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
+       <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
           <div className="container" data-aos="fade-up">
             <div className="section-title">
-              <br></br>
+              <br/><br/>    <br/><br/>
               <h2 style={{ fontSize: '30px' }}>Plant Information</h2>
               <p style={{ fontSize: '30px' }}>{plant.species}</p>
-              <br></br>
-
               <div class="row">
                 <div class="column">
                   <div class="card">
@@ -40,6 +38,16 @@ export default function PlantsBibleSinglePlant() {
                     <i class="fa fa-shower fa-lg" aria-hidden="true"></i>
                     <dd style={{ fontSize: '20px', fontWeight: 'bold' }}>{plant.irrigationInstructors}</dd></div>
                 </div>
+                <div class="column">
+                  <div class="card">  
+                  <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Description </dt>
+                  <i class="fa fa-book"  aria-hidden="true"></i>
+                    <dd style={{ fontSize: '20px', fontWeight: 'bold' }}>{plant.description}</dd>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+
                 <div class="column">
                   <div class="card">
                     <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Ideal temprture </dt>
@@ -58,31 +66,21 @@ export default function PlantsBibleSinglePlant() {
                     <i class="fa fa-sun-o fa-lg" aria-hidden="true"></i>
                     <dd style={{ fontSize: '30px', fontWeight: 'bold' }}>{plant.optimalSunExposure}</dd></div>
                 </div>
-                <div class="column">
-                  <div class="card">  
-                  <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Description </dt>
-                  <i class="fa fa-book"  aria-hidden="true"></i>
-                    <dd style={{ fontSize: '20px', fontWeight: 'bold' }}>{plant.description}</dd>
-                    </div>
-                
-                </div>
-              </div>
-              <div style={{textAlign:"center"}}>
-              <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
-                       className="nav-link"  to={`/editPlantByAdmin/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
-                              &nbsp;&nbsp;&nbsp;
 
-              <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
+              </div>
+              <Link  to={`/editPlantByAdmin/${plantID}`} style={{width:'120px',background: 'white'}}className="button" >
+                <span style={{color:'black'}}>Edit Plant</span>
+              </Link>&nbsp;
+              <button style={{width:'120px',background: 'white'}}className="button" type="submit"
+                onClick={()=>{
                   axios.delete('http://localhost:8080/plant/byAdmin',{data:{plantID:plantID}})
                   history.push('/plantsBible')
-                }}> Delete plant </button>
-            </div>
+                }}><span style={{color:'black'}} >Delete Plant</span>
+              </button>
             </div>
           </div>
         </section>
       </section>
     </div>
-
   );
-  
 }
