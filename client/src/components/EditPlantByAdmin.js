@@ -33,7 +33,7 @@ export default function EditPlantByAdmin(){
             <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
             editPlantByAdmin(e,plant.species,plant.irrigationInstructors,plant.optimalTemp,plant.optimalSunExposure,
               plant.optimalSoilMoisture,plant.description,plantID)
-            history.push('/plantbible')
+            history.push('/PlantsBible')
             }}>
               <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder={'Species: '+ plant.species}  />
               <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder={'Irrigation Instructors: '+ plant.irrigationInstructors}  />
