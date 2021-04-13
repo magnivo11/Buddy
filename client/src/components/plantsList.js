@@ -8,7 +8,7 @@ export default function PlantsList({gardenID}){
 
   const [plants,setPlants]=React.useState([]);
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
-        if(plants.length!=Response.data.length)
+        if(plants.length!==Response.data.length)
         setPlants(Response.data)
 
 })

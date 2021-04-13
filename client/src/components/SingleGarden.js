@@ -17,11 +17,11 @@ export default function SingleGarden(){
   const ownerID= window.sessionStorage.getItem('userID');
   const[redirectToGardens,setRedirectToGardens]=React.useState(false);
   const [garden,setGarden]=React.useState({_id:''});
-  if(garden._id!=gardenID)
+  if(garden._id!==gardenID)
   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
 
-    if(garden._id!=Response.data._id)
+    if(garden._id!==Response.data._id)
     {
       setGarden(Response.data);
     }

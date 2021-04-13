@@ -15,7 +15,7 @@ export default function EditPlantByAdmin(){
   axios.get('http://localhost:8080/plant/'+plantID).then((Response)=> {
     if(Response.data){
 
-    if(plant._id!=Response.data._id)
+    if(plant._id!==Response.data._id)
     {
       setPlant(Response.data);
     }

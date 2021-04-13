@@ -90,7 +90,7 @@ export default function Plant() {
                   <div id="outer">
 
                     <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
-                       className="nav-link"  tto={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
+                       className="nav-link"  to={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
                               &nbsp;&nbsp;&nbsp;
 
               <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{

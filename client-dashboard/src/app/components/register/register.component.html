@@ -1,0 +1,35 @@
+
+  <div class="col-sm-12" style="text-align:center;">
+    Register
+  </div>
+
+  <div class="col-sm-12">
+    <form [formGroup]="registerForm">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted"></small>
+      </div>
+      <div class="form-group">
+          <label for="exampleInputUsername">Name</label>
+          <input formControlName="name" type="text" class="form-control" id="exampleInputname" aria-describedby="userHelp" placeholder="name">
+          <small id="userHelp" class="form-text text-muted"></small>
+      </div>
+      <div class="form-group">
+        <label for="passwordInput">Password</label>
+        <input formControlName="password" type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
+        <small id="passHelp" class="form-text text-muted"></small>
+      </div>
+      <div class="form-group">
+        <label for="secretkey">Secret Key</label>
+        <input formControlName="secretkey" type="text" class="form-control" id="secretkeyInput" aria-describedby="userHelp" placeholder="secret key">
+        <small id="userHelp" class="form-text text-muted"></small>
+    </div>
+      <div class="form-group" style="text-align:center;">
+          <button type="button" class="btn btn-dark" (click)="register()">Register</button>
+          <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button>
+      </div>
+    </form>
+  </div>
+ 
+ 
