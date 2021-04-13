@@ -10,41 +10,36 @@ export default function EditGarden(){
   const history = useHistory();
   const [garden,setGarden]=React.useState({_id:''});
 
-  if(garden._id!=gardenID)
-  axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
-    if(Response.data){
-
-    if(garden._id!=Response.data._id)
-    {
-      setGarden(Response.data);
-    }
-  }
-  })
+  React.useEffect(() => {
+    fetch('http://localhost:8080/garden/find/'+gardenID)
+      .then(response => response.json()).then(
+        data => {
+          setGarden(data);
+        }
+      )
+  }, []);
 
   const gardenName = garden.name;
 
 
   return (
-    <div>
-    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-        <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
-  
-          <div className="wrapper fadeInDown">
+    <div style={{fontFamily: "Open Sans"}}>
+      <section id="hero" className="d-flex align-items-center">
+         <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+         <div className="wrapper fadeInDown">
             <div id="formContent">
-              <div className="fadeIn first">
-              
-                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Edit Garden </h4> 
-          
+              <div className="fadeIn first"><br/>
+              <h1 style={{fontSize: '35px', color:'#51361A'}} >Edit Garden </h1> 
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               editGarden(e,gardenName,gardenID)
-              history.push('/myGardens')
+              history.push('/mygardens')
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName}  />
                 <p>Direction:</p>
                 <label className="radio-inline">
-                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
-                  </label>
+                    <input type="radio" id="north" name="direction"  /><label htmlFor="north">North</label><br />
+                    </label>
                     <label className="radio-inline">
                     <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
                     </label>
@@ -70,8 +65,9 @@ export default function EditGarden(){
                    </label>
                    <br></br>
                    <br></br>
-                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
+                   <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>
               </form>
+             
              
             </div>
           </div>

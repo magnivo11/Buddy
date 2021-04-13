@@ -19,18 +19,24 @@ export default function Plant() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const [plant, setPlant] = React.useState('');
   var plantResponse;
-  const plantID = window.location.toString().substring(index)
-  axios.get('http://localhost:8080/plant/' + plantID).then((Response) => {
-    if (plant.length != Response.data.length) {
-      plantResponse = {
-        species: Response.data.species,
-        status: Response.data.healtStatus,
-        gardenID: Response.data.GardenID,
-        sensorID: Response.data.sensorID
-      };
-      setPlant(plantResponse);
-    }
-  })
+  const plantID = window.location.toString().substring(index);
+  const [gardenName, setGardenName] = React.useState('');
+
+  //set plant from server
+  React.useEffect(() => {
+    fetch('http://localhost:8080/plant/' + plantID)
+      .then(response => response.json()).then(
+        data => {
+          setPlant(data);
+            //set plant's garden name from server
+          fetch('http://localhost:8080/garden/find/'+data.GardenID)
+            .then(response => response.json()).then(
+              data => {
+                setGardenName(data.name)
+              })
+        }
+      )
+  }, []);
 
   React.useEffect(() => {
     // pick the data you want to show,the ID of the container in the html,the color of each bar
@@ -39,81 +45,71 @@ export default function Plant() {
         var soilMoisture = []
         Response.data.map((data, key) => {
           soilMoisture.push({ name: data.date, score: data.curMoist })
-        })
-      
+        }) 
         //clear old charts
         d3.selectAll('svg').remove()
-  
-
         DrawGraph(soilMoisture, 'd3-container', '#140c04')
- 
-
-
       })
     }
-
   })
 
     return (
-      <div>
-
+      <div  style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-          <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
-           
-            <div className="container" data-aos="fade-up"  >
-
-              <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                {/*Left buttons*/}
-                <ButtonsList ownerID={ownerID} />
-
-
-                <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-                  <h2 style={{ fontSize: '30px' }}>{plant.species}</h2>
-
-                  <nav className="nav-menu d-none d-lg-block" > {/*display*/}
-                    <ul>
-                      {(plant.sensorID) ? <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
-                        : null}
-                    </ul>
-                  </nav>
-                  <br></br>
-
-                  <div id='d3-container'></div>
-                  <br></br>
-                  <div id='temperature'>
-                  </div>
-                  {/* <Chart title='Soil Moisture'></Chart> */}
-
-
-                  <div id="outer">
-
-                    <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
-                       className="nav-link"  tto={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
-                              &nbsp;&nbsp;&nbsp;
-
-              <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
-                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
-                      history.push('/myGardens')
-                }}> Delete plant </button>
-
-
-                    <div class="inner" >
-                      {(!plant.sensorID) ? <form onSubmit={(e) => {
-                        addSensor(e, plantID)
-                        history.push('/myGardens')
-                      }}>
-                        <input type="submit" style={{textAlign:'left' ,display:'inline-block',boxShadow:'none', marginLeft:'10px', color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"12px" ,borderRadius:'0px' , height:"45px" ,width:"60px"}} value="Add sensor" /><br />
-                      </form> : null}
+        <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
+          <div className="container" data-aos="fade-up"  >
+            <div className="row" data-aos="fade-up" data-aos-delay={100}>
+             <div className="col-lg-3">
+                <ul className="nav nav-tabs flex-column">
+                    {/*Title*/}
+                    <div className="section-title" >
+                      <br></br>
+                      <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
+                      <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
                     </div>
-                  </div>
-
-                </div>
-              </div>
-
+                  {/*Left buttons*/}
+                  <ButtonsList ownerID= {ownerID}/>
+                </ul>
             </div>
-          </section>
+            <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+              <div className="section-title" > <br></br>
+                  <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {plant.species} </h2>
+              </div>
+              <nav className="nav-menu d-none d-lg-block" > {/*display*/}
+                <ul>
+                  {(plant.sensorID) ? <li><a style={{ fontSize: '20px' ,color:'white' }}>Soil moistrue of the last 3 days:</a></li>
+                    : null}
+                </ul>
+              </nav> <br></br>
+              <div id='d3-container'></div> <br></br>
+                <div id='temperature'></div>
+                  <div class="inner" >
+                    {(!plant.sensorID) ? <form onSubmit={(e) => {
+                      addSensor(e, plantID)
+                      history.push('/myGardens')
+                    }}>
+                    <div className="nav-menu d-none d-lg-block">
+                    <p style={{fontSize:"25px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Looks like you haven't added a sensor</p>
+                    <p style={{fontSize:"20px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Add one now!</p>
+                      </div>  
+                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
+                    </form> : null}
+                  </div>
+                  <br></br>
+                  <Link to={`/editPlant/${plantID}`} style={{width:'120px',background: 'white'}}className="button" >
+                  <span style={{color:'black'}}>Edit Plant</span></Link> &nbsp;
+                  <button style={{width:'120px',background: 'white'}}className="button" type="submit"
+                    onClick={()=>{
+                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
+                      history.push('/mygardens')}}>
+                  <span style={{color:'black'}} >Delete Plant</span></button>
+              </div>
+            </div>
+          </div>
         </section>
-      </div>
+      </section>
+    </div>
     );
 
   }
@@ -121,15 +117,11 @@ export default function Plant() {
 
 
 function addSensor(e, plantID) {
-
   e.preventDefault();
-
   const newSensor = {
     plantID: plantID
   }
-
   axios.post('http://localhost:8080/sensor/', newSensor);
-
 }
 
 function addPhoto(e, plantID) {
@@ -139,9 +131,7 @@ function addPhoto(e, plantID) {
     link: document.getElementById('photoLink').value,
     plantID: plantID
   }
-
   axios.post('http://localhost:8080/photo/', newPhoto);
-
 }
 
 
