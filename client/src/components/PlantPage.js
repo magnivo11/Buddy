@@ -1,5 +1,5 @@
 import '../css/Timeline.scss';
-import { Redirect } from 'react-router-dom';
+import { Redirect,useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react';
@@ -7,16 +7,16 @@ import DrawGraph from './Graph'
 import ButtonsList from './ButtonsList';
 import * as d3 from "d3"
 import '../css/plantPage.css';
+import Chart from './Chart';
 
 const data = require('../files/data.json');
 
 export default function Plant() {
 
   //const [soilMoisture, setSoilmoisture] = React.useState([])
-  const [sensorAdded, setSensorAdded] = React.useState(false)
+  const history = useHistory();
   const ownerID = window.sessionStorage.getItem('userID');
   var index = window.location.toString().lastIndexOf('/') + 1
-  const [redirectToGarden, setRedirectToGarden] = React.useState(false);
   const [plant, setPlant] = React.useState('');
   var plantResponse;
   const plantID = window.location.toString().substring(index)
@@ -32,7 +32,6 @@ export default function Plant() {
     }
   })
 
-  //maybe to show all the graphs make every data set a state
   React.useEffect(() => {
     // pick the data you want to show,the ID of the container in the html,the color of each bar
     if (plant.sensorID != null) {
@@ -55,7 +54,6 @@ export default function Plant() {
 
   })
 
-  if (!redirectToGarden) {
     return (
       <div>
 
@@ -72,8 +70,6 @@ export default function Plant() {
                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
                   <h2 style={{ fontSize: '30px' }}>{plant.species}</h2>
 
-
-
                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
                     <ul>
                       {(plant.sensorID) ? <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
@@ -84,7 +80,9 @@ export default function Plant() {
 
                   <div id='d3-container'></div>
                   <br></br>
-                  <div id='temperature'></div>
+                  <div id='temperature'>
+                  </div>
+                  {/* <Chart title='Soil Moisture'></Chart> */}
 
 
                   <div id="outer">
@@ -95,14 +93,14 @@ export default function Plant() {
 
               <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
                       axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
-                      setRedirectToGarden(true)
+                      history.push('/myGardens')
                 }}> Delete plant </button>
 
 
                     <div class="inner" >
                       {(!plant.sensorID) ? <form onSubmit={(e) => {
                         addSensor(e, plantID)
-                        setRedirectToGarden(true)
+                        history.push('/myGardens')
                       }}>
                         <input type="submit" style={{textAlign:'left' ,display:'inline-block',boxShadow:'none', marginLeft:'10px', color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"12px" ,borderRadius:'0px' , height:"45px" ,width:"60px"}} value="Add sensor" /><br />
                       </form> : null}
@@ -120,10 +118,6 @@ export default function Plant() {
 
   }
 
-  else {
-    return (<Redirect to="/mygardens" />)
-  }
-}
 
 
 function addSensor(e, plantID) {

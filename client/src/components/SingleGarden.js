@@ -1,4 +1,4 @@
-import {Redirect} from 'react-router-dom';
+import {Redirect,useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
@@ -9,14 +9,16 @@ import ButtonsList from './ButtonsList';
 
 
 export default function SingleGarden(){
-  
+
+   const history = useHistory();
+
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
-  // const user=React.useContext(DataContext);
-  // const ownerID=user._id;
+
   const ownerID= window.sessionStorage.getItem('userID');
-  const[redirectToGardens,setRedirectToGardens]=React.useState(false);
+
   const [garden,setGarden]=React.useState({_id:''});
+  
   if(garden._id!=gardenID)
   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
@@ -32,8 +34,7 @@ export default function SingleGarden(){
 
 
   
-if(!redirectToGardens)
-{
+
  return (
 
    <div>
@@ -67,7 +68,7 @@ if(!redirectToGardens)
 
                       <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
                         axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
-                        setRedirectToGardens(true)
+                        history.push('/myGardens')
                       }}> Delete garden </button>
                      </div>
                     </div>
@@ -81,8 +82,6 @@ if(!redirectToGardens)
     </div>
 
   );
-  }
-  else{
-  return(<Redirect to="/mygardens"/>)}
+
 }
 

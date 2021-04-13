@@ -1,14 +1,15 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
+import{ Redirect,useHistory} from 'react-router-dom';
  import React from 'react';
  
 export default function EditGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const[gardenEdited,setGardenEdited]=React.useState(false)
-  //const user=React.useContext(DataContext);
+  const history = useHistory();
   const [garden,setGarden]=React.useState({_id:''});
+
   if(garden._id!=gardenID)
   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
@@ -22,9 +23,6 @@ export default function EditGarden(){
 
   const gardenName = garden.name;
 
-
- 
-if(!gardenEdited){
 
   return (
     <div>
@@ -40,7 +38,7 @@ if(!gardenEdited){
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               editGarden(e,gardenName,gardenID)
-              setGardenEdited(true)
+              history.push('/myGardens')
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName}  />
                 <p>Direction:</p>
@@ -81,11 +79,7 @@ if(!gardenEdited){
       </section>
     </div>
   );
-              }
-              else{
-                return(<Redirect to="/mygardens"/>);
-
-              }
+              
   }
    
 
