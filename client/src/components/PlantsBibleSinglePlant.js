@@ -50,21 +50,21 @@ export default function PlantsBibleSinglePlant() {
 
                 <div class="column">
                   <div class="card">
-                    <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Ideal temprture </dt>
+                    <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Optimal temprture </dt>
                     <i class="fa fa-thermometer-three-quarters fa-lg" aria-hidden="true"></i>
-                    <dd style={{ fontSize: '30px', fontWeight: 'bold' }}>{plant.optimalTemp}</dd></div>
+                    <dd style={{ fontSize: '22px', fontWeight: 'bold' }}>{plant.optimalTemp}</dd></div>
                 </div>
                 <div class="column">
                   <div class="card">
                     <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Optimal soil moisture</dt>
                     <i class="fa fa-tint fa-lg" aria-hidden="true"></i>
-                    <dd style={{ fontSize: '30px', fontWeight: 'bold' }}>{plant.optimalSoilMoisture}</dd></div>
+                    <dd style={{ fontSize: '22px', fontWeight: 'bold' }}>{plant.optimalSoilMoisture}</dd></div>
                 </div>
                 <div class="column">
                   <div class="card">
-                    <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Optimal sun condition</dt>
+                    <dt style={{ fontSize: '18px', fontWeight: 'normal' }}>Optimal sun exposure</dt>
                     <i class="fa fa-sun-o fa-lg" aria-hidden="true"></i>
-                    <dd style={{ fontSize: '30px', fontWeight: 'bold' }}>{plant.optimalSunExposure}</dd></div>
+                    <dd style={{ fontSize: '22px', fontWeight: 'bold' }}>{plant.optimalSunExposure}</dd></div>
                 </div>
 
               </div>
