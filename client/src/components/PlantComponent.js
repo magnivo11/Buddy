@@ -7,24 +7,25 @@ import statusBlue from '../Images/status/statusBlue.png';
 import React from 'react';
 import axios from 'axios'
 
- export default function PlantComponent({ plantName, plantid, plantsensorid }) {
-
+ 
+export default function PlantComponent({ plantName, plantid, plantsensorid }) { 
     const StatusColor = () => {
         var status1 = 0;
         var status2 = 0;
         var status3 = 0;
+ 
         const [sensor, setSensor] = React.useState();
         React.useEffect(() => {
-            if (plantsensorid!=null){
-            var url = 'http://localhost:8080/sensor/' + plantsensorid;
-            axios.get(url).then((Response) => {
-                if (!sensor) {
-                    setSensor(Response.data);
-                }
-            })
-        }}, []);
+            if (plantsensorid != null) {
+                var url = 'http://localhost:8080/sensor/' + plantsensorid;
+                axios.get(url).then((Response) => {
+                    if (!sensor) {
+                        setSensor(Response.data);
+                    }
+                })
+            }
+        }, []);
         if (sensor != null && sensor.light.length > 15) {
-
             for (let i = 0; i < 10; i++) {
                 status1 += sensor.light[i].curLight;
                 status2 += sensor.temperature[i].curTemp;
@@ -37,7 +38,36 @@ import axios from 'axios'
             if ((status1 / 10) >= 60 && ((status1 / 10) <= 80) || (status1 / 10) >= 40 && ((status1 / 10) <= 50) || (status2 / 10) >= 30 && (status2 / 10) <= 40 || (status2 / 10) >= 15 && (status2 / 10) <= 20 || (status3 / 10) > 50 && (status2 / 10) < 100) {
                 return statusYellow;
             }
-            else {return statusRed;}
+ //             else {
+//                 return statusRed;
+//             }
+
+
+//         }
+//         else { return statusBlue; }
+
+//     }
+
+
+
+//     return (
+//         <div>
+//             <tr>
+
+
+
+//                 <Link style={{ fontSize: '20px' }} to={`/plant/${plantid}`} >{plantName}</Link>
+//                 <td></td>
+//                 <td>  &nbsp;&nbsp; <img style={{ width: '30px', height: '30px' }} src={StatusColor()}
+//                     width={"30px"}></img></td>
+//                 <td></td>
+
+
+//             </tr>
+//         </div>
+//     );
+
+             else {return statusRed;}
         }         
         else {return statusBlue;}
     }
@@ -53,7 +83,6 @@ return (
         </tr>
     </div>
 );
-
  
 
 }

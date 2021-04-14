@@ -21,7 +21,7 @@ export default function Header() {
   }
   axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
     if (Response.data) {
-      if (currentUser._id != Response.data._id || currentUser.name!=Response.data.name || currentUser.lastName!=Response.data.lastName) {
+      if (currentUser._id !== Response.data._id || currentUser.name!==Response.data.name || currentUser.lastName!==Response.data.lastName) {
         setUser(Response.data);
       }
     }

@@ -4,13 +4,13 @@ const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
 
-const createUser = async(name,lastName,email,password)=>{
-    const user= new User({
+const createUser = async(name,lastName,email,password,isAdmin)=>{
+     const user= new User({
         name:name,
         lastName:lastName,
         email:email,
         password:password,
-        isAdmin:false,
+        isAdmin:isAdmin,
         gardens:[]
     });
     return await user.save();

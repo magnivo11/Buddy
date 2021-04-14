@@ -15,7 +15,7 @@ export default function PlantsBibleSinglePlant() {
 
   React.useEffect(() => {
     axios.get('http://localhost:8080/plant/' + plantID).then((Response) => {
-      if (plant != Response.data) {
+      if (plant !== Response.data) {
         setPlant(Response.data);
 
       }

@@ -8,11 +8,14 @@ export default function PlantsList({gardenID}){
 
   const [plantListChange,setChange]=React.useState(false);
   const [plants,setPlants]=React.useState([]);
-  axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
+//      axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
+//         if(plants.length!==Response.data.length)
+//         setPlants(Response.data)
+   axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
     if(plants.length!=Response.data.length)
     setPlants(Response.data)});
 
-
+ 
 if(plants.length)
 return(
   <div style={{fontFamily: "Open Sans"}}>

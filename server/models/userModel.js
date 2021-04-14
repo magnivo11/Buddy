@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require ('bcrypt');
+const { schema } = require('./gardenModel');
 
 const userSchema = new Schema({
     name: {
@@ -27,5 +29,18 @@ const userSchema = new Schema({
         }
     ]
 })
+
+userSchema.statics.hashPassword = function hashPassword (password)
+{
+    return bcrypt.hashSync(password,10); 
+}
+
+userSchema.methods.isValid = function (hashedPassword)
+{
+    return bcrypt.compareSync(hashedPassword,this.password); 
+}
+
+ 
+
 
 module.exports = mongoose.model('users', userSchema);

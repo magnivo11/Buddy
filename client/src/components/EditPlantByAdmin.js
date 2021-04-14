@@ -12,6 +12,16 @@ export default function EditPlantByAdmin(){
   const [plant,setPlant]=React.useState({_id:''});
   const history = useHistory();
 
+//     if(plant._id!==Response.data._id)
+//     {
+//       setPlant(Response.data);
+//     }
+//   }
+//   })
+// if(!plantEdited){
+//   return (
+//     <div>
+
   React.useEffect(() => {
     fetch('http://localhost:8080/plant/'+plantID)
       .then(response => response.json()).then(
@@ -20,7 +30,7 @@ export default function EditPlantByAdmin(){
         }
       )
   }, []);
-
+ 
   return (
     <div  style={{fontFamily: "Open Sans"}}>
     <section id="hero" className="d-flex align-items-center">

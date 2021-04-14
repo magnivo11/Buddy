@@ -14,7 +14,17 @@ export default function EditUser(){
   const userId= window.sessionStorage.getItem('userID');
 
   const [user,setUser]=React.useState({_id:''});
-  React.useEffect(() => {
+ //   if(user._id!==userId)
+//   axios.get('http://localhost:8080/user/'+userId).then((Response)=> {
+//     if(Response.data){
+
+//     if(user._id!==Response.data._id)
+//     {
+//       setUser(Response.data);
+//     }
+//   }
+//   })
+   React.useEffect(() => {
     fetch('http://localhost:8080/user/'+userId)
       .then(response => response.json()).then(
         data => {
@@ -22,8 +32,8 @@ export default function EditUser(){
         }
       )
   }, []);
-
-  ;
+ 
+  
   const[info,setInfo]=React.useState({showMessege:false,redirectToGardens:false});
 if(!info.redirectToGardens)
    return (
@@ -62,19 +72,19 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldPassword,userId,
     var lastName;
     var email;
     var password;
-    if (document.getElementById('first_name').value.length==0) firstName= oldFirstName;
+    if (document.getElementById('first_name').value.length===0) firstName= oldFirstName;
       else firstName=document.getElementById('first_name').value;
-    if (document.getElementById('last_name').value.length==0) lastName= oldLastName;
+    if (document.getElementById('last_name').value.length===0) lastName= oldLastName;
       else lastName=document.getElementById('last_name').value;
-    if (document.getElementById('email').value.length==0) email= oldEmail;
+    if (document.getElementById('email').value.length===0) email= oldEmail;
       else email=document.getElementById('email').value;
-    if (document.getElementById('password').value.length==0) password= oldPassword;
+    if (document.getElementById('password').value.length===0) password= oldPassword;
       else password=document.getElementById('password').value;
 
 
     axios.get('http://localhost:8080/user/byemail/'+email).then((Response)=>{
       if(Response.data){
-        if(Response.data._id!=userId) {
+        if(Response.data._id!==userId) {
           setInfo({showMessege:true})}
         else{
           const newUser= { 

@@ -56,7 +56,53 @@ export default function Plant() {
     return (
       <div  style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-        <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
+ //           <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
+           
+//             <div className="container" data-aos="fade-up"  >
+
+//               <div className="row" data-aos="fade-up" data-aos-delay={100}>
+//                 {/*Left buttons*/}
+//                 <ButtonsList ownerID={ownerID} />
+
+
+//                 <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+//                   <h2 style={{ fontSize: '30px' }}>{plant.species}</h2>
+
+
+
+//                   <nav className="nav-menu d-none d-lg-block" > {/*display*/}
+//                     <ul>
+//                       {(plant.sensorID) ? <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
+//                         : null}
+//                     </ul>
+//                   </nav>
+//                   <br></br>
+
+//                   <div id='d3-container'></div>
+//                   <br></br>
+//                   <div id='temperature'></div>
+
+
+//                   <div id="outer">
+
+//                     <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
+//                        className="nav-link"  to={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
+//                               &nbsp;&nbsp;&nbsp;
+
+//               <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
+//                       axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
+//                       setRedirectToGarden(true)
+//                 }}> Delete plant </button>
+
+
+//                     <div class="inner" >
+//                       {(!plant.sensorID) ? <form onSubmit={(e) => {
+//                         addSensor(e, plantID)
+//                         setRedirectToGarden(true)
+//                       }}>
+//                         <input type="submit" style={{textAlign:'left' ,display:'inline-block',boxShadow:'none', marginLeft:'10px', color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"12px" ,borderRadius:'0px' , height:"45px" ,width:"60px"}} value="Add sensor" /><br />
+//                       </form> : null}
+         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
           <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
              <div className="col-lg-3">
@@ -66,7 +112,7 @@ export default function Plant() {
                       <br></br>
                       <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
                       <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
-                    </div>
+                     </div>
                   {/*Left buttons*/}
                   <ButtonsList ownerID= {ownerID}/>
                 </ul>
