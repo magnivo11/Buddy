@@ -1,10 +1,11 @@
 import React from 'react';
-import{Link, Redirect} from 'react-router-dom';
+import{Link, Redirect,useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 
 export default function Profile(){
 
+  const history = useHistory();
   const userIDfromSession= window.sessionStorage.getItem('userID');
   const[redirectToProfile,setRedirectToProflie]=React.useState(false);
   const [currentUser,setUser]=React.useState({_id:null});
@@ -17,7 +18,6 @@ export default function Profile(){
   }
   })
 
-if(!redirectToProfile)
     return (
       <div>
        <section id="hero" className="d-flex align-items-center">
@@ -40,7 +40,7 @@ if(!redirectToProfile)
                   <h4 className="w3-center">{currentUser.name+" "+currentUser.lastName}</h4>
                   <p className="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" className="w3-circle" style={{height: '106px', width: '106px'}} alt="Avatar" /></p>
                   <p className="w3-center"><i className="fa fa-envelope fa-fw w3-margin-right w3-text-theme" /> {currentUser.email}</p>
-                  <Link className="w3-center"  to={`/edituser/${userIDfromSession}`} onClick={()=>{setRedirectToProflie(true)}}>
+                  <Link className="w3-center"  to={`/edituser/${userIDfromSession}`} onClick={()=>{history.push('/myGardens')}}>
                   <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" /> Edit My Profile</Link>
                 </div>
             </div>     
@@ -49,7 +49,4 @@ if(!redirectToProfile)
       </section>
     </div>
     );
-   
-   else{
-    return(<Redirect to="/mygardens"/>)}
-   }
+    }

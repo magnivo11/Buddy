@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
@@ -24,10 +24,15 @@ import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 import EditPlantByAdmin from './EditPlantByAdmin';
 
+
 const socket = io.connect("http://localhost:8080");
 
 function App() {
     const [render,forceRender]=React.useState(false);
+
+      if(!window.sessionStorage.getItem('userID'))
+        window.history.replaceState(null, "New Page Title", "/")
+     
 
     return (
 
