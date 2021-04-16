@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
+    console.log("here")
     if(!this.registerForm.valid || (this.registerForm.controls.secretkey.value != "admincode")){
       console.log('Invalid Form'); return;
     }

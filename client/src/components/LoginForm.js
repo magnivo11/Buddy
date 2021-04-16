@@ -46,13 +46,15 @@ function login(e, setLoggedIn, setMessege) {
   var password = document.getElementById('password').value;
   axios.get('http://localhost:8080/user/byemail/' + email).
     then(Response => {
-      if (Response.data)
+      if (Response.data){
+      console.log(Response.data)
         if (Response.data.password === password) {
           window.sessionStorage.setItem('userID', Response.data._id);
           setLoggedIn(true);
         }
         else
           setMessege({ text: 'password incorrect', showMessege: true })
+      }
       else
         setMessege({ text: 'invalid email', showMessege: true })
 
