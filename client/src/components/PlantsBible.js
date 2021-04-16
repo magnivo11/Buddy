@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import PlantsBibleGrid from './PlantsBibleGrid';
-import UploadImg from './UploadImg';
   
 export default function PlantsBible() {
   const ownerID = window.sessionStorage.getItem('userID');

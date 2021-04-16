@@ -14,6 +14,7 @@ mongoose.connect(process.env.CONNECTION_STRING, { useUnifiedTopology: true, useN
 const userController = require('../controllers/userController');
 
 
+
 router.get('/logout', isValidUser, function (req, res, next) {
     req.logout();
     return res.status(200).json({ message: 'Logout Success' });
