@@ -44,7 +44,7 @@ function login(e, setLoggedIn, setMessege) {
   e.preventDefault();
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
-  var logIn = false;
+   var logIn = false;
 
   fetch('http://localhost:8080/user/login', {
     method: 'POST',
@@ -59,8 +59,7 @@ function login(e, setLoggedIn, setMessege) {
     error => console.error('wrong password or email')
   ).then(()=>{
     if (logIn===true) {
-      console.log('in')
-      axios.get('http://localhost:8080/user/byemail/' + email).
+       axios.get('http://localhost:8080/user/byemail/' + email).
         then(Response => {
           if (Response.data) {
             window.sessionStorage.setItem('userID', Response.data._id);
