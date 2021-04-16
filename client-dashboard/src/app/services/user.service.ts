@@ -22,6 +22,13 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
+
+  getUserByEmail(email: String): Observable<User> {
+    const url = `${this.usersUrl}/byemail/${email}`;
+    console.log(this.http.get<User>(url));
+    return this.http.get<User>(url)
+  }
+
   getUsersGroupedByAdmin(): Observable<String[]> {
     const url = this.usersUrl+`/groupedbyadmin`;
     return this.http.get<String[]>(url);

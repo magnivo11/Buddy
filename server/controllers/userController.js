@@ -5,7 +5,6 @@ const userService = require('../services/userService');
 const passport = require('passport'); 
 
 const createUser = async (request, response) => {
-    console.log(request.body.code); 
     var isAdmin = false;
     if (request.body.code == "admincode") {
         isAdmin = true;
@@ -20,11 +19,11 @@ const createUser = async (request, response) => {
             )
 
     response.json(newUser);
-    response.send('new user is now registered');
 }
 
 const getUserByEmail = async (request, response) => {
     const user = await userService.getUserByEmail(request.params.email);
+
     if (!user)
         response.json(null);
     response.json(user);

@@ -27,13 +27,10 @@ export class LoginComponent implements OnInit {
     if(!this.loginForm.valid){
       console.log('Invalid');return;
     }
-
-    // console.log(JSON.stringify(this.loginForm.value));
     this._user.login(JSON.stringify(this.loginForm.value))
     .subscribe(
-      data=>{console.log(data);this._router.navigate(['/home']);} ,
-      error=>console.error(error)
+      data=>{console.log(data);this._router.navigate(['/statistics']);} ,
+      error=>console.error("is not admin")
     )
   }
-
 }
