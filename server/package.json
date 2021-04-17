@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=local&& nodemon server.js"
+    "start": "SET NODE_ENV=local&& nodemon server.js",
+    "mac_start": "NODE_ENV=local PORT=8080 CONNECTION_STRING='mongodb+srv://Nivo11:sheleg11@cluster0.k9bri.mongodb.net/Buddy_db?retryWrites=true&w=majority' nodemon server.js"
   },
   "keywords": [],
   "author": "",
