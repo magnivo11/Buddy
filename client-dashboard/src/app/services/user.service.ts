@@ -37,8 +37,7 @@ export class UserService {
   register(body:any) : Observable<User>
   {
     var res = JSON.parse(body);
-    console.log(res); 
-    return this.http.post<User>(this.usersUrl+'/register' , {email:res.email,name:res.name,code:res.secretkey,password:res.password});
+    return this.http.post<User>(this.usersUrl+'/register' , {email:res.email,name:res.name,lastName:res.lastName,code:res.secretkey,password:res.password});
   }
 
   login(body:any){

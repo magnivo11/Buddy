@@ -20,7 +20,8 @@ export default function Plant() {
   const [plant, setPlant] = React.useState('');
   var plantResponse;
   const plantID = window.location.toString().substring(index);
-  const [gardenName, setGardenName] = React.useState('');
+  const [garden, setGarden] = React.useState('');
+
 
   //set plant from server
   React.useEffect(() => {
@@ -32,7 +33,7 @@ export default function Plant() {
           fetch('http://localhost:8080/garden/find/'+data.GardenID)
             .then(response => response.json()).then(
               data => {
-                setGardenName(data.name)
+                setGarden(data)
               })
         }
       )
@@ -48,7 +49,7 @@ export default function Plant() {
         }) 
         //clear old charts
         d3.selectAll('svg').remove()
-        DrawGraph(soilMoisture, 'd3-container', '#140c04')
+        DrawGraph(soilMoisture, 'd3-container', 'darkgreen')
       })
     }
   })
@@ -65,7 +66,7 @@ export default function Plant() {
                     <div className="section-title" >
                       <br></br>
                       <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
-                      <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
+                      <p style={{fontSize:'35px'}}>{garden.name} Garden </p>
                      </div>
                   {/*Left buttons*/}
                   <ButtonsList ownerID= {ownerID}/>
@@ -87,7 +88,7 @@ export default function Plant() {
                   <div class="inner" >
                     {(!plant.sensorID) ? <form onSubmit={(e) => {
                       addSensor(e, plantID)
-                      history.push('/myGardens')
+                      history.push('/mygardens')
                     }}>
                     <div className="nav-menu d-none d-lg-block">
                     <p style={{fontSize:"25px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Looks like you haven't added a sensor</p>
@@ -124,15 +125,15 @@ function addSensor(e, plantID) {
   axios.post('http://localhost:8080/sensor/', newSensor);
 }
 
-function addPhoto(e, plantID) {
-  e.preventDefault();
-  document.getElementById('photoLink').value = 'Uploaded';
-  const newPhoto = {
-    link: document.getElementById('photoLink').value,
-    plantID: plantID
-  }
-  axios.post('http://localhost:8080/photo/', newPhoto);
-}
+// function addPhoto(e, plantID) {
+//   e.preventDefault();
+//   document.getElementById('photoLink').value = 'Uploaded';
+//   const newPhoto = {
+//     link: document.getElementById('photoLink').value,
+//     plantID: plantID
+//   }
+//   axios.post('http://localhost:8080/photo/', newPhoto);
+// }
 
 
 
