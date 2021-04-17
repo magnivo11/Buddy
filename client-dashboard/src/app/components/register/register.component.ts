@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm:FormGroup = new FormGroup({
     email:new FormControl(null,[Validators.email,Validators.required]),
     name:new FormControl(null,Validators.required),
+    lastName: new FormControl(null,Validators.required),
     secretkey:new FormControl(null,Validators.required),
     password:new FormControl(null,Validators.required),
    })
@@ -35,6 +36,5 @@ export class RegisterComponent implements OnInit {
       data=> {console.log(data); this._router.navigate(['/login']);},
       error=>console.error(error)
     )
-    // console.log(JSON.stringify(this.registerForm.value));
   }
 }

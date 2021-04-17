@@ -36,6 +36,7 @@ export default function SingleGarden(){
                       {/*Title*/}
                       <div className="section-title" >
                         <br></br>
+                        <br></br><br></br>
                         <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
                       </div>
                       {/*Left buttons*/}
@@ -47,6 +48,7 @@ export default function SingleGarden(){
                   <div className="tab-content">
                      <div>
                         <div className="section-title" >
+                        <br></br><br></br>
                           <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
                        </div>
                         <PlantsList gardenID={gardenID} gardenName={gardenName}/> 

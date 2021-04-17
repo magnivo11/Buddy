@@ -7,23 +7,12 @@ import DataContext from '../DataContext';
 
 
 export default function EditUser(){
- //   const userId= window.sessionStorage.getItem('userID');
-//   const[info,setInfo]=React.useState({showMessege:false,redirectToProfile:false});
-// if(!info.redirectToProfile)
+
    const data=React.useContext(DataContext);
   const userId= window.sessionStorage.getItem('userID');
 
   const [user,setUser]=React.useState({_id:''});
- //   if(user._id!==userId)
-//   axios.get('http://localhost:8080/user/'+userId).then((Response)=> {
-//     if(Response.data){
 
-//     if(user._id!==Response.data._id)
-//     {
-//       setUser(Response.data);
-//     }
-//   }
-//   })
    React.useEffect(() => {
     fetch('http://localhost:8080/user/'+userId)
       .then(response => response.json()).then(
@@ -51,7 +40,7 @@ if(!info.redirectToGardens)
                 <input type="text" id="first_name" className="fadeIn second"  placeholder={'First Name: '+user.name} />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder={'Last Name: '+user.lastName}  />
                 <input type="text" id="email" className="fadeIn second"  placeholder={'Email: '+user.email} />
-                <input type="text" id="password" className="fadeIn third"  placeholder={'Password: '+user.password} />
+                <input type="text" id="password" className="fadeIn third"  placeholder={'Password'} />
                 <input type="submit" className="fadeIn fourth" value="Save"/><br/>
 
               </form>

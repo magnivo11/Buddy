@@ -11,6 +11,7 @@ export default function PlantsBibleSinglePlant() {
   var index = window.location.toString().lastIndexOf('/') + 1;
   const plantID = window.location.toString().substring(index);
   const [plant, setPlant] = React.useState(false);
+  const ownerID = window.sessionStorage.getItem('userID');
 
 
   React.useEffect(() => {
@@ -22,6 +23,17 @@ export default function PlantsBibleSinglePlant() {
     });
   }, []);
  
+  var isAdmin=false;
+
+  React.useEffect(() => {
+    fetch('http://localhost:8080/user/' + ownerID)
+      .then(response => response.json()).then(
+        data => {
+          isAdmin=data.isAdmin;
+        }
+      )
+  }, []);
+
   return (
     <div  style={{fontFamily: "Open Sans"}}>
     <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
@@ -68,15 +80,16 @@ export default function PlantsBibleSinglePlant() {
                 </div>
 
               </div>
+              {isAdmin?
               <Link  to={`/editPlantByAdmin/${plantID}`} style={{width:'120px',background: 'white'}}className="button" >
                 <span style={{color:'black'}}>Edit Plant</span>
-              </Link>&nbsp;
-              <button style={{width:'120px',background: 'white'}}className="button" type="submit"
+              </Link> :null} &nbsp;
+              {isAdmin?<button style={{width:'120px',background: 'white'}}className="button" type="submit"
                 onClick={()=>{
                   axios.delete('http://localhost:8080/plant/byAdmin',{data:{plantID:plantID}})
                   history.push('/plantsBible')
                 }}><span style={{color:'black'}} >Delete Plant</span>
-              </button>
+              </button>:null}
             </div>
           </div>
         </section>
