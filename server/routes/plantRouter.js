@@ -32,8 +32,7 @@ router.delete('/',plantController.deletePlantUser);
 
 router.delete('/byAdmin/',plantController.deletePlantAdmin);
 
-
-
+router.get('/popularity/all',plantController.plantsPopularity);
 
 
 

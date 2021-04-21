@@ -30,14 +30,20 @@ const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, o
         isUserPlant: false,
         defaultPhotoID: null
     });
-    return await plant.save();
+     await plant.save((err,plant)=>{
+        if(err){
+        return err.message
+        }
+        else
+        return plant
+    });
 };
 
 const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) => {
 
-    await Plant.findOne({ species: species, isUserPlant: false },async (err, adminPlant) => {
+    await Plant.findOne({ species: species, isUserPlant: false }, async (err, adminPlant) => {
 
-         const userPlant = await new Plant({
+        const userPlant = await new Plant({
             species: adminPlant.species,
             irrigationInstructors: adminPlant.irrigationInstructors,
             optimalTemp: adminPlant.optimalTemp,
@@ -80,7 +86,7 @@ const getPlantsByGardenId = async (gardenId) => {
 const getPlantByName = async (name) => {
     return await
         Plant.find({
-            isUserPlant: false, species : {
+            isUserPlant: false, species: {
                 $regex: `.*${name}.*`
             }
         });
@@ -113,8 +119,8 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
 
 const updatePlantByAdmin = async (id,
     species = null, irrigationInstructors = null, optimalTemp = null,
-    optimalSoilMoisture = null, optimalSunExposure = null, description = null,defaultPhotoID=null) => {
-     Plant.findById(id, (err, plant) => {
+    optimalSoilMoisture = null, optimalSunExposure = null, description = null, defaultPhotoID = null) => {
+    Plant.findById(id, (err, plant) => {
         if (species != null) {
             plant.species = species
         }
@@ -142,8 +148,26 @@ const updatePlantByAdmin = async (id,
 };
 
 
-const deletePlantUser = async (plantID, gardenID) => {
-    const plant = await getPlantById(plantID);
+ const plantsPopularity = async () => {
+    const allPlants = await getAllPlants();
+    var max = 0; 
+    var name = 'none'; 
+     const plantsSpecies = allPlants.map(plant => plant.species)
+     plantsSpecies.reduce((a, b) => {
+        a[b] = a[b] + 1 || 1;
+        if (max<a[b])
+         {
+            max = a[b]
+            name = b 
+          }
+         return a;
+    }, {})
+       return name;
+}
+
+// const deletePlant = async (plantID, gardenID) => {
+ const deletePlantUser = async (plantID, gardenID) => {
+     const plant = await getPlantById(plantID);
 
     if (!plant)
         return null;
@@ -158,7 +182,7 @@ const deletePlantUser = async (plantID, gardenID) => {
         //deleting ref plant from garden
         Garden.findById(gardenID, (err, garden) => {
             var removeIndex;
-            if (garden.plants.length>0) {
+            if (garden.plants.length > 0) {
                 for (let i = 0; i < garden.plants.length; i++)
                     if (garden.plants[i] == plantID)
                         removeIndex = i
@@ -180,8 +204,7 @@ const deletePlantAdmin = async(plantID)=> {
         await plant.remove();
     return true;
 };
-
 module.exports = {
-    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,
+    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,plantsPopularity,
     updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants
 };

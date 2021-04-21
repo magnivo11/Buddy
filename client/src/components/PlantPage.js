@@ -1,5 +1,5 @@
 import '../css/Timeline.scss';
-import { Redirect } from 'react-router-dom';
+import { Redirect,useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react';
@@ -7,157 +7,141 @@ import DrawGraph from './Graph'
 import ButtonsList from './ButtonsList';
 import * as d3 from "d3"
 import '../css/plantPage.css';
+import Chart from './Chart';
 
 const data = require('../files/data.json');
 
 export default function Plant() {
 
   //const [soilMoisture, setSoilmoisture] = React.useState([])
-  const [sensorAdded, setSensorAdded] = React.useState(false)
+  const history = useHistory();
   const ownerID = window.sessionStorage.getItem('userID');
   var index = window.location.toString().lastIndexOf('/') + 1
-  const [redirectToGarden, setRedirectToGarden] = React.useState(false);
   const [plant, setPlant] = React.useState('');
   var plantResponse;
-  const plantID = window.location.toString().substring(index)
-  axios.get('http://localhost:8080/plant/' + plantID).then((Response) => {
-    if (plant.length != Response.data.length) {
-      plantResponse = {
-        species: Response.data.species,
-        status: Response.data.healtStatus,
-        gardenID: Response.data.GardenID,
-        sensorID: Response.data.sensorID
-      };
-      setPlant(plantResponse);
-    }
-  })
+  const plantID = window.location.toString().substring(index);
+  const [garden, setGarden] = React.useState('');
 
-  //maybe to show all the graphs make every data set a state
+
+  //set plant from server
+  React.useEffect(() => {
+    fetch('http://localhost:8080/plant/' + plantID)
+      .then(response => response.json()).then(
+        data => {
+          setPlant(data);
+            //set plant's garden name from server
+          fetch('http://localhost:8080/garden/find/'+data.GardenID)
+            .then(response => response.json()).then(
+              data => {
+                setGarden(data)
+              })
+        }
+      )
+  }, []);
+
   React.useEffect(() => {
     // pick the data you want to show,the ID of the container in the html,the color of each bar
     if (plant.sensorID != null) {
-      console.log('sensor: ' + plant.sensorID)
       axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
-
-
         var soilMoisture = []
         Response.data.map((data, key) => {
           soilMoisture.push({ name: data.date, score: data.curMoist })
-        })
-        
+        }) 
         //clear old charts
-
         d3.selectAll('svg').remove()
-
-        DrawGraph(soilMoisture, 'd3-container', '#140c04')
-
-
+        DrawGraph(soilMoisture, 'd3-container', 'darkgreen')
       })
     }
-
   })
 
-  if (!redirectToGarden) {
+  const [sensor,setSensor]=React.useState('');
+  if(!sensor._id&&plant.sensorID)
+  axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
+
+  setSensor(Response.data)
+  })
+
+
+
     return (
-      <div>
-
-        <section id="hero" className="d-flex align-items-center">
-          <section id="specials" className="specials" style={{ backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-            <div className="container" data-aos="fade-up"  >
-
-              <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                {/*Left buttons*/}
-                <ButtonsList ownerID={ownerID} />
-
-
-                <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-                  <h2 style={{ fontSize: '30px' }}>{plant.species}</h2>
-
-
-
-                  <nav className="nav-menu d-none d-lg-block" > {/*display*/}
-                    <ul>
-                      {(plant.sensorID) ? <li><a style={{ fontSize: '20px' }}>Soil moistrue of the last 3 days:</a></li>
-                        : null}
-                    </ul>
-                  </nav>
-                  <br></br>
-
-                  <div id='d3-container'></div>
-                  <br></br>
-                  <div id='temperature'></div>
-
-
-                  <div id="outer">
-
-                    {/* <div class="inner">  <button className="button" style={{ backgroundColor: '#C0C0C0', color: 'white', borderColor: 'black', padding: '15px 46px', display: 'inline-block', fontSize: '16px', margin: '2px 2px', borderRadius: '2px', transitionDuration: '0.4s' }} onClick={() => {
-                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
-                      setRedirectToGarden(true)
-                    }}>DELETE</button></div>
-                    <div class="inner" > <li className="button" style={{ color: 'white', backgroundColor: '#C0C0C0', border: '3px', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px' }}>
-                      <Link style={{ color: 'white', textDecoration: 'none' }} className="nav-link2" to={`/editPlant/${plantID}`}>EDIT</Link>
-                    </li></div> */}
-
-                    <Link style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" ,height:"45px" ,width:"110px"}}
-                       className="nav-link"  tto={`/editPlant/${plantID}`}> &nbsp;&nbsp;Edit plant </Link>
-                              &nbsp;&nbsp;&nbsp;
-
-              <button style={{display:'inline-block',color:"black",background:"white",borderWidth:"thin",fontWeight:"normal",border:"black",fontSize:"14px" , height:"45px",width:"110px"}} onClick={()=>{
-                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.gardenID } })
-                      setRedirectToGarden(true)
-                }}> Delete plant </button>
-
-
-                    <div class="inner" >
-                      {(!plant.sensorID) ? <form onSubmit={(e) => {
-                        addSensor(e, plantID)
-                        setRedirectToGarden(true)
-                      }}>
-                        <input type="submit" style={{ backgroundColor: '#C0C0C0', color: 'white', border: 'none', padding: '15px 36px', textAlign: 'center', textDecoration: 'none', display: 'inline-block', fontSize: '16px', margin: '4px 2px', cursor: 'pointer', boxShadow: 'none', borderRadius: '2px', transitionDuration: '0.4s' }} value="Add sensor" /><br />
-                      </form> : null}
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
+      <div  style={{fontFamily: "Open Sans"}}>
+      <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
+         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
+          <div className="container" data-aos="fade-up"  >
+            <div className="row" data-aos="fade-up" data-aos-delay={100}>
+             <div className="col-lg-3">
+                <ul className="nav nav-tabs flex-column">
+                    {/*Title*/}
+                    <div className="section-title" >
+                      <br></br>
+                      <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
+                      <p style={{fontSize:'35px'}}>{garden.name} Garden </p>
+                     </div>
+                  {/*Left buttons*/}
+                  <ButtonsList ownerID= {ownerID}/>
+                </ul>
             </div>
-          </section>
+            <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
+              <div className="section-title" > <br></br>
+                  <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {plant.species} </h2>
+              </div>
+            
+              
+              
+                  <div class="inner" >
+                    {(!plant.sensorID) ? <div>
+
+                    <form onSubmit={(e) => {
+                      addSensor(e, plantID)
+                      history.push('/mygardens')
+                    }}>
+                    <div className="nav-menu d-none d-lg-block">
+                    <p style={{fontSize:"25px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Looks like you haven't added a sensor</p>
+                    <p style={{fontSize:"20px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Add one now!</p>
+                      </div>  
+                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
+                    </form> </div>:
+                    <Chart title='Soil Moisture' sensorData={sensor.soilMoisture} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    }
+                  </div>
+                  <br></br>
+                  <Link to={`/editPlant/${plantID}`} style={{width:'120px',background: 'white'}}className="button" >
+                  <span style={{color:'black'}}>Edit Plant</span></Link> &nbsp;
+                  <button style={{width:'120px',background: 'white'}}className="button" type="submit"
+                    onClick={()=>{
+                      axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
+                      history.push('/mygardens')}}>
+                  <span style={{color:'black'}} >Delete Plant</span></button>
+              </div>
+            </div>
+          </div>
         </section>
-      </div>
+      </section>
+    </div>
     );
 
   }
 
-  else {
-    return (<Redirect to="/mygardens" />)
-  }
-}
 
 
 function addSensor(e, plantID) {
-
   e.preventDefault();
-
   const newSensor = {
     plantID: plantID
   }
-  console.log(newSensor);
   axios.post('http://localhost:8080/sensor/', newSensor);
-
 }
 
-function addPhoto(e, plantID) {
-  e.preventDefault();
-  document.getElementById('photoLink').value = 'Uploaded';
-  const newPhoto = {
-    link: document.getElementById('photoLink').value,
-    plantID: plantID
-  }
-
-  axios.post('http://localhost:8080/photo/', newPhoto);
-
-}
+// function addPhoto(e, plantID) {
+//   e.preventDefault();
+//   document.getElementById('photoLink').value = 'Uploaded';
+//   const newPhoto = {
+//     link: document.getElementById('photoLink').value,
+//     plantID: plantID
+//   }
+//   axios.post('http://localhost:8080/photo/', newPhoto);
+// }
 
 
 

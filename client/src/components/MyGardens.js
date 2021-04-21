@@ -1,25 +1,14 @@
-import { TableRow } from '@material-ui/core';
-import {Link} from 'react-router-dom'
-import GardenComponent from './GardenComponent';
-import List from './List';
-import DataContext from '../DataContext'
 import React from 'react'
 import ButtonsList from './ButtonsList';
-import beginners from '../Images/12-plants-for-beginners.jpg';
 import indoorPlants from '../Images/Indoor-plants.jpg';
 
-
-
-
 export default function MyGardens(){
-    //const user=React.useContext(DataContext);
     const ownerID= window.sessionStorage.getItem('userID');
-    
 
  return (
    <div>
-    <section id="hero" className="d-flex align-items-center">
-      <section id="specials" className="specials" style={{backgroundColor: 'rgba(245, 245, 220,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
+    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
+        <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
           <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">

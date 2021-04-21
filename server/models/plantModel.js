@@ -21,19 +21,25 @@ irrigationInstructors:String, // celsius
 optimalTemp: {
     type: Number,
     min: (-12),
-    max: 50
+    max: 50,
+    required: true
+
   },
 
   optimalSunExposure: {
     type: Number,
     min: 0,
-    max: 100
+    max: 100,
+    required: true
+
   },
 
   optimalSoilMoisture: {
     type: Number,
     min: 0,
-    max: 100
+    max: 100,
+    required: true
+
   },
 
  

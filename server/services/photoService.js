@@ -1,4 +1,6 @@
+const { constructorParametersDownlevelTransform } = require('@angular/compiler-cli');
 const { response } = require('express');
+const { toast } = require('react-toastify');
 const Photo = require('../models/photoModel')
 const Plant = require('../models/plantModel')
 
@@ -11,13 +13,22 @@ const createPhoto = async(link,name)=>{
         name:name
     });
 
-    Plant.findById(plantID,(err,plant)=>{
-        if (plant){
-            plant.photos.push(photo);
-            plant.save();
+    await photo.save((err,photo)=>{
+        if(err)
+        {
+        return err;
         }
-    });
-    return await photo.save();
+         return photo;
+    }); 
+
+    // Plant.findById(plantID,(err,plant)=>{
+    //     if (plant){
+    //         plant.photos.push(photo);
+    //         plant.save();
+    //     }
+    // });
+
+    // return await photo.save();
 
 };
 

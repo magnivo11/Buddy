@@ -3,6 +3,8 @@ import { PhotoService } from '../../services/photo.service';
 import { PlantService } from '../../services/plant.service';
 import { Plant } from '../../models/plantModel';
 import { Photo } from '../../models/photoModel';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
    
 
 @Component({
@@ -15,9 +17,16 @@ export class PhotosTabComponent {
   photoCount!: number;
   plantsList: Plant[] = []
   name = 'Lilly'
+  userName: String = '';
 
-  constructor(private photoService: PhotoService, private plantsService: PlantService) {
+
+  constructor(private user: UserService, private router: Router,private photoService: PhotoService, private plantsService: PlantService) {
     this.getAdminPlants()
+    this.user.home()
+    .subscribe(
+      data => this.addName(data),
+      error => this.router.navigate(['/login'])
+    )
   }
 
   selectName(event: any) {
@@ -56,4 +65,16 @@ for (var i=0 ; i<this.plantsList.length ; i++)    {
       this.plantsList = plants
     })
   }
+  
+addName(data: any) {
+  console.log(data);
+  this.userName = data.name; 
+}
+logout() {
+  this.user.logout()
+    .subscribe(
+      data => { console.log(data); this.router.navigate(['/login']) },
+      error => console.error(error)
+    )
+}
 }

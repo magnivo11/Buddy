@@ -1,55 +1,45 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
-import React from 'react';
-import DataContext from '../DataContext'
-
+import{ Redirect,useHistory} from 'react-router-dom';
+ import React from 'react';
+ 
 export default function EditGarden(){
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const[gardenEdited,setGardenEdited]=React.useState(false)
-  //const user=React.useContext(DataContext);
+  const history = useHistory();
   const [garden,setGarden]=React.useState({_id:''});
-  if(garden._id!=gardenID)
-  axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
-    if(Response.data){
 
-    if(garden._id!=Response.data._id)
-    {
-      setGarden(Response.data);
-    }
-  }
-  })
+  React.useEffect(() => {
+    fetch('http://localhost:8080/garden/find/'+gardenID)
+      .then(response => response.json()).then(
+        data => {
+          setGarden(data);
+        }
+      )
+  }, []);
 
   const gardenName = garden.name;
 
 
- 
-if(!gardenEdited){
-
   return (
-    <div>
-
+    <div style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center">
-        <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
-  
-          <div className="wrapper fadeInDown">
+         <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+         <div className="wrapper fadeInDown">
             <div id="formContent">
-              <div className="fadeIn first">
-              
-                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Edit Garden </h4> 
-          
+              <div className="fadeIn first"><br/>
+              <h1 style={{fontSize: '35px', color:'#51361A'}} >Edit Garden </h1> 
               </div>
               <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               editGarden(e,gardenName,gardenID)
-              setGardenEdited(true)
+              history.push('/mygardens')
             }}>
                 <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName}  />
                 <p>Direction:</p>
                 <label className="radio-inline">
-                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
-                  </label>
+                    <input type="radio" id="north" name="direction"  /><label htmlFor="north">North</label><br />
+                    </label>
                     <label className="radio-inline">
                     <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
                     </label>
@@ -75,8 +65,9 @@ if(!gardenEdited){
                    </label>
                    <br></br>
                    <br></br>
-                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
+                   <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>
               </form>
+             
              
             </div>
           </div>
@@ -84,11 +75,7 @@ if(!gardenEdited){
       </section>
     </div>
   );
-              }
-              else{
-                return(<Redirect to="/mygardens"/>);
-
-              }
+              
   }
    
 
@@ -108,19 +95,19 @@ function editGarden(e,gardenName,gardenID){
   else name = document.getElementById('name').value;
 
   //getting direction
-  for(var i = 0; i <directions.length; i++){
+  for(let i = 0; i <directions.length; i++){
     if(directions[i].checked){
       direction=directions[i].id;}}
     
 
   // getting surrounsings
-  for(var i = 0; i <surroundings.length; i++){
+  for(let i = 0; i <surroundings.length; i++){
     if(surroundings[i].checked){
       surrounding=surroundings[i].id;}}
   
 
   //getting sun light
-  for(var i = 0; i <sunLight.length; i++){
+  for(let i = 0; i <sunLight.length; i++){
     if(sunLight[i].checked){
       if(i==0){
         sunlight=true}

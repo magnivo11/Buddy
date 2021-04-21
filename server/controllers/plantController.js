@@ -18,18 +18,43 @@ const createPlantByUser= async(request,repsonse)=>{
 
 
 const createPlantByAdmin= async(request,response)=>{
+    // const newPlant=  
+    // await plantService.createPlantByAdmin(  
+    //     request.body.species,
+    //     request.body.irrigationInstructors,
+    //     request.body.optimalTemp,
+    //     request.body.optimalSoilMoisture,
+    //     request.body.optimalSunExposure,
+    //     request.body.descriptio
+    //     )
 
-    const newPlant=  
-    await plantService.createPlantByAdmin(  
-        request.body.species,
-        request.body.irrigationInstructors,
-        request.body.optimalTemp,
-        request.body.optimalSoilMoisture,
-        request.body.optimalSunExposure,
-        request.body.description
-        )
-        response.json(newPlant);
-    
+
+    const plant = new Plant({
+
+        species: request.body.species,
+        irrigationInstructors: request.body.irrigationInstructors,
+        optimalTemp: request.body.optimalTemp,
+        optimalSoilMoisture: request.body.optimalSoilMoisture,
+        optimalSunExposure: request.body.optimalSunExposure,
+        description: request.body.description,
+        sensorID: null,
+        photos: [],
+        GardenID: null,
+        growthStatus: null,
+        healthStatus: null,
+        tempStatus: null,
+        lightStatus: null,
+        moistStatus: null,
+        isUserPlant: false,
+        defaultPhotoID: null
+    });
+     await plant.save((err,plant)=>{
+        if(err){
+        response.send(err)
+        }
+        else
+        response.send(plant)
+    });
     };
    
 
@@ -53,6 +78,10 @@ const getPlantsByGardenId = async (request,response)=>{
     response.json(gardens); 
 }
 
+const plantsPopularity = async (request,response)=>{
+    const pop = await plantService.plantsPopularity();
+     response.json(pop);
+}
 
 const updatePlantByAdmin =async (request,response)=>{
      const plant= await plantService.updatePlantByAdmin(
@@ -104,5 +133,6 @@ const deletePlantAdmin = async(request,response)=>{
 response.send();
 }
 
-module.exports={getPlantsByGardenId,getPlantByName, createPlantByAdmin, createPlantByUser, 
+module.exports={getPlantsByGardenId,plantsPopularity,getPlantByName, createPlantByAdmin, createPlantByUser, 
     updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants};
+ 

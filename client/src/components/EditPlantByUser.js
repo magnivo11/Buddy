@@ -3,8 +3,7 @@ import axios from 'axios'
 import React from 'react';
 import '../css/AddForms.css'
 import '../css/AddAPlant.css'
-import{Link, Redirect, useParams} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
+import{ Redirect,useHistory} from 'react-router-dom';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -18,28 +17,27 @@ import stage5 from '../Images/IconStages/stage 5.jpg';
 export default function EditPlantByUser(){
   var index=window.location.toString().lastIndexOf('/')+1
   const plantID=window.location.toString().substring(index)
-  const[plantEdited,setPlantEdited]=React.useState(false)
   const [selected,setSelected]=React.useState('Select plant')
+  const history = useHistory();
 
 //Get Admin plants from server
   const [plants,setPlants]=React.useState([])
   var plantsInfo=[];
-  axios.get('http://localhost:8080/plant/admin').then((Response)=> {
-    if(plants.length!=Response.data.length)
-    {
-      Response.data.forEach(plant => {
-        plantsInfo.push({label:plant.species, value:plant.species})
-      });
-    setPlants(plantsInfo);
-    }
-  })
+  React.useEffect(() => {
+    axios.get('http://localhost:8080/plant/admin').then((Response)=> {
+      if(plants.length!=Response.data.length)
+      {
+        Response.data.forEach(plant => {
+          plantsInfo.push({label:plant.species, value:plant.species})
+        });
+      setPlants(plantsInfo);
+      }
+  })},[]);
 
 
-
-if(!plantEdited){
 
   return (
-    <div>
+    <div  style={{fontFamily: "Open Sans"}}>
 
         <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.0/dist/react-select.css"></link>
         <meta charSet="utf-8" />
@@ -53,21 +51,23 @@ if(!plantEdited){
             <div id="formContent">
               <div className="fadeIn first">
               <br></br>
-                <h4 style= {{fontSize: '25px', color:'#51361A'}}>Edit Plant </h4> 
-          
+              <h1 style={{fontSize: '35px', color:'#51361A'}} >Edit Plant </h1> 
+
               </div>
-              
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
               editPlant(e,plantID,selected)
-              setPlantEdited(true)}}>
-              <VirtualizedSelect
+              history.push('/mygardens')}}>
+
+                  <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
+
+                   <VirtualizedSelect
                 name="Species"
                 placeholder= {selected}
                 value={plants.value}
                 options={plants}
                 onChange={(e)=>{
                   setSelected(e.value)}} />
-                   
+                  </div> <br></br>
                 <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
 
                   <label className="radio-inline">
@@ -94,7 +94,7 @@ if(!plantEdited){
                     <br></br>
                     <br></br>
 
-                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
+                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>
               </form>
              
             </div>
@@ -104,12 +104,8 @@ if(!plantEdited){
     </div>
   );
 }
-else{
-  return(<Redirect to={`/plant/${plantID}`}/>);
-
-}
   
-}
+
    
 
 function editPlant(e,plantID,selected){

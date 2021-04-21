@@ -4,13 +4,13 @@ const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
 
-const createUser = async(name,lastName,email,password)=>{
-    const user= new User({
+const createUser = async(name,lastName,email,password,isAdmin)=>{
+     const user= new User({
         name:name,
         lastName:lastName,
         email:email,
         password:password,
-        isAdmin:false,
+        isAdmin:isAdmin,
         gardens:[]
     });
     return await user.save();
@@ -27,7 +27,7 @@ const getUsersGroupedByAdmin = async()=>{
         [
             {$match: {isAdmin:true}},
             {$group: {_id:{name:"$name",isAdmin:"$isAdmin"}}},
-            {$sort:{"_id.name":1}}
+            {$sort:{"_id.isAdmin":1}}
         ]);
         users.forEach((user)=>adminNames.push(user._id.name));
         return adminNames;
@@ -46,14 +46,12 @@ const updateUser = async(id,name,lastName,email,password) =>{
         user.email=email;
         user.password=password;
         user.save();
-        console.log(user);
-
+ 
     });
     return true;
     };
 const getUserByEmail = async(email)=>{
-    console.log(email)
-    const user = User.findOne({email:email});
+     const user = User.findOne({email:email});
         if(!user){
             return null;}
         else{
