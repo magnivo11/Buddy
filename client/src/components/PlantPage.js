@@ -54,6 +54,15 @@ export default function Plant() {
     }
   })
 
+  const [sensor,setSensor]=React.useState('');
+  if(!sensor._id&&plant.sensorID)
+  axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
+
+  setSensor(Response.data)
+  })
+
+
+
     return (
       <div  style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
@@ -77,16 +86,13 @@ export default function Plant() {
                   <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     {plant.species} </h2>
               </div>
-              <nav className="nav-menu d-none d-lg-block" > {/*display*/}
-                <ul>
-                  {(plant.sensorID) ? <li><a style={{ fontSize: '20px' ,color:'white' }}>Soil moistrue of the last 3 days:</a></li>
-                    : null}
-                </ul>
-              </nav> <br></br>
-              <div id='d3-container'></div> <br></br>
-                <div id='temperature'></div>
+            
+              
+              
                   <div class="inner" >
-                    {(!plant.sensorID) ? <form onSubmit={(e) => {
+                    {(!plant.sensorID) ? <div>
+
+                    <form onSubmit={(e) => {
                       addSensor(e, plantID)
                       history.push('/mygardens')
                     }}>
@@ -95,7 +101,9 @@ export default function Plant() {
                     <p style={{fontSize:"20px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Add one now!</p>
                       </div>  
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
-                    </form> : null}
+                    </form> </div>:
+                    <Chart title='Soil Moisture' sensorData={sensor.soilMoisture} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    }
                   </div>
                   <br></br>
                   <Link to={`/editPlant/${plantID}`} style={{width:'120px',background: 'white'}}className="button" >
