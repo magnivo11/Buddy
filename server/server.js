@@ -12,6 +12,8 @@ const gardenRouter = require('./routes/gardenRouter')
 const plantRouter = require('./routes/plantRouter')
 const photoRouter = require('./routes/photoRouter')
 const sensorRouter = require('./routes/sensorRouter')
+const postRouter=require('./routes/postRouter')
+const commentRouter=require('./routes/commentRouter')
 
 //passport imports
 var passport = require('passport')
@@ -88,7 +90,8 @@ app.use('/garden', gardenRouter)
 app.use('/plant', plantRouter)
 app.use('/photo', photoRouter)
 app.use('/sensor', sensorRouter)
-
+app.use('/post',postRouter)
+app.use('/comment',commentRouter)
 
  
 

@@ -27,6 +27,12 @@ const userSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "gardens"
         }
+    ],    
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "posts"
+        }
     ]
 })
 
