@@ -24,8 +24,7 @@ export default function Chart({title,sensorData,optimalValue}){
 
 
  })
- console.log(fromSensor)
- console.log(optimal)
+
 
     }
 
