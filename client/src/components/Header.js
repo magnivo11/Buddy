@@ -39,8 +39,10 @@ export default function Header() {
             <ul>
               <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" />
               <li><Link to="/mygardens">My Gardens </Link></li>
+              <li><Link to="/newsfeed">News Feed </Link></li>
+              <li><Link to={`/profile/${userIDfromSession}`}>My Profile </Link></li>
               <li><Link to="/plantsbible">The Plant Bible</Link></li>
-              <li><Link to="/aboutus" >About Us</Link></li>
+              {/* <li><Link to="/aboutus" >About Us</Link></li> */}
               <li></li>
               <Link to="/login" onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
               {/* <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link> */}

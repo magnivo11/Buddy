@@ -39,6 +39,8 @@ router.put('/', userController.updateUser);
 
 router.delete('/', userController.deleteUser);
 
+router.get('/allposts/:userID',userController.getAllPostsFromUser); 
+
 router.post('/register', userController.createUser);
 
 router.post('/login', function (req, res, next) {

@@ -73,7 +73,7 @@ export default function Plant() {
                 <ul className="nav nav-tabs flex-column">
                     {/*Title*/}
                     <div className="section-title" >
-                      <br></br>
+                      <br></br><br/><br/><br/>
                       <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
                       <p style={{fontSize:'35px'}}>{garden.name} Garden </p>
                      </div>
@@ -82,13 +82,11 @@ export default function Plant() {
                 </ul>
             </div>
             <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-              <div className="section-title" > <br></br>
+              <div className="section-title" > <br></br><br/><br/><br/>
                   <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     {plant.species} </h2>
               </div>
             
-              
-              
                   <div class="inner" >
                     {(!plant.sensorID) ? <div>
 

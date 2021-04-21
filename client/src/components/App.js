@@ -15,9 +15,10 @@ import Plant from './PlantPage';
 import PlantsBibleSinglePlant from './PlantsBibleSinglePlant';
 import PlantsBible from './PlantsBible';
 import FirstPage from './FirstPage';
-import Profile from './Profile';
+import Profile from './Social Network/UsersProfile';
 import AboutUs from './AboutUs';
 import Notifications from './Notifications';
+import NewsFeed from './Social Network/NewsFeed';
 import io from "socket.io-client";
 import EditGarden from './EditGarden';
 import EditUser from './EditUser';
@@ -68,16 +69,17 @@ function App() {
                     <Route exact path='/mygardens'>
                         <Header /> <MyGardens /></Route>
 
-                    <Route exact path='/profile'>
+                        <Route exact path='/profile/:userID'>
                         <Header /><Profile /></Route>
-
-                    {/* <Route path='/biblesearch'>
-                        <Header /><BibleSearch /> </Route> */}
 
                     <Route path="/biblesearch" component={() => <><Header /><BibleSearch /></>} />
 
                     <Route exact path='/plantsbible'>
                         <Header /><PlantsBible /> </Route>
+
+
+                        <Route exact path='/newsFeed'>
+                        <Header /><NewsFeed /></Route>
 
                     <Route exact path='/singlegarden/:gardenID' component={() => <><Header /><SingleGarden /></>} />
 

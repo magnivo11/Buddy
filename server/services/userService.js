@@ -4,14 +4,15 @@ const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
 
-const createUser = async(name,lastName,email,password,isAdmin)=>{
-     const user= new User({
+const createUser = async(name,lastName,email,password)=>{
+    const user= new User({
         name:name,
         lastName:lastName,
         email:email,
         password:password,
-        isAdmin:isAdmin,
-        gardens:[]
+        isAdmin:false,
+        gardens:[],
+        posts:[]
     });
     return await user.save();
 };
@@ -78,6 +79,13 @@ const deleteUser= async(id)=> {
     }
     return user;
 };
+const getAllPostsFromUser = async(id)=>{
+    const user = User.findOne({_id:id});
+    if(!sensor){
+        return null;}
+    else{
+        return sensor;}
+};
 
 module.exports={
 createUser,
@@ -87,5 +95,6 @@ getUserById,
 getUserByEmail,
 getUsers,
 getAllGardensFromUser,
-getUsersGroupedByAdmin
+getUsersGroupedByAdmin,
+getAllPostsFromUser
 };

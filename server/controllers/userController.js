@@ -84,6 +84,15 @@ const getUsersGroupedByAdmin = async (request, response) => {
 }
 
 
+const getAllPostsFromUser = async (request,response)=>{
+    const user=await userService.getUserById(request.params.userID)
+    if(!user){
+        console.log("j")
+    return null;}
+    else
+    response.send(user.posts)
+}
+
 // const loginUser = (req,res) =>{
 // console.log("IM HERE"); 
 //     passport.authenticate('local', function(err, user, info) {
@@ -99,4 +108,13 @@ const getUsersGroupedByAdmin = async (request, response) => {
 // }
 
 
-module.exports = {  getAllGardensFromUser, createUser, getUserById, getUsers, updateUser, deleteUser, getUserByEmail, getUsersGroupedByAdmin };
+module.exports = { 
+    getAllPostsFromUser, 
+    getAllGardensFromUser, 
+    createUser, 
+    getUserById, 
+    getUsers, 
+    updateUser, 
+    deleteUser, 
+    getUserByEmail, 
+    getUsersGroupedByAdmin };
