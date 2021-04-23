@@ -85,7 +85,13 @@ const getSensorBySerialNumber = async(serialNumber)=>{
                   soilTest(plant,soilMoisture)
                   lightTest(plant,light)
 
-                  plant.healthStatus=(Math.abs(plant.tempStatus)+Math.abs(plant.moistStatus)+Math.abs(plant.lightStatus))/3
+                  if(Math.abs(plant.moistStatus)==3||Math.abs(plant.tempStatus)==3||Math.abs(plant.lightStatus)==3)
+                  plant.healthStatus=3
+                  else if(Math.abs(plant.moistStatus)==2||Math.abs(plant.tempStatus)==2||Math.abs(plant.lightStatus)==2)
+                  plant.healthStatus=2
+                  else
+                  plant.healthStatus=1
+
                   plant.save()
                })            
          })
