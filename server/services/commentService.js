@@ -7,7 +7,6 @@ mongoose.set('useFindAndModify', false);
 
 
 const createComment = async(content,postID, userID )=>{
-    console.log(content+postID+userID)
     const comment= await new Comment({
         content: content,
         postID:postID,
@@ -39,7 +38,6 @@ const updateComment = async(id,content) =>{
     return true;
     };
 const deleteComment = async(commentID,postID)=>{
-    console.log("deleting  "+commentID+" from"+postID)
 
     const comment = await getCommentById(commentID);
     if(!comment)
@@ -63,12 +61,6 @@ const deleteComment = async(commentID,postID)=>{
     const getAllCommetsByPost = async(postID)=>{
         console.log(postID);
         return await Comment.find({postID:postID}); 
-
-    // await Post.findById(postID).populate('comments').exec(function (err,docs){
-    //     if (err) {console.error(err.stack||err);
-    //     return true;}
-    //     if (docs) return docs.comments;
-    // });
 }
 module.exports={
     createComment,

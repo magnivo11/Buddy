@@ -1,5 +1,6 @@
 const { response } = require('express');
 const User = require('../models/userModel')
+const Notification = require('../models/notificationModel')
 const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
@@ -81,12 +82,18 @@ const deleteUser= async(id)=> {
 };
 const getAllPostsFromUser = async(id)=>{
     const user = User.findOne({_id:id});
-    if(!sensor){
+    if(!user){
         return null;}
     else{
-        return sensor;}
+        return user;}
 };
-
+const getAllNotificationsFromUser = async(id)=>{
+    const notifications = Notification.find({userID:id})
+    if(!notifications){
+        return null;}
+    else{
+        return notifications;}
+};
 module.exports={
 createUser,
 deleteUser,
@@ -96,5 +103,6 @@ getUserByEmail,
 getUsers,
 getAllGardensFromUser,
 getUsersGroupedByAdmin,
-getAllPostsFromUser
+getAllPostsFromUser,
+getAllNotificationsFromUser
 };
