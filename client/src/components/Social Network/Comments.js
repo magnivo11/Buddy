@@ -35,13 +35,7 @@ export default function Comments({postId,postWriterID,deletePost}) {
         <>
             <button  style={{fontSize:'10px',border:'white',background:'none'}} onClick={toggleComments} type="button" 
             className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-comment" />&nbsp;Comments </button> &nbsp;
-            {deletePermission? <button  style={{fontSize:'10px',border:'white',background:'none'}}
-            onClick={()=>{
-                axios.delete('http://localhost:8080/post/',{data:{postID:postId,userID:postWriterID}})
-                deletePost(postId);
-            }}
-              type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button> :null} 
-            {(isVisible) ? <CommentsSection comments={comments} onDelete={deleteComment} postId={postId} setComments={setComments} /> : ""}
+             {(isVisible) ? <CommentsSection comments={comments} onDelete={deleteComment} postId={postId} setComments={setComments} /> : ""}
         </>
     );
     

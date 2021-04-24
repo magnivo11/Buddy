@@ -32,7 +32,7 @@ const deletePost=(postID)=>{
       .then(response => response.json()).then(
         data => {
           const postIDList = data.map((post)=>(post._id));
-          console.log(postIDList);
+          postIDList.reverse();
           setPosts(postIDList);
           setChange(false);
         }

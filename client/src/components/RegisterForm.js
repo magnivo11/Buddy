@@ -25,6 +25,7 @@ if(!info.redirectToLogin)
                 <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name"  />
                 <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" />
                 <input type="password" id="password" className="fadeIn third" name="register" placeholder="Password" />
+                <input type="text" id="description" className="fadeIn second" name="register" placeholder="A few words about you" />
                 <br></br>
                 <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Register</span></button>
                 <div id="formFooter">
@@ -57,6 +58,7 @@ function register(e,setInfo){
             name:document.getElementById('first_name').value ,
             lastName: document.getElementById('last_name').value ,
             email: document.getElementById('email').value ,
+            description: document.getElementById('description').value ,
             password: document.getElementById('password').value ,
         }
       axios.post('http://localhost:8080/user/',newUser)

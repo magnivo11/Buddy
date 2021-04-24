@@ -5,11 +5,12 @@ const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
 
-const createUser = async(name,lastName,email,password)=>{
+const createUser = async(name,lastName,email,description,password)=>{
     const user= new User({
         name:name,
         lastName:lastName,
         email:email,
+        description:description,
         password:password,
         isAdmin:false,
         gardens:[],
@@ -40,12 +41,13 @@ const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
     return await user.gardens ;
 };
 
-const updateUser = async(id,name,lastName,email,password) =>{
+const updateUser = async(id,name,lastName,email,description,password) =>{
 
     User.findById(id,(err,user)=>{
         user.name=name;
         user.lastName=lastName;
         user.email=email;
+        user.description=description;
         user.password=password;
         user.save();
  

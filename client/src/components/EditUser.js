@@ -36,10 +36,11 @@ if(!info.redirectToGardens)
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Edit My Profile </h1> 
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
               </div><br/>
-              <form  onSubmit={(e)=>{editUser(e,data,user.name,user.lastName,user.email,user.password,userId,setInfo)}}>
+              <form  onSubmit={(e)=>{editUser(e,data,user.name,user.lastName,user.email,user.description ,user.password,userId,setInfo)}}>
                 <input type="text" id="first_name" className="fadeIn second"  placeholder={'First Name: '+user.name} />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder={'Last Name: '+user.lastName}  />
                 <input type="text" id="email" className="fadeIn second"  placeholder={'Email: '+user.email} />
+                <input type="text" id="description" className="fadeIn second"  placeholder={'Description: '+user.description} />
                 <input type="text" id="password" className="fadeIn third"  placeholder={'Password'} />
                 <input type="submit" className="fadeIn fourth" value="Save"/><br/>
 
@@ -54,12 +55,13 @@ if(!info.redirectToGardens)
   else{  return(<Redirect  to={`/mygardens`}/>);}
   }
    
-function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldPassword,userId,setInfo){
-
+function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, oldPassword,userId,setInfo){
+console.log(document.getElementById('description').value)
   e.preventDefault();
     var firstName;
     var lastName;
     var email;
+    var description; 
     var password;
     if (document.getElementById('first_name').value.length===0) firstName= oldFirstName;
       else firstName=document.getElementById('first_name').value;
@@ -67,6 +69,8 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldPassword,userId,
       else lastName=document.getElementById('last_name').value;
     if (document.getElementById('email').value.length===0) email= oldEmail;
       else email=document.getElementById('email').value;
+    if (document.getElementById('description').value.length===0) description= oldDescription;
+      else description=document.getElementById('description').value;
     if (document.getElementById('password').value.length===0) password= oldPassword;
       else password=document.getElementById('password').value;
 
@@ -81,6 +85,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldPassword,userId,
             name:firstName,
             lastName: lastName ,
             email:email,
+            description:description,
             password: password
              }
         axios.put('http://localhost:8080/user/',newUser)

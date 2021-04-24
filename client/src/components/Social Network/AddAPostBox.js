@@ -68,10 +68,6 @@ function addAPost(e,inputRef,posts,setPosts,userId,setChange){
   
       axios.post('http://localhost:8080/post/',newPost).then(data=>
       {inputRef.current.value="";
-      const newPostArray = [...posts];
-      newPostArray.splice(newPost.postID, 0, data.data);
-      setPosts(newPostArray);
-        // setPosts([...posts,data])
         setChange(true);
       });
       

@@ -7,21 +7,26 @@ import PostList from './PostList'
 
 export default function Profile(){
 
+    //user id from url - users profile
     var index=window.location.toString().lastIndexOf('/')+1
     const userID=window.location.toString().substring(index)
+    //user id from session - logged user
     const userIDfromSession = window.sessionStorage.getItem('userID');
+
     const [currentUser,setUser]=React.useState({_id:'',name:'',lastName:''});
     const [posts,setPosts]=React.useState([]);
+    //change state to inform a change was made in the posts list
     const [change,setChange]=React.useState(false);
+    //to check editing permissions - we will check if user id from session is equal to user id from url address
     const [editPermission,setEditPermission]=React.useState(false);
 
-
   const deletePost=(postID)=>{
-    setPosts(posts.filter((post)=>(post.postID !==postID)))
+    setPosts(posts.filter((post)=>(post !==postID)))
     setChange(true);
-    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userIDfromSession}})
   }
-  
+
+    //fetching user information from server
     React.useEffect(() => {
       fetch('http://localhost:8080/user/'+userID)
         .then(response => response.json()).then(
@@ -32,10 +37,13 @@ export default function Profile(){
           }
         )
     }, []);
+
+          //fetching posts information from server - will re-render according to a change in "change" var
     React.useEffect(() => {
       fetch('http://localhost:8080/user/allposts/'+userID)
         .then(response => response.json()).then(
-          data => {setPosts(data)
+          data => {
+            setPosts(data)
             setChange(false);
           }
         )
@@ -67,7 +75,7 @@ return(
 
                       </div>
                     </div>
-                    <p className="w-75 mx-auto mb-3">Bureau Oberhaeuser is a design bureau focused on Information- and Interface Design. </p>
+                    <p className="w-75 mx-auto mb-3">{currentUser.description} </p>
                   </div>
                   <div className="border-bottom py-4">
                   </div>

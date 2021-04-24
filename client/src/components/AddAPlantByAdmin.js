@@ -1,7 +1,7 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
- import{Link, Redirect,useHistory } from 'react-router-dom';
+ import{useHistory } from 'react-router-dom';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,6 @@ toast.configure()
 
 export default function AddAPlantByAdmin(){
 
-  const[plantAdded,setPlantAdded]=React.useState(false)
   const history = useHistory();
  
   return (
