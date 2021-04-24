@@ -14,6 +14,7 @@ const createUser = async (request, response) => {
             request.body.name,
             request.body.lastName,
             request.body.email,
+            request.body.description,
             User.hashPassword(request.body.password),
             isAdmin
             )
@@ -49,6 +50,7 @@ const updateUser = async (request, response) => {
         request.body.name,
         request.body.lastName,
         request.body.email,
+        request.body.description,
         request.body.password);
 
     if (!user) {

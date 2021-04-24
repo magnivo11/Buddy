@@ -5,8 +5,11 @@ import Comments from "./Comments"
 
 
 export default function Post({postID, change,deletePost}) {
+    const loggedUserID = window.sessionStorage.getItem('userID');
     const [post,setPost]=React.useState([]);
     const [writerUser,setUser]=React.useState({_id:''});
+    const [deletePermission, setDeletePermission] = React.useState(false);
+
     var statusColor;
     React.useEffect(() => {
         fetch('http://localhost:8080/post/'+postID)
@@ -15,7 +18,10 @@ export default function Post({postID, change,deletePost}) {
             setPost(data)
             fetch('http://localhost:8080/user/'+data.userID)
             .then(response => response.json()).then(
-              data => {setUser(data);}
+              data => {setUser(data);
+                if(data._id==loggedUserID)
+                setDeletePermission(true);
+            }
             )
             }
           )
@@ -59,7 +65,12 @@ export default function Post({postID, change,deletePost}) {
             {orange&&<a style={{background:'orange'}}href="http://example.com" class="round-button"></a>}
 
             <p>{post.content}</p>
-            { <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> }
+            {deletePermission&& <button  style={{fontSize:'10px',border:'white',background:'none'}}
+            onClick={()=>{
+                deletePost(postID);
+            }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete Post </button> } 
+
+             <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> 
 
             </div>
         </div>

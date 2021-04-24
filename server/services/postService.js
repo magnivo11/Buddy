@@ -14,12 +14,12 @@ const createPost = async(content, status, userID )=>{
         userID: userID
     }); 
     await User.findByIdAndUpdate({_id:userID},{
-            $push: {
-            posts: {
-               $each: [post],
-               $position: 0
-            }}
-        });
+        $push: {
+        posts: {
+           $each: [post],
+           $position: 0
+        }}
+    });
     return await post.save();
       
 };
