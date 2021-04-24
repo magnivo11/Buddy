@@ -87,12 +87,18 @@ const getUsersGroupedByAdmin = async (request, response) => {
 const getAllPostsFromUser = async (request,response)=>{
     const user=await userService.getUserById(request.params.userID)
     if(!user){
-        console.log("j")
     return null;}
     else
     response.send(user.posts)
 }
 
+const getAllNotificationsFromUser = async(request,response)=>{
+    const notifications = await userService.getAllNotificationsFromUser(request.params.userID);
+    if(!notifications){
+        return null;}
+        else
+        response.send(notifications)
+}
 // const loginUser = (req,res) =>{
 // console.log("IM HERE"); 
 //     passport.authenticate('local', function(err, user, info) {
@@ -108,6 +114,7 @@ const getAllPostsFromUser = async (request,response)=>{
 // }
 
 
+
 module.exports = { 
     getAllPostsFromUser, 
     getAllGardensFromUser, 
@@ -117,4 +124,5 @@ module.exports = {
     updateUser, 
     deleteUser, 
     getUserByEmail, 
-    getUsersGroupedByAdmin };
+    getUsersGroupedByAdmin,
+    getAllNotificationsFromUser };

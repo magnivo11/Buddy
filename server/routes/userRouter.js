@@ -41,6 +41,8 @@ router.delete('/', userController.deleteUser);
 
 router.get('/allposts/:userID',userController.getAllPostsFromUser); 
 
+router.get('/allnotifications/:userID',userController.getAllNotificationsFromUser); 
+
 router.post('/register', userController.createUser);
 
 router.post('/login', function (req, res, next) {

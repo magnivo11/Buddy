@@ -34,8 +34,6 @@ const updatePost = async(id,content,status) =>{
         post.status= status;
         post.date= Date.now;
         post.save();
-        console.log(post);
-
     });
     return true;
     };

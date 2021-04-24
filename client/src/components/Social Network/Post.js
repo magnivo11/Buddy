@@ -4,7 +4,7 @@ import '../../css/SocialNetworkProfile.css'
 import Comments from "./Comments"
 
 
-export default function SinglePost({postID, change,deletePost}) {
+export default function Post({postID, change,deletePost}) {
     const [post,setPost]=React.useState([]);
     const [writerUser,setUser]=React.useState({_id:''});
     var statusColor;
