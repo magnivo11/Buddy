@@ -29,7 +29,7 @@ export default function ButtonsList({ownerID}){
                 <Link style={{width:'260px'}} className="nav-link" to='/mygardens'>All Gardens </Link>
             </li>
                 {items.map((data,key)=>{
-                return <ButtonComponent id={data._id} name={data.name} temperature={data.currentTemp}  key={key}/>
+                return <ButtonComponent id={data._id} name={data.name}  key={key}/>
             })}
                  <li className="nav-menu d-none d-lg-block">
                 <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>

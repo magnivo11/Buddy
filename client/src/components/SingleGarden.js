@@ -23,6 +23,7 @@ export default function SingleGarden(){
   }
   })
 
+
   const gardenName = garden.name;
 
  return (
@@ -50,7 +51,11 @@ export default function SingleGarden(){
                         <div className="section-title" >
                         <br></br><br></br>
                           <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
-                          
+                          {garden.currentTemp&& <div>
+                            {garden.currentTemp.value&&
+                          <p style={{fontSize:'35px'}}>{garden.currentTemp.value}° </p>
+                            }</div>
+                          }
 
                        </div>
                         <PlantsList gardenID={gardenID} gardenName={gardenName}/> 
