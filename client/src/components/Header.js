@@ -19,13 +19,15 @@ export default function Header() {
       history.push('/biblesearch?q=' + e.target.value);
     }
   }
+  React.useEffect(()=>
   axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
     if (Response.data) {
       if (currentUser._id !== Response.data._id || currentUser.name!==Response.data.name || currentUser.lastName!==Response.data.lastName) {
         setUser(Response.data);
       }
     }
-  })
+  }),[])
+  
 
 
   return (

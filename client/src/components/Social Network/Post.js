@@ -10,7 +10,6 @@ export default function Post({postID, change,deletePost}) {
     const [writerUser,setUser]=React.useState({_id:''});
     const [deletePermission, setDeletePermission] = React.useState(false);
 
-    var statusColor;
     React.useEffect(() => {
         fetch('http://localhost:8080/post/'+postID)
           .then(response => response.json()).then(

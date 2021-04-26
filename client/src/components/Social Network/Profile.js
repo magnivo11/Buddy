@@ -6,7 +6,6 @@ import AddAPostBox from './AddAPostBox'
 import PostList from './PostList'
 
 export default function Profile(){
-
     //user id from url - users profile
     var index=window.location.toString().lastIndexOf('/')+1
     const userID=window.location.toString().substring(index)
@@ -44,7 +43,6 @@ export default function Profile(){
         .then(response => response.json()).then(
           data => {
             setPosts(data)
-            setChange(false);
           }
         )
     }, [change]);
@@ -104,7 +102,7 @@ return(
                 </div>
                 <div className="col-lg-8">
                 <div className="profile-feed" style={{textAlign:'left'}}>
-                <AddAPostBox posts={posts} usersFirstName= {currentUser.name} setChange={setChange} setPosts={setPosts}/>
+                <AddAPostBox usersFirstName= {currentUser.name} change={change} setChange={setChange}/>
                 <PostList posts={posts} change={change} deletePost={deletePost}/>
                    
                   </div>

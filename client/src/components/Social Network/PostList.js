@@ -11,7 +11,7 @@ export default function PostList({posts,change,deletePost}) {
     return (
         <div>
              {posts.map((data,key) =>
-                { return <Post postID={data} change={change} deletePost={deletePost}key={key}/>
+                {return <Post postID={data} change={change} deletePost={deletePost}key={key}/>
             })}   
         </div>
     );
