@@ -50,6 +50,8 @@ export default function SingleGarden(){
                         <div className="section-title" >
                         <br></br><br></br>
                           <p style={{fontSize:'35px'}}>{gardenName} Garden </p>
+                          
+
                        </div>
                         <PlantsList gardenID={gardenID} gardenName={gardenName}/> 
                         <div className='inner' style={{display:'inline-block'}}>
