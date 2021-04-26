@@ -3,7 +3,7 @@ import{ Redirect} from 'react-router-dom';
 import React,{inputRef,useRef} from 'react';
 
 
-export default function AddAPostBox({posts,setChange,usersFirstName, setPosts}) {
+export default function AddAPostBox({usersFirstName,change,setChange}) {
     const inputRef = React.useRef(null);
     const userId= window.sessionStorage.getItem('userID');
 
@@ -15,7 +15,7 @@ export default function AddAPostBox({posts,setChange,usersFirstName, setPosts}) 
                 <div className="w3-card w3-round w3-white">
                 <div className="w3-container w3-padding">  
                 <form name='postForm' style= {{fontSize: '10px', textAlign:'center',border:'black'}}  onSubmit={(e)=>{
-              addAPost(e,inputRef,posts,setPosts,userId,setChange)
+              addAPost(e,inputRef,userId,change,setChange)
             }}>
                 <input style= {{fontSize: '14px'}} type="text" ref={inputRef} placeholder={"Hey "+usersFirstName+", what's on your mind?"} className="fadeIn second" />            
                 <br></br>
@@ -46,7 +46,7 @@ export default function AddAPostBox({posts,setChange,usersFirstName, setPosts}) 
 }
 
 
-function addAPost(e,inputRef,posts,setPosts,userId,setChange){
+function addAPost(e,inputRef,userId,change,setChange){
 
     e.preventDefault();
     const form = document.forms.postForm;
@@ -68,7 +68,7 @@ function addAPost(e,inputRef,posts,setPosts,userId,setChange){
   
       axios.post('http://localhost:8080/post/',newPost).then(data=>
       {inputRef.current.value="";
-        setChange(true);
+        setChange(!change);
       });
       
   

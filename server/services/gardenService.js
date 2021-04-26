@@ -47,7 +47,9 @@ const getGardensByUserId = async(userID)=>{
    
      return true };
 
-const getAllGardens = async()=>{return await Garden.find({})
+const getAllGardens = async()=>{
+    return await Garden.find({})
+
 };
 
 
