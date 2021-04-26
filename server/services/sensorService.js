@@ -119,20 +119,31 @@ const getSensorBySerialNumber = async(serialNumber)=>{
      else 
      status=-3;
 
-     //notification part 
+    
 
-     //gives notification only when the status changes for worse or first measurement which is not 1
-
-     if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1){
+    
+    
     
          Garden.findById(plant.GardenID,(err,garden)=>{
 
-            if(garden)
-            sendNotification(garden.userID,plant,status,'temperature')
+            if(garden){
 
+              
+                //notification part 
+
+                //gives notification only when the status changes for worse or first measurement which is not 1
+
+               if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1)
+                  sendNotification(garden.userID,plant,status,'temperature')
+
+
+               garden.currentTemp={value:temperature,date:Date.now()}
+               garden.save()
+
+            }
          })                     
-        
-     }
+      
+     
      
 
 
@@ -163,20 +174,24 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    status=-3;
 
 
-   if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1){
+  
 
       Garden.findById(plant.GardenID,(err,garden)=>{
    
 
          if(garden){
            
-         sendNotification(garden.userID,plant,status,'soilMoisture')
+            if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1)
+            sendNotification(garden.userID,plant,status,'soilMoisture')
+
+            garden.currentMoist={value:soilMoisture,date:Date.now()}
+               garden.save()
+
          }
 
       })                     
 
 
-   }
       
    plant.moistStatus=status
 
@@ -202,17 +217,24 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    status=-3;
 
 
-   if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1){
+   
 
       Garden.findById(plant.GardenID,(err,garden)=>{
 
-         if(garden)
-         sendNotification(garden.userID,plant,status,'sunExposure')
+         if(garden){
+
+            if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1)
+               sendNotification(garden.userID,plant,status,'sunExposure')
+
+               garden.currentLight={value:light,date:Date.now()}
+               garden.save()
+
+         }
 
       })                     
 
 
-   }
+   
       
    plant.lightStatus=status
 
