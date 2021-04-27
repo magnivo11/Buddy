@@ -11,6 +11,7 @@ export default function Post({postID, change,deletePost}) {
     const [deletePermission, setDeletePermission] = React.useState(false);
 
     React.useEffect(() => {
+        console.log(postID);
         fetch('http://localhost:8080/post/'+postID)
           .then(response => response.json()).then(
             data => {
@@ -24,7 +25,7 @@ export default function Post({postID, change,deletePost}) {
             )
             }
           )
-      }, []);
+      }, [change]);
 
     var red=false; var green=false; var orange=false;
     if (post.status=='red') red=true;

@@ -21,8 +21,7 @@ export default function Profile(){
 
   const deletePost=(postID)=>{
     setPosts(posts.filter((post)=>(post !==postID)))
-    setChange(true);
-    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userIDfromSession}})
+    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
   }
 
     //fetching user information from server
@@ -42,10 +41,11 @@ export default function Profile(){
       fetch('http://localhost:8080/user/allposts/'+userID)
         .then(response => response.json()).then(
           data => {
-            setPosts(data)
+            setPosts(data);
+            console.log(data);
           }
         )
-    }, [change]);
+    }, []);
 return(
     <section id="hero"  style={{overflow:'scroll'}} >
     <section  style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
@@ -102,7 +102,7 @@ return(
                 </div>
                 <div className="col-lg-8">
                 <div className="profile-feed" style={{textAlign:'left'}}>
-                <AddAPostBox usersFirstName= {currentUser.name} change={change} setChange={setChange}/>
+                <AddAPostBox posts={posts} setPosts={setPosts} usersFirstName= {currentUser.name} change={change} setChange={setChange}/>
                 <PostList posts={posts} change={change} deletePost={deletePost}/>
                    
                   </div>

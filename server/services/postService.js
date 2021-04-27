@@ -2,6 +2,7 @@
 const Post = require('../models/postModel')
 const User = require('../models/userModel')
 const mongoose = require('mongoose');
+const { ObjectID } = require('mongodb');
 mongoose.set('useFindAndModify', false);
 const { deleteComment } = require('./commentService');
 
@@ -39,6 +40,7 @@ const updatePost = async(id,content,status) =>{
     };
 const deletePost = async(postID,userID)=>{
     const post = await getPostById(postID);
+    console.log(userID)
     if(!post){
     return null;
     }
@@ -57,7 +59,8 @@ const deletePost = async(postID,userID)=>{
                      if(user.posts[i]==postID)
                          removeIndex=i
                  user.posts.splice(removeIndex,1)
-                 user.save();    
+                 user.save();
+                console.log(user);
             }
         })
     await post.remove();
