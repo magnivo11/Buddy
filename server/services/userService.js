@@ -98,6 +98,24 @@ const getAllNotificationsFromUser = async(id)=>{
     else{
         return notifications;}
 };
+const setAllNotificationsToSeen =async (id)=>{
+    Notification.find({userID:id},(err,notifications)=>{
+        if(notifications)
+        notifications.map((data,key)=>{
+            data.seen=true
+            data.save()
+        })
+    })
+}
+
+const getAllUnReadNotificationsFromUser = async(id)=>{
+    const notifications = Notification.find({userID:id,seen:false})
+    if(!notifications){
+        return null;}
+    else{
+        return notifications;}
+};
+
 module.exports={
 createUser,
 deleteUser,
@@ -108,5 +126,7 @@ getUsers,
 getAllGardensFromUser,
 getUsersGroupedByAdmin,
 getAllPostsFromUser,
-getAllNotificationsFromUser
+getAllNotificationsFromUser,
+setAllNotificationsToSeen,
+getAllUnReadNotificationsFromUser
 };

@@ -43,6 +43,11 @@ router.get('/allposts/:userID',userController.getAllPostsFromUser);
 
 router.get('/allnotifications/:userID',userController.getAllNotificationsFromUser); 
 
+router.get('/setAllNotificationsToSeen/:userID',userController.setAllNotificationsToSeen); 
+
+router.get('/allUnReadnotifications/:userID',userController.getAllUnReadNotificationsFromUser); 
+
+
 router.post('/register', userController.createUser);
 
 router.post('/login', function (req, res, next) {

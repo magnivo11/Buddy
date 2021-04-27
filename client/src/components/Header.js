@@ -2,8 +2,10 @@ import '../css/Header.css';
  import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import DataContext from '../DataContext';
 
 export default function Header() {
+  const data=React.useContext(DataContext);
   const userIDfromSession = window.sessionStorage.getItem('userID');
   const [currentUser, setUser] = React.useState({ _id: null });
   const history = useHistory();
@@ -27,6 +29,8 @@ export default function Header() {
       }
     }
   }),[])
+
+  
   
 
 
@@ -47,7 +51,8 @@ export default function Header() {
               {/* <li><Link to="/aboutus" >About Us</Link></li> */}
               <li></li>
               <Link to="/login" onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
-              <Link to="/notifications" className="nav-item nav-link"><i className="fa fa-bell" /></Link>
+              <Link to="/notifications"  className="nav-item nav-link"><i className="fa fa-bell" />
+               {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
               <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>
               <li style={{ color: "white" }}>Hey {currentUser.name}</li>
             </ul>

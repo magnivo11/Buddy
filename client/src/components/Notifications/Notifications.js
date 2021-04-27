@@ -1,11 +1,18 @@
 import React from 'react'
 import NotificationsList from './NotificationsList'
+import DataContext from '../../DataContext';
+import axios from 'axios';
 
 export default function Notifications(){
 
+
+  const data=React.useContext(DataContext);
   const userID = window.sessionStorage.getItem('userID');
   const [notifications,setNotifications]=React.useState([])
   const [hasNotifications,setHasNotifications]=React.useState(false)
+  axios.get('http://localhost:8080/user/setAllNotificationsToSeen/'+userID)
+  data.setNewNotifications(0)
+
 
   React.useEffect(() => {
       fetch('http://localhost:8080/user/allnotifications/'+userID)
@@ -13,6 +20,7 @@ export default function Notifications(){
           data => {
             setNotifications(data);
             setHasNotifications(true);
+            
           }
         )
     },[]);

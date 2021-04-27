@@ -123,26 +123,30 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
     
     
+
+
+       //gives notification only when the status changes for worse or first measurement which is not 1
+
+       if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1){
     
          Garden.findById(plant.GardenID,(err,garden)=>{
 
-            if(garden){
+            if(garden)
+            sendNotification(garden.userID,plant,status,'temperature')
 
-              
-                //notification part 
+         })    
+      }  
+      else
+      {
 
-                //gives notification only when the status changes for worse or first measurement which is not 1
+         Garden.findById(plant.GardenID,(err,garden)=>{
 
-               if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1)
-                  sendNotification(garden.userID,plant,status,'temperature')
+         garden.currentTemp={value:temperature,date:Date.now()}
+         garden.save()
+         })
 
-
-               garden.currentTemp={value:temperature,date:Date.now()}
-               garden.save()
-
-            }
-         })                     
-      
+      }               
+    
      
      
 
@@ -176,20 +180,25 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
   
 
+   if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1){
+    
       Garden.findById(plant.GardenID,(err,garden)=>{
-   
 
-         if(garden){
-           
-            if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1)
-            sendNotification(garden.userID,plant,status,'soilMoisture')
+         if(garden)
+         sendNotification(garden.userID,plant,status,'soilMoisture')
 
-            garden.currentMoist={value:soilMoisture,date:Date.now()}
-               garden.save()
+      })    
+   }  
+   else
+   {
 
-         }
+      Garden.findById(plant.GardenID,(err,garden)=>{
 
-      })                     
+      garden.currentMoist={value:soilMoisture,date:Date.now()}
+      garden.save()
+      })
+
+   }               
 
 
       
@@ -219,21 +228,25 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
    
 
+   if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1){
+    
       Garden.findById(plant.GardenID,(err,garden)=>{
 
-         if(garden){
+         if(garden)
+         sendNotification(garden.userID,plant,status,'light')
 
-            if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1)
-               sendNotification(garden.userID,plant,status,'sunExposure')
+      })    
+   }  
+   else
+   {
 
-               garden.currentLight={value:light,date:Date.now()}
-               garden.save()
+      Garden.findById(plant.GardenID,(err,garden)=>{
 
-         }
+      garden.currentLight={value:light,date:Date.now()}
+      garden.save()
+      })
 
-      })                     
-
-
+   }               
    
       
    plant.lightStatus=status

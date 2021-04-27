@@ -101,6 +101,8 @@ const getAllNotificationsFromUser = async(request,response)=>{
         else
         response.send(notifications)
 }
+
+
 // const loginUser = (req,res) =>{
 // console.log("IM HERE"); 
 //     passport.authenticate('local', function(err, user, info) {
@@ -115,6 +117,20 @@ const getAllNotificationsFromUser = async(request,response)=>{
 
 // }
 
+const setAllNotificationsToSeen=async(request,response)=>{
+
+    userService.setAllNotificationsToSeen(request.params.userID);
+
+
+}
+
+const getAllUnReadNotificationsFromUser = async(request,response)=>{
+    const notifications = await userService.getAllUnReadNotificationsFromUser(request.params.userID);
+    if(!notifications){
+        return null;}
+        else
+        response.send(notifications)
+}
 
 
 module.exports = { 
@@ -127,4 +143,6 @@ module.exports = {
     deleteUser, 
     getUserByEmail, 
     getUsersGroupedByAdmin,
-    getAllNotificationsFromUser };
+    getAllNotificationsFromUser,
+    setAllNotificationsToSeen,
+    getAllUnReadNotificationsFromUser };
