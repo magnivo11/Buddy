@@ -41,7 +41,7 @@ const deletePost = async (request,response)=>{
     const post= await PostService.deletePost(request.body.postID, request.body.userID);
         if (!post){
         return response.status(404).json({errors:['post not found']});}
-    response.send();
+    response.json();
 };
 
 module.exports={
