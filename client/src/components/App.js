@@ -24,20 +24,36 @@ import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 import EditPlantByAdmin from './EditPlantByAdmin';
+import axios from 'axios';
 
 
 const socket = io.connect("http://localhost:8080");
 
 function App() {
-    const [render,forceRender]=React.useState(false);
+  
 
       if(!window.sessionStorage.getItem('userID'))
         window.history.replaceState(null, "New Page Title", "/")
+
+    const [render,forceRender]=React.useState(false);
+    const[newNotifications,setNewNotifications]=React.useState(0);
+
+    var userID=window.sessionStorage.getItem('userID')
+        React.useEffect(()=>{
+            if(userID){
+            axios.get('http://localhost:8080/user/allUnReadnotifications/'+userID).then(Response=>{
+                setNewNotifications(Response.data.length)
+
+            })
+            }
+       
+    },[])
+
      
 
     return (
 
-        <DataContext.Provider value ={{render:render,forceRender:forceRender}}>
+        <DataContext.Provider value ={{render:render,forceRender:forceRender,newNotifications:newNotifications,setNewNotifications:setNewNotifications}}>
             <BrowserRouter>
 
                  <Switch>
