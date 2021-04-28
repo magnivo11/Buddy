@@ -81,10 +81,11 @@ const getSensorBySerialNumber = async(serialNumber)=>{
          Plant.findOne({sensorID:sensor._id},(err,plant)=>{
             if(plant)
                Garden.findById(plant.GardenID,(err,garden)=>{
+                  checkLastIrrigation(plant,soilMoisture)
                   tempTest(plant,temperature)
                   soilTest(plant,soilMoisture)
                   lightTest(plant,light)
-
+                 
                   if(Math.abs(plant.moistStatus)==3||Math.abs(plant.tempStatus)==3||Math.abs(plant.lightStatus)==3)
                   plant.healthStatus=3
                   else if(Math.abs(plant.moistStatus)==2||Math.abs(plant.tempStatus)==2||Math.abs(plant.lightStatus)==2)
@@ -152,6 +153,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
 
   plant.tempStatus=status
+  plant.lastTemp={value:temperature,date:new Date()}
 
    //   plant.save()
      
@@ -203,6 +205,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
       
    plant.moistStatus=status
+   plant.lastSoil={value:soilMoisture,date:new Date()}
 
    // plant.save()
 
@@ -250,8 +253,18 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    
       
    plant.lightStatus=status
+   plant.lastLight={value:light,date:new Date()}
 
    // plant.save()
+
+
+ }
+
+ const checkLastIrrigation =async (plant,soilMoisture)=>{
+      if(plant.lastSoil)
+         if(plant.lastSoil.value<soilMoisture)
+            plant.lastIrrigation=Date.now()
+
 
 
  }

@@ -26,13 +26,14 @@ const getMessage= (setMessage,status,type)=>{
     var message="";
     if (type=='soilMoisture'){
         if(status=='-2')
-        { message = "Looks like your soil is overwatered, Do not water for the next 24 hours"}
-        if(status=='-3')
-        { message = "Your soil is extremely overwatered, Do not water for the next few days"}
-        if(status=='2')
         { message = "Looks like your soil needs watering"}
-        if(status=='3')
+        if(status=='-3')
         { message = "Your soil needs watering as soon as possible"}
+        if(status=='2')
+        { message = "Looks like your soil is overwatered, Do not water for the next 24 hours"}
+        if(status=='3')
+        { message = "Your soil is extremely overwatered, Do not water for the next few days"}
+      
     }
     if (type=='temperature'){
         if(status=='-2')
