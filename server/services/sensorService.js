@@ -133,7 +133,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
          Garden.findById(plant.GardenID,(err,garden)=>{
 
             if(garden)
-            sendNotification(garden.userID,plant,status,'temperature')
+            sendNotification(garden.userID,plant,garden.name,status,'temperature')
 
          })    
       }  
@@ -187,7 +187,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
       Garden.findById(plant.GardenID,(err,garden)=>{
 
          if(garden)
-         sendNotification(garden.userID,plant,status,'soilMoisture')
+         sendNotification(garden.userID,plant,garden.name,status,'soilMoisture')
 
       })    
    }  
@@ -236,7 +236,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
       Garden.findById(plant.GardenID,(err,garden)=>{
 
          if(garden)
-         sendNotification(garden.userID,plant,status,'light')
+         sendNotification(garden.userID,plant,garden.name,status,'light')
 
       })    
    }  
@@ -269,13 +269,15 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
  }
 
- const sendNotification=(userID,plant,status,type)=>{
+ const sendNotification=(userID,plant,gardenName,status,type)=>{
    const notification= new Notification({
       userID:userID, 
       plantStatus:status,
       seen:false,
       plantID:plant._id,
       type:type,
+      plantSpecies:plant.species,
+      gardenName:gardenName
    });    
 
 

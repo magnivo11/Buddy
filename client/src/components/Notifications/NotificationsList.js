@@ -14,7 +14,7 @@ export default function NotificationsList({notifications}){
     return( 
         <div>
             {notifications.slice(0).reverse().map((data,key)=>{
-                return <Notification date={data.date} status={data.plantStatus} type={data.type} key={key}/>
+                return <Notification date={data.date} status={data.plantStatus} type={data.type} plantID={data.plantID} gardenName={data.gardenName} plantSpecies={data.plantSpecies} key={key}/>
             })}  
         </div>
     );
