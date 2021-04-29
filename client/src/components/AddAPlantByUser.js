@@ -1,20 +1,18 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
-
 import stage1 from '../Images/IconStages/stage 1.jpg';
 import stage2 from '../Images/IconStages/stage 2.jpg';
 import stage3 from '../Images/IconStages/stage 3.jpg';
 import stage4 from '../Images/IconStages/stage 4.jpg';
 import stage5 from '../Images/IconStages/stage 5.jpg';
-import { useImage } from 'react-image'
-import e from 'cors';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddAPlantByUser() {
   var index = window.location.toString().lastIndexOf('/') + 1
@@ -56,8 +54,7 @@ export default function AddAPlantByUser() {
               </div>
               <form name='plantUserForm' style={{ fontSize: '10px' }} onSubmit={(e) => {
                 handleStatusChange(e)
-                addAPlant(e, gardenID, selected, growthStatus)
-                history.push('/singleGarden/' + gardenID)
+                addAPlant(e, gardenID, selected, growthStatus.history)
               }}>
                 <div style={{ fontSize: '14px', width: '400px', marginLeft: '80px' }}>
                   <VirtualizedSelect
@@ -84,7 +81,7 @@ export default function AddAPlantByUser() {
                   <input value="Flowering" type="image" src={stage4} width={40} id="Flowering" name="growthStatus" onClick={handleStatusChange} /><br />Flowering
                   </label>
                 <label className="radio-inline">
-                  <input value="Ripening" type="image" src={stage4} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} /><br />Ripening
+                  <input value="Ripening" type="image" src={stage5} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} /><br />Ripening
                   </label>
                 <br></br>
                 <br></br>
@@ -102,8 +99,9 @@ export default function AddAPlantByUser() {
 
 
 
-function addAPlant(e, gardenID, selected, growthStatus) {
+function addAPlant(e, gardenID, selected, growthStatus,history) {
   e.preventDefault();
+  if(checkState(selected)){
   console.log(growthStatus);
   const newPlant = {
     species: selected,
@@ -111,6 +109,18 @@ function addAPlant(e, gardenID, selected, growthStatus) {
     growthStatus: growthStatus,
     GardenID: gardenID
   }
-  console.log(newPlant)
   axios.post('http://localhost:8080/plant/ByUser', newPlant);
+  history.push('/singleGarden/' + gardenID)
+}
+}
+function checkState(field) {
+  if (field != null) {
+    toast(camelize(field) + " is required");
+    return false;
+  }
+  return true;
+}
+function camelize(str) {
+  const field = str.replaceAll('_', ' ');
+  return field.charAt(0).toUpperCase() + field.slice(1);
 }
