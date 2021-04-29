@@ -20,7 +20,6 @@ const createUser = async(name,lastName,email,description,password)=>{
 };
 
 const getUserById = async(id)=>{
-    console.log("user service")
     return await User.findById(id)};
 
 const getUsers = async()=>{return await User.find({})};

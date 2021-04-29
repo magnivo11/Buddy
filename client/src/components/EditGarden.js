@@ -46,8 +46,7 @@ export default function EditGarden() {
               </div>
 
               <form onSubmit={(e) => {
-                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID)
-                history.push('/mygardens')
+                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,history)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName} />
                 <br />
@@ -91,7 +90,7 @@ export default function EditGarden() {
 
 }
 
-function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) {
+function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,history) {
 
   e.preventDefault();
 
@@ -108,4 +107,5 @@ function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) 
   }
 
   axios.put('http://localhost:8080/garden/', newGarden);
+  history.push('/mygardens')
 }

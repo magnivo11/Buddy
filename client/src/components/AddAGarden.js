@@ -2,6 +2,9 @@ import '../css/Forms.css'
 import axios from 'axios'
 import { Redirect, useHistory } from 'react-router-dom';
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function AddAGarden() {
   const [gardenAdded, setGardenAdded] = React.useState(false)
@@ -13,13 +16,13 @@ export default function AddAGarden() {
 
 
   const handleDirectionChange = (event) => {
-     setDirection(event.target.value);
+    setDirection(event.target.value);
   }
   const handleSurroundingsChange = (event) => {
-    setSurroundings( event.target.value );
+    setSurroundings(event.target.value);
   }
   const handleSunlightChange = (event) => {
-    setSunlight( event.target.value );
+    setSunlight(event.target.value);
   }
   return (
     <div style={{ fontFamily: "Open Sans" }}>
@@ -32,22 +35,21 @@ export default function AddAGarden() {
                 <h1 style={{ fontSize: '35px', color: '#51361A' }} >Add A Garden </h1>
               </div>
 
-              <form  onSubmit={(e) => {
-                addAGarden(e,direction,surroundings,sunlight, userId)
-                history.push('/mygardens')
+              <form onSubmit={(e) => {
+                addAGarden(e, direction, surroundings, sunlight, userId,history)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder="Garden Name" />
-                <br/>
+                <br />
                 <a>
                   Which direction your garden is facing?&nbsp;
                   <select value={direction} onChange={handleDirectionChange}>
-                    <option value="south">South</option>
+                    <option value="south" >South</option>
                     <option value="north">North</option>
                     <option value="east">East</option>
                     <option value="west">West</option>
                   </select>
                 </a>
-                <br/><br/>
+                <br /><br />
                 <a>
                   Where is it located?&nbsp;
                   <select value={surroundings} onChange={handleSurroundingsChange}>
@@ -56,7 +58,7 @@ export default function AddAGarden() {
 
                   </select>
                 </a>
-                <br/><br/>
+                <br /><br />
 
                 <a>
                   Sun exposure&nbsp;
@@ -65,7 +67,7 @@ export default function AddAGarden() {
                     <option value={false}>Indirect sunlight</option>
                   </select>
                 </a>
-                <br/><br/>
+                <br /><br />
 
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;
                 <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
@@ -83,17 +85,38 @@ export default function AddAGarden() {
 
 
 
-function addAGarden(e,direction,surroundings,sunlight, userId) {
+function addAGarden(e, direction, surroundings, sunlight, userId,history) {
 
   e.preventDefault();
-
   const name = document.getElementById('name').value;
-  const newGarden = {
-    name: name,
-    direction: direction,
-    directSun: sunlight,
-    surroundings: surroundings,
-    userID: userId
+  if (checkRequired('name') && checkState(direction) && checkState(surroundings) && checkState(sunlight)) {
+    const newGarden = {
+      name: name,
+      direction: direction,
+      directSun: sunlight,
+      surroundings: surroundings,
+      userID: userId
+    }
+    axios.post('http://localhost:8080/garden/', newGarden);
+    history.push('/mygardens');
   }
-  axios.post('http://localhost:8080/garden/', newGarden);
+}
+function checkRequired(field) {
+  if (document.getElementById(field).value.length == 0) {
+    toast(camelize(field) + " is required");
+    return false;
+  }
+  return true;
+}
+
+function checkState(field) {
+  if (field != null) {
+    toast(camelize(field) + " is required");
+    return false;
+  }
+  return true;
+}
+function camelize(str) {
+  const field = str.replaceAll('_', ' ');
+  return field.charAt(0).toUpperCase() + field.slice(1);
 }

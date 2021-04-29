@@ -32,8 +32,7 @@ export default function EditPlantByAdmin() {
               </div>
               <form name='gardenForm' style={{ fontSize: '10px' }} onSubmit={(e) => {
                 editPlantByAdmin(e, plant.species, plant.irrigationInstructors, plant.optimalTemp, plant.optimalSunExposure,
-                  plant.optimalSoilMoisture, plant.description, plantID)
-                history.push('/PlantsBible')
+                  plant.optimalSoilMoisture, plant.description, plantID, history)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="species" className="fadeIn second" placeholder={'Species: ' + plant.species} />
                 <input style={{ fontSize: '12px' }} type="text" id="irrigationInstructors" className="fadeIn second" placeholder={'Irrigation Instructors: ' + plant.irrigationInstructors} />
@@ -54,32 +53,27 @@ export default function EditPlantByAdmin() {
   );
 }
 function editPlantByAdmin(e, species, irrigationInstructors, optimalTemp, optimalSunExposure,
-  optimalSoilMoisture, description, plantID) {
+  optimalSoilMoisture, description, plantID,history) {
     e.preventDefault();
-
-  const newSpecies = checkField(species,'species');
-  const newIrrigationInstructors = checkField(irrigationInstructors,'irrigationInstructors');
-  const newOptimalTemp= checkField(optimalTemp,'optimalTemp');
-  const newOptimalSunExposure= checkField(optimalSunExposure,'optimalSunExposure');
-  const newOptimalSoilMoisture= checkField(optimalSoilMoisture,'optimalSoilMoisture');
-  const newDescription= checkField(description,'description');
-
 
   const newPlant = {
     id: plantID,
-    species: newSpecies,
-    irrigationInstructors: newIrrigationInstructors,
-    optimalTemp: newOptimalTemp,
-    optimalSunExposure: newOptimalSunExposure,
-    optimalSoilMoisture: newOptimalSoilMoisture,
-    description: newDescription
+    species: checkField(species,'species'),
+    irrigationInstructors: checkField(irrigationInstructors,'irrigationInstructors'),
+    optimalTemp: checkField(optimalTemp,'optimalTemp'),
+    optimalSunExposure: checkField(optimalSunExposure,'optimalSunExposure'),
+    optimalSoilMoisture: checkField(optimalSoilMoisture,'optimalSoilMoisture'),
+    description: checkField(description,'description')
   }
   axios.put('http://localhost:8080/plant/byadmin', newPlant);
+  history.push('/PlantsBible')
+
 }
 
 function checkField(beforeUpdate,field){
   let updated="";
-  if (document.getElementById(field).value.length == 0) updated = beforeUpdate;
+  if (document.getElementById(field).value.length == 0) 
+      updated = beforeUpdate;
   else updated = document.getElementById(field).value;
   return updated;
 }
