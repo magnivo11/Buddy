@@ -35,7 +35,11 @@ export default function AddAPlantByAdmin(){
               <input style= {{fontSize: '12px'}} type="number"  id="optimalSoilMoisture" className="fadeIn second"  placeholder="Optimal Soil Moisture (0 to 100)"  />
               <br></br>
               <br></br>
-              <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add</span></button>
+              <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add</span></button>&nbsp;
+              <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>history.push('/mygardens')}><span>Cancel</span></button>
+
+
+
             </form>
            
           </div>

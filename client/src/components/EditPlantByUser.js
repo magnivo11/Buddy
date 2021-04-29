@@ -17,22 +17,42 @@ import stage5 from '../Images/IconStages/stage 5.jpg';
 export default function EditPlantByUser(){
   var index=window.location.toString().lastIndexOf('/')+1
   const plantID=window.location.toString().substring(index)
-  const [selected,setSelected]=React.useState('Select plant')
+  const [plant, setPlant] = React.useState({});
+  const [selected,setSelected]=React.useState('Change species')
   const history = useHistory();
+  const [growthStatus, setGrowthStatus] = React.useState("")
+  const handleStatusChange = (event) => {
+    event.preventDefault();
+    setGrowthStatus(event.target.id);
+  }
 
 //Get Admin plants from server
   const [plants,setPlants]=React.useState([])
-  var plantsInfo=[];
+  let plantsInfo=[];
+
+  
   React.useEffect(() => {
-    axios.get('http://localhost:8080/plant/admin').then((Response)=> {
-      if(plants.length!=Response.data.length)
-      {
-        Response.data.forEach(plant => {
-          plantsInfo.push({label:plant.species, value:plant.species})
-        });
-      setPlants(plantsInfo);
-      }
-  })},[]);
+    fetch('http://localhost:8080/plant/' + plantID)
+      .then(response => response.json()).then(
+        data => {
+          setPlant(data);
+        }
+      )
+  }, []);
+
+  React.useEffect(() => {
+          axios.get('http://localhost:8080/plant/admin').then((Response)=> {
+            if(plants.length!=Response.data.length)
+            {
+              Response.data.forEach(singlePlant => {
+                if(plant.species!=singlePlant.species) //eliminate the current species from plants list
+                plantsInfo.push({label:singlePlant.species, value:singlePlant.species})
+              });
+            setPlants(plantsInfo);
+            }
+        })
+        }
+, []);
 
 
 
@@ -52,10 +72,11 @@ export default function EditPlantByUser(){
               <div className="fadeIn first">
               <br></br>
               <h1 style={{fontSize: '35px', color:'#51361A'}} >Edit Plant </h1> 
+              <h2 style={{fontSize: '25px', color:'#51361A'}} >{plant.species} </h2> 
 
               </div>
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected)
+              editPlant(e,plantID,selected,growthStatus)
               history.push('/mygardens')}}>
 
                   <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
@@ -68,33 +89,34 @@ export default function EditPlantByUser(){
                 onChange={(e)=>{
                   setSelected(e.value)}} />
                   </div> <br></br>
-                <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
+                <p style= {{fontSize: '14px'}} >Change plant's growth stage:</p>
 
-                  <label className="radio-inline">
-                    <input type="radio" id="Seed" name="growthStatus"  />
-                    <img src={stage1} width={40}></img>Seed
+                <label className="radio-inline" >
+                {plant.growthStatus==="Seed" ? <input value="Seed" type="image" src={stage1} style={{borderBottom: "2px solid #000"}}  width={40} id="Seed" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Seed" type="image" src={stage1}   width={40} id="Seed" name="growthStatus" onClick={handleStatusChange} />}<br />Seed
+               </label>
+                <label className="radio-inline" >
+                  {plant.growthStatus==="Seedling" ? <input value="Seedling" type="image" src={stage2}   style={{borderBottom: "2px solid #000"}}width={40} id="Seedling" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Seedling" type="image" src={stage2} width={40} id="Seedling" name="growthStatus" onClick={handleStatusChange} />}<br />Seedling
+               </label>
+                <label className="radio-inline">
+                {plant.growthStatus=="Vegetative" ? <input value="Vegetative" type="image" src={stage3}  style={{borderBottom: "2px solid #000"}} width={40} id="Vegetative" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Vegetative" type="image" src={stage3} width={40} id="Vegetative" name="growthStatus" onClick={handleStatusChange} />}<br />Vegetative
+               </label>
+                <label className="radio-inline" >
+                {plant.growthStatus=="Flowering" ? <input value="Flowering" type="image" src={stage4} style={{borderBottom: "2px solid #000"}} width={40} id="Flowering" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Flowering" type="image" src={stage4} width={40} id="Flowering" name="growthStatus" onClick={handleStatusChange} />}<br />Flowering
                   </label>
-                
-                  <label className="radio-inline">
-                    <input type="radio" id="Seedling" name="growthStatus"  />
-                    <img src={stage2} width={40}></img>Seedling
-                  </label>
-                  <label className="radio-inline">
-                    <input type="radio" id="Vegetative" name="growthStatus"  />
-                    <img src={stage3} width={40}></img>Vegetative
-                  </label>
-                  <label className="radio-inline">
-                    <input type="radio" id="Flowering" name="growthStatus"   />
-                    <img src={stage4} width={40}></img>Flowering
-
-                  </label> <label className="radio-inline">
-                    <input type="radio" id="Ripening" name="growthStatus"  />
-                    <img src={stage5} width={40}></img>Ripening
+                <label className="radio-inline">
+                {plant.growthStatus=="Ripening" ? <input value="Ripening" type="image" src={stage4} style={{borderBottom: "2px solid #000"}} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Ripening" type="image" src={stage4} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />}<br />Ripening
                   </label>
                     <br></br>
                     <br></br>
 
-                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>
+                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>&nbsp;
+                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>history.push('/mygardens')}><span>Cancel</span></button>
+
               </form>
              
             </div>
@@ -108,21 +130,13 @@ export default function EditPlantByUser(){
 
    
 
-function editPlant(e,plantID,selected){
+function editPlant(e,plantID,selected,growthStatus){
   e.preventDefault();
-  const form = document.forms.plantUserForm;
-  const growthStatus = form.elements.growthStatus;
-  var status;
-
-  for(var i = 0; i <growthStatus.length; i++){
-  if(growthStatus[i].checked){
-  status=growthStatus[i].id;
-  }}
 
  const newPlant={
   id:plantID,
   species:selected,
-  growthStatus:status
+  growthStatus:growthStatus
  }
  axios.put('http://localhost:8080/plant/byuser/',newPlant);
   

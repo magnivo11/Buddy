@@ -72,8 +72,8 @@ function addAPost(e,inputRef,userId,posts,setPosts,change,setChange){
         // newPostArray.splice(0, 0, data.data._id);
         // console.log(newPostArray)
         // setPosts(newPostArray);
-        const newArray = [data.data._id].concat([...posts])
-        setPosts(newArray);
+        // const newArray = [data.data._id].concat([...posts])
+        setPosts([...posts,data.data._id]);
       });
       
   

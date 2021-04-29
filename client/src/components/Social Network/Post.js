@@ -10,11 +10,12 @@ export default function Post({postID, change,deletePost}) {
     const [writerUser,setUser]=React.useState({_id:''});
     const [deletePermission, setDeletePermission] = React.useState(false);
 
+    console.log(postID);
     React.useEffect(() => {
-        console.log(postID);
-        fetch('http://localhost:8080/post/'+postID)
+        postID &&  fetch('http://localhost:8080/post/'+postID)
           .then(response => response.json()).then(
             data => {
+            console.log(postID);
             setPost(data)
             fetch('http://localhost:8080/user/'+data.userID)
             .then(response => response.json()).then(
