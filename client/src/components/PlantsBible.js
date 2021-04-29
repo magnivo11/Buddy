@@ -6,15 +6,15 @@ import PlantsBibleGrid from './PlantsBibleGrid';
   
 export default function PlantsBible() {
   const ownerID = window.sessionStorage.getItem('userID');
-  const [currentUser, setUser] = React.useState({ _id: null });
-  var isAdmin=false;
+  const [editPermission,setEditPermission]=React.useState(false);
+
 
   React.useEffect(() => {
     fetch('http://localhost:8080/user/' + ownerID)
       .then(response => response.json()).then(
         data => {
-          isAdmin=data.isAdmin;
-          setUser(data);
+          if(data.isAdmin)
+          setEditPermission(true);
         }
       )
   }, []);
@@ -28,7 +28,7 @@ export default function PlantsBible() {
             <div className="section-title">
               <h2 style={{ fontSize: '35px' }}>Plants Bible</h2>
               <p style={{ fontSize: '30px' }}>All the information in one place</p>
-               { isAdmin ? (<Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link>):""}  
+               { editPermission ? (<Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link>):""}  
                <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll', overflowX: 'hidden' }}>
                 <PlantsBibleGrid q={''} />
               </div>
