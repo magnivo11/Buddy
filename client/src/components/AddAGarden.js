@@ -89,7 +89,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId,history) {
 
   e.preventDefault();
   const name = document.getElementById('name').value;
-  if (checkRequired('name') && checkState(direction) && checkState(surroundings) && checkState(sunlight)) {
+  if (checkRequired('name') && checkState(direction,"Direction") && checkState(surroundings,"Surroundings") && checkState(sunlight,"Sunlight")) {
     const newGarden = {
       name: name,
       direction: direction,
@@ -109,9 +109,9 @@ function checkRequired(field) {
   return true;
 }
 
-function checkState(field) {
-  if (field == null) {
-    toast(camelize(field) + " is required");
+function checkState(field,fieldname) {
+  if (field == "") {
+    toast(fieldname +" is required");
     return false;
   }
   return true;

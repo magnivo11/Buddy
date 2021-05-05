@@ -4,6 +4,8 @@ import axios from 'axios';
 import React from 'react'
 import PlantsList from './plantsList'
 import ButtonsList from './ButtonsList';
+import indoorPlants from '../Images/Indoor-plants.jpg';
+
 
 export default function SingleGarden(){
   const history = useHistory();
@@ -26,20 +28,20 @@ export default function SingleGarden(){
 
   const gardenName = garden.name;
 
- return (
+  return (
+
   <div  style={{fontFamily: "Open Sans"}}>
     <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
        <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
             <div className="container" data-aos="fade-up"  >
               <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                <div className="col-lg-3">
-                  <ul className="nav nav-tabs flex-column">
+                <div className="col-lg-3 d-none d-lg-block">
+                  <ul className="nav nav-tabs flex-column ">
                       {/*Title*/}
                       <div className="section-title" >
-                        <br></br>
-                        <br></br><br></br>
-                        <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
+                        <h2 style={{fontSize:'36px'}}></h2>
                       </div>
+                      <h1></h1>
                       {/*Left buttons*/}
                     <ButtonsList ownerID= {ownerID}/>
                   </ul>
@@ -76,7 +78,5 @@ export default function SingleGarden(){
        </section>
       </section>
     </div>
-  );
 
-}
-
+)};
