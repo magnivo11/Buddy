@@ -33,7 +33,7 @@ export default function Comments({postId,postWriterID,deletePost}) {
 
     return (
         <>
-            <button  style={{fontSize:'10px',border:'white',background:'none'}} onClick={toggleComments} type="button" 
+            <button  style={{fontSize:'9px',border:'white',background:'none'}} onClick={toggleComments} type="button" 
             className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-comment" />&nbsp;Comments </button> &nbsp;
              {(isVisible) ? <CommentsSection comments={comments} onDelete={deleteComment} postId={postId} setComments={setComments} /> : ""}
         </>

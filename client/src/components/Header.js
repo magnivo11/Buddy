@@ -69,7 +69,7 @@ export default function Header() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
-          <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Little Buddy</Link></h1>
+          <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Buddy</Link></h1>
           <div className="mobile-nav-toggle" onClick={handleClick}>
           {!clicked? <FaTimes/> : <FaBars/>}
           </div>

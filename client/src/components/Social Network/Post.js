@@ -2,6 +2,9 @@ import React from "react"
 import axios from 'axios';
 import '../../css/SocialNetworkProfile.css'
 import Comments from "./Comments"
+import {Link} from 'react-router-dom'
+import userPhoto from '../../Images/Gardeners/3.png'
+
 
 
 export default function Post({postID, change,deletePost}) {
@@ -51,24 +54,23 @@ export default function Post({postID, change,deletePost}) {
     }
 
     return (     
-        <div className="d-flex align-items-start profile-feed-item">
-            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="profile" className="img-sm rounded-circle" />
+        <div className="d-flex align-items-start profile-feed-item" style={{fontFamily: "Open Sans"}}>
+            <img src={userPhoto} alt="profile" className="img-sm rounded-circle postUserPhoto" />
             <div className="ml-4">
-            <h6 style={{fontSize:'16px', fontWeight:'bold'}}>
-            {writerUser.name} {writerUser.lastName}
-                <small style={{fontSize:'10px'}}className="ml-4 text-muted">
-
+            <h6>
+            <Link className="nav-link singlePost"   to={`/profile/${writerUser._id}`}>{writerUser.name} {writerUser.lastName} </Link>
+                <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>
-            {red&&<a style={{background:'red'}}href="http://example.com" class="round-button"></a>}
-            {green&&<a style={{background:'green'}}href="http://example.com" class="round-button"></a>}
-            {orange&&<a style={{background:'orange'}}href="http://example.com" class="round-button"></a>}
+            {red&&<a style={{background:'red'}}class="round-button"></a>}
+            {green&&<a style={{background:'green'}}class="round-button"></a>}
+            {orange&&<a style={{background:'orange'}} class="round-button"></a>}
 
-            <p>{post.content}</p>
-            {deletePermission&& <button  style={{fontSize:'10px',border:'white',background:'none'}}
+            <p>&nbsp;&nbsp;{post.content}</p>
+            {deletePermission&& <button  style={{fontSize:'9px',border:'white',background:'none'}}
             onClick={()=>{
                 deletePost(postID);
-            }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete Post </button> } 
+            }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button> } 
 
              <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> 
 

@@ -53,7 +53,7 @@ const deletePost=(postID)=>{
                 <div className="col-md-12 bootstrap snippets">
                   <div className="panel">
                     <div className="panel-body">
-                      <AddAPostBox posts={posts} usersFirstName= {currentUser.name} setChange={setChange} setPosts={setPosts}/>
+                      <AddAPostBox posts={posts} usersFirstName= {currentUser.name} setPosts={setPosts}/>
                         <br></br>
                         <FilterPostsBox posts={posts} setPosts={setPosts}/>
                         <PostList posts={posts} change={change} deletePost={deletePost}/>

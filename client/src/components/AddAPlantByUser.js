@@ -56,7 +56,7 @@ export default function AddAPlantByUser() {
                 handleStatusChange(e)
                 addAPlant(e, gardenID, selected, growthStatus,history)
               }}>
-                <div style={{ fontSize: '14px', width: '400px', marginLeft: '80px' }}>
+                <div style={{ fontSize: '14px'}}>
                   <VirtualizedSelect
                     name="Species"
                     placeholder={selected}

@@ -4,6 +4,8 @@ import{Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import AddAPostBox from './AddAPostBox'
 import PostList from './PostList'
+import userPhoto from '../../Images/Gardeners/3.png'
+
 
 export default function Profile(){
     //user id from url - users profile
@@ -55,7 +57,7 @@ return(
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css" />
     <div style={{ width:'98%'}} className="container">
     <div className="section-title" >
-            <h2 style={{fontSize:'36px'}}>My Profile</h2>
+            <h2 style={{fontSize:'36px'}}>Profile</h2>
         </div>
       <div className="row">
         <div className="col-12">
@@ -64,7 +66,7 @@ return(
               <div className="row">
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
-                    <img style={{width:'75%'}}src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="profile" className="img-lg rounded-circle mb-3" />
+                    <img style={{width:'75%'}}src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.name+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">
