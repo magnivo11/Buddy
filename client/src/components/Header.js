@@ -71,9 +71,9 @@ export default function Header() {
         <div className="container d-flex align-items-center">
           <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Little Buddy</Link></h1>
           <div className="mobile-nav-toggle" onClick={handleClick}>
-          {clicked? <FaTimes/> : <FaBars/>}
+          {!clicked? <FaTimes/> : <FaBars/>}
           </div>
-          {clicked?  <nav className= "nav-menu">
+          {!clicked?  <nav className= "nav-menu">
             <ul className="active">
               <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" />
               <li><Link to="/mygardens">My Gardens </Link></li>
