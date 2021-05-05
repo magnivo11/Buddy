@@ -114,7 +114,7 @@ function addAPlant(e, gardenID, selected, growthStatus,history) {
 }
 }
 function checkState(field) {
-  if (field != null) {
+  if (field == null) {
     toast(camelize(field) + " is required");
     return false;
   }

@@ -19,7 +19,7 @@ export default function LoginForm() {
               <div id="formContent">
                 <div className="fadeIn first">
                   <img src={logo} id="icon" alt="Welcome Buddy" />
-                  <h1 style={{ fontSize: '35px', color: '#51361A' }}>Nice to see you again! </h1>
+                  <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Nice to see you again!</small> </h1>
                   {messege.showMessege ? <div>{messege.text}</div> : null}
                 </div>
                 <form onSubmit={(e) => { login(e, setLoggedIn, setMessege) }}>
