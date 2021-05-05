@@ -81,10 +81,11 @@ const getSensorBySerialNumber = async(serialNumber)=>{
          Plant.findOne({sensorID:sensor._id},(err,plant)=>{
             if(plant)
                Garden.findById(plant.GardenID,(err,garden)=>{
+                  checkLastIrrigation(plant,soilMoisture)
                   tempTest(plant,temperature)
                   soilTest(plant,soilMoisture)
                   lightTest(plant,light)
-
+                 
                   if(Math.abs(plant.moistStatus)==3||Math.abs(plant.tempStatus)==3||Math.abs(plant.lightStatus)==3)
                   plant.healthStatus=3
                   else if(Math.abs(plant.moistStatus)==2||Math.abs(plant.tempStatus)==2||Math.abs(plant.lightStatus)==2)
@@ -119,24 +120,40 @@ const getSensorBySerialNumber = async(serialNumber)=>{
      else 
      status=-3;
 
-     //notification part 
+    
 
-     //gives notification only when the status changes for worse or first measurement which is not 1
+    
+    
 
-     if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1){
+
+       //gives notification only when the status changes for worse or first measurement which is not 1
+
+       if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1){
     
          Garden.findById(plant.GardenID,(err,garden)=>{
 
             if(garden)
-            sendNotification(garden.userID,plant,status,'temperature')
+            sendNotification(garden.userID,plant,garden.name,status,'temperature')
 
-         })                     
-        
-     }
+         })    
+      }  
+      else
+      {
+
+         Garden.findById(plant.GardenID,(err,garden)=>{
+
+         garden.currentTemp={value:temperature,date:Date.now()}
+         garden.save()
+         })
+
+      }               
+    
+     
      
 
 
   plant.tempStatus=status
+  plant.lastTemp={value:temperature,date:new Date()}
 
    //   plant.save()
      
@@ -163,22 +180,32 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    status=-3;
 
 
+  
+
    if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1){
+    
+      Garden.findById(plant.GardenID,(err,garden)=>{
+
+         if(garden)
+         sendNotification(garden.userID,plant,garden.name,status,'soilMoisture')
+
+      })    
+   }  
+   else
+   {
 
       Garden.findById(plant.GardenID,(err,garden)=>{
-   
 
-         if(garden){
-           
-         sendNotification(garden.userID,plant,status,'soilMoisture')
-         }
+      garden.currentMoist={value:soilMoisture,date:Date.now()}
+      garden.save()
+      })
 
-      })                     
+   }               
 
 
-   }
       
    plant.moistStatus=status
+   plant.lastSoil={value:soilMoisture,date:new Date()}
 
    // plant.save()
 
@@ -202,32 +229,55 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    status=-3;
 
 
-   if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1){
+   
 
+   if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1){
+    
       Garden.findById(plant.GardenID,(err,garden)=>{
 
          if(garden)
-         sendNotification(garden.userID,plant,status,'sunExposure')
+         sendNotification(garden.userID,plant,garden.name,status,'light')
 
-      })                     
+      })    
+   }  
+   else
+   {
 
+      Garden.findById(plant.GardenID,(err,garden)=>{
 
-   }
+      garden.currentLight={value:light,date:Date.now()}
+      garden.save()
+      })
+
+   }               
+   
       
    plant.lightStatus=status
+   plant.lastLight={value:light,date:new Date()}
 
    // plant.save()
 
 
  }
 
- const sendNotification=(userID,plant,status,type)=>{
+ const checkLastIrrigation =async (plant,soilMoisture)=>{
+      if(plant.lastSoil)
+         if(plant.lastSoil.value<soilMoisture)
+            plant.lastIrrigation=Date.now()
+
+
+
+ }
+
+ const sendNotification=(userID,plant,gardenName,status,type)=>{
    const notification= new Notification({
       userID:userID, 
       plantStatus:status,
       seen:false,
       plantID:plant._id,
       type:type,
+      plantSpecies:plant.species,
+      gardenName:gardenName
    });    
 
 
