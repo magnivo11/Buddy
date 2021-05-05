@@ -54,7 +54,7 @@ export default function AddAPlantByUser() {
               </div>
               <form name='plantUserForm' style={{ fontSize: '10px' }} onSubmit={(e) => {
                 handleStatusChange(e)
-                addAPlant(e, gardenID, selected, growthStatus.history)
+                addAPlant(e, gardenID, selected, growthStatus,history)
               }}>
                 <div style={{ fontSize: '14px', width: '400px', marginLeft: '80px' }}>
                   <VirtualizedSelect
@@ -101,7 +101,7 @@ export default function AddAPlantByUser() {
 
 function addAPlant(e, gardenID, selected, growthStatus,history) {
   e.preventDefault();
-  if(checkState(selected)){
+  if(checkState(selected,"Species")&& checkState(growthStatus,"Growth Status")){
   console.log(growthStatus);
   const newPlant = {
     species: selected,
@@ -113,14 +113,10 @@ function addAPlant(e, gardenID, selected, growthStatus,history) {
   history.push('/singleGarden/' + gardenID)
 }
 }
-function checkState(field) {
-  if (field != null) {
-    toast(camelize(field) + " is required");
+function checkState(field,fieldName) {
+  if (field == 'Select plant' ||field=="") {
+    toast(fieldName + " is required");
     return false;
   }
   return true;
-}
-function camelize(str) {
-  const field = str.replaceAll('_', ' ');
-  return field.charAt(0).toUpperCase() + field.slice(1);
 }

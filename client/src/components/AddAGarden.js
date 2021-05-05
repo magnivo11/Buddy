@@ -32,7 +32,7 @@ export default function AddAGarden() {
             <div id="formContent">
               <div className="fadeIn first">
                 <br></br>
-                <h1 style={{ fontSize: '35px', color: '#51361A' }} >Add A Garden </h1>
+                <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Add A Garden</small> </h1>
               </div>
 
               <form onSubmit={(e) => {
@@ -89,7 +89,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId,history) {
 
   e.preventDefault();
   const name = document.getElementById('name').value;
-  if (checkRequired('name') && checkState(direction) && checkState(surroundings) && checkState(sunlight)) {
+  if (checkRequired('name') && checkState(direction,"Direction") && checkState(surroundings,"Surroundings") && checkState(sunlight,"Sunlight")) {
     const newGarden = {
       name: name,
       direction: direction,
@@ -109,9 +109,9 @@ function checkRequired(field) {
   return true;
 }
 
-function checkState(field) {
-  if (field != null) {
-    toast(camelize(field) + " is required");
+function checkState(field,fieldname) {
+  if (field == "") {
+    toast(fieldname +" is required");
     return false;
   }
   return true;
