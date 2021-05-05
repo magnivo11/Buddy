@@ -32,7 +32,7 @@ export default function AddAGarden() {
             <div id="formContent">
               <div className="fadeIn first">
                 <br></br>
-                <h1 style={{ fontSize: '35px', color: '#51361A' }} >Add A Garden </h1>
+                <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Add A Garden</small> </h1>
               </div>
 
               <form onSubmit={(e) => {
@@ -110,7 +110,7 @@ function checkRequired(field) {
 }
 
 function checkState(field) {
-  if (field != null) {
+  if (field == null) {
     toast(camelize(field) + " is required");
     return false;
   }

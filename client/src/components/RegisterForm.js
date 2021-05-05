@@ -13,13 +13,13 @@ export default function RegisterForm() {
   if (!info.redirectToLogin)
     return (
       <div style={{ fontFamily: "Open Sans" }}>
-        <section id="hero" className="d-flex align-items-center">
-          <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+        <section id="hero" className="d-flex align-items-center"style={{overflow:'scroll'}}>
+          <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100} >
             <div className="wrapper fadeInDown">
               <div id="formContent">
                 <div className="fadeIn first">
                   <img src={logo} id="icon" alt="Welcome Buddy" />
-                  <h1 style={{ fontSize: '35px', color: '#51361A' }}>Welcome to the family! </h1>
+                  <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Welcome to the family!</small> </h1>
                   {info.showMessege ? <div>{info.message}</div> : null}
                 </div>
                 <form onSubmit={(e) => { register(e, setInfo) }}>
