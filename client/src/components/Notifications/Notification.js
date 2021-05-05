@@ -1,60 +1,131 @@
 import {Link} from 'react-router-dom'
 import React from 'react';
 import { easeCubicOut } from 'd3-ease';
+import tempH3 from '../../Images/notifications/temp3.jpg';
+import tempH2 from '../../Images/notifications/temp2.jpg';
+import tempC2 from '../../Images/notifications/temp-2.jpg';
+import tempC3 from '../../Images/notifications/temp-3.jpg';
+
+import moist3 from '../../Images/notifications/moist3.jpg';
+import moist2 from '../../Images/notifications/moist2.jpg';
+import moist2Minus from '../../Images/notifications/moist-2.jpg';
+import moist3Minus from '../../Images/notifications/moist-3.jpg';
+
+import light2 from '../../Images/notifications/light2.jpg';
+import light3 from '../../Images/notifications/moist3.jpg';
+import light2Minus from '../../Images/notifications/moist-2.jpg';
+import light3Minus from '../../Images/notifications/moist-3.jpg';
 
 
-export default function Notification({date,status,type}){
+
+
+
+
+
+
+export default function Notification({date,status,type,plantID,gardenName,plantSpecies}){
    
     const [message,setMessage]=React.useState([]);
     const [time,setTime]=React.useState([]);
-    React.useEffect(()=> getMessage(setMessage,status,type),[])
+    React.useEffect(()=> getMessage(setMessage,status,type,plantID,gardenName,plantSpecies),[])
     React.useEffect(()=> getTime(setTime,date),[])
+    
 
 
     return(
         <div>
-            <h2 style={{fontSize:'14px'}}> {"*"}{message} </h2>
+            {/* <h2 style={{fontSize:'14px'}}> {"*"}{message} </h2>
             <h2 style={{fontSize:'10px'}}>  {"   "+time+" min ago"}</h2>
-            <br/>
+            <br/> */}
+              <div className="card">
+        <div style={{textAlign: 'left'}} className="card-body">
+        <Link 
+        className="nav-link"  to={`/plant/${plantID}`}>
+            <h2 style={{fontSize:'10px',color:'black'}}> {"*"}{message.text} </h2> 
+        </Link>
+        {message.icon&&<img src={message.icon} id="icon" style={{width:'30px',alignItems: "center"}} />}
+        <br/>
+            <h2 style={{fontSize:'10px',color:'black'}}>  {"   "+time+" min ago"}</h2>
+        </div>
+      </div>
         </div>
     );
 
 }
 //setting the right message according to data
-const getMessage= (setMessage,status,type)=>{
+const getMessage= (setMessage,status,type,plantID,gardenName,plantSpecies)=>{
 
     var message="";
+    var icon='';
+
     if (type=='soilMoisture'){
         if(status=='-2')
-        { message = "Looks like your soil is overwatered, Do not water for the next 24 hours"}
+        {
+             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" needs watering"
+             icon=moist2Minus
+            }
         if(status=='-3')
-        { message = "Your soil is extremely overwatered, Do not water for the next few days"}
+        { 
+            message = "Your "+plantSpecies+ " in "+ gardenName+" needs watering as soon as possible"
+            icon=moist3Minus
+        }
         if(status=='2')
-        { message = "Looks like your soil needs watering"}
+        { 
+            message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is overwatered, Do not water for the next 24 hours"
+            icon=moist2
+        }
         if(status=='3')
-        { message = "Your soil needs watering as soon as possible"}
+        {
+             message = "Your "+plantSpecies+ " in "+ gardenName+" is extremely overwatered, Do not water for the next few days"
+             icon=moist3
+            }
+      
     }
     if (type=='temperature'){
         if(status=='-2')
-        { message = "Looks like your plant is a little cold, Consider changing its location"}
+        {
+             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is a little cold, Consider changing its location"
+            icon=tempC2
+        }
         if(status=='-3')
-        { message = "Your plant is very cold, We recommend changing its location"}
+        { 
+            message = "Your "+plantSpecies+ " in "+ gardenName+" is very cold, We recommend changing its location"
+             icon=tempC3
+         }
         if(status=='2')
-        { message = "Looks like your plant is a little hot, Consider changing its location"}
+        {
+             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is a little hot, Consider changing its location"
+            icon=tempH2    
+        }
         if(status=='3')
-        { message = "Your plant is very cold, We recommend changing its location"}
+        { 
+               message = "Your "+plantSpecies+ " in "+ gardenName+" is very hot, We recommend changing its location"
+                icon=tempH3    
+        }
     }
     if (type=='light'){
         if(status=='-2')
-        { message = "Looks like your plant does not get enought light, Consider changing its location"}
+        {
+             message = "Looks like your plant does not get enought light, Consider changing its location"
+             icon=light2Minus
+            }
         if(status=='-3')
-        { message = "Your plant does not get enought light, We recommend changing its location"}
+        { 
+            message = "Your plant does not get enought light, We recommend changing its location"
+            icon=light3Minus
+        }
         if(status=='2')
-        { message = "Looks like your plant get too much light, Consider changing its location"}
+        {
+             message = "Looks like your plant get too much light, Consider changing its location"
+             icon=light2
+            }
         if(status=='3')
-        { message = "Your plant is has over exposure to light, We recommend changing its location"}
+        { 
+            message = "Your plant is has over exposure to light, We recommend changing its location"
+            icon=light3
+        }
     }
-    setMessage(message);
+    setMessage({text:message,icon:icon});
 }
 //setting the time that has passed since the notification was sent
 

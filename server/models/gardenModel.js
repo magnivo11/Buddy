@@ -23,7 +23,10 @@ const gardenSchema = new Schema({
     plants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "plants"
-    }]
+    }],
+    currentTemp:{value: {type:Number,min:(-12),max:50} , date: { type: Date, default: Date.now }},
+    currentLight:{ value: {type:Number,min:0,max:100}, date: { type: Date, default: Date.now } },
+    currentMoist:{ value: {type:Number,min:0,max:100},date: { type: Date, default: Date.now } }
 
 })
 

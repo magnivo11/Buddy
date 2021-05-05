@@ -58,7 +58,11 @@ photos:[
 GardenID:{
     type: mongoose.Schema.Types.ObjectId,
     ref:"gardens"
-}
+},
+lastIrrigation: { type: Date, default: Date.now },
+lastTemp:{ value: {type:Number,min:(-12),max:50,default:0} , date: { type: Date, default: Date.now }},
+lastLight:{ value: {type:Number,min:0,max:100,default:0}, date: { type: Date, default: Date.now } },
+lastSoil:{ value: {type:Number,min:0,max:100,default:0}, date: { type: Date, default: Date.now } }
 
 
 })

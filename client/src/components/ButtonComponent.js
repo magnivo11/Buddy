@@ -12,7 +12,8 @@ export default function ButtonComponent({id,name}){
                 <Link className="nav-link"  to={`/singlegarden/${id}`}>{name} </Link>
             </li>
             </ul>
-        </div>
+            </div>
+           
     );
 
 
