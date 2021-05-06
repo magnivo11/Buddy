@@ -11,9 +11,16 @@ export default function ButtonsList({ ownerID }) {
             setItems(Response.data)
 
     })
-    if (items.length < 1)
-
-
+    if (items.length<1)
+    return(
+        <div>
+            <ul className="nav nav-tabs flex-column">
+                <li className="nav-item">
+            <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>
+                </li>
+            </ul>       
+        </div>
+    );
     return( 
         <div>
     <ul className="nav nav-tabs flex-column">

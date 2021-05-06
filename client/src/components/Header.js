@@ -1,13 +1,12 @@
 import { FaTimes } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
-
-
 import '../css/Header.css';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
 import { findDOMNode } from 'react-dom';
+import DataContext from '../DataContext';
 
 export default function Header() {
   const data=React.useContext(DataContext);
