@@ -1676,6 +1676,29 @@ section {
   font-size: 14px;
   width:120px;
 }
+.header-mobile{
+  color:'white';
+}
+.header-mobile-link{
+  padding: 20%;
+}
+.tableStatus{
+  width:'30px';
+  height:'30px'
+}
+.gardenName{
+  padding-top: 100px;
+  font-size: 40px;
+}
+.buttonsTop{
+  padding-top: 30px;
+}
+.noSensor{
+  font-size:25px;
+  color:'white';
+  text-align:'left';
+}
+
 
 @media (max-width: 992px) {
   .addPost input[type=text] {
@@ -1697,7 +1720,6 @@ section {
     font-size: 16px;
     font-weight:bolder;
   }
-
   .timeAgo{
     font-size: 8px;
   }
@@ -1717,6 +1739,22 @@ section {
   .newComment{
     font-size: 10px;
     width:75px;
-
+  }
+  .header-large-screen{
+    display:none;
+  }
+  .tableStatus{
+    width:'15px';
+    height:'15px'
+  }
+  .bottonsOnMobile{
+    display: "none";
+  }
+  .gardenName{
+    padding-top: 210px;
+    font-size: 20px;
+  }
+  .noSensor{
+    font-size:20px;
   }
 }
