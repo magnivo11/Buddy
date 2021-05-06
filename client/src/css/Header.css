@@ -105,9 +105,9 @@ flex-direction: column;
 .nav-menu{
  position:absolute;
  width:90%;
- height: 450px;
+ height: 300px;
 top:50px;
-background-color: #37332a;
+background-color: #b6ae9c;
 transition:0.5s;
 }
 .nav-menu > ul{

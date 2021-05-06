@@ -35,8 +35,7 @@ export default function Header() {
         }
       }
     }), [])
-    const script = document.createElement('script');
-    script.type= "text/javascript";
+
     const handleClick=()=>{
       console.log(clicked);
       setClicked(!clicked)
@@ -55,9 +54,25 @@ export default function Header() {
         <div className="container d-flex align-items-center">
           <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Buddy</Link></h1>
           <div className="mobile-nav-toggle" onClick={handleClick}>
-          {!clicked? <FaTimes/> : <FaBars/>}
+          {/* mobile header */}
+          {clicked? <FaTimes/> : <FaBars/>}
           </div>
-          {!clicked?  <nav className= "nav-menu">
+          {clicked && <nav className= "nav-menu mobile-nav-toggle">
+            <ul className="active" style={{color:'white'}}>
+              <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" />
+              <div className='header-mobile'>
+              <Link to="/mygardens" className="nav-item nav-link header-mobile-link">My Gardens </Link>
+              <Link to="/newsfeed" className="nav-item nav-link header-mobile-link" style={{padding:"5%"}} >News Feed </Link>
+              <Link to={`/profile/${userIDfromSession}`} className="nav-item nav-link" >My Profile </Link>
+              <Link to="/plantsbible" className="nav-item nav-link" style={{padding:"5%"}}>The Plant Bible</Link>
+              <Link to="/login" onClick={logOut} className="nav-item nav-link">Log out </Link>
+              <Link to="/notifications"  className="nav-item nav-link" style={{padding:"5%"}}>Notifications
+               {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
+              <Link to="/edituser" className="nav-item nav-link">Edit my profile</Link>
+              </div></ul>
+          </nav>}
+          {/* website header */}
+          <nav className= "nav-menu header-large-screen">
             <ul className="active">
               <input type="text" id="mySearch" placeholder="Search in bible" onChange={doSearch} className="form-control" />
               <li><Link to="/mygardens">My Gardens </Link></li>
@@ -71,7 +86,7 @@ export default function Header() {
               <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>
               <li style={{ color: "white" }}>Hey {currentUser.name}</li>
             </ul>
-          </nav>:null}
+          </nav>
         </div>
       </header>
 

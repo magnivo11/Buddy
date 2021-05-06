@@ -4,6 +4,13 @@ import statusYellow from '../Images/status/yellow.jpg';
 import statusGreen from '../Images/status/green.jpg';
 import statusBlue from '../Images/status/statusBlue.png';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import axios from 'axios'
 
@@ -47,16 +54,29 @@ export default function PlantComponent({plant}) {
     }
 
 return (
+
     <div  style={{fontFamily: "Open Sans"}}>
-        <tr>
+            <TableRow key={plant._id}>
+    <TableCell component="th" scope="row">
+      {plant.species}
+    </TableCell>
+    <TableCell align="right"><img style={{width:'30px',height:'30px'}} src={StatusColor()}
+                width={"30px"}></img></TableCell>
+    <TableCell align="right">{timestamp} min ago</TableCell>
+    <TableCell align="right">{plant.lastSoil.value}</TableCell>
+    <TableCell align="right">{plant.lastTemp.value}°</TableCell>
+    <TableCell align="right">{plant.lastLight.value}</TableCell>
+
+  </TableRow>
+        {/* <tr>
             <Link style={{fontSize:'20px'}} to={`/plant/${plant._id}`} >{plant.species}</Link>
             <td></td>
             <td>  &nbsp;&nbsp; <img style={{width:'30px',height:'30px'}} src={StatusColor()}
                 width={"30px"}></img></td>
             <td></td>
-            <td style={{fontSize:"15px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block"> 
+            <td style={{fontSize:"10px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block"> 
                 last irrigation: {timestamp} min ago  soilmoisture: {plant.lastSoil.value}  temperature:{plant.lastTemp.value}°  sun exposure: {plant.lastLight.value} </td>
-        </tr>
+        </tr> */}
     </div>
 );
  

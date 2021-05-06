@@ -22,14 +22,14 @@ export default function ButtonsList({ ownerID }) {
         </div>
     );
     return( 
-        <div>
-    <ul className="nav nav-tabs flex-column">
+        <div  style={{fontFamily: "Open Sans"}}>
+        <ul className="nav nav-tabs flex-column">
         <li className="nav-item">
               <Link  className="nav-link" to='/mygardens'>All Gardens </Link>
             </li>
             </ul>
                 {items.map((data,key)=>{
-                return <ButtonComponent id={data._id} name={data.name}  key={key}/>
+                return <ButtonComponent id={data._id} name={data.name} type="/singlegarden/" key={key}/>
             })}
                         <ul className="nav nav-tabs flex-column">
         <li className="nav-item">

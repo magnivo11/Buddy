@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react';
 import DrawGraph from './Graph'
-import ButtonsList from './ButtonsList';
+import ButtonsGardensList from './ButtonsGardensList';
 import * as d3 from "d3"
 import '../css/plantPage.css';
 import Chart from './Chart';
@@ -33,7 +33,7 @@ export default function Plant() {
           fetch('http://localhost:8080/garden/find/'+data.GardenID)
             .then(response => response.json()).then(
               data => {
-                setGarden(data)
+                setGarden(data);
               })
         }
       )
@@ -60,6 +60,7 @@ export default function Plant() {
 
   setSensor(Response.data)
   })
+  
 
 
 
@@ -70,20 +71,19 @@ export default function Plant() {
           <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
              <div className="col-lg-3">
-                <ul className="nav nav-tabs flex-column">
+                <ul className="nav nav-tabs flex-column d-none d-lg-block">
                     {/*Title*/}
-                    <div className="section-title" >
+                    <div className="section-title " >
                       <br></br><br/><br/><br/>
-                      <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
-                      <p style={{fontSize:'35px'}}>{garden.name} Garden </p>
+                      <p >{garden.name} Garden </p>
                      </div>
                   {/*Left buttons*/}
-                  <ButtonsList ownerID= {ownerID}/>
+                  <ButtonsGardensList gardenID={garden._id}/>
                 </ul>
             </div>
             <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
               <div className="section-title" > <br></br><br/><br/><br/>
-                  <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <h2 style={{fontSize:'45px'}}>
                     {plant.species} </h2>
               </div>
             
@@ -94,10 +94,10 @@ export default function Plant() {
                       addSensor(e, plantID)
                       history.push('/mygardens')
                     }}>
-                    <div className="nav-menu d-none d-lg-block">
-                    <p style={{fontSize:"25px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Looks like you haven't added a sensor</p>
-                    <p style={{fontSize:"20px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Add one now!</p>
-                      </div>  
+                       <div style={{fontFamily: "Open Sans"}}>
+                        <p className="noSensor section-title " style={{color:'white'}}>Looks like you haven't added a sensor to your plant</p>
+                        <p className="noSensor section-title" style={{color:'white'}}><small>Add one now!</small></p>
+                        </div>  
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div>:
                     <Chart title='Soil Moisture' sensorData={sensor.soilMoisture} optimalValue={plant.optimalSoilMoisture}></Chart>
