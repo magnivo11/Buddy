@@ -19,7 +19,6 @@ export class ToDoTabComponent implements OnInit {
   }
 
   addName(data: any) {
-    console.log(data);
     this.name = data.name; 
   }
 

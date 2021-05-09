@@ -5,7 +5,6 @@ import statusRed from '../Images/status/red.jpg';
 import statusYellow from '../Images/status/yellow.jpg';
 import statusGreen from '../Images/status/green.jpg';
 import statusBlue from '../Images/status/statusBlue.png';
-import PlantComponent from './PlantComponent'
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';

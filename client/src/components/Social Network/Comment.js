@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom'
 
 export default function Comment({comment, onDelete,commentWriterID}) {   
     const loggedUserID = window.sessionStorage.getItem('userID');
-    const [commentWriter,setCommentWriter]=React.useState({_id:'',name:'',lastName:''});
+    const [commentWriter,setCommentWriter]=React.useState({_id:'',firstName:'',lastName:''});
     const [deletePermission, setDeletePermission] = React.useState(false);
-    var commentDate= comment.date;
 
 
     React.useEffect(() => {
@@ -19,7 +18,7 @@ export default function Comment({comment, onDelete,commentWriterID}) {
             }
           )
       }, []);
-      const d = new Date(commentDate);
+      const d = new Date(comment.published);
       const now = new Date();
   
       var diff = (now-d);
@@ -39,7 +38,7 @@ export default function Comment({comment, onDelete,commentWriterID}) {
         {/* <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="profile" className="commentUserPhoto rounded-circle" /> */}
         <div className="ml-4">
         <h6>
-            <Link className="nav-link singleComment"   to={`/profile/${commentWriter._id}`}>{commentWriter.name} {commentWriter.lastName} </Link>
+            <Link className="nav-link singleComment"   to={`/profile/${commentWriter._id}`}>{commentWriter.firstName} {commentWriter.lastName} </Link>
                 <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>

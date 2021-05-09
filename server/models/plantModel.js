@@ -64,7 +64,9 @@ lastTemp:{ value: {type:Number,min:(-12),max:50,default:0} , date: { type: Date,
 lastLight:{ value: {type:Number,min:0,max:100,default:0}, date: { type: Date, default: Date.now } },
 lastSoil:{ value: {type:Number,min:0,max:100,default:0}, date: { type: Date, default: Date.now } }
 
-
+,
+created: { type: Date, default: Date.now },
+lastUpdated: { type: Date, default: Date.now },
 })
 
 module.exports=mongoose.model('plants',plantSchema);

@@ -65,7 +65,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
         else{
           const newUser= { 
             id:userId,
-            name:checkField(oldFirstName,'first_name'),
+            firstName:checkField(oldFirstName,'first_name'),
             lastName: checkField(oldLastName,'last_name') ,
             email:email,
             description:checkField(oldDescription,'description'),

@@ -5,9 +5,9 @@ const Garden = require('../models/gardenModel');
 const { group } = require('d3-array');
 
 
-const createUser = async(name,lastName,email,description,password)=>{
+const createUser = async(firstName,lastName,email,description,password)=>{
     const user= new User({
-        name:name,
+        firstName:firstName,
         lastName:lastName,
         email:email,
         description:description,
@@ -30,10 +30,10 @@ const getUsersGroupedByAdmin = async()=>{
       const users = await User.aggregate(
         [
             {$match: {isAdmin:true}},
-            {$group: {_id:{name:"$name",isAdmin:"$isAdmin"}}},
+            {$group: {_id:{firstName:"$firstName",isAdmin:"$isAdmin"}}},
             {$sort:{"_id.isAdmin":1}}
         ]);
-        users.forEach((user)=>adminNames.push(user._id.name));
+        users.forEach((user)=>adminNames.push(user._id.firstName));
         return adminNames;
 };
 
@@ -42,14 +42,15 @@ const getAllGardensFromUser = async(id)=>{const user = User.getUserById(id);
     return await user.gardens ;
 };
 
-const updateUser = async(id,name,lastName,email,description,password) =>{
+const updateUser = async(id,firstName,lastName,email,description,password) =>{
 
     User.findById(id,(err,user)=>{
-        user.name=name;
+        user.firstName=firstName;
         user.lastName=lastName;
         user.email=email;
         user.description=description;
         user.password=password;
+        user.lastUpdated= Date.now();
         user.save();
  
     });

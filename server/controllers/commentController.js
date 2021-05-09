@@ -5,7 +5,6 @@ const CommentService = require('../services/commentService');
 
 
 const createComment = async (request,response)=>{
-    console.log(request.body)
     const newComment=
     await CommentService.createComment(
         request.body.content,
@@ -46,7 +45,6 @@ const deleteComment = async (request,response)=>{
     response.send();
 };
 const getAllCommentsByPost = async (request,response)=>{
-    console.log("p");
     const comments = await CommentService.getAllCommetsByPost(request.params.postID);
    response.json(comments); 
 }

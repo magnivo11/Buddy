@@ -4,7 +4,7 @@ const bcrypt = require ('bcrypt');
 const { schema } = require('./gardenModel');
 
 const userSchema = new Schema({
-    name: {
+    firstName: {
         type: String,
         required: true
     },
@@ -37,7 +37,14 @@ const userSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "posts"
         }
-    ]
+    ],
+    
+    created: { type: Date, default: Date.now },
+    lastUpdated: { type: Date, default: Date.now },
+    photoID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"photos"
+    }, 
 })
 
 userSchema.statics.hashPassword = function hashPassword (password)

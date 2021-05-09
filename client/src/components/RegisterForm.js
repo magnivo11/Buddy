@@ -62,7 +62,7 @@ function register(e, setInfo) {
           }
           else {
             const newUser = {
-              name: document.getElementById('first_name').value,
+              firstName: document.getElementById('first_name').value,
               lastName: document.getElementById('last_name').value,
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,

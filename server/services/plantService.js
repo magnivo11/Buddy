@@ -111,6 +111,7 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
         if (growthStatus != null) {
             plant.growthStatus = growthStatus
         }
+        plant.updatedDate= Date.now();
         plant.save();
     })
     return true;
@@ -142,6 +143,7 @@ const updatePlantByAdmin = async (id,
         if (defaultPhotoID != null) {
             plant.defaultPhotoID = defaultPhotoID
         }
+        plant.lastUpdated= Date.now();
         plant.save();
     })
     return true;

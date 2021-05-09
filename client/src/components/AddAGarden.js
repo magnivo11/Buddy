@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AddAGarden() {
-  const [gardenAdded, setGardenAdded] = React.useState(false)
   const userId = window.sessionStorage.getItem('userID');
   const history = useHistory();
   const [direction, setDirection] = React.useState("")

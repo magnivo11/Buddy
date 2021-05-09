@@ -14,13 +14,17 @@ export default function Profile(){
     //user id from session - logged user
     const userIDfromSession = window.sessionStorage.getItem('userID');
 
-    const [currentUser,setUser]=React.useState({_id:'',name:'',lastName:''});
+    const [currentUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
     const [posts,setPosts]=React.useState([]);
     //change state to inform a change was made in the posts list
     const [change,setChange]=React.useState(false);
     //to check editing permissions - we will check if user id from session is equal to user id from url address
     const [editPermission,setEditPermission]=React.useState(false);
 
+
+   const editPost =(postID,content,status)=>{
+     axios.put('http://localhost:8080/post/',{data:{postID:postID,content:content,status:status}})
+  }
   const deletePost=(postID)=>{
     setPosts(posts.filter((post)=>(post !==postID)))
     axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
@@ -38,16 +42,11 @@ export default function Profile(){
         )
     }, []);
 
-          //fetching posts information from server - will re-render according to a change in "change" var
-    React.useEffect(() => {
-      fetch('http://localhost:8080/user/allposts/'+userID)
-        .then(response => response.json()).then(
-          data => {
-            setPosts(data);
-            console.log(data);
-          }
-        )
-    }, []);
+    axios.get('http://localhost:8080/user/allposts/'+userID).then(Response => {
+      if (posts.length != Response.data.length)
+          setPosts(Response.data)
+  })
+
 return(
     <section id="hero"  style={{overflow:'scroll'}} >
     <section  style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
@@ -68,7 +67,7 @@ return(
                   <div className="border-bottom text-center pb-4">
                     <img style={{width:'75%'}}src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />
                     <div className="mb-3">
-                      <h3 style={{fontSize:'33'}}>{currentUser.name+" "+currentUser.lastName}</h3>
+                      <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">
                       {editPermission&& <Link className="w3-center"  to={`/edituser/${userID}`}>
                       <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" style={{textAlign:'center'}} /> Edit My Profile</Link>}
@@ -80,14 +79,14 @@ return(
                   <div className="border-bottom py-4">
                   </div>
                   <div className="py-4">
-                    <p className="clearfix">
+                    {currentUser.isAdmin &&<p className="clearfix">
                       <span className="float-left">
                         Status
                       </span>
                       <span className="float-right text-muted">
-                        Active
+                        Admin
                       </span>
-                    </p>
+                    </p>}
          
                     <p className="clearfix">
                       <span className="float-left">
@@ -97,15 +96,12 @@ return(
                       {currentUser.email}
                       </span>
                     </p>
-
-
                   </div>
-                  <button className="btn btn-primary btn-block mb-2">Send a message</button>
                 </div>
                 <div className="col-lg-8">
                 <div className="profile-feed" style={{textAlign:'left'}}>
-                <AddAPostBox posts={posts} setPosts={setPosts} usersFirstName= {currentUser.name} change={change} setChange={setChange}/>
-                <PostList posts={posts} change={change} deletePost={deletePost}/>
+                <AddAPostBox posts={posts} setPosts={setPosts} usersFirstName= {currentUser.firstName} change={change} setChange={setChange}/>
+                <PostList posts={posts} change={change} editPost={editPost} deletePost={deletePost}/>
                    
                   </div>
                 </div>

@@ -24,7 +24,7 @@ export default function LoginForm() {
                 </div>
                 <form onSubmit={(e) => { login(e, setLoggedIn, setMessege) }}>
                   <input type="text" id="email" className="fadeIn second" name="login" placeholder="Email" />
-                  <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" /> <br></br>
+                  <input type="password" id="password" className="fadeIn third" name="login" placeholder="Password" /> <br></br>
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Log in</span></button><br></br>
                 </form>
                 <div id="formFooter">

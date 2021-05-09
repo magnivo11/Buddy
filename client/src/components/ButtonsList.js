@@ -9,7 +9,6 @@ export default function ButtonsList({ ownerID }) {
     axios.get('http://localhost:8080/garden/' + ownerID).then(Response => {
         if (items.length != Response.data.length)
             setItems(Response.data)
-
     })
     if (items.length<1)
     return(

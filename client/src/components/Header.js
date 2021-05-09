@@ -16,8 +16,12 @@ export default function Header() {
 
   const history = useHistory();
   const logOut = (e) => {
+    if (window.confirm('Are you sure you want to log out?')){
     if (userIDfromSession)
       window.sessionStorage.removeItem('userID');
+    window.location='/login';
+    }
+
   }
   const doSearch = (e) => {
     if (e.target.value === "") {
@@ -30,7 +34,7 @@ export default function Header() {
   React.useEffect(() =>
     axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
       if (Response.data) {
-        if (currentUser._id !== Response.data._id || currentUser.name !== Response.data.name || currentUser.lastName !== Response.data.lastName) {
+        if (currentUser._id !== Response.data._id || currentUser.firstName !== Response.data.firstName || currentUser.lastName !== Response.data.lastName) {
           setUser(Response.data);
         }
       }
@@ -65,7 +69,7 @@ export default function Header() {
               <Link to="/newsfeed" className="nav-item nav-link header-mobile-link" style={{padding:"5%"}} >News Feed </Link>
               <Link to={`/profile/${userIDfromSession}`} className="nav-item nav-link" >My Profile </Link>
               <Link to="/plantsbible" className="nav-item nav-link" style={{padding:"5%"}}>The Plant Bible</Link>
-              <Link to="/login" onClick={logOut} className="nav-item nav-link">Log out </Link>
+              <Link onClick={logOut} className="nav-item nav-link">Log out </Link>
               <Link to="/notifications"  className="nav-item nav-link" style={{padding:"5%"}}>Notifications
                {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
               <Link to="/edituser" className="nav-item nav-link">Edit my profile</Link>
@@ -80,11 +84,11 @@ export default function Header() {
               <li><Link to={`/profile/${userIDfromSession}`}>My Profile </Link></li>
               <li><Link to="/plantsbible">The Plant Bible</Link></li>
               <li></li>
-              <Link to="/login" onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
+              <Link onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
               <Link to="/notifications"  className="nav-item nav-link"><i className="fa fa-bell" />
                {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
               <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>
-              <li style={{ color: "white" }}>Hey {currentUser.name}</li>
+              <li style={{ color: "white" }}>Hey {currentUser.firstName}</li>
             </ul>
           </nav>
         </div>
