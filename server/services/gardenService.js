@@ -41,6 +41,7 @@ const getGardensByUserId = async(userID)=>{
             garden.surrounding = surrounding;}
         if (directSun!=null){
             garden.directSun = directSun;}
+            garden.lastUpdated= Date.now();
             garden.save();
     
     });

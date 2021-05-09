@@ -19,8 +19,6 @@ export default function CommentsSection({ comments, postId, onDelete,setComments
                     fetch('http://localhost:8080/comment/bypost/' + postId)
                         .then(response => response.json()).then(
                             data => {
-                                console.log("comments")
-                                console.log(data)
                                 setComments(data)}
                         )
                 }

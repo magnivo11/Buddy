@@ -19,7 +19,6 @@ export class StatisticsComponent {
   }
 
   addName(data: any) {
-    console.log(data);
     this.name = data.name; 
   }
 
