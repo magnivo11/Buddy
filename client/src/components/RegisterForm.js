@@ -62,8 +62,8 @@ function register(e, setInfo) {
           }
           else {
             const newUser = {
-              firstName: document.getElementById('first_name').value,
-              lastName: document.getElementById('last_name').value,
+              firstName: camelize(document.getElementById('first_name').value),
+              lastName: camelize(document.getElementById('last_name').value),
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,
               password: document.getElementById('password').value,

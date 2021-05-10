@@ -31,7 +31,7 @@ export default function AddAPlantByUser() {
     axios.get('http://localhost:8080/plant/admin').then((Response) => {
       if (plants.length != Response.data.length) {
         Response.data.forEach(plant => {
-          plantsInfo.push({ label: plant.species, value: plant.species })
+          plantsInfo.push({ label: plant.species, value: plant.species})
         });
         setPlants(plantsInfo);
       }

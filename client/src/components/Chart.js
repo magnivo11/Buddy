@@ -29,6 +29,10 @@ export default function Chart({title,sensorData,optimalValue}){
     }
 
     const options = {
+        "@media (max-width: 700px)": {
+            width:300,        height:200        },
+        width:500,
+        height:400,
         backgroundColor: "#F5DEB3",
         animationEnabled: true,	
         title:{
@@ -83,7 +87,7 @@ export default function Chart({title,sensorData,optimalValue}){
             // ]
         }
     ],
-        
+ 
 }
 
     return(

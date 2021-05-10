@@ -15,12 +15,11 @@ export default function Plant() {
 
   //const [soilMoisture, setSoilmoisture] = React.useState([])
   const history = useHistory();
-  const ownerID = window.sessionStorage.getItem('userID');
   var index = window.location.toString().lastIndexOf('/') + 1
   const [plant, setPlant] = React.useState('');
-  var plantResponse;
   const plantID = window.location.toString().substring(index);
   const [garden, setGarden] = React.useState('');
+  const [gardenID, setGardenID] = React.useState('');
 
 
   //set plant from server
@@ -29,7 +28,7 @@ export default function Plant() {
       .then(response => response.json()).then(
         data => {
           setPlant(data);
-            //set plant's garden name from server
+            //set plant's garden from server
           fetch('http://localhost:8080/garden/find/'+data.GardenID)
             .then(response => response.json()).then(
               data => {
@@ -67,7 +66,7 @@ export default function Plant() {
     return (
       <div  style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
+         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
           <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
              <div className="col-lg-3">
@@ -78,7 +77,7 @@ export default function Plant() {
                       <p >{garden.name} Garden </p>
                      </div>
                   {/*Left buttons*/}
-                  <ButtonsGardensList gardenID={garden._id}/>
+                  {garden&&<ButtonsGardensList gardenID={garden._id}/>}
                 </ul>
             </div>
             <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}

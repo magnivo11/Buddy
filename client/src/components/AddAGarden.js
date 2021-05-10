@@ -90,7 +90,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId,history) {
   const name = document.getElementById('name').value;
   if (checkRequired('name') && checkState(direction,"Direction") && checkState(surroundings,"Surroundings") && checkState(sunlight,"Sunlight")) {
     const newGarden = {
-      name: name,
+      name: camelize(name),
       direction: direction,
       directSun: sunlight,
       surroundings: surroundings,

@@ -35,8 +35,8 @@ export default function EditUser(){
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Edit My Profile </h1> 
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
               </div><br/>
-              <form  onSubmit={(e)=>{editUser(e,data,user.name,user.lastName,user.email,user.description ,user.password,userId,setInfo,history)}}>
-                <input type="text" id="first_name" className="fadeIn second"  placeholder={'First Name: '+user.name} />
+              <form  onSubmit={(e)=>{editUser(e,data,user.firstName,user.lastName,user.email,user.description ,user.password,userId,setInfo,history)}}>
+                <input type="text" id="first_name" className="fadeIn second"  placeholder={'First Name: '+user.firstName} />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder={'Last Name: '+user.lastName}  />
                 <input type="text" id="email" className="fadeIn second"  placeholder={'Email: '+user.email} />
                 <input type="text" id="description" className="fadeIn second"  placeholder={'Description: '+user.description} />
@@ -82,7 +82,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
   }
 function checkField(beforeUpdate,field){
   let updated="";
-  if (document.getElementById(field).value.length == 0) updated = beforeUpdate;
+  if (document.getElementById(field)== null) updated = beforeUpdate;
   else updated = document.getElementById(field).value;
   return updated;
 }
