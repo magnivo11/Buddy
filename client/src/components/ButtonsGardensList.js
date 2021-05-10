@@ -5,7 +5,6 @@ import ButtonComponent from './ButtonComponent'
 
 
 export default function ButtonsGardensList({ gardenID }) {
-    console.log(gardenID)
     const [plants,setPlants]=React.useState([]);
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
      if(plants.length!=Response.data.length)
