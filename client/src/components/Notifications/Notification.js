@@ -112,17 +112,17 @@ const getMessage= (setMessage,status,type,plantID,gardenName,plantSpecies)=>{
             }
         if(status=='-3')
         { 
-            message = "Your" +plantSpecies+ " in "+ gardenName+" garden does not get enought light, We recommend changing its location"
+            message = "Your " +plantSpecies+ " in "+ gardenName+" garden does not get enought light, We recommend changing its location"
             icon=light3Minus
         }
         if(status=='2')
         {
-             message = "Your" +plantSpecies+ " in "+ gardenName+" garden get too much light, Consider changing its location"
+             message = "Your " +plantSpecies+ " in "+ gardenName+" garden get too much light, Consider changing its location"
              icon=light2
             }
         if(status=='3')
         { 
-            message = "Your" +plantSpecies+ " in "+ gardenName+" garden is has over exposure to light, We recommend changing its location"
+            message = "Your " +plantSpecies+ " in "+ gardenName+" garden is has over exposure to light, We recommend changing its location"
             icon=light3
         }
     }

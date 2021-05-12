@@ -38,27 +38,30 @@ export default function Plant() {
       )
   }, []);
 
-  React.useEffect(() => {
-    // pick the data you want to show,the ID of the container in the html,the color of each bar
-    if (plant.sensorID != null) {
-      axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
-        var soilMoisture = []
-        Response.data.map((data, key) => {
-          soilMoisture.push({ name: data.date, score: data.curMoist })
-        }) 
-        //clear old charts
-        d3.selectAll('svg').remove()
-        DrawGraph(soilMoisture, 'd3-container', 'darkgreen')
-      })
-    }
-  })
-
   const [sensor,setSensor]=React.useState('');
+  const [chartData,setChartData]=React.useState({data:[],title:''});
   if(!sensor._id&&plant.sensorID)
   axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
+    console.log(Response.data)
 
   setSensor(Response.data)
+  setChartData({data:Response.data.soilMoisture,title:'Soil Moisture'})
   })
+  console.log(chartData)
+
+  const changeChartData=(e)=>{
+    var data;
+    if(e.target.value=='Soil Moisture')
+      data=sensor.soilMoisture
+
+    if(e.target.value=='Temperature')
+    data=sensor.temperature
+
+    if(e.target.value=='Sun Exposure')
+    data=sensor.light
+
+    setChartData({title:e.target.value,data:data})
+  }
   
 
 
@@ -99,7 +102,16 @@ export default function Plant() {
                         </div>  
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div>:
-                    <Chart title='Soil Moisture' sensorData={sensor.soilMoisture} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    <div>
+                    <div style={{display:'flex',flexDirection:'raw'}} class='header'>
+
+                          <button type="button" value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
+                          <button type="button" value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
+                           <button type="button" value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
+                           </div>
+                           <Chart title={chartData.title} sensorData={chartData.data} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    </div>
+                    
                     }
                   </div>
                   <br></br>
