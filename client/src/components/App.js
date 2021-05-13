@@ -11,6 +11,8 @@ import MyGardens from './MyGardens';
 import SingleGarden from './SingleGarden';
 import AddAPlantByAdmin from './AddAPlantByAdmin';
 import AddAGarden from './AddAGarden';
+import AddAPost from './Social Network/AddAPost';
+import EditPost from './Social Network/EditPost';
 import Plant from './PlantPage';
 import PlantsBibleSinglePlant from './PlantsBibleSinglePlant';
 import PlantsBible from './PlantsBible';
@@ -87,8 +89,15 @@ const[newNotifications,setNewNotifications]=React.useState(0);
                     <Route exact path='/mygardens'>
                         <Header /> <MyGardens /></Route>
 
-                    <Route exact path='/profile/:userID'>
-                        <Header /><Profile /></Route>
+                     <Route exact path='/profile/:userID'>
+                         <Route exact path='/addapost/:userID'>
+                        <Header /><AddAPost /></Route>
+
+                        <Route exact path='/editpost/:postID'>
+                        <Header /><EditPost /></Route>
+
+                        <Route exact path='/profile/:userID'>
+                         <Header /><Profile /></Route>
 
                     <Route exact path='/forgotpassword'>
                         <ForgotPassword /></Route>

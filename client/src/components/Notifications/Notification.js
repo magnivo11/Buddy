@@ -37,15 +37,16 @@ export default function Notification({date,status,type,plantID,gardenName,plantS
             {/* <h2 style={{fontSize:'14px'}}> {"*"}{message} </h2>
             <h2 style={{fontSize:'10px'}}>  {"   "+time+" min ago"}</h2>
             <br/> */}
-              <div className="card">
+              <div className="notificationBack"  style={{ fontFamily: "Open Sans" }}>
         <div style={{textAlign: 'left'}} className="card-body">
+
         <Link 
-        className="nav-link"  to={`/plant/${plantID}`}>
-            <h2 style={{fontSize:'10px',color:'black'}}> {"*"}{message.text} </h2> 
+        className="notificationCard"  to={`/plant/${plantID}`}>
+                    {message.icon&&<img src={message.icon} id="icon" style={{width:'20px',height:'20px',alignItems: "center",opacity:'0.7'}} />}&nbsp;
+            <h2 style={{fontSize:'11px',color:'black',  textTransform: 'capitalize'}}>{message.text} </h2> 
+            <h2 style={{fontSize:'8px',color:'black'}}>  {"   "+time+" min ago"}</h2>
         </Link>
-        {message.icon&&<img src={message.icon} id="icon" style={{width:'30px',alignItems: "center"}} />}
         <br/>
-            <h2 style={{fontSize:'10px',color:'black'}}>  {"   "+time+" min ago"}</h2>
         </div>
       </div>
         </div>
@@ -61,22 +62,22 @@ const getMessage= (setMessage,status,type,plantID,gardenName,plantSpecies)=>{
     if (type=='soilMoisture'){
         if(status=='-2')
         {
-             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" needs watering"
+             message = "Your "+plantSpecies+ " in "+ gardenName+" garden needs watering"
              icon=moist2Minus
             }
         if(status=='-3')
         { 
-            message = "Your "+plantSpecies+ " in "+ gardenName+" needs watering as soon as possible"
+            message = "Your "+plantSpecies+ " in "+ gardenName+" garden needs watering as soon as possible"
             icon=moist3Minus
         }
         if(status=='2')
         { 
-            message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is overwatered, Do not water for the next 24 hours"
+            message = "Your "+plantSpecies+ " in "+ gardenName+" garden is overwatered, Do not water for the next 24 hours"
             icon=moist2
         }
         if(status=='3')
         {
-             message = "Your "+plantSpecies+ " in "+ gardenName+" is extremely overwatered, Do not water for the next few days"
+             message = "Your "+plantSpecies+ " in "+ gardenName+" garden is extremely overwatered, Do not water for the next few days"
              icon=moist3
             }
       
@@ -84,44 +85,44 @@ const getMessage= (setMessage,status,type,plantID,gardenName,plantSpecies)=>{
     if (type=='temperature'){
         if(status=='-2')
         {
-             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is a little cold, Consider changing its location"
+             message = "Your "+plantSpecies+ " in "+ gardenName+" garden is a little cold, Consider changing its location"
             icon=tempC2
         }
         if(status=='-3')
         { 
-            message = "Your "+plantSpecies+ " in "+ gardenName+" is very cold, We recommend changing its location"
+            message = "Your "+plantSpecies+ " in "+ gardenName+" garden is very cold, We recommend changing its location"
              icon=tempC3
          }
         if(status=='2')
         {
-             message = "Looks like your "+plantSpecies+ " in "+ gardenName+" is a little hot, Consider changing its location"
+             message = "Your "+plantSpecies+ " in "+ gardenName+" garden is a little hot, Consider changing its location"
             icon=tempH2    
         }
         if(status=='3')
         { 
-               message = "Your "+plantSpecies+ " in "+ gardenName+" is very hot, We recommend changing its location"
+               message = "Your "+plantSpecies+ " in "+ gardenName+" garden is very hot, We recommend changing its location"
                 icon=tempH3    
         }
     }
     if (type=='light'){
         if(status=='-2')
         {
-             message = "Looks like your plant does not get enought light, Consider changing its location"
+             message = "Your "+plantSpecies+ " in "+ gardenName+" garden does not get enought light, Consider changing its location"
              icon=light2Minus
             }
         if(status=='-3')
         { 
-            message = "Your plant does not get enought light, We recommend changing its location"
+            message = "Your " +plantSpecies+ " in "+ gardenName+" garden does not get enought light, We recommend changing its location"
             icon=light3Minus
         }
         if(status=='2')
         {
-             message = "Looks like your plant get too much light, Consider changing its location"
+             message = "Your " +plantSpecies+ " in "+ gardenName+" garden get too much light, Consider changing its location"
              icon=light2
             }
         if(status=='3')
         { 
-            message = "Your plant is has over exposure to light, We recommend changing its location"
+            message = "Your " +plantSpecies+ " in "+ gardenName+" garden is has over exposure to light, We recommend changing its location"
             icon=light3
         }
     }

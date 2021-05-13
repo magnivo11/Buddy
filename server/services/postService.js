@@ -28,19 +28,17 @@ const createPost = async(content, status, userID )=>{
 const getPostById = async(id)=> {return await Post.findById(id)};
 const getAllPosts = async()=>{return await Post.find({})};
 
-const updatePost = async(id,content,status) =>{
-
-    Post.findById(id,(err,post)=>{
+const updatePost = async(postID,content,status) =>{
+    Post.findById(postID,(err,post)=>{
         post.content=content;
         post.status= status;
-        post.date= Date.now;
+        post.lastUpdated= Date.now();
         post.save();
     });
     return true;
     };
 const deletePost = async(postID,userID)=>{
     const post = await getPostById(postID);
-    console.log(userID)
     if(!post){
     return null;
     }
@@ -60,7 +58,6 @@ const deletePost = async(postID,userID)=>{
                          removeIndex=i
                  user.posts.splice(removeIndex,1)
                  user.save();
-                console.log(user);
             }
         })
     await post.remove();

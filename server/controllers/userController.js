@@ -11,7 +11,7 @@ const createUser = async (request, response) => {
     }
     const newUser =
         await userService.createUser(
-            request.body.name,
+            request.body.firstName,
             request.body.lastName,
             request.body.email,
             request.body.description,
@@ -83,7 +83,7 @@ const updateUser = async (request, response) => {
 
     const user = await userService.updateUser(
         request.body.id,
-        request.body.name,
+        request.body.firstName,
         request.body.lastName,
         request.body.email,
         request.body.description,

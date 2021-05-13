@@ -1,0 +1,39 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Edit Category</h4>
+            <p class="card-category">Complete your category</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      #name
+                      value="{{ category.name }}"
+                      matInput
+                      placeholder="Name"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                (click)="onUpdate(name.value)"
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Update
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

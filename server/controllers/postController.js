@@ -22,12 +22,10 @@ const getPostById = async(request,response)=>{
 };
 
 const updatePost = async (request,response)=>{
-
     const post= await PostService.updatePost(
-        request.body.id,
+        request.body.postID,
         request.body.content,
         request.body.status);
-    
         if (!post){
         return response.status(404).json({errors:['post not found']});}
     response.json(post);

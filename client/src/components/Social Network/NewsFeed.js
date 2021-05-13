@@ -10,7 +10,7 @@ export default function NewsFeed(){
 
   //user id from url
   const userID = window.sessionStorage.getItem('userID');
-  const [currentUser,setUser]=React.useState({_id:'',name:'',lastName:''});
+  const [currentUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
   const [posts,setPosts]=React.useState([]);
   const [change,setChange]=React.useState(false);
 
@@ -27,17 +27,16 @@ const deletePost=(postID)=>{
         data => {setUser(data)})
       
   }, []);
-  React.useEffect(() => {
-    fetch('http://localhost:8080/post')
-      .then(response => response.json()).then(
-        data => {
-          const postIDList = data.map((post)=>(post._id));
-          postIDList.reverse();
-          setPosts(postIDList);
-          setChange(false);
-        }
-      )
-  }, [change]);
+  axios.get('http://localhost:8080/post').then(Response => {
+    if (posts.length != Response.data.length)
+    {
+      const postIDList = Response.data.map((post)=>(post._id));
+      postIDList.reverse();
+      setPosts(postIDList);
+      setChange(false);
+    }
+
+})
 
     return (
     <section id="hero"  style={{overflow:'scroll'}} >
@@ -53,7 +52,7 @@ const deletePost=(postID)=>{
                 <div className="col-md-12 bootstrap snippets">
                   <div className="panel">
                     <div className="panel-body">
-                      <AddAPostBox posts={posts} usersFirstName= {currentUser.name} setChange={setChange} setPosts={setPosts}/>
+                      <AddAPostBox posts={posts} usersFirstName= {currentUser.firstName} setPosts={setPosts}/>
                         <br></br>
                         <FilterPostsBox posts={posts} setPosts={setPosts}/>
                         <PostList posts={posts} change={change} deletePost={deletePost}/>

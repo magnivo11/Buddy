@@ -19,12 +19,12 @@ export default function LoginForm() {
               <div id="formContent">
                 <div className="fadeIn first">
                   <img src={logo} id="icon" alt="Welcome Buddy" />
-                  <h1 style={{ fontSize: '35px', color: '#51361A' }}>Nice to see you again! </h1>
+                  <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Nice to see you again!</small> </h1>
                   {messege.showMessege ? <div>{messege.text}</div> : null}
                 </div>
                 <form onSubmit={(e) => { login(e, setLoggedIn, setMessege) }}>
                   <input type="text" id="email" className="fadeIn second" name="login" placeholder="Email" />
-                  <input type="password" id="password" className="fadeIn third" name="login" placeholder="password" /> <br></br>
+                  <input type="password" id="password" className="fadeIn third" name="login" placeholder="Password" /> <br></br>
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Log in</span></button><br></br>
                 </form>
                 <div id="formFooter">

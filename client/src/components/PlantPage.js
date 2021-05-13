@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import React from 'react';
 import DrawGraph from './Graph'
-import ButtonsList from './ButtonsList';
+import ButtonsGardensList from './ButtonsGardensList';
 import * as d3 from "d3"
 import '../css/plantPage.css';
 import Chart from './Chart';
@@ -13,14 +13,15 @@ const data = require('../files/data.json');
 
 export default function Plant() {
 
-  //const [soilMoisture, setSoilmoisture] = React.useState([])
   const history = useHistory();
-  const ownerID = window.sessionStorage.getItem('userID');
   var index = window.location.toString().lastIndexOf('/') + 1
-  const [plant, setPlant] = React.useState('');
-  var plantResponse;
   const plantID = window.location.toString().substring(index);
+
+  const [plant, setPlant] = React.useState('');
   const [garden, setGarden] = React.useState('');
+  const [gardenID, setGardenID] = React.useState('');
+  const [sensor,setSensor]=React.useState('');
+  const [chartData,setChartData]=React.useState({data:[],title:''});
 
 
   //set plant from server
@@ -29,61 +30,62 @@ export default function Plant() {
       .then(response => response.json()).then(
         data => {
           setPlant(data);
-            //set plant's garden name from server
+            //set plant's garden from server
           fetch('http://localhost:8080/garden/find/'+data.GardenID)
             .then(response => response.json()).then(
               data => {
-                setGarden(data)
+                setGarden(data);
               })
         }
       )
   }, []);
 
-  React.useEffect(() => {
-    // pick the data you want to show,the ID of the container in the html,the color of each bar
-    if (plant.sensorID != null) {
-      axios.get('http://localhost:8080/sensor/soilMoisture/' + plant.sensorID).then((Response) => {
-        var soilMoisture = []
-        Response.data.map((data, key) => {
-          soilMoisture.push({ name: data.date, score: data.curMoist })
-        }) 
-        //clear old charts
-        d3.selectAll('svg').remove()
-        DrawGraph(soilMoisture, 'd3-container', 'darkgreen')
-      })
-    }
-  })
-
-  const [sensor,setSensor]=React.useState('');
+  // gets the sensor data from server
   if(!sensor._id&&plant.sensorID)
   axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
 
   setSensor(Response.data)
+  setChartData({data:Response.data.soilMoisture,title:'Soil Moisture'})
   })
+
+  //change the chart data (soil/temp/light)
+  const changeChartData=(e)=>{
+    var data;
+    if(e.target.value=='Soil Moisture')
+      data=sensor.soilMoisture
+
+    if(e.target.value=='Temperature')
+    data=sensor.temperature
+
+    if(e.target.value=='Sun Exposure')
+    data=sensor.light
+
+    setChartData({title:e.target.value,data:data})
+  }
+  
 
 
 
     return (
       <div  style={{fontFamily: "Open Sans"}}>
       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
+         <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}>
           <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
              <div className="col-lg-3">
-                <ul className="nav nav-tabs flex-column">
+                <ul className="nav nav-tabs flex-column d-none d-lg-block">
                     {/*Title*/}
-                    <div className="section-title" >
+                    <div className="section-title " >
                       <br></br><br/><br/><br/>
-                      <h2 style={{fontSize:'36px'}}>My Gardnes</h2>
-                      <p style={{fontSize:'35px'}}>{garden.name} Garden </p>
+                      <p >{garden.name} Garden </p>
                      </div>
                   {/*Left buttons*/}
-                  <ButtonsList ownerID= {ownerID}/>
+                  {garden&&<ButtonsGardensList plant={plant} setPlant={setPlant} gardenID={garden._id}/>}
                 </ul>
             </div>
             <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
               <div className="section-title" > <br></br><br/><br/><br/>
-                  <h2 style={{fontSize:'45px'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <h2 style={{fontSize:'45px'}}>
                     {plant.species} </h2>
               </div>
             
@@ -94,13 +96,22 @@ export default function Plant() {
                       addSensor(e, plantID)
                       history.push('/mygardens')
                     }}>
-                    <div className="nav-menu d-none d-lg-block">
-                    <p style={{fontSize:"25px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Looks like you haven't added a sensor</p>
-                    <p style={{fontSize:"20px",color:'white', textAlign:'left'}}className="nav-menu d-none d-lg-block">Add one now!</p>
-                      </div>  
+                       <div style={{fontFamily: "Open Sans"}}>
+                        <p className="noSensor section-title " style={{color:'white'}}>Looks like you haven't added a sensor to your plant</p>
+                        <p className="noSensor section-title" style={{color:'white'}}><small>Add one now!</small></p>
+                        </div>  
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div>:
-                    <Chart title='Soil Moisture' sensorData={sensor.soilMoisture} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    <div>
+                    <div style={{display:'flex',flexDirection:'raw'}} class='header'>
+
+                          <button type="button" value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
+                          <button type="button" value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
+                           <button type="button" value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
+                           </div>
+                           <Chart title={chartData.title} sensorData={chartData.data} optimalValue={plant.optimalSoilMoisture}></Chart>
+                    </div>
+                    
                     }
                   </div>
                   <br></br>

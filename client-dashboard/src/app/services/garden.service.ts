@@ -22,7 +22,6 @@ export class GardenService {
   getSelectedGardens(direction: String,directSun:boolean,surroundings:string): Observable<Garden[]> {
 
     const url = `${this.gardensUrl}/${direction}/${directSun}/${surroundings}`;
-    console.log(url)
     return this.http.get<Garden[]>(url);
   }
  

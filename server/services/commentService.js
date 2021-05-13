@@ -30,10 +30,8 @@ const updateComment = async(id,content) =>{
 
     Comment.findById(id,(err,comment)=>{
         comment.content=content;
-        comment.date= Date.now;
+        comment.lastUpdated= Date.now;
         comment.save();
-        console.log(comment);
-
     });
     return true;
     };
@@ -59,7 +57,6 @@ const deleteComment = async(commentID,postID)=>{
     };
 
     const getAllCommetsByPost = async(postID)=>{
-        console.log(postID);
         return await Comment.find({postID:postID}); 
 }
 module.exports={

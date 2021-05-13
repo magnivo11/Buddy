@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="col-md-4">
+    <form class="navbar-form">
+      <span class="bmd-form-group">
+        <div class="input-group no-border">
+          <input
+            #inp
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            (input)="onSearch(inp.value)"
+          />
+          <button
+            mat-raised-button
+            type="submit"
+            (click)="onSearch(inp.value)"
+            class="btn btn-white btn-round btn-just-icon"
+          >
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+          </button>
+          <button
+            mat-raised-button
+            type="submit"
+            (click)="onRefresh()"
+            class="btn btn-white btn-round btn-just-icon"
+          >
+            <i class="material-icons">autorenew</i>
+            <div class="ripple-container"></div>
+          </button>
+        </div>
+      </span>
+    </form>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <app-categories-list
+        [listFor]="listFor"
+        [search]="search"
+        [refresh]="refresh"
+      ></app-categories-list>
+      <app-users-list [search]="search" [refresh]="refresh"></app-users-list>
+      <app-contacts-list [search]="search" [refresh]="refresh"></app-contacts-list>
+      <app-articles-list
+        [listFor]="listFor"
+        [search]="search"
+        [refresh]="refresh"
+      ></app-articles-list>
+      <app-comments-list
+        [listFor]="listFor"
+        [search]="search"
+        [refresh]="refresh"
+      ></app-comments-list>
+      <app-scrapes-list [search]="search" [refresh]="refresh"></app-scrapes-list>
+    </div>
+  </div>
+</div>

@@ -16,7 +16,6 @@ passport.use('local', new LocalStrategy({
              if (err) { return done(err); }
             if (!user) { return done(null, false); }
              if (!user.isValid(password)) { return done(null, false); }
-            console.log("good"); 
             return done(null, user);
         });
     }

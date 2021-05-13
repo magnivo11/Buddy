@@ -4,9 +4,6 @@ import Notification from './Notification'
 
 
 export default function NotificationsList({notifications}){
-
-
-    console.log(notifications)
     if (notifications.length<1)
     return("" );
 

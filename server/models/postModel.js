@@ -3,7 +3,6 @@ const Schema=mongoose.Schema;
 
 const postSchema=new Schema({
     content: String,
-    date: { type: Date, default: Date.now },
     status: String,
     comments: [
         {
@@ -14,7 +13,13 @@ const postSchema=new Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"users"
-    }
+    },
+    photoID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"photos"
+    }, 
+    published: { type: Date, default: Date.now },
+    lastUpdated: { type: Date, default: Date.now },
 })
 
 module.exports=mongoose.model('posts',postSchema);

@@ -142,8 +142,12 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
          Garden.findById(plant.GardenID,(err,garden)=>{
 
-         garden.currentTemp={value:temperature,date:Date.now()}
-         garden.save()
+            if(garden){
+
+               garden.currentTemp={value:temperature,date:Date.now()}
+               garden.save()
+            }
+         
          })
 
       }               
@@ -169,15 +173,15 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    var status;
    var delta=soilMoisture-plant.optimalSoilMoisture
    if(delta>20)
-   status=3;
+      status=3;
    else if(delta>10)
-   status=2;
+      status=2;
    else if(delta>-10)
-   status=1;
+      status=1;
    else if(delta>-20)
-   status=-2;
+      status=-2;
    else 
-   status=-3;
+      status=-3;
 
 
   
@@ -196,8 +200,13 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
       Garden.findById(plant.GardenID,(err,garden)=>{
 
-      garden.currentMoist={value:soilMoisture,date:Date.now()}
-      garden.save()
+         if(garden){
+
+            garden.currentMoist={value:soilMoisture,date:Date.now()}
+            garden.save()
+         }
+
+     
       })
 
    }               
@@ -244,9 +253,13 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    {
 
       Garden.findById(plant.GardenID,(err,garden)=>{
+         if(garden){
 
-      garden.currentLight={value:light,date:Date.now()}
-      garden.save()
+            garden.currentLight={value:light,date:Date.now()}
+            garden.save()
+         }
+
+    
       })
 
    }               

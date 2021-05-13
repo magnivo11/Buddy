@@ -3,7 +3,6 @@ const Schema=mongoose.Schema;
 
 const commentSchema=new Schema({
     content: String,
-    date: { type: Date, default: Date.now },
     postID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"posts"
@@ -11,7 +10,10 @@ const commentSchema=new Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"users"
-    }
+    },
+    published: { type: Date, default: Date.now },
+    lastUpdated: { type: Date, default: Date.now },
+
 })
 
 module.exports=mongoose.model('comments',commentSchema);

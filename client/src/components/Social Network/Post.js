@@ -2,25 +2,34 @@ import React from "react"
 import axios from 'axios';
 import '../../css/SocialNetworkProfile.css'
 import Comments from "./Comments"
+import {Link} from 'react-router-dom'
+import userPhoto from '../../Images/Gardeners/3.png'
 
 
-export default function Post({postID, change,deletePost}) {
+
+export default function Post({postID, change,deletePost,editPost}) {
     const loggedUserID = window.sessionStorage.getItem('userID');
     const [post,setPost]=React.useState([]);
-    const [writerUser,setUser]=React.useState({_id:''});
-    const [deletePermission, setDeletePermission] = React.useState(false);
+    const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
+    const [ownersPermissions, setOwnersPermissions] = React.useState(false);
+    const [content, setContent] = React.useState("");
+    const handleEditContectChange = (event) => {
+        setContent(event.target.value);
+      }
+      const inputRef = React.useRef(null);
+
 
     React.useEffect(() => {
         postID &&  fetch('http://localhost:8080/post/'+postID)
           .then(response => response.json()).then(
             data => {
-            console.log(postID);
             setPost(data)
+            setContent(data.content);
             fetch('http://localhost:8080/user/'+data.userID)
             .then(response => response.json()).then(
               data => {setUser(data);
                 if(data._id==loggedUserID)
-                setDeletePermission(true);
+                setOwnersPermissions(true);
             }
             )
             }
@@ -33,9 +42,8 @@ export default function Post({postID, change,deletePost}) {
     if (post.status=='green') green=true;
 
 
-    const d = new Date(post.date);
+    const d = new Date(post.published);
     const now = new Date();
-
     var diff = (now-d);
     var diffDays = Math.floor(diff / 86400000); // days
     var diffHrs = Math.floor((diff % 86400000) / 3600000); // hours
@@ -51,24 +59,29 @@ export default function Post({postID, change,deletePost}) {
     }
 
     return (     
-        <div className="d-flex align-items-start profile-feed-item">
-            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="profile" className="img-sm rounded-circle" />
+        <div className="d-flex align-items-start profile-feed-item" style={{fontFamily: "Open Sans"}}>
+            <img src={userPhoto} alt="profile" className="img-sm rounded-circle postUserPhoto" />
             <div className="ml-4">
-            <h6 style={{fontSize:'16px', fontWeight:'bold'}}>
-            {writerUser.name} {writerUser.lastName}
-                <small style={{fontSize:'10px'}}className="ml-4 text-muted">
-
+            <h6>
+            <Link className="nav-link singlePost"   to={`/profile/${writerUser._id}`}>{writerUser.firstName +" "+ writerUser.lastName} </Link>
+                <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>
-            {red&&<a style={{background:'red'}}href="http://example.com" class="round-button"></a>}
-            {green&&<a style={{background:'green'}}href="http://example.com" class="round-button"></a>}
-            {orange&&<a style={{background:'orange'}}href="http://example.com" class="round-button"></a>}
+            {red&&<a style={{background:'red'}}class="round-button"></a>}
+            {green&&<a style={{background:'green'}}class="round-button"></a>}
+            {orange&&<a style={{background:'orange'}} class="round-button"></a>}
 
-            <p>{post.content}</p>
-            {deletePermission&& <button  style={{fontSize:'10px',border:'white',background:'none'}}
+            <p>&nbsp;&nbsp;{content}</p>
+            {ownersPermissions&& <div>
+                <Link to={`/editpost/${postID}`}>
+            <button  style={{fontSize:'9px',border:'white',background:'none'}}
+          type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-pencil" />&nbsp;Edit </button>  
+</Link>
+             <button  style={{fontSize:'9px',border:'white',background:'none'}}
             onClick={()=>{
                 deletePost(postID);
-            }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete Post </button> } 
+            }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button>
+            </div> } 
 
              <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> 
 

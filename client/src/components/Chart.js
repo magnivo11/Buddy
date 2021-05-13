@@ -5,11 +5,26 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Chart({title,sensorData,optimalValue}){
+
+    const displyTime=(date)=>{
+        var currentHours = date.getHours()
+        currentHours = ("0" + currentHours).slice(-2)
+        var currentMinutes=date.getMinutes()
+        if(currentMinutes<10)
+        currentMinutes='0'+currentMinutes
+        var displyTime=currentHours+':'+currentMinutes
+        var month = date.getUTCMonth() + 1
+        var day = date.getUTCDate()
+        var year = date.getUTCFullYear()
+        var newdate = day + "/" + month + "/" + year;
+        displyTime=displyTime+' '+newdate
+        return displyTime
+    }
     
     if(sensorData){
         var data;
-        if(sensorData.length>15){
-            data=sensorData.slice(sensorData.length-1-15,sensorData.length)
+        if(sensorData.length>10){
+            data=sensorData.slice(sensorData.length-1-10,sensorData.length)
         }
         else{ 
         data=sensorData
@@ -17,9 +32,10 @@ export default function Chart({title,sensorData,optimalValue}){
         var fromSensor = []
         var optimal=[]
   data.map((data, key) => {
-    
-     fromSensor.push({ y : data.value, label : key })
-     optimal.push({ y : optimalValue, label : key })
+      
+   
+     fromSensor.push({ y : data.value, label :displyTime(new Date(data.date)) })
+     optimal.push({ y : optimalValue, label :displyTime(new Date(data.date)) })
      
 
 
@@ -29,7 +45,11 @@ export default function Chart({title,sensorData,optimalValue}){
     }
 
     const options = {
-        backgroundColor: "#F5DEB3",
+        "@media (max-width: 700px)": {
+            width:300,        height:200        },
+        width:500,
+        height:400,
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
         animationEnabled: true,	
         title:{
             text:title
@@ -83,8 +103,10 @@ export default function Chart({title,sensorData,optimalValue}){
             // ]
         }
     ],
-        
+ 
 }
+
+
 
     return(
         <CanvasJSChart options = {options}

@@ -2,25 +2,26 @@ const { response } = require('express');
 const User = require('../models/userModel')
 const Notification = require('../models/notificationModel')
 const Garden = require('../models/gardenModel');
-const crypto = require('crypto');
+ const crypto = require('crypto');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
  require('custom-env').env(process.env.NODE_ENV, './config');
 
+ 
 
-const createUser = async (name, lastName, email, description, password) => {
-    const user = new User({
-        name: name,
-        lastName: lastName,
-        email: email,
-        description: description,
-        password: password,
-        isAdmin: false,
-        gardens: [],
-        posts: [],
-        resetPasswordToken: 0,
+const createUser = async(firstName,lastName,email,description,password)=>{
+    const user= new User({
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        description:description,
+        password:password,
+        isAdmin:false,
+        gardens:[],
+        posts:[],
+      resetPasswordToken: 0,
         resetPasswordExpires: 0
-    });
+     });
     return await user.save();
 };
 
@@ -35,13 +36,14 @@ const getUsersGroupedByAdmin = async () => {
     var adminNames = new Array();
     const users = await User.aggregate(
         [
-            { $match: { isAdmin: true } },
-            { $group: { _id: { name: "$name", isAdmin: "$isAdmin" } } },
-            { $sort: { "_id.isAdmin": 1 } }
+ 
+            {$match: {isAdmin:true}},
+            {$group: {_id:{firstName:"$firstName",isAdmin:"$isAdmin"}}},
+            {$sort:{"_id.isAdmin":1}}
         ]);
-    users.forEach((user) => adminNames.push(user._id.name));
-    return adminNames;
-};
+        users.forEach((user)=>adminNames.push(user._id.firstName));
+        return adminNames;
+ };
 
 
 const getAllGardensFromUser = async (id) => {
@@ -49,15 +51,17 @@ const getAllGardensFromUser = async (id) => {
     return await user.gardens;
 };
 
-const updateUser = async (id, name, lastName, email, description, password) => {
+ 
+const updateUser = async(id,firstName,lastName,email,description,password) =>{
 
-    User.findById(id, (err, user) => {
-        user.name = name;
-        user.lastName = lastName;
-        user.email = email;
-        user.description = description;
-        user.password = password;
-        user.save();
+    User.findById(id,(err,user)=>{
+        user.firstName=firstName;
+        user.lastName=lastName;
+        user.email=email;
+        user.description=description;
+        user.password=password;
+        user.lastUpdated= Date.now();
+         user.save();
 
     });
     return true;
