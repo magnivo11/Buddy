@@ -43,7 +43,6 @@ export default function Plant() {
   // gets the sensor data from server
   if(!sensor._id&&plant.sensorID)
   axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
-    console.log(Response.data)
 
   setSensor(Response.data)
   setChartData({data:Response.data.soilMoisture,title:'Soil Moisture'})
@@ -81,7 +80,7 @@ export default function Plant() {
                       <p >{garden.name} Garden </p>
                      </div>
                   {/*Left buttons*/}
-                  {garden&&<ButtonsGardensList gardenID={garden._id}/>}
+                  {garden&&<ButtonsGardensList plant={plant} setPlant={setPlant} gardenID={garden._id}/>}
                 </ul>
             </div>
             <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
