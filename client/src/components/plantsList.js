@@ -21,9 +21,12 @@ import TableRow from '@material-ui/core/TableRow';
   const classes = useStyles();
     const [plantListChange,setChange]=React.useState(false);
   const [plants,setPlants]=React.useState([]);
-   axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
-    if(plants.length!=Response.data.length)
-    setPlants(Response.data)});
+  React.useEffect(()=>{
+    axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
+      setPlants(Response.data)});
+
+  },[gardenID])
+   
  if(plants.length){
   return (
     <div>
