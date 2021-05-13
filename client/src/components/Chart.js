@@ -49,7 +49,7 @@ export default function Chart({title,sensorData,optimalValue}){
             width:300,        height:200        },
         width:500,
         height:400,
-        backgroundColor: "#F5DEB3",
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
         animationEnabled: true,	
         title:{
             text:title
