@@ -1,4 +1,5 @@
-{"name": "Little-Buddy",
+{
+  "name": "Little-Buddy",
   "version": "1.0.0",
   "description": "Hello and Welcome to Little - Buddy !!!",
   "main": "index.js",
