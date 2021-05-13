@@ -28,7 +28,8 @@ export default function LoginForm() {
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Log in</span></button><br></br>
                 </form>
                 <div id="formFooter">
-                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/register">Don't have an account? Register!</Link>
+                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/register">Don't have an account? Register!</Link><br></br>
+                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/forgotpassword">Forgot password?</Link>
                 </div>
               </div>
             </div>

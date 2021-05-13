@@ -2,7 +2,7 @@ const { request, response } = require('express');
 const { findByIdAndUpdate, findOneAndUpdate } = require('../models/userModel');
 const User = require('../models/userModel');
 const userService = require('../services/userService');
-const passport = require('passport'); 
+const passport = require('passport');
 
 const createUser = async (request, response) => {
     var isAdmin = false;
@@ -17,7 +17,7 @@ const createUser = async (request, response) => {
             request.body.description,
             User.hashPassword(request.body.password),
             isAdmin
-            )
+        )
 
     response.json(newUser);
 }
@@ -26,9 +26,45 @@ const getUserByEmail = async (request, response) => {
     const user = await userService.getUserByEmail(request.params.email);
 
     if (!user)
-     return response.json (null);
+        return response.json(null);
     response.json(user);
 };
+
+const forgotPassword = async (request, response) => {
+
+    const user = await userService.getUserByEmail(request.body.email);
+    if (user) {
+        const token = await userService.forgotPassword(user);
+        if (!token) {
+            return response.json(null);
+        }
+        else {
+            return response.json({token:token,message:'Email sent'});
+        }
+    }
+    return response.json(null);
+}
+
+const changePassword = async (request, response) => {
+    const change = await userService.changePassword(User.hashPassword(request.body.password),request.body.id);
+    if (change) {
+        console.log('changed');
+        return response.json("changed");
+    }
+    return response.json(null);
+}
+
+const verifyToken = async (request, response) => {
+      const user = await userService.verifyToken(request.params.token);
+       if (user) {
+        return response.json(user);
+    }
+    else {
+        return response.json('User not found');
+    }
+ }
+
+
 
 const getUsers = async (request, response) => {
     const users = await userService.getUsers();
@@ -86,63 +122,56 @@ const getUsersGroupedByAdmin = async (request, response) => {
 }
 
 
-const getAllPostsFromUser = async (request,response)=>{
-    const user=await userService.getUserById(request.params.userID)
-    if(!user){
-    return null;}
+const getAllPostsFromUser = async (request, response) => {
+    const user = await userService.getUserById(request.params.userID)
+    if (!user) {
+        return null;
+    }
     else
-    response.send(user.posts)
+        response.send(user.posts)
 }
 
-const getAllNotificationsFromUser = async(request,response)=>{
+const getAllNotificationsFromUser = async (request, response) => {
     const notifications = await userService.getAllNotificationsFromUser(request.params.userID);
-    if(!notifications){
-        return null;}
-        else
+    if (!notifications) {
+        return null;
+    }
+    else
         response.send(notifications)
 }
 
 
-// const loginUser = (req,res) =>{
-// console.log("IM HERE"); 
-//     passport.authenticate('local', function(err, user, info) {
-//         if (err) { 
-//             return res.status(501).json(err); }
-//         if (!user) { return res.status(501).json(info); }
-//         req.logIn(user, function(err) {
-//           if (err) { return res.status(501).json(err); }
-//           return res.status(200).json({message:'Login success'});
-//         });
-//       })(req, res);
-
-// }
-
-const setAllNotificationsToSeen=async(request,response)=>{
+const setAllNotificationsToSeen = async (request, response) => {
 
     userService.setAllNotificationsToSeen(request.params.userID);
 
 
 }
 
-const getAllUnReadNotificationsFromUser = async(request,response)=>{
+const getAllUnReadNotificationsFromUser = async (request, response) => {
     const notifications = await userService.getAllUnReadNotificationsFromUser(request.params.userID);
-    if(!notifications){
-        return null;}
-        else
+    if (!notifications) {
+        return null;
+    }
+    else
         response.send(notifications)
 }
 
 
-module.exports = { 
-    getAllPostsFromUser, 
-    getAllGardensFromUser, 
-    createUser, 
-    getUserById, 
-    getUsers, 
-    updateUser, 
-    deleteUser, 
-    getUserByEmail, 
+module.exports = {
+    getAllPostsFromUser,
+    getAllGardensFromUser,
+    createUser,
+    forgotPassword,
+    getUserById,
+    getUsers,
+    updateUser,
+    deleteUser,
+    getUserByEmail,
     getUsersGroupedByAdmin,
     getAllNotificationsFromUser,
     setAllNotificationsToSeen,
-    getAllUnReadNotificationsFromUser };
+    getAllUnReadNotificationsFromUser,
+    changePassword,
+    verifyToken
+};
