@@ -9,6 +9,7 @@ mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNe
 const plantController = require('../controllers/plantController');
 
 
+// router.post('/upload',plantController.uploadImage);
 
 router.get('/',plantController.getAllPlants); //good
 
@@ -34,8 +35,7 @@ router.delete('/byAdmin/',plantController.deletePlantAdmin);
 
 router.get('/popularity/all',plantController.plantsPopularity);
 
-
-
+ 
 
 
 module.exports=router;

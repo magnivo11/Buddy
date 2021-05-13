@@ -26,6 +26,8 @@ const userSchema = new Schema({
         type: Boolean,
         required: true
     },
+    resetPasswordToken: {type:String},
+    resetPasswordExpires:{type:Date},
     gardens: [
         {
             type: mongoose.Schema.Types.ObjectId,

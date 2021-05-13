@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
@@ -25,38 +25,40 @@ import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
 import EditPlantByAdmin from './EditPlantByAdmin';
 import axios from 'axios';
+import ForgotPassword from './ForgotPassword';
+import Resetscreen from './Resetscreen';
 
 
 const socket = io.connect("http://localhost:8080");
 
 function App() {
-  
 
-      if(!window.sessionStorage.getItem('userID'))
-        window.history.replaceState(null, "New Page Title", "/")
+    if(!window.sessionStorage.getItem('userID')&&!(window.location.toString().includes("reset")))
+    window.history.replaceState(null, "New Page Title", "/")
 
-    const [render,forceRender]=React.useState(false);
-    const[newNotifications,setNewNotifications]=React.useState(0);
+const [render,forceRender]=React.useState(false);
+const[newNotifications,setNewNotifications]=React.useState(0);
 
-    var userID=window.sessionStorage.getItem('userID')
-        React.useEffect(()=>{
-            if(userID){
-            axios.get('http://localhost:8080/user/allUnReadnotifications/'+userID).then(Response=>{
+
+    var userID = window.sessionStorage.getItem('userID')
+    React.useEffect(() => {
+        if (userID) {
+            axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
                 setNewNotifications(Response.data.length)
 
             })
-            }
-       
-    },[])
+        }
 
-     
+    }, [])
+
+
 
     return (
 
-        <DataContext.Provider value ={{render:render,forceRender:forceRender,newNotifications:newNotifications,setNewNotifications:setNewNotifications}}>
+        <DataContext.Provider value={{ render: render, forceRender: forceRender, newNotifications: newNotifications, setNewNotifications: setNewNotifications }}>
             <BrowserRouter>
 
-                 <Switch>
+                <Switch>
 
                     <Route exact path='/'>
                         <FirstPage /></Route>
@@ -79,14 +81,20 @@ function App() {
                     <Route exact path='/editplant/:plantID'>
                         <Header /> <EditPlantByUser /></Route>
 
-                        <Route exact path='/editplantbyadmin/:plantID'>
+                    <Route exact path='/editplantbyadmin/:plantID'>
                         <Header /> <EditPlantByAdmin /></Route>
 
                     <Route exact path='/mygardens'>
                         <Header /> <MyGardens /></Route>
 
-                        <Route exact path='/profile/:userID'>
+                    <Route exact path='/profile/:userID'>
                         <Header /><Profile /></Route>
+
+                    <Route exact path='/forgotpassword'>
+                        <ForgotPassword /></Route>
+
+                    <Route exact path='/reset/:token'>
+                        <Resetscreen /></Route>
 
                     <Route path="/biblesearch" component={() => <><Header /><BibleSearch /></>} />
 
@@ -94,7 +102,7 @@ function App() {
                         <Header /><PlantsBible /> </Route>
 
 
-                        <Route exact path='/newsFeed'>
+                    <Route exact path='/newsFeed'>
                         <Header /><NewsFeed /></Route>
 
                     <Route exact path='/singlegarden/:gardenID' component={() => <><Header /><SingleGarden /></>} />
