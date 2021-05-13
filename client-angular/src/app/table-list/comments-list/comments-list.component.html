@@ -1,0 +1,53 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Comments Table</h4>
+      <a class="" (click)="onCreate(listFor)" href="javascript:void(0)">
+        <i class="material-icons">add_box</i>
+        <!-- <p class="card-category">ADD NEW CATEGORY</p> -->
+      </a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th>Name</th>
+            <th>Article ID</th>
+            <th>body</th>
+            <th>Published</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comment of comments">
+              <td>{{ comment.name }}</td>
+              <td>{{ comment.articleId }}</td>
+              <td>{{ comment.body.substring(0, 20) }}</td>
+              <td class="text-primary">
+                {{ comment.published | date: "short" }}
+              </td>
+              <td>
+                <a class="" href="javascript:void(0)" (click)="onEdit(comment)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a
+                  class=""
+                  href="javascript:void(0)"
+                  (click)="onDelete(comment)"
+                >
+                  <i class="material-icons">delete</i>
+                </a>
+                <a
+                  class=""
+                  href="javascript:void(0)"
+                  (click)="onDetails(comment)"
+                >
+                  <i class="material-icons">list</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

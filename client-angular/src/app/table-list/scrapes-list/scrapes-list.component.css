@@ -1,0 +1,7 @@
+:host { 
+    width: 100%;
+}
+
+/* table.table { table-layout:fixed; } */
+
+td.img {  width: 20px; }
