@@ -1,0 +1,37 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Categories Table</h4>
+      <a class="" (click)="onCreate()" href="javascript:void(0)">
+        <i class="material-icons">add_box</i>
+        <!-- <p class="card-category">ADD NEW CATEGORY</p> -->
+      </a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th>Name</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categories">
+              <td>{{category.name}}</td>
+              <td>
+                <a class="" href="javascript:void(0)" (click)="onEdit(category)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a class="" href="javascript:void(0)" (click)="onDelete(category)">
+                  <i class="material-icons">delete</i>
+                </a>
+                <a class="" href="javascript:void(0)" (click)="onDetails(category)">
+                  <i class="material-icons">list</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
