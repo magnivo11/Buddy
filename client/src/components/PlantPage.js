@@ -13,13 +13,15 @@ const data = require('../files/data.json');
 
 export default function Plant() {
 
-  //const [soilMoisture, setSoilmoisture] = React.useState([])
   const history = useHistory();
   var index = window.location.toString().lastIndexOf('/') + 1
-  const [plant, setPlant] = React.useState('');
   const plantID = window.location.toString().substring(index);
+
+  const [plant, setPlant] = React.useState('');
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
+  const [sensor,setSensor]=React.useState('');
+  const [chartData,setChartData]=React.useState({data:[],title:''});
 
 
   //set plant from server
@@ -38,8 +40,7 @@ export default function Plant() {
       )
   }, []);
 
-  const [sensor,setSensor]=React.useState('');
-  const [chartData,setChartData]=React.useState({data:[],title:''});
+  // gets the sensor data from server
   if(!sensor._id&&plant.sensorID)
   axios.get('http://localhost:8080/sensor/'+plant.sensorID).then((Response)=>{
     console.log(Response.data)
@@ -47,8 +48,8 @@ export default function Plant() {
   setSensor(Response.data)
   setChartData({data:Response.data.soilMoisture,title:'Soil Moisture'})
   })
-  console.log(chartData)
 
+  //change the chart data (soil/temp/light)
   const changeChartData=(e)=>{
     var data;
     if(e.target.value=='Soil Moisture')
