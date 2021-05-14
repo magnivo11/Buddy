@@ -30,6 +30,7 @@ router.post('/upload', upload.single('link'),(req,res)=>{
     link: req.file.originalname,
     name: "img"+Date.now() 
 });
+photoController.uploadPhoto(newPhoto.link,newPhoto.name)
 });
 
 
