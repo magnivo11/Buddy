@@ -35,11 +35,11 @@ const socket = io.connect("http://localhost:8080");
 
 function App() {
 
-    if(!window.sessionStorage.getItem('userID')&&!(window.location.toString().includes("reset")))
-    window.history.replaceState(null, "New Page Title", "/")
+    if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
+        window.history.replaceState(null, "New Page Title", "/")
 
-const [render,forceRender]=React.useState(false);
-const[newNotifications,setNewNotifications]=React.useState(0);
+    const [render, forceRender] = React.useState(false);
+    const [newNotifications, setNewNotifications] = React.useState(0);
 
 
     var userID = window.sessionStorage.getItem('userID')
@@ -89,15 +89,14 @@ const[newNotifications,setNewNotifications]=React.useState(0);
                     <Route exact path='/mygardens'>
                         <Header /> <MyGardens /></Route>
 
-                     <Route exact path='/profile/:userID'>
-                         <Route exact path='/addapost/:userID'>
+                    <Route exact path='/addapost/:userID'>
                         <Header /><AddAPost /></Route>
 
-                        <Route exact path='/editpost/:postID'>
+                    <Route exact path='/editpost/:postID'>
                         <Header /><EditPost /></Route>
 
-                        <Route exact path='/profile/:userID'>
-                         <Header /><Profile /></Route>
+                    <Route exact path='/profile/:userID'>
+                        <Header /><Profile /></Route>
 
                     <Route exact path='/forgotpassword'>
                         <ForgotPassword /></Route>
