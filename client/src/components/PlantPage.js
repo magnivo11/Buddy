@@ -20,7 +20,7 @@ export default function Plant() {
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor,setSensor]=React.useState('');
-  const [chartData,setChartData]=React.useState({data:[],title:''});
+  const [chartData,setChartData]=React.useState({data:[],title:'',optimal:''});
 
 
   //set plant from server
@@ -34,7 +34,7 @@ export default function Plant() {
           if(data.sensorID)
              axios.get('http://localhost:8080/sensor/'+data.sensorID).then((Response)=>{
                 setSensor(Response.data)
-                setChartData({data:Response.data.soilMoisture,title:'Soil Moisture'})
+                setChartData({data:Response.data.soilMoisture,title:'Soil Moisture',optimal:data.optimalSoilMoisture})
               })
             //set plant's garden from server
           fetch('http://localhost:8080/garden/find/'+data.GardenID)
@@ -52,16 +52,26 @@ export default function Plant() {
   //change the chart data (soil/temp/light)
   const changeChartData=(e)=>{
     var data;
-    if(e.target.value=='Soil Moisture')
+    var optimalValue;
+    if(e.target.value=='Soil Moisture'){
       data=sensor.soilMoisture
+      optimalValue=plant.optimalSoilMoisture
+    }
+    
 
-    if(e.target.value=='Temperature')
-    data=sensor.temperature
+    if(e.target.value=='Temperature'){
+      data=sensor.temperature
+      optimalValue=plant.optimalTemp
 
-    if(e.target.value=='Sun Exposure')
-    data=sensor.light
+    }
+   
+    if(e.target.value=='Sun Exposure'){
+      data=sensor.light
+      optimalValue=plant.optimalSunExposure
+    }
+    
 
-    setChartData({title:e.target.value,data:data})
+    setChartData({title:e.target.value,data:data,optimal:optimalValue})
   }
   
 
@@ -110,7 +120,7 @@ export default function Plant() {
                           <button type="button" value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
                            <button type="button" value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
                            </div>
-                           <Chart title={chartData.title} sensorData={chartData.data} optimalValue={plant.optimalSoilMoisture}></Chart>
+                           <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal}></Chart>
                     </div>
                     
                     }
