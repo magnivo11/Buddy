@@ -1,4 +1,5 @@
 export interface Plant {
+    _id: String,
     species: String,
     growthStatus:String,
     healthStatus:Number,
@@ -10,19 +11,19 @@ export interface Plant {
     irrigationInstructors:String, // celsius
     
     optimalTemp: Number,
-    
     optimalSunExposure: Number,
-    
     optimalSoilMoisture: Number,
     
-     
     description:String,
     sensorID: String,
-    photos:[],  
-    GardenID:String,
+    photos: Array<String>,  
+    GardenID: String,
+
     lastIrrigation: Date,
-    lastTemp:{ value: Number , date: Date},
-    lastLight:{ value: Number, date: Date},
-    lastSoil:{ value: Number, date: Date}
-    
+    lastTemp: Object,
+    lastLight: Object,
+    lastSoil:Object,
+
+    created: Date,
+    lastUpdated: Date,   
 }

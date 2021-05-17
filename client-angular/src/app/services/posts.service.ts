@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
-  private postsUrl = environment.postsUrl;
-  private filterUrl = environment.filtersUrl;
+  private postsUrl = environment.postUrl;
 
   constructor(private http: HttpClient) { }
   
   filter(key: string): Observable<any> {
-    const url = `${this.filterUrl}/posts/${key}`;
+    const url = `${this.postsUrl}/filter/${key}`;
     return this.http.get<any>(url);
   }
 
@@ -23,23 +22,21 @@ export class PostsService {
   }
 
   getNumOfPosts(): Observable<Number> {
-    const url = `${this.postsUrl}/posts/count`;
+    const url = `${this.postsUrl}/count`;
     return this.http.get<Number>(url);
   }
 
-  getPostsByCategory(category: String): Observable<any> {
-    const url = `${this.postsUrl}/${category}`;
+  getPostsByUser(userID: String): Observable<any> {
+    const url = `${this.postsUrl}/user/${userID}`;
     return this.http.get<any>(url);
   }
 
-  addPost(title: String, subTitle: String, img: String, category: String, body: String): Observable<any> {
+  addPost(content: String, status: String, userID: String): Observable<any> {
     return this.http.post<any>(this.postsUrl, { 
-      title: title, 
-      subTitle: subTitle, 
-      category: category, 
-      img: img, 
-      body: body });
-
+      content: content, 
+      status: status, 
+      userID: userID, 
+    });
   }
 
   getPost(id: String): Observable<any> {
@@ -49,16 +46,23 @@ export class PostsService {
 
   updatePost(post: Post): Observable<any> {
     const url = `${this.postsUrl}/id/${post._id}`;
-    return this.http.patch<any>(url, { 
-      title: post.title, 
-      subTitle: post.subTitle, 
-      category: post.category, 
-      img: post.img, 
-      body: post.body });
+    return this.http.put<any>(url, { 
+      postID: post._id, 
+      content: post.content, 
+      status: post.status
+    });
   }
 
-  deletePost(id: String): Observable<any> {
-    const url = `${this.postsUrl}/id/${id}`;
-    return this.http.delete<any>(url);
+  deletePost(postID: String, userID: String): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        postID: postID,
+        userID: userID,
+      },
+    };
+    return this.http.delete<any>(this.postsUrl, options);
   }
 }

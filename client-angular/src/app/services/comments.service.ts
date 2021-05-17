@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comment } from '../models/comment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class CommentsService {
-  private CommentsUrl = environment.commentsUrl;
-  private filterUrl = environment.filtersUrl;
+  private CommentUrl = environment.commentUrl;
+  private filterUrl = environment.filterUrl;
 
   constructor(private http: HttpClient) {}
   
@@ -19,30 +19,40 @@ export class CommentsService {
   }
 
   getComments(): Observable<any> {
-    return this.http.get<any>(this.CommentsUrl);
+    return this.http.get<any>(this.CommentUrl);
   }
 
   getCommentsByPostID(postId: String): Observable<any> {
-    const url = `${this.CommentsUrl}/${postId}`;
+    const url = `${this.CommentUrl}/bypost/${postId}`;
     return this.http.get<any>(url);
   }
 
-  addComment(name: String, postId: String, body: String): Observable<any> {
-    return this.http.post<any>(this.CommentsUrl, { name: name, postId: postId, body: body });
+  addComment(userID: String, postID: String, content: String): Observable<any> {
+    return this.http.post<any>(this.CommentUrl, { userID: userID, postID: postID, content: content });
   }
 
   getComment(id: String): Observable<any> {
-    const url = `${this.CommentsUrl}/id/${id}`;
+    const url = `${this.CommentUrl}/${id}`;
     return this.http.get<any>(url);
   }
 
   updateComment(comment: Comment): Observable<any> {
-    const url = `${this.CommentsUrl}/id/${comment._id}`;
-    return this.http.patch<any>(url, { content: comment.content, date: comment.date, postID: comment.postID, userID: comment.userID });
+    return this.http.patch<any>(this.CommentUrl, { 
+      content: comment.content, 
+      id: comment._id 
+    });
   }
 
-  deleteComment(id: String): Observable<any> {
-    const url = `${this.CommentsUrl}/id/${id}`;
-    return this.http.delete<any>(url);
+  deleteComment(commentID: String, postID: String): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        commentID: commentID,
+        postID: postID,
+      },
+    };
+    return this.http.delete<any>(this.CommentUrl, options);
   }
 }

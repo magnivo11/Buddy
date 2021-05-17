@@ -3,7 +3,9 @@ const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plantModel');
 const Plant=require('../models/plantModel');
 const plantService = require('../services/plantService'); 
 
-  
+var emitter = require('../common/emitter');
+var myEmitter = emitter.myEmitter;
+
 const createPlantByUser= async(request,repsonse)=>{
 
     const newPlant=  
@@ -12,8 +14,9 @@ const createPlantByUser= async(request,repsonse)=>{
         request.body.isUserPlant,
         request.body.growthStatus,
         request.body.GardenID
-        )
-    };
+        );
+    myEmitter.emit('createPlant');
+};
 
 
 
@@ -52,8 +55,10 @@ const createPlantByAdmin= async(request,response)=>{
         if(err){
         response.send(err)
         }
-        else
-        response.send(plant)
+        else{
+            myEmitter.emit('createPlant');
+            response.send(plant)
+        }
     });
     };
    
@@ -61,9 +66,12 @@ const createPlantByAdmin= async(request,response)=>{
 
 const deletePlantUser = async(request,response)=>{
     const plant= await plantService.deletePlantUser(request.body.plantID,request.body.gardenID);
+
     if (!plant){
     return response.status(404).json({errors:['Plant not found']});}
-response.send();
+
+    myEmitter.emit('deletePlant');
+    response.send();
 }
 
 const getPlantById = async(request,response)=>{
@@ -128,9 +136,12 @@ const getAllAdminPlants=async(request,response)=>{
 
 const deletePlantAdmin = async(request,response)=>{
     const plant= await plantService.deletePlantAdmin(request.body.plantID);
+    
     if (!plant){
     return response.status(404).json({errors:['Plant not found']});}
-response.send();
+
+    myEmitter.emit('deletePlant');
+    response.send();
 }
 
 module.exports={getPlantsByGardenId,plantsPopularity,getPlantByName, createPlantByAdmin, createPlantByUser, 

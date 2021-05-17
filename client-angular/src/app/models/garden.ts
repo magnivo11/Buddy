@@ -6,9 +6,11 @@ export interface Garden{
     surrounding: String,
     directSun: Boolean,
     userID: String,
-    plants: [],
-    currentTemp:{value: Number , date: Date},
-    currentLight:{value: Number , date: Date},
-    currentMoist:{value: Number , date: Date}
+    plants: Array<String>,
+    currentTemp: Object,
+    currentLight: Object,
+    currentMoist: Object,
+    created: Date,
+    lastUpdated: Date,
 
 }

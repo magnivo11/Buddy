@@ -63,6 +63,7 @@ const getUserByEmail = async(email)=>{
         else{
             return user;}
 }
+
 const deleteUser= async(id)=> {
     const user = User.getUserById(id);
     if (!user)
@@ -84,6 +85,7 @@ const deleteUser= async(id)=> {
     }
     return user;
 };
+
 const getAllPostsFromUser = async(id)=>{
     const user = User.findOne({_id:id});
     if(!user){
@@ -91,6 +93,7 @@ const getAllPostsFromUser = async(id)=>{
     else{
         return user;}
 };
+
 const getAllNotificationsFromUser = async(id)=>{
     const notifications = Notification.find({userID:id})
     if(!notifications){
@@ -98,6 +101,7 @@ const getAllNotificationsFromUser = async(id)=>{
     else{
         return notifications;}
 };
+
 const setAllNotificationsToSeen =async (id)=>{
     Notification.find({userID:id},(err,notifications)=>{
         if(notifications)
@@ -116,6 +120,26 @@ const getAllUnReadNotificationsFromUser = async(id)=>{
         return notifications;}
 };
 
+const getUsersByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await User.aggregate([
+      {
+        $match: {
+          $or: [
+            { email: { $regex: string, $options: 'i' } },
+            { firstName: { $regex: string, $options: 'i' } },
+            { lastName: { $regex: string, $options: 'i' } },
+            { description: { $regex: string, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+  };
+
 module.exports={
 createUser,
 deleteUser,
@@ -128,5 +152,6 @@ getUsersGroupedByAdmin,
 getAllPostsFromUser,
 getAllNotificationsFromUser,
 setAllNotificationsToSeen,
-getAllUnReadNotificationsFromUser
+getAllUnReadNotificationsFromUser,
+getUsersByKeyWord
 };

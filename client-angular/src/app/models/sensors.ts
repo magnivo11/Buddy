@@ -1,7 +1,8 @@
 export interface sensors{
-    serialNumber: String;
-    temperature: [];
-    light: [];
-    soilMoisture: [];
-    plantID: String;
+    _id: String,
+    serialNumber: String,
+    temperature: Array<Object>,
+    light: Array<Object>,
+    soilMoisture: Array<Object>,
+    plantID: String
 }

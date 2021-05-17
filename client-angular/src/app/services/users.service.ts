@@ -11,12 +11,11 @@ import { environment } from '../../environments/environment';
 export class UsersService {
   
     private usersUrl = environment.usersUrl;
-    private filterUrl = environment.filtersUrl;
   
     constructor(private http: HttpClient) { }
     
     filter(key: string): Observable<any> {
-      const url = `${this.filterUrl}/users/${key}`;
+      const url = `${this.usersUrl}/filter/${key}`;
       return this.http.get<any>(url);
     }
   
@@ -24,36 +23,43 @@ export class UsersService {
       return this.http.get<any>(this.usersUrl);
     }
   
-    addUser(firstname: string, lastname: string, email: string, password: string, phone: string, isAdmin: boolean): Observable<any> {
-      return this.http.post<any>(this.usersUrl, { 
+    addUser(firstName: string, lastName: string, email: string, password: string, description: string, isAdmin: boolean): Observable<any> {
+      var code = "notadmin";
+      if(isAdmin === true){
+        code = "admincode"
+      }
+      return this.http.post<any>(this.usersUrl+'/register', { 
         email: email, 
-        firstname: firstname, 
-        lastname: lastname, 
+        firstName: firstName, 
+        lastName: lastName, 
         password: password, 
-        phone: phone,
-        isAdmin: isAdmin
+        description: description,
+        code: code
       });
-  
     }
   
     getUser(id: string): Observable<any> {
-      const url = `${this.usersUrl}/id/${id}`;
+      const url = `${this.usersUrl}/${id}`;
       return this.http.get<any>(url);
     }
   
     updateUser(user: User): Observable<any> {
-      const url = `${this.usersUrl}/id/${user._id}`;
-      return this.http.patch<any>(url, { 
+      var code = "notadmin";
+      if(user.isAdmin === true){
+        code = "admincode"
+      }
+      return this.http.patch<any>(this.usersUrl, { 
         email: user.email, 
-        firstname: user.firstname, 
-        lastname: user.lastname, 
+        firstName: user.firstName, 
+        lastName: user.lastName, 
         password: user.password, 
-        phone: user.phone,
-        isAdmin: user.isAdmin });
+        description: user.description,
+        code: code
+      });
     }
   
     deleteUser(id: string): Observable<any> {
-      const url = `${this.usersUrl}/id/${id}`;
-      return this.http.delete<any>(url);
+      const url = `${this.usersUrl}/${id}`;
+      return this.http.delete<any>(this.usersUrl);
     }
 }
