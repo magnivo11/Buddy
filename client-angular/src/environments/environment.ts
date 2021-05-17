@@ -13,6 +13,7 @@ export const environment = {
   gardenUrl : 'http://localhost:8080/garden',
   sensorUrl : 'http://localhost:8080/sensor',
   postUrl : 'http://localhost:8080/post',
-  filtersUrl : 'http://localhost:8080/filters',
+  commentUrl : 'http://localhost:8080/comment',
+  filterUrl : 'http://localhost:8080/filters',
 
 };

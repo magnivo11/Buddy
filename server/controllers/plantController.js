@@ -1,7 +1,7 @@
 const { request, response } = require('express');
 const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plantModel');
-const Plant = require('../models/plantModel');
-const plantService = require('../services/plantService');
+const Plant=require('../models/plantModel');
+const plantService = require('../services/plantService'); 
 const express = require("express");
 const path = require("path");
 const multer = require("multer");
@@ -9,16 +9,20 @@ const mongoose = require("mongoose");
 const app = express();
 const Photo = mongoose.model("photos");
 const router = express.Router();
- 
-const createPlantByUser = async (request, repsonse) => {
 
-    const newPlant =
-        await plantService.createPlantByUser(
-            request.body.species,
-            request.body.isUserPlant,
-            request.body.growthStatus,
-            request.body.GardenID
-        )
+var emitter = require('../common/emitter');
+var myEmitter = emitter.myEmitter;
+
+const createPlantByUser= async(request,repsonse)=>{
+
+    const newPlant=  
+        await plantService.createPlantByUser(  
+        request.body.species,
+        request.body.isUserPlant,
+        request.body.growthStatus,
+        request.body.GardenID
+        );
+    myEmitter.emit('createPlant');
 };
 
 const createPlantByAdmin = async (request, response) => {
@@ -48,18 +52,20 @@ const createPlantByAdmin = async (request, response) => {
         if (err) {
             response.send(err)
         }
-        else
+        else{
+            myEmitter.emit('createPlant');
             response.send(plant)
+        }
     });
 };
 
+const deletePlantUser = async(request,response)=>{
+    const plant= await plantService.deletePlantUser(request.body.plantID,request.body.gardenID);
 
+    if (!plant){
+    return response.status(404).json({errors:['Plant not found']});}
 
-const deletePlantUser = async (request, response) => {
-    const plant = await plantService.deletePlantUser(request.body.plantID, request.body.gardenID);
-    if (!plant) {
-        return response.status(404).json({ errors: ['Plant not found'] });
-    }
+    myEmitter.emit('deletePlant');
     response.send();
 }
 
@@ -125,11 +131,13 @@ const getAllAdminPlants = async (request, response) => {
     response.json(plants);
 };
 
-const deletePlantAdmin = async (request, response) => {
-    const plant = await plantService.deletePlantAdmin(request.body.plantID);
-    if (!plant) {
-        return response.status(404).json({ errors: ['Plant not found'] });
-    }
+const deletePlantAdmin = async(request,response)=>{
+    const plant= await plantService.deletePlantAdmin(request.body.plantID);
+    
+    if (!plant){
+    return response.status(404).json({errors:['Plant not found']});}
+
+    myEmitter.emit('deletePlant');
     response.send();
 }
 

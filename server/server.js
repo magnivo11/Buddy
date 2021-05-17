@@ -18,6 +18,11 @@ const sensorRouter = require('./routes/sensorRouter')
 const postRouter = require('./routes/postRouter')
 const commentRouter = require('./routes/commentRouter')
 
+// real time imports
+var EventEmitter = require('./common/emitter');
+var ActiveUsers = require('./common/realTime');
+var myEmitter = EventEmitter.myEmitter;
+
 //passport imports
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
@@ -43,28 +48,71 @@ const io = socketIo(server/*,{
 }*/);
 
 // this socketio purpose is counting how many users are connecting to the web in real-time
-var count = 0;
+//var countActiveUsers = ActiveUsers.countActiveUsers;
+var countPlants = 0;
+var countPosts = 0;
 var adminMessage = ''
+
+plantService.getNumOfPlants().then((docs) => {
+    countPlants= docs;
+    myEmitter.emit('emitPlant');
+});
+
+postService.getNumOfPosts().then((docs) => {
+    countPosts= docs;
+    myEmitter.emit('emitPost');
+});
+
+myEmitter.on('createPlant', () => {
+    countPlants++;
+    myEmitter.emit('emitPlant');
+});
+
+myEmitter.on('deletePlant', () => {
+    countPlants--;
+    myEmitter.emit('emitPlant');
+});
+
+
+myEmitter.on('createPost', () => {
+    countPosts++;
+    myEmitter.emit('emitPost');
+});
+
+myEmitter.on('deletePost', () => {
+    countPosts--;
+    myEmitter.emit('emitPost');
+});
+
 io.on('connection', (socket) => {
     if (socket.handshake.headers.origin === process.env.REACT_URL) {
-        count++;
-        socket.broadcast.emit('count', count);
+        ActiveUsers.countActiveUsers++;
+        socket.broadcast.emit('countActiveUsers', ActiveUsers.countActiveUsers);
+
         socket.on('disconnect', () => {
-            count--;
-            socket.broadcast.emit('count', count);
+            ActiveUsers.countActiveUsers--;
+            socket.broadcast.emit('countActiveUsers', ActiveUsers.countActiveUsers);
         });
+    }
 
+    else if (socket.handshake.headers.origin === process.env.ANGULAR_URL) {
+        socket.broadcast.emit('countActiveUsers', ActiveUsers.countActiveUsers);           
+        socket.broadcast.emit('countPlants', countPlants);
+        socket.broadcast.emit('countPosts', countPosts);
 
+        myEmitter.on('emitPlant', () => {
+            socket.broadcast.emit('countPlants', countPlants);
+        });
+        myEmitter.on('emitPost', () => {
+            socket.broadcast.emit('countPosts', countPosts);
+        });
     }
 
     socket.on('message', (message) => {
         adminMessage = message;
         socket.broadcast.emit('message', adminMessage);
-
     })
-
 });
-
 
 app.use(cors({
     origin: [process.env.REACT_URL, process.env.ANGULAR_URL],
@@ -98,9 +146,7 @@ app.use('/sensor', sensorRouter)
 app.use('/post', postRouter)
 app.use('/comment', commentRouter)
 
-
-
-console.log("Server is runnig on port " + process.env.PORT);
+console.log("Server is listening to port " + process.env.PORT);
 
 server.listen(process.env.PORT);
 

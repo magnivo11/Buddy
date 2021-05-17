@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class StatisticsService {
 
-  private filtersUrl = environment.filtersUrl;
+  private filtersUrl = environment.filterUrl;
 
   constructor(private http: HttpClient) { }
 

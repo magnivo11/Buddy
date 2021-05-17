@@ -2,8 +2,13 @@ const { request, response } = require('express');
 const { findByIdAndUpdate, findOneAndUpdate } = require('../models/userModel');
 const User = require('../models/userModel');
 const userService = require('../services/userService');
-const passport = require('passport');
+const passport = require('passport'); 
+var ActiveUsers = require('../common/realTime');
 
+const getActiveUsers = (req, res) => {
+  var countActiveUsers = ActiveUsers.countActiveUsers;
+  res.json(countActiveUsers);
+}
 const createUser = async (request, response) => {
     var isAdmin = false;
     if (request.body.code == "admincode") {
@@ -78,6 +83,12 @@ const getUserById = async (request, response) => {
     response.json(user);
 };
 
+const getUsersByKeyWord = async (request, response) => {
+    const user = await userService.getUsersByKeyWord(request.params.key)
+    if (!user)
+        return response.status(404).json({ errors: ['Users not found'] });
+    response.json(user);
+};
 
 const updateUser = async (request, response) => {
 
@@ -97,7 +108,7 @@ const updateUser = async (request, response) => {
 
 
 const deleteUser = async (request, response) => {
-    const user = await userService.deleteUser(request.body.userID);
+    const user = await userService.deleteUser(request.params.userID);
 
     if (!user) {
         return response.status(404).json({ errors: ['User not found'] });
@@ -172,6 +183,8 @@ module.exports = {
     getAllNotificationsFromUser,
     setAllNotificationsToSeen,
     getAllUnReadNotificationsFromUser,
+    getUsersByKeyWord,
+    getActiveUsers
     changePassword,
     verifyToken
 };
