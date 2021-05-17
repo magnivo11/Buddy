@@ -9,6 +9,4 @@ export const environment = {
   sensorUrl : 'http://buddy.cs.colman.ac.il:8080/sensor',
   postUrl : 'http://buddy.cs.colman.ac.il:8080/post',
   commentUrl : 'http://buddy.cs.colman.ac.il:8080/comment',
-  filterUrl : 'http://buddy.cs.colman.ac.il:8080/filters',
-
 };

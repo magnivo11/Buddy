@@ -138,7 +138,7 @@ const getUsersByKeyWord = async (string) => {
         }
       }
     ]);
-  };
+};
 
 module.exports={
 createUser,

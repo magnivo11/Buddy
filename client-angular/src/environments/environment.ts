@@ -14,6 +14,4 @@ export const environment = {
   sensorUrl : 'http://localhost:8080/sensor',
   postUrl : 'http://localhost:8080/post',
   commentUrl : 'http://localhost:8080/comment',
-  filterUrl : 'http://localhost:8080/filters',
-
 };

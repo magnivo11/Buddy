@@ -82,8 +82,13 @@ const getPlantById = async(request,response)=>{
 };
 
 const getPlantsByGardenId = async (request,response)=>{
-     const gardens = await plantService.getPlantsByGardenId(request.params.gardenId);
-    response.json(gardens); 
+     const plants = await plantService.getPlantsByGardenId(request.params.gardenId);
+    response.json(plants); 
+}
+
+const getNumOfPlants = async (request,response)=>{
+    const count = await plantService.getNumOfPlants();
+   response.json(count); 
 }
 
 const plantsPopularity = async (request,response)=>{
@@ -142,8 +147,29 @@ const deletePlantAdmin = async(request,response)=>{
 
     myEmitter.emit('deletePlant');
     response.send();
-}
+};
 
-module.exports={getPlantsByGardenId,plantsPopularity,getPlantByName, createPlantByAdmin, createPlantByUser, 
-    updatePlantByAdmin,updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants};
+const getPlantsByKeyWord = async (request, response) => {
+    const plants = await plantService.getPlantsByKeyWord(request.params.key)
+    if (!plants)
+        return response.status(404).json({ errors: ['Plants not found'] });
+    response.json(plants);
+};
+
+module.exports={
+    getPlantsByGardenId,
+    plantsPopularity,
+    getPlantByName, 
+    createPlantByAdmin, 
+    createPlantByUser, 
+    updatePlantByAdmin,
+    updatePlantByUser, 
+    getPlantById, 
+    deletePlantUser,
+    deletePlantAdmin, 
+    getAllPlants, 
+    getAllAdminPlants,
+    getNumOfPlants,
+    getPlantsByKeyWord
+};
  
