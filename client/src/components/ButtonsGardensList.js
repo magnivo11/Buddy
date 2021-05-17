@@ -4,7 +4,7 @@ import axios from 'axios';
 import ButtonComponent from './ButtonComponent'
 
 
-export default function ButtonsGardensList({ gardenID }) {
+export default function ButtonsGardensList({ gardenID,setPlantID }) {
     const [plants,setPlants]=React.useState([]);
     axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
      if(plants.length!=Response.data.length)
@@ -27,7 +27,7 @@ export default function ButtonsGardensList({ gardenID }) {
             </li>
             </ul>
                 {plants.map((data,key)=>{
-                return <ButtonComponent id={data._id} name={data.species} type="/plant/" key={key}/>
+                return <ButtonComponent setPlantID={setPlantID} id={data._id} name={data.species} type="/plant/" key={key}/>
             })}
             <ul className="nav nav-tabs flex-column">
                     <li className="nav-item">

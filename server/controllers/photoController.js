@@ -39,6 +39,10 @@ const createPhoto=async (request,response)=>{
             if (!photos){
             return response.status(404).json({errors:['scrape failed']})}     
         }
+
+        const uploadPhoto=async (link,name)=>{
+            await photoService.createPhoto(link,name)
+        }
    
    
 module.exports={createPhoto,
@@ -46,5 +50,6 @@ module.exports={createPhoto,
     deletePhoto,
     editPhoto,
     getPhoto,
-    getAllPhotos
+    getAllPhotos,
+    uploadPhoto
 };

@@ -2,12 +2,12 @@ const { response } = require('express');
 const Sensor = require('../models/sensorsModel')
 const Plant = require('../models/plantModel')
 const Garden = require('../models/gardenModel')
-const Photo = require('../models/photoModel');
+ const Photo = require('../models/photoModel');
 const { deletePhoto } = require('./photoService');
 const { deleteSensor } = require('./sensorService');
-
-
-
+const multer = require("multer");
+ require('dotenv').config();
+ const path = require('path'); 
 
 const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, optimalSoilMoisture, optimalSunExposure, description) => {
 
@@ -167,8 +167,7 @@ const updatePlantByAdmin = async (id,
        return name;
 }
 
-// const deletePlant = async (plantID, gardenID) => {
- const deletePlantUser = async (plantID, gardenID) => {
+  const deletePlantUser = async (plantID, gardenID) => {
      const plant = await getPlantById(plantID);
 
     if (!plant)
@@ -206,7 +205,9 @@ const deletePlantAdmin = async(plantID)=> {
         await plant.remove();
     return true;
 };
+
+ 
+
 module.exports = {
-    getPlantsByGardenId, getPlantByName, createPlantByAdmin, createPlantByUser,plantsPopularity,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants
-};
+    getPlantsByGardenId, getPlantByName,createPlantByAdmin, createPlantByUser,plantsPopularity,
+    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants };

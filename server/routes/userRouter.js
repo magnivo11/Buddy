@@ -20,7 +20,7 @@ router.get('/logout', isValidUser, function (req, res, next) {
     return res.status(200).json({ message: 'Logout Success' });
 })
 
-
+  
 router.get('/home', isValidUser, function (req, res, next) {
     return res.status(200).json(req.user);
 });
@@ -43,6 +43,12 @@ router.patch('/', userController.updateUser);
 
 router.delete('/:userID', userController.deleteUser);
 
+router.put('/changepass', userController.changePassword);
+
+router.get('/token/:token', userController.verifyToken);
+
+router.delete('/', userController.deleteUser);
+
 router.get('/allposts/:userID',userController.getAllPostsFromUser); 
 
 router.get('/allnotifications/:userID',userController.getAllNotificationsFromUser); 
@@ -53,6 +59,8 @@ router.get('/allUnReadnotifications/:userID',userController.getAllUnReadNotifica
 
 
 router.post('/register', userController.createUser);
+
+router.post('/forgotpassword', userController.forgotPassword); 
 
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
@@ -76,5 +84,5 @@ function isValidUser(req, res, next) {
     else return res.status(401).json({ message: 'Unauthorized Request' });
 }
 
-
+ 
 module.exports = router;

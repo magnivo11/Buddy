@@ -2,18 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const http = require('http');
-
+const path = require("path");
+const multer = require("multer");
+ 
 //mongoose mongoDB imports 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
- // routers imports 
+ 
+// routers imports 
 const userRouter = require('./routes/userRouter')
 const gardenRouter = require('./routes/gardenRouter')
 const plantRouter = require('./routes/plantRouter')
 const photoRouter = require('./routes/photoRouter')
 const sensorRouter = require('./routes/sensorRouter')
-const postRouter=require('./routes/postRouter')
-const commentRouter=require('./routes/commentRouter')
+const postRouter = require('./routes/postRouter')
+const commentRouter = require('./routes/commentRouter')
 
 // real time imports
 var EventEmitter = require('./common/emitter');
@@ -26,6 +29,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var expressSession = require('express-session');
 const User = require('./models/userModel');
 // const MongoStore = require('connect-mongo');
+require('dotenv').config();
+
+
 
 //online users with web socket - socketio
 const socketIo = require('socket.io');
@@ -108,14 +114,13 @@ io.on('connection', (socket) => {
     })
 });
 
-// app.use(cors());
 app.use(cors({
-    origin:[process.env.REACT_URL,process.env.ANGULAR_URL],
-    credentials:true
-  }));
-  
+    origin: [process.env.REACT_URL, process.env.ANGULAR_URL],
+    credentials: true
+}));
+
 app.use(bodyParser.json());
- 
+
 //passport uses
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(expressSession({
@@ -129,19 +134,20 @@ app.use(expressSession({
 require('./passport-config');
 app.use(passport.initialize());
 app.use(passport.session());
- 
 
-  
+
+
 //router uses 
 app.use('/user', userRouter);
 app.use('/garden', gardenRouter)
 app.use('/plant', plantRouter)
 app.use('/photo', photoRouter)
 app.use('/sensor', sensorRouter)
-app.use('/post',postRouter)
-app.use('/comment',commentRouter)
+app.use('/post', postRouter)
+app.use('/comment', commentRouter)
 
 console.log("Server is listening to port " + process.env.PORT);
+
 server.listen(process.env.PORT);
 
 
