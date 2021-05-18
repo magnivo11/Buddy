@@ -52,19 +52,19 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 }
 
  const fabricateData = async(sensorID,day,rand)=>{
-   Sensor.findById(sensorID,(err,sensor)=>{
-      if (sensor){      
-       sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
-       sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
-       sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 6, 0, 0, 0)});
+   // Sensor.findById(sensorID,(err,sensor)=>{
+   //    if (sensor){      
+   //     sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
+   //     sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
+   //     sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 6, 0, 0, 0)});
        
-       sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
-       sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
-       sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 18, 0, 0, 0)});
-      sensor.save();
-      }
-      });
-    return true;
+   //     sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
+   //     sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
+   //     sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 18, 0, 0, 0)});
+   //    sensor.save();
+   //    }
+   //    });
+   //  return true;
  };
 
 
