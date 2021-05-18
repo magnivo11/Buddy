@@ -184,7 +184,7 @@ module.exports = {
     setAllNotificationsToSeen,
     getAllUnReadNotificationsFromUser,
     getUsersByKeyWord,
-    getActiveUsers
+    getActiveUsers,
     changePassword,
     verifyToken
 };

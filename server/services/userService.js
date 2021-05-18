@@ -178,7 +178,7 @@ const getUsersByKeyWord = async (string) => {
         }
       }
     ]);
-  };
+};
 
 const forgotPassword = async (user) => {
      const token = crypto.randomBytes(20).toString('hex');

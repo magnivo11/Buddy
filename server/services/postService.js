@@ -81,7 +81,7 @@ const getPostsByKeyWord = async (string) => {
       string = "";
     }
   
-    return await Article.aggregate([
+    return await Post.aggregate([
       {
         $match: {
           $or: [

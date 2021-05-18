@@ -12,6 +12,8 @@ const { request } = require('express');
 
 router.post('/',gardenController.createGarden) // good
 router.get('/',gardenController.getAllGardens) // good 
+router.get('/filter/:key',gardenController.getGardensByKeyWord) // good 
+router.get('/count/',gardenController.getNumOfGardens) // good 
 router.put('/',gardenController.editGarden);
 router.get('/find/:gardenID', gardenController.getGardenById); // good 
 router.get('/:userID', gardenController.getGardensByUserId);  // good 

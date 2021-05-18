@@ -18,6 +18,10 @@ const sensorRouter = require('./routes/sensorRouter')
 const postRouter = require('./routes/postRouter')
 const commentRouter = require('./routes/commentRouter')
 
+// services imports
+const plantService = require('./services/plantService')
+const postService = require('./services/postService')
+
 // real time imports
 var EventEmitter = require('./common/emitter');
 var ActiveUsers = require('./common/realTime');
@@ -147,8 +151,4 @@ app.use('/post', postRouter)
 app.use('/comment', commentRouter)
 
 console.log("Server is listening to port " + process.env.PORT);
-
 server.listen(process.env.PORT);
-
-
-
