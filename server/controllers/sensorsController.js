@@ -8,7 +8,7 @@ const createSensor = async (request,response)=>{
 
     const newSensor=
     await SensorService.createSensor(
-        request.body.plantID)
+        request.body.plantID,request.body.sensorId)
        
      response.json(newSensor);
 }

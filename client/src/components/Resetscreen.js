@@ -41,7 +41,7 @@ export default function Resetscreen() {
                                     <input type="password" id="password" className="fadeIn second" name="reset" placeholder="Password" />
                                     <input type="password" id="confirmPassword" className="fadeIn third" name="reset" placeholder="confirm Password" />
                                     <br></br>
-                                    <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Change</span></button>
+                                    <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Change</span></button><br></br>
                                     <Link style={{ color: '#51361A' }} className="underlineHover" to="/login">back to Login</Link>
                                     <br></br><br></br>
                                 </form>

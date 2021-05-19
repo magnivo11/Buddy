@@ -6,10 +6,10 @@ const Garden = require('../models/gardenModel')
 const Plant = require('../models/plantModel')
 
 
-const createSensor = async(plantID)=>{
-   var randomSerial= Math.floor(Math.random() * 100);     // returns a random integer from 0 to 90
+const createSensor = async(plantID,sensorId)=>{
+   // var randomSerial= Math.floor(Math.random() * 100);    
     const sensor= new Sensor({
-      serialNumber: randomSerial,
+      serialNumber: sensorId,
       plantID: plantID
    }); 
 
