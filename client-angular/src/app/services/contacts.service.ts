@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
   providedIn: "root",
 })
 export class ContactsService {
-  private contactsUrl = environment.contactsUrl;
-  private filterUrl = environment.filtersUrl;
+  private contactsUrl = environment.contactUrl;
+  private filterUrl = environment.filterUrl;
 
   constructor(private http: HttpClient) {}
   

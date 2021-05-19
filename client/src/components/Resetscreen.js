@@ -1,7 +1,7 @@
  import '../css/Forms.css'
 import '../css/Buttons.scss'
 import axios from 'axios'
-import logo from '../Images/LB.png';
+import logo from '../Images/logoBuddy.jpg';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

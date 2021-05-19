@@ -75,7 +75,9 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
 
 };
 
-
+const getNumOfPlants = async()=>{
+    return await Plant.countDocuments();
+};
 
 const getPlantById = async (id) => { return await Plant.findById(id) };
 
@@ -206,8 +208,39 @@ const deletePlantAdmin = async(plantID)=> {
     return true;
 };
 
- 
+const getPlantsByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await Plant.aggregate([
+      {
+        $match: {
+          $or: [
+            { species: { $regex: string, $options: 'i' } },
+            { growthStatus: { $regex: string, $options: 'i' } },
+            { irrigationInstructors: { $regex: string, $options: 'i' } },
+            { description: { $regex: string, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+};
 
 module.exports = {
-    getPlantsByGardenId, getPlantByName,createPlantByAdmin, createPlantByUser,plantsPopularity,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser,deletePlantAdmin, getAllPlants, getAllAdminPlants };
+    getPlantsByGardenId, 
+    getPlantByName, 
+    createPlantByAdmin, 
+    createPlantByUser,
+    plantsPopularity,
+    updatePlantByAdmin, 
+    updatePlantByUser, 
+    getPlantById, 
+    deletePlantUser,
+    deletePlantAdmin, 
+    getAllPlants, 
+    getAllAdminPlants,
+    getNumOfPlants,
+    getPlantsByKeyWord
+};

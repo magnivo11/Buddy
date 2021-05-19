@@ -11,12 +11,12 @@ const { deletePlantUser } = require('./plantService');
 const createGarden = async(name,direction,directSun,surrounding,userID)=>{
 
     const garden= new Garden({
-    name:name,
-    direction:direction,
-    directSun:directSun,
-    surrounding:surrounding,
-    userID:userID,
-    plants:[]
+        name:name,
+        direction:direction,
+        directSun:directSun,
+        surrounding:surrounding,
+        userID:userID,
+        plants:[]
     }); 
     User.findById(userID,(err,user)=>{
         if(user)
@@ -86,23 +86,46 @@ const deleteGarden = async(gardenID,userID)=>{
 
 const getAllSelectedGardens = async(Direction,DirectSun,Surrounding)=>{
     var gar;
-  await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
-      if(gardens)
-      gar=gardens
-      else
-      return gar='no gardens found'
+    await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
+        if(gardens)
+        gar=gardens
+        else
+        return gar='no gardens found'
 
-  })
-  return gar
+    })
+    return gar
+};
 
-}
+const getGardensByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await Garden.aggregate([
+      {
+        $match: {
+          $or: [
+            { name: { $regex: string, $options: 'i' } },
+            { direction: { $regex: string, $options: 'i' } },
+            { surrounding: { $regex: string, $options: 'i' } }          ]
+        }
+      }
+    ]);
+};
+
+const getNumOfGardens = async()=>{
+    return await Garden.countDocuments();
+};
 
 module.exports={
-createGarden,
-getAllGardens,
-deleteGarden,
-getGardenById,
-getGardensByUserId,
-editGarden,
-getAllSelectedGardens
+    createGarden,
+    getAllGardens,
+    deleteGarden,
+    getGardenById,
+    getGardensByUserId,
+    editGarden,
+    getAllSelectedGardens,
+    getGardensByKeyWord,
+    getNumOfGardens
 };

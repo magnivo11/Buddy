@@ -71,6 +71,18 @@ function checkRequired(field) {
     toast(camelize(field) + " is required");
     return false;
   }
+  if (field==='optimalTemp'){
+    if (document.getElementById(field).value>50 || document.getElementById(field).value<(-12)){
+    toast(camelize(field) + " is not in the range of -12 to 50");
+    return false;
+    }
+  }
+  if (field==='optimalSunExposure'|| field==='optimalSoilMoisture'){
+    if (document.getElementById(field).value>100 || document.getElementById(field).value<0){
+    toast(camelize(field) + " is not in the range of 0 to 100");
+    return false;
+    }
+  }
   return true;
 }
 

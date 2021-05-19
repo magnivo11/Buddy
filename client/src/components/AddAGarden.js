@@ -9,8 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function AddAGarden() {
   const userId = window.sessionStorage.getItem('userID');
   const history = useHistory();
-  const [direction, setDirection] = React.useState("")
-  const [surroundings, setSurroundings] = React.useState("")
+  const [direction, setDirection] = React.useState("south")
+  const [surroundings, setSurroundings] = React.useState("indoor")
   const [sunlight, setSunlight] = React.useState(false)
 
 
@@ -88,7 +88,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId,history) {
 
   e.preventDefault();
   const name = document.getElementById('name').value;
-  if (checkRequired('name') && checkState(direction,"Direction") && checkState(surroundings,"Surroundings") && checkState(sunlight,"Sunlight")) {
+  if (checkRequired('name')) {
     const newGarden = {
       name: camelize(name),
       direction: direction,
@@ -108,13 +108,6 @@ function checkRequired(field) {
   return true;
 }
 
-function checkState(field,fieldname) {
-  if (field == "") {
-    toast(fieldname +" is required");
-    return false;
-  }
-  return true;
-}
 function camelize(str) {
   const field = str.replaceAll('_', ' ');
   return field.charAt(0).toUpperCase() + field.slice(1);

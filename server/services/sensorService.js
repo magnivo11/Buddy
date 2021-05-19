@@ -6,27 +6,27 @@ const Garden = require('../models/gardenModel')
 const Plant = require('../models/plantModel')
 
 
-const createSensor = async(plantID,sensorId)=>{
+ const createSensor = async(plantID,sensorId)=>{
    // var randomSerial= Math.floor(Math.random() * 100);    
     const sensor= new Sensor({
       serialNumber: sensorId,
       plantID: plantID
    }); 
 
-     await sensor.save((err,sensor)=>{
-      mongoose.set('useFindAndModify', false);
-         Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{
-         var sensorID= sensor._id;
-         var day=1;
-      setInterval(function() {
-         if(day<9){
-         var rand= Math.floor(Math.random() * 20);     // returns a random integer from 0 to 9
-         fabricateData(sensorID,day,rand);
-         day++;}
+   await sensor.save((err,sensor)=>{
+   mongoose.set('useFindAndModify', false);
+   Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{
+   var sensorID= sensor._id;
+   var day=1;
+   setInterval(function() {
+      if(day<9){
+      var rand= Math.floor(Math.random() * 20);     // returns a random integer from 0 to 9
+      fabricateData(sensorID,day,rand);
+      day++;}
       }, 60 * 1);
    })
-         return sensor;
-      });
+   return sensor;
+   });
       
 };
 
@@ -282,7 +282,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
  }
 
- const sendNotification=(userID,plant,gardenName,status,type)=>{
+const sendNotification=(userID,plant,gardenName,status,type)=>{
    const notification= new Notification({
       userID:userID, 
       plantStatus:status,
@@ -293,11 +293,32 @@ const getSensorBySerialNumber = async(serialNumber)=>{
       gardenName:gardenName
    });    
 
-
    notification.save()
+}
 
- }
+const updateSensors = async(sensorID, plantID) =>{
+   return await Sensor.find({userID: id},(err,sensor)=>{
+      sensor.serialNumber=plantID;
+      sensor.save();
+   });
+};
 
+const getSensorsByKeyWord = async (string) => {
+
+   if (!string) {
+      string = "";
+   }
+
+   return await Sensor.aggregate([
+      {
+         $match: {
+         $or: [
+            { serialNumber: { $regex: string, $options: 'i' } }
+         ]
+         }
+      }
+   ]);
+};
 
 module.exports={
    getAllSensors, 
@@ -306,5 +327,7 @@ module.exports={
    deleteSensor,
    fabricateData,
    getSensorBySerialNumber,
-   realTimeData
+   realTimeData,
+   getSensorsByKeyWord,
+   updateSensors
 };

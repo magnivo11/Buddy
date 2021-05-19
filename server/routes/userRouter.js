@@ -32,10 +32,16 @@ router.get('/groupedbyadmin', userController.getUsersGroupedByAdmin);
 router.get('/:id', userController.getUserById);
 
 router.get('/', userController.getUsers);
+router.get('/count/active', userController.getActiveUsers);
+
+router.get('/filter/:key', userController.getUsersByKeyWord);
 
 router.post('/', userController.createUser);
 
 router.put('/', userController.updateUser);
+router.patch('/', userController.updateUser);
+
+router.delete('/:userID', userController.deleteUser);
 
 router.put('/changepass', userController.changePassword);
 

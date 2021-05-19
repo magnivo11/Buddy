@@ -2,7 +2,7 @@ import TextField from '@material-ui/core/TextField'
 import React from 'react';
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../Images/LB.png';
+import logo from '../Images/logoBuddy.jpg';
 
 
 export default function ForgotPassword() {

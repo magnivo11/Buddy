@@ -1,7 +1,7 @@
 const { request, response } = require('express');
 const { findByIdAndUpdate, findOneAndUpdate } = require('../models/plantModel');
-const Plant = require('../models/plantModel');
-const plantService = require('../services/plantService');
+const Plant=require('../models/plantModel');
+const plantService = require('../services/plantService'); 
 const express = require("express");
 const path = require("path");
 const multer = require("multer");
@@ -9,16 +9,20 @@ const mongoose = require("mongoose");
 const app = express();
 const Photo = mongoose.model("photos");
 const router = express.Router();
- 
-const createPlantByUser = async (request, repsonse) => {
 
-    const newPlant =
-        await plantService.createPlantByUser(
-            request.body.species,
-            request.body.isUserPlant,
-            request.body.growthStatus,
-            request.body.GardenID
-        )
+var emitter = require('../common/emitter');
+var myEmitter = emitter.myEmitter;
+
+const createPlantByUser= async(request,repsonse)=>{
+
+    const newPlant=  
+        await plantService.createPlantByUser(  
+        request.body.species,
+        request.body.isUserPlant,
+        request.body.growthStatus,
+        request.body.GardenID
+        );
+    myEmitter.emit('createPlant');
 };
 
 const createPlantByAdmin = async (request, response) => {
@@ -48,18 +52,20 @@ const createPlantByAdmin = async (request, response) => {
         if (err) {
             response.send(err)
         }
-        else
+        else{
+            myEmitter.emit('createPlant');
             response.send(plant)
+        }
     });
 };
 
+const deletePlantUser = async(request,response)=>{
+    const plant= await plantService.deletePlantUser(request.body.plantID,request.body.gardenID);
 
+    if (!plant){
+    return response.status(404).json({errors:['Plant not found']});}
 
-const deletePlantUser = async (request, response) => {
-    const plant = await plantService.deletePlantUser(request.body.plantID, request.body.gardenID);
-    if (!plant) {
-        return response.status(404).json({ errors: ['Plant not found'] });
-    }
+    myEmitter.emit('deletePlant');
     response.send();
 }
 
@@ -70,9 +76,14 @@ const getPlantById = async (request, response) => {
     response.json(plant);
 };
 
-const getPlantsByGardenId = async (request, response) => {
-    const gardens = await plantService.getPlantsByGardenId(request.params.gardenId);
-    response.json(gardens);
+const getPlantsByGardenId = async (request,response)=>{
+     const plants = await plantService.getPlantsByGardenId(request.params.gardenId);
+    response.json(plants); 
+}
+
+const getNumOfPlants = async (request,response)=>{
+    const count = await plantService.getNumOfPlants();
+   response.json(count); 
 }
 
 const plantsPopularity = async (request, response) => {
@@ -125,15 +136,36 @@ const getAllAdminPlants = async (request, response) => {
     response.json(plants);
 };
 
-const deletePlantAdmin = async (request, response) => {
-    const plant = await plantService.deletePlantAdmin(request.body.plantID);
-    if (!plant) {
-        return response.status(404).json({ errors: ['Plant not found'] });
-    }
-    response.send();
-}
+const deletePlantAdmin = async(request,response)=>{
+    const plant= await plantService.deletePlantAdmin(request.body.plantID);
+    
+    if (!plant){
+    return response.status(404).json({errors:['Plant not found']});}
 
-module.exports = {
-    getPlantsByGardenId, plantsPopularity, getPlantByName, createPlantByAdmin, createPlantByUser,
-    updatePlantByAdmin, updatePlantByUser, getPlantById, deletePlantUser, deletePlantAdmin, getAllPlants, getAllAdminPlants
+    myEmitter.emit('deletePlant');
+    response.send();
+};
+
+const getPlantsByKeyWord = async (request, response) => {
+    const plants = await plantService.getPlantsByKeyWord(request.params.key)
+    if (!plants)
+        return response.status(404).json({ errors: ['Plants not found'] });
+    response.json(plants);
+};
+
+module.exports={
+    getPlantsByGardenId,
+    plantsPopularity,
+    getPlantByName, 
+    createPlantByAdmin, 
+    createPlantByUser, 
+    updatePlantByAdmin,
+    updatePlantByUser, 
+    getPlantById, 
+    deletePlantUser,
+    deletePlantAdmin, 
+    getAllPlants, 
+    getAllAdminPlants,
+    getNumOfPlants,
+    getPlantsByKeyWord
 };

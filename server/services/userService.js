@@ -86,6 +86,7 @@ const verifyToken = async (resetPasswordToken) => {
          return user;
     }
 }
+
 const changePassword = async (password,id) => {
     console.log(password);
     console.log(id);
@@ -101,9 +102,6 @@ const changePassword = async (password,id) => {
         return user;
     }
 }
-
-
-
 
 const deleteUser = async (id) => {
     const user = User.getUserById(id);
@@ -125,31 +123,30 @@ const deleteUser = async (id) => {
     }
     return user;
 };
-const getAllPostsFromUser = async (id) => {
-    const user = User.findOne({ _id: id });
-    if (!user) {
-        return null;
-    }
-    else {
-        return user;
-    }
+
+const getAllPostsFromUser = async(id)=>{
+    const user = User.findOne({_id:id});
+    if(!user){
+        return null;}
+    else{
+        return user;}
 };
-const getAllNotificationsFromUser = async (id) => {
-    const notifications = Notification.find({ userID: id })
-    if (!notifications) {
-        return null;
-    }
-    else {
-        return notifications;
-    }
+
+const getAllNotificationsFromUser = async(id)=>{
+    const notifications = Notification.find({userID:id})
+    if(!notifications){
+        return null;}
+    else{
+        return notifications;}
 };
-const setAllNotificationsToSeen = async (id) => {
-    Notification.find({ userID: id }, (err, notifications) => {
-        if (notifications)
-            notifications.map((data, key) => {
-                data.seen = true
-                data.save()
-            })
+
+const setAllNotificationsToSeen =async (id)=>{
+    Notification.find({userID:id},(err,notifications)=>{
+        if(notifications)
+        notifications.map((data,key)=>{
+            data.seen=true
+            data.save()
+        })
     })
 }
 
@@ -163,6 +160,25 @@ const getAllUnReadNotificationsFromUser = async (id) => {
     }
 };
 
+const getUsersByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await User.aggregate([
+      {
+        $match: {
+          $or: [
+            { email: { $regex: string, $options: 'i' } },
+            { firstName: { $regex: string, $options: 'i' } },
+            { lastName: { $regex: string, $options: 'i' } },
+            { description: { $regex: string, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+};
 
 const forgotPassword = async (user) => {
      const token = crypto.randomBytes(20).toString('hex');
@@ -195,9 +211,6 @@ const forgotPassword = async (user) => {
     return token; 
 }
 
-
-
-
 module.exports = {
     createUser,
     forgotPassword,
@@ -213,5 +226,6 @@ module.exports = {
     setAllNotificationsToSeen,
     getAllUnReadNotificationsFromUser,
     verifyToken,
-    changePassword
+    changePassword,
+    getUsersByKeyWord
 };

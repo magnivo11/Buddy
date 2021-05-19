@@ -11,15 +11,15 @@ import { HttpClient } from '@angular/common/http';
 export class RealTimeService {
   
   currentActiveUsersCounter = this.socket.fromEvent<Number>('countActiveUsers');
-  currentCategoriesCounter = this.socket.fromEvent<Number>('countCategories');
+  currentPlantsCounter = this.socket.fromEvent<Number>('countPlants');
   currentPostsCounter = this.socket.fromEvent<Number>('countPosts');
-  private filterUrl = environment.filtersUrl;
+  private usersUrl = environment.usersUrl;
 
   constructor(private socket: Socket, private http: HttpClient) {
   }
 
   getNumOfActiveUsers(): Observable<Number> {
-    const url = `${this.filterUrl}/activeUsers`;
+    const url = `${this.usersUrl}/count/active`;
     return this.http.get<Number>(url);
   }
 }

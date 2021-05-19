@@ -28,6 +28,14 @@ const createPost = async(content, status, userID )=>{
 const getPostById = async(id)=> {return await Post.findById(id)};
 const getAllPosts = async()=>{return await Post.find({})};
 
+const getPostsByUser = async(id)=> {
+    return await Post.find({userID: id})
+};
+
+const getNumOfPosts = async()=>{
+    return await Post.countDocuments();
+};
+
 const updatePost = async(postID,content,status) =>{
     Post.findById(postID,(err,post)=>{
         post.content=content;
@@ -36,7 +44,8 @@ const updatePost = async(postID,content,status) =>{
         post.save();
     });
     return true;
-    };
+};
+
 const deletePost = async(postID,userID)=>{
     const post = await getPostById(postID);
     if(!post){
@@ -60,15 +69,40 @@ const deletePost = async(postID,userID)=>{
                  user.save();
             }
         })
-    await post.remove();
+        await post.remove();
 
-    return post;
+        return post;
     }
-    };
+};
+
+const getPostsByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await Post.aggregate([
+      {
+        $match: {
+          $or: [
+            { title: { $regex: string, $options: 'i' } },
+            { subTitle: { $regex: string, $options: 'i' } },
+            { category: { $regex: string, $options: 'i' } },
+            { img: { $regex: string, $options: 'i' } },
+            { body: { $regex: string, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+};
+
 module.exports={
     createPost,
     getPostById,
     getAllPosts,
     updatePost,
-    deletePost
+    deletePost,
+    getNumOfPosts,
+    getPostsByUser,
+    getPostsByKeyWord
 };
