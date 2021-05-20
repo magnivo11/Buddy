@@ -23,7 +23,7 @@ export default function Plant() {
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
-  const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' });
+  const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' ,showHistory:false});
  
 
   //set plant from server
@@ -37,7 +37,7 @@ export default function Plant() {
           if (data.sensorID)
             axios.get('http://localhost:8080/sensor/' + data.sensorID).then((Response) => {
               setSensor(Response.data)
-              setChartData({ data: Response.data.soilMoisture, title: 'Soil Moisture', optimal: data.optimalSoilMoisture })
+              setChartData({ data: Response.data.soilMoisture, title: 'Soil Moisture', optimal: data.optimalSoilMoisture,showHistory:false })
             })
           //set plant's garden from server
           fetch('http://localhost:8080/garden/find/' + data.GardenID)
@@ -74,7 +74,17 @@ export default function Plant() {
     }
 
 
-    setChartData({ title: e.target.value, data: data, optimal: optimalValue })
+    setChartData({ title: e.target.value, data: data, optimal: optimalValue,showHistory:chartData.showHistory })
+  }
+
+  //changes the chart period of display (last 10/plant history)
+  const showHistory=(e)=>{
+
+if(e.target.value=='last 10')
+  setChartData({ title: chartData.title, data: chartData.data, optimal: chartData.optimal,showHistory:false })
+if(e.target.value=='plant history')
+  setChartData({ title: chartData.title, data: chartData.data, optimal: chartData.optimal,showHistory:true })
+
   }
 
 
@@ -119,13 +129,15 @@ export default function Plant() {
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
                      </form> </div> :
                     <div>
+                       <button type="button" value='last 10' onClick={showHistory} class="btn btn-default"> last 10</button>
+                       <button type="button" value='plant history' onClick={showHistory} class="btn btn-default"> plant history</button>
                       <div style={{ display: 'flex', flexDirection: 'raw' }} class='header'>
 
                         <button type="button" value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
                         <button type="button" value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
                         <button type="button" value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
                       </div>
-                      <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal}></Chart>
+                      <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal} showHistory={chartData.showHistory}></Chart>
                     </div>
 
                   }
