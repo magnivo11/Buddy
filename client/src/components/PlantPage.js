@@ -10,6 +10,7 @@ import '../css/plantPage.css';
 import Chart from './Chart';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UploadImage from './UploadImage';
 
 const data = require('../files/data.json');
 
@@ -107,6 +108,8 @@ export default function Plant() {
 
                     <form onSubmit={(e) => {
                       addSensor(e, plantID)
+                      history.push('/mygardens')
+
                     }}>
                       <div style={{ fontFamily: "Open Sans" }}>
                         <p className="noSensor section-title " style={{ color: 'white' }}>Looks like you haven't added a sensor to your plant</p>
@@ -135,7 +138,13 @@ export default function Plant() {
                     axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
                     history.push('/mygardens')
                   }}>
-                  <span style={{ color: 'black' }} >Delete Plant</span></button>
+                  <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
+                  <h2 style={{ fontSize: '30px' }}>
+                    {plant.species} photos</h2>
+                    <UploadImage plantID={plantID} type="plant" ></UploadImage>
+              <div>
+              </div>
+              
               </div>
             </div>
           </div>
@@ -153,12 +162,12 @@ function addSensor(e, plantID) {
   var sensorId = document.getElementById('sensorId').value;
   if (sensorId != '') {
     const newSensor = {
-      plantID: plantID,
+      plantID: plantID, 
       sensorId: sensorId
     }
     axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
-        toast("The sensor added , refresh the page to load the Graphs") 
+        toast("The sensor added successfully"); 
       }
     });
   }
