@@ -27,6 +27,7 @@ const deletePost=(postID)=>{
         data => {setUser(data)})
       
   }, []);
+  React.useEffect(() => {
   axios.get('http://localhost:8080/post').then(Response => {
     if (posts.length != Response.data.length)
     {
@@ -35,8 +36,8 @@ const deletePost=(postID)=>{
       setPosts(postIDList);
       setChange(false);
     }
+})  }, []);
 
-})
 
     return (
     <section id="hero"  style={{overflow:'scroll'}} >
