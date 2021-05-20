@@ -69,7 +69,7 @@ return(
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">
-                      {editPermission&& <Link className="w3-center"  to={`/edituser/${userID}`}>
+                      {editPermission&& <Link className="w3-center"  to={`/edituser`}>
                       <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" style={{textAlign:'center'}} /> Edit My Profile</Link>}
 
                       </div>

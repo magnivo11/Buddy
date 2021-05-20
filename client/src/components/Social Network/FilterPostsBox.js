@@ -2,7 +2,7 @@
 
 export default function FilterPostsBox({posts, setPosts}) {
 
-  const [Allposts,setAllPosts]=React.useState([]);
+  const [Allposts,setAllPosts]=React.useState(posts);
 
   React.useEffect(() => {
   fetch('http://localhost:8080/post')
@@ -11,7 +11,7 @@ export default function FilterPostsBox({posts, setPosts}) {
       }
     )
 }, []);
-const [status, setStatus] = React.useState("")
+const [status, setStatus] = React.useState("green")
 
 const handleStatusChange = (event) => {
   setStatus(event.target.value);
@@ -31,9 +31,9 @@ const handleStatusChange = (event) => {
                  <a>
                  Filter posts by status:&nbsp;
                   <select value={status} onChange={handleStatusChange}>
-                    <option style={{color:'green'}}value="green" >Green</option>
-                    <option style={{color:'orange'}}value="orange">Yellow</option>
-                    <option style={{color:'red'}}value="red">Red</option>
+                    <option style={{color:'green'}}value="green" >Look at me</option>
+                    <option style={{color:'orange'}}value="orange">Question</option>
+                    <option style={{color:'red'}}value="red">Help</option>
                   </select>
                 </a> &nbsp;&nbsp;
                   <button  style={{border:'white'}} type="submit" className="w3-button w3-theme-d2 w3-margin-bottom"> Filter</button> &nbsp;
@@ -50,6 +50,8 @@ const handleStatusChange = (event) => {
     }
     
 function filterPosts(e,status,setPosts,Allposts){
+  console.log(status);
+  console.log(Allposts.filter((post)=>(post.status ===status)))
   e.preventDefault();
     setPosts(Allposts.filter((post)=>(post.status ===status)))
 }
