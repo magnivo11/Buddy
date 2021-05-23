@@ -79,6 +79,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
          })
         
           sensor.save()
+          myEmitter.emit('sensor update')
          return (sensor)
        }
     })
