@@ -33,6 +33,8 @@ import Resetscreen from './Resetscreen';
 
 const socket = io.connect("http://localhost:8080");
 
+
+
 function App() {
 
     if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
@@ -40,7 +42,6 @@ function App() {
 
     const [render, forceRender] = React.useState(false);
     const [newNotifications, setNewNotifications] = React.useState(0);
-
 
     var userID = window.sessionStorage.getItem('userID')
     React.useEffect(() => {
@@ -52,6 +53,15 @@ function App() {
         }
 
     }, [])
+
+    socket.on('sensor update',()=>{
+        if (userID) {
+            axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
+                setNewNotifications(Response.data.length)
+
+            })
+        }
+    })    
 
 
 
