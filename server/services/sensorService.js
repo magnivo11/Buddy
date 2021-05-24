@@ -44,7 +44,6 @@ const getSensorBySerialNumber = async(serialNumber)=>{
            return sensor;}
 }
  const realTimeData= async(serialNumber,soilMoisture,temperature,light)=>{
-
    //finding the sensor
    await Sensor.findOne({serialNumber:serialNumber},(err,sensor)=>{
        if(err)

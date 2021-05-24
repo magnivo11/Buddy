@@ -148,7 +148,7 @@ if(e.target.value=='plant history')
                   <button style={{ width: '120px', background: 'white' }} className="button" type="submit"
                   onClick={() => {
                     axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
-                    history.push('/mygardens')
+                    window.location="/singlegarden/"+plant.GardenID
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
                   <h2 style={{ fontSize: '30px' }}>
@@ -179,7 +179,7 @@ function addSensor(e, plantID) {
     }
     axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
-        toast("The sensor added successfully"); 
+        toast("The sensor was added successfully"); 
       }
     });
   }

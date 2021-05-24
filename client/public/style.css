@@ -5,13 +5,15 @@
 * License: https://bootstrapmade.com/license/
 */
 
-/*by shir*/
-.fixedContainer{
-
-margin-top: 20;
-
+.constDistance {
+  position: relative;
+  top: 30px;
 }
 
+.notificationsConstDistance {
+  position: absolute;
+  top: 10px;
+}
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -1705,16 +1707,10 @@ section {
   color:'white';
   text-align:'left';
 }
-.notificationBack{
-  background-color: rgba(255, 255, 255, 0.4);
-}
-.notificationCard{
-  height: 30px;
-}
+
 .notificationText{
-  font-size:10px;
-  color:black;
-  text-transform: lowercase;
+  font-size:'18px';
+  color:'white'
 }
 
 

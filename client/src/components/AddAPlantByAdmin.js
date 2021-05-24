@@ -1,17 +1,14 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
 
 
 export default function AddAPlantByAdmin() {
-
-  const history = useHistory();
 
   return (
     <div style={{ fontFamily: "Open Sans" }}>
@@ -24,7 +21,7 @@ export default function AddAPlantByAdmin() {
                 <h1 style={{ fontSize: '35px', color: '#51361A' }} >Add A Plant To Database</h1>
               </div>
               <form style={{ fontSize: '10px' }} onSubmit={(e) => {
-                addAPlantByAdmin(e,history)
+                addAPlantByAdmin(e)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="species" className="fadeIn second" placeholder="Species" />
                 <input style={{ fontSize: '12px' }} type="text" id="irrigationInstructors" className="fadeIn second" placeholder="Irrigation Instructors" />
@@ -35,7 +32,7 @@ export default function AddAPlantByAdmin() {
                 <br></br>
                 <br></br>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button>&nbsp;
-              <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
+              <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
             </div>
           </div>
@@ -45,7 +42,7 @@ export default function AddAPlantByAdmin() {
   );
 }
 
-function addAPlantByAdmin(e, history) {
+function addAPlantByAdmin(e) {
 
   e.preventDefault();
   if (checkRequired('species') && checkRequired('irrigationInstructors') && checkRequired('optimalTemp') &&
@@ -63,7 +60,7 @@ function addAPlantByAdmin(e, history) {
         toast(Response.data.message)
       }
     });
-    history.push('plantsbible')
+    window.location='/plantsbible/';
   }
 }
 function checkRequired(field) {

@@ -110,9 +110,9 @@ function addAPlant(e, gardenID, selected, growthStatus,history) {
     GardenID: gardenID
   }
   axios.post('http://localhost:8080/plant/ByUser', newPlant);
-  history.push('/singleGarden/' + gardenID)
+  window.location='/singleGarden/' + gardenID;
 }
-}
+} 
 function checkState(field,fieldName) {
   if (field == 'Select plant' ||field=="") {
     toast(fieldName + " is required");
