@@ -37,9 +37,9 @@ export default function Post({postID, change,deletePost,editPost}) {
       }, [change]);
 
     var red=false; var green=false; var orange=false;
-    if (post.status=='red') red=true;
-    if (post.status=='orange') orange=true;
-    if (post.status=='green') green=true;
+    if (post.status=='Help') red=true;
+    if (post.status=='Question') orange=true;
+    if (post.status=='Tip') green=true;
 
 
     const d = new Date(post.published);

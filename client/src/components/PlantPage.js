@@ -92,15 +92,15 @@ if(e.target.value=='plant history')
 
   return (
     <div style={{ fontFamily: "Open Sans" }}>
-      <section id="hero" className="d-flex align-items-center" style={{ overflow: 'scroll' }}>
+      <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-          <div className="container" data-aos="fade-up"  >
+          <div className="container " data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">
                 <ul className="nav nav-tabs flex-column d-none d-lg-block">
                   {/*Title*/}
-                  <div className="section-title " >
-                    <br></br><br /><br /><br />
+                  <div className="section-title fixedContainer" >
+                    <br></br><br /><br /><br /><br/>{plant.sensorID && <div><br/><br/></div>}
                     <p >{garden.name} Garden </p>
                   </div>
                   {/*Left buttons*/}
@@ -108,7 +108,7 @@ if(e.target.value=='plant history')
                 </ul>
               </div>
               <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-                <div className="section-title" > <br></br><br /><br /><br />
+                <div className="section-title" > <br></br><br /><br /><br /><br/><br/>{plant.sensorID && <div><br/><br/></div>}
                   <h2 style={{ fontSize: '45px' }}>
                     {plant.species} </h2>
                 </div>

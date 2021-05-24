@@ -14,12 +14,13 @@ export default function NewsFeed(){
   const [posts,setPosts]=React.useState([]);
   const [change,setChange]=React.useState(false);
 
-
-const deletePost=(postID)=>{
-  setPosts(posts.filter((post)=>(post.postID !==postID)))
-  setChange(true);
-  axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
-}
+  const deletePost=(postID)=>{
+    if (window.confirm('Are you sure you want to delete this post?')){
+      setPosts(posts.filter((post)=>(post !==postID)))
+      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      window.location='/newsfeed'
+      }
+  }
 
   React.useEffect(() => {
     fetch('http://localhost:8080/user/'+userID)

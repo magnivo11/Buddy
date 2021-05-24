@@ -1,10 +1,8 @@
-import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
 import React,{inputRef,useRef} from 'react';
 import {Link} from 'react-router-dom'
 
 
-export default function AddAPostBox({usersFirstName,posts,setPosts}) {
+export default function AddAPostBox({target, usersFirstName,posts,setPosts}) {
     const inputRef = React.useRef(null);
     const userId= window.sessionStorage.getItem('userID');
 

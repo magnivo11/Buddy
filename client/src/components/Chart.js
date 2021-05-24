@@ -72,7 +72,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
         "@media (max-width: 700px)": {
             width:300,        height:200        },
         width:500,
-        height:400,
+        height:250,
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
         animationEnabled: true,	
         title:{
