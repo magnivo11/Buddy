@@ -1,13 +1,12 @@
 import '../../css/Forms.css'
 import axios from 'axios'
-import { Redirect, useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import React from 'react';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {Link} from 'react-router-dom'
 
 
-export default function AddAPost() {
+export default function AddAPost({target}) {
   const userId = window.sessionStorage.getItem('userID');
   const history = useHistory();
   const inputRef = React.useRef(null);
@@ -36,14 +35,14 @@ export default function AddAPost() {
                 <p>Status:</p>
                   </label>
                     <label className="radio-inline">
-                    <input type="radio" id='green' name="status" /> <label style={{color:'green'}}htmlFor="south">Look at me</label><br/>
+                    <input type="radio" id='Tip' name="status" /> <label style={{color:'green'}}htmlFor="south">Look at me</label><br/>
                   </label> 
 
                     <label className="radio-inline">
-                    <input type="radio" id='orange' name="status"  /><label style={{color:'orange'}} htmlFor="west">Question</label><br />
+                    <input type="radio" id='Question' name="status"  /><label style={{color:'orange'}} htmlFor="west">Question</label><br />
                     </label>    
                     <label className="radio-inline">
-                <input  type="radio" id='red' name="status"  /> <label style={{color:'red'}} htmlFor="north">Help &nbsp;&nbsp;</label><br />
+                <input  type="radio" id='Help' name="status"  /> <label style={{color:'red'}} htmlFor="north">Help &nbsp;&nbsp;</label><br />
                   </label>          
                    </div>
                    <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;
@@ -64,43 +63,24 @@ function addAPost(e,inputRef,userId,history){
   e.preventDefault();
   const form = document.forms.postForm;
   const statusArray = form.elements.status;
-  var status;
-
+console.log(statusArray)
   //getting content
   const content=inputRef.current.value;
-  //getting status
-  for(var i = 0; i <statusArray.length; i++){
-    if(statusArray[i].checked){
-        status=statusArray[i].id;}}
+  let selectedStatus;
+  statusArray.forEach((status)=>status.checked? selectedStatus=status.id:null);
  
     const newPost= { 
     content:content,
-    status:status,
+    status:selectedStatus,
     userID:userId
   }
-
+console.log(newPost)
     axios.post('http://localhost:8080/post/',newPost)
-    history.push('/newsfeed');
+    window.location='/newsfeed'
 
 }
 
 
-function addAGarden(e, direction, surroundings, sunlight, userId,history) {
-
-  e.preventDefault();
-  const name = document.getElementById('name').value;
-  if (checkRequired('name') && checkState(direction,"Direction") && checkState(surroundings,"Surroundings") && checkState(sunlight,"Sunlight")) {
-    const newGarden = {
-      name: name,
-      direction: direction,
-      directSun: sunlight,
-      surroundings: surroundings,
-      userID: userId
-    }
-    axios.post('http://localhost:8080/garden/', newGarden);
-    history.push('/mygardens');
-  }
-}
 function checkRequired(field) {
   if (document.getElementById(field).value.length == 0) {
     toast(camelize(field) + " is required");

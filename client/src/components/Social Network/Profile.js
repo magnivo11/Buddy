@@ -26,8 +26,10 @@ export default function Profile(){
      axios.put('http://localhost:8080/post/',{data:{postID:postID,content:content,status:status}})
   }
   const deletePost=(postID)=>{
-    setPosts(posts.filter((post)=>(post !==postID)))
-    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+    if (window.confirm('Are you sure you want to delete this post?')){
+      setPosts(posts.filter((post)=>(post !==postID)))
+      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      }
   }
 
     //fetching user information from server
@@ -100,7 +102,7 @@ return(
                 </div>
                 <div className="col-lg-8">
                 <div className="profile-feed" style={{textAlign:'left'}}>
-                <AddAPostBox posts={posts} setPosts={setPosts} usersFirstName= {currentUser.firstName} change={change} setChange={setChange}/>
+                <AddAPostBox posts={posts} target={"profile"}setPosts={setPosts} usersFirstName= {currentUser.firstName} change={change} setChange={setChange}/>
                 <PostList posts={posts} change={change} editPost={editPost} deletePost={deletePost}/>
                    
                   </div>
