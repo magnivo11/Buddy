@@ -1,6 +1,5 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import { Redirect, useHistory } from 'react-router-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddAGarden() {
   const userId = window.sessionStorage.getItem('userID');
-  const history = useHistory();
   const [direction, setDirection] = React.useState("south")
   const [surroundings, setSurroundings] = React.useState("indoor")
   const [sunlight, setSunlight] = React.useState(false)
@@ -35,7 +33,7 @@ export default function AddAGarden() {
               </div>
 
               <form onSubmit={(e) => {
-                addAGarden(e, direction, surroundings, sunlight, userId,history)
+                addAGarden(e, direction, surroundings, sunlight, userId)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder="Garden Name" />
                 <br />
@@ -69,7 +67,7 @@ export default function AddAGarden() {
                 <br /><br />
 
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
 
             </div>
@@ -84,7 +82,7 @@ export default function AddAGarden() {
 
 
 
-function addAGarden(e, direction, surroundings, sunlight, userId,history) {
+function addAGarden(e, direction, surroundings, sunlight, userId) {
 
   e.preventDefault();
   const name = document.getElementById('name').value;
@@ -97,7 +95,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId,history) {
       userID: userId
     }
     axios.post('http://localhost:8080/garden/', newGarden);
-    history.push('/mygardens');
+    window.location='/mygardens';
   }
 }
 function checkRequired(field) {

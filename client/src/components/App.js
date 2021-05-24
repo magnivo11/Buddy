@@ -62,7 +62,7 @@ function App() {
             })
         }
     })    
-
+    console.log(newNotifications)
 
 
     return (

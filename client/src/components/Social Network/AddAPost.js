@@ -35,7 +35,7 @@ export default function AddAPost({target}) {
                 <p>Status:</p>
                   </label>
                     <label className="radio-inline">
-                    <input type="radio" id='Tip' name="status" /> <label style={{color:'green'}}htmlFor="south">Look at me</label><br/>
+                    <input type="radio" id='Tip' name="status" /> <label style={{color:'green'}}htmlFor="south">Tip</label><br/>
                   </label> 
 
                     <label className="radio-inline">

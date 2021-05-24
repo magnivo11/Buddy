@@ -25,7 +25,7 @@ export default function AddAPostBox({target, usersFirstName,posts,setPosts}) {
                 <p>Status:</p>
                   </label>
                     <label className="radio-inline">
-                    <input type="radio" id='green' name="status" /> <label style={{color:'green'}}htmlFor="south">Look at me</label><br/>
+                    <input type="radio" id='green' name="status" /> <label style={{color:'green'}}htmlFor="south">Tip</label><br/>
                   </label> 
 
                     <label className="radio-inline">

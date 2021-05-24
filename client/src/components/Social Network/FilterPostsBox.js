@@ -1,17 +1,20 @@
- import React,{inputRef,useState,useRef} from 'react';
+ import { post } from 'jquery';
+import React,{inputRef,useState,useRef} from 'react';
 
 export default function FilterPostsBox({posts, setPosts}) {
 
-  const [Allposts,setAllPosts]=React.useState(posts);
+  const [AllPosts,setAllPosts]=React.useState(posts);
+
 
   React.useEffect(() => {
   fetch('http://localhost:8080/post')
     .then(response => response.json()).then(
-      data => {setAllPosts(data)
+      data => {
+        setAllPosts(data);
       }
     )
 }, []);
-const [status, setStatus] = React.useState("green")
+const [status, setStatus] = React.useState("Tip")
 
 const handleStatusChange = (event) => {
   setStatus(event.target.value);
@@ -25,15 +28,15 @@ const handleStatusChange = (event) => {
                 <div className="w3-container w3-padding"> 
             
               <form name='filterForm' style= {{fontSize: '10px', textAlign:'center',border:'black'}}   onSubmit={(e)=>{
-              filterPosts(e,status,setPosts,Allposts)
+              filterPosts(e,status,setPosts,AllPosts)
             }}>
                 <div className="filterPosts">
                  <a>
                  Filter posts by status:&nbsp;
                   <select value={status} onChange={handleStatusChange}>
-                    <option style={{color:'green'}}value="green" >Look at me</option>
-                    <option style={{color:'orange'}}value="orange">Question</option>
-                    <option style={{color:'red'}}value="red">Help</option>
+                    <option style={{color:'green'}}value="Tip" >Tip</option>
+                    <option style={{color:'orange'}}value="Question">Question</option>
+                    <option style={{color:'red'}}value="Help">Help</option>
                   </select>
                 </a> &nbsp;&nbsp;
                   <button  style={{border:'white'}} type="submit" className="w3-button w3-theme-d2 w3-margin-bottom"> Filter</button> &nbsp;
@@ -49,9 +52,8 @@ const handleStatusChange = (event) => {
       );
     }
     
-function filterPosts(e,status,setPosts,Allposts){
-  console.log(status);
-  console.log(Allposts.filter((post)=>(post.status ===status)))
+function filterPosts(e,status,setPosts,AllPosts){
   e.preventDefault();
-    setPosts(Allposts.filter((post)=>(post.status ===status)))
+  setPosts(AllPosts.filter((post)=>post.status == status).map((status)=>status._id))
+
 }

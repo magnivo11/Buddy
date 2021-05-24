@@ -34,7 +34,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             )
             }
           )
-      }, [change]);
+      }, [change,postID]);
 
     var red=false; var green=false; var orange=false;
     if (post.status=='Help') red=true;
