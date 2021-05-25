@@ -15,7 +15,7 @@ export default function Notification({date,status,type,plantID,gardenName,plantS
         <div style={{textAlign: 'left'}} className="notificationContainer">
         <Link 
         className="nav-link"  to={`/plant/${plantID}`}>
-                    {message.icon&&<i class={message.icon} style={{color:"black"}}/>}&nbsp;&nbsp;
+                    {message.icon&&<i class={message.icon} style={{color:"#cda45e"}}/>}&nbsp;&nbsp;
             <a className="notificationText">{message.text} </a> &nbsp;&nbsp;
             <a style={{fontSize:'10px'}}>  {"   "+time+" min ago"}</a>
         </Link>

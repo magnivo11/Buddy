@@ -1,7 +1,8 @@
-body{margin-top:20px;}
 
 body {
     color: #6c7293;
+    overflow-x:hidden;
+
 }
 
 .profile-navbar .nav-item .nav-link {
