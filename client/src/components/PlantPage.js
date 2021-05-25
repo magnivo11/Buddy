@@ -11,11 +11,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadImage from './UploadImage';
 import PhotoSlide from './PhotoSlide';
+import socket from '../common/ReactSocket'
 
 
 const data = require('../files/data.json');
 
 export default function Plant() {
+  
 
   const history = useHistory();
   var index = window.location.toString().lastIndexOf('/') + 1
@@ -24,13 +26,16 @@ export default function Plant() {
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
+  const [lastUpdated, setLastUpdated] = React.useState(Date.now());
+
  
   const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' ,showHistory:false});
  
  
-  //set plant from server
+ 
   React.useEffect(() => {
 
+     //set plant from server
     fetch('http://localhost:8080/plant/' + plantID)
       .then(response => response.json()).then(
         data => {
@@ -49,9 +54,15 @@ export default function Plant() {
               })
         }
       )
-  }, [plantID]);
+  }, [plantID,lastUpdated]);
 
-
+  //changes last time the data from sensor was updated
+  React.useEffect(() => {
+    socket.on('sensor update',()=>{
+      setLastUpdated(Date.now())
+})
+  },[])
+  
 
 
   //change the chart data (soil/temp/light)

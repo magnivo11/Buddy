@@ -103,6 +103,7 @@ io.on('connection', (socket) => {
         });
 
         myEmitter.on('send sensor update',()=>{
+            socket.broadcast.emit('check notifications')
             socket.broadcast.emit('sensor update')
         })
     }
@@ -131,8 +132,7 @@ app.use(cors({
     credentials: true
 }));
 
- app.use(bodyParser.json());
- 
+app.use(bodyParser.json());
 
 //passport uses
 app.use(require('body-parser').urlencoded({ extended: true }));
