@@ -14,12 +14,13 @@ export default function NewsFeed(){
   const [posts,setPosts]=React.useState([]);
   const [change,setChange]=React.useState(false);
 
-
-const deletePost=(postID)=>{
-  setPosts(posts.filter((post)=>(post.postID !==postID)))
-  setChange(true);
-  axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
-}
+  const deletePost=(postID)=>{
+    if (window.confirm('Are you sure you want to delete this post?')){
+      setPosts(posts.filter((post)=>(post !==postID)))
+      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      window.location='/newsfeed'
+      }
+  }
 
   React.useEffect(() => {
     fetch('http://localhost:8080/user/'+userID)
@@ -27,6 +28,7 @@ const deletePost=(postID)=>{
         data => {setUser(data)})
       
   }, []);
+  React.useEffect(() => {
   axios.get('http://localhost:8080/post').then(Response => {
     if (posts.length != Response.data.length)
     {
@@ -35,9 +37,9 @@ const deletePost=(postID)=>{
       setPosts(postIDList);
       setChange(false);
     }
+})  }, []);
 
-})
-
+console.log(posts)
     return (
     <section id="hero"  style={{overflow:'scroll'}} >
       <section  style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 

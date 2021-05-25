@@ -88,6 +88,10 @@ myEmitter.on('deletePost', () => {
     myEmitter.emit('emitPost');
 });
 
+myEmitter.on('sensor update',()=>{
+    myEmitter.emit('send sensor update')
+})
+
 io.on('connection', (socket) => {
     if (socket.handshake.headers.origin === process.env.REACT_URL) {
         ActiveUsers.countActiveUsers++;
@@ -97,6 +101,10 @@ io.on('connection', (socket) => {
             ActiveUsers.countActiveUsers--;
             socket.broadcast.emit('countActiveUsers', ActiveUsers.countActiveUsers);
         });
+
+        myEmitter.on('send sensor update',()=>{
+            socket.broadcast.emit('sensor update')
+        })
     }
 
     else if (socket.handshake.headers.origin === process.env.ANGULAR_URL) {

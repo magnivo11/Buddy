@@ -34,12 +34,12 @@ export default function Post({postID, change,deletePost,editPost}) {
             )
             }
           )
-      }, [change]);
+      }, [change,postID]);
 
     var red=false; var green=false; var orange=false;
-    if (post.status=='red') red=true;
-    if (post.status=='orange') orange=true;
-    if (post.status=='green') green=true;
+    if (post.status=='Help') red=true;
+    if (post.status=='Question') orange=true;
+    if (post.status=='Tip') green=true;
 
 
     const d = new Date(post.published);
@@ -67,9 +67,9 @@ export default function Post({postID, change,deletePost,editPost}) {
                 <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>
-            {red&&<a style={{background:'red'}}class="round-button"></a>}
-            {green&&<a style={{background:'green'}}class="round-button"></a>}
-            {orange&&<a style={{background:'orange'}} class="round-button"></a>}
+            {red&&<a style={{background:'red'}}className="round-button"></a>}
+            {green&&<a style={{background:'green'}}className="round-button"></a>}
+            {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
             {ownersPermissions&& <div>

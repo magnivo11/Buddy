@@ -5,9 +5,11 @@ const Sensor = require('../models/sensorsModel')
 const Garden = require('../models/gardenModel')
 const Plant = require('../models/plantModel')
 
+var emitter = require('../common/emitter');
+var myEmitter = emitter.myEmitter;
 
- const createSensor = async(plantID,sensorId)=>{
-   // var randomSerial= Math.floor(Math.random() * 100);    
+
+ const createSensor = async(plantID,sensorId)=>{   
     const sensor= new Sensor({
       serialNumber: sensorId,
       plantID: plantID
@@ -15,16 +17,7 @@ const Plant = require('../models/plantModel')
 
    await sensor.save((err,sensor)=>{
    mongoose.set('useFindAndModify', false);
-   Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{
-   var sensorID= sensor._id;
-   var day=1;
-   setInterval(function() {
-      if(day<9){
-      var rand= Math.floor(Math.random() * 20);     // returns a random integer from 0 to 9
-      fabricateData(sensorID,day,rand);
-      day++;}
-      }, 60 * 1);
-   })
+   Plant.findByIdAndUpdate(plantID,{sensorID:sensor._id},(err,plant)=>{})
    return sensor;
    });
       
@@ -50,37 +43,24 @@ const getSensorBySerialNumber = async(serialNumber)=>{
        else{
            return sensor;}
 }
-
- const fabricateData = async(sensorID,day,rand)=>{
-   // Sensor.findById(sensorID,(err,sensor)=>{
-   //    if (sensor){      
-   //     sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
-   //     sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 6, 0, 0, 0)});
-   //     sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 6, 0, 0, 0)});
-       
-   //     sensor.temperature.push({value:30+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
-   //     sensor.soilMoisture.push({value:60+rand,date:new Date(2020, 7, day, 18, 0, 0, 0)});
-   //     sensor.light.push({value:60+rand, date:new Date(2020, 7, day, 18, 0, 0, 0)});
-   //    sensor.save();
-   //    }
-   //    });
-   //  return true;
- };
-
-
  const realTimeData= async(serialNumber,soilMoisture,temperature,light)=>{
-
+   //finding the sensor
    await Sensor.findOne({serialNumber:serialNumber},(err,sensor)=>{
        if(err)
        return(err)
        if(sensor)
        {          
+          //saving data to the sensor
          sensor.temperature.push({value:temperature,date:new Date()});
          sensor.soilMoisture.push({value:soilMoisture,date:new Date()});
          sensor.light.push({value:light,date:new Date()});
+
+         //finding plant
          Plant.findOne({sensorID:sensor._id},(err,plant)=>{
             if(plant)
                Garden.findById(plant.GardenID,(err,garden)=>{
+                  
+                  //runnig tests according to the recived data and evaluating the plant's status
                   checkLastIrrigation(plant,soilMoisture)
                   tempTest(plant,temperature)
                   soilTest(plant,soilMoisture)
@@ -98,6 +78,7 @@ const getSensorBySerialNumber = async(serialNumber)=>{
          })
         
           sensor.save()
+          myEmitter.emit('sensor update')
          return (sensor)
        }
     })
@@ -105,7 +86,6 @@ const getSensorBySerialNumber = async(serialNumber)=>{
 
  const tempTest=async(plant,temperature)=>{
     
-   
    //begining of test
      var status;
      var delta=temperature-plant.optimalTemp
@@ -120,56 +100,34 @@ const getSensorBySerialNumber = async(serialNumber)=>{
      else 
      status=-3;
 
-    
-
-    
-    
-
-
-       //gives notification only when the status changes for worse or first measurement which is not 1
-
+    //gives notification only when the status changes for worse or first measurement which is not 1
        if(plant.tempStatus&&plant.tempStatus!=status &&status!=1 ||plant.tempStatus==null&&status!=1){
-    
-         Garden.findById(plant.GardenID,(err,garden)=>{
-
+           Garden.findById(plant.GardenID,(err,garden)=>{
             if(garden)
-            sendNotification(garden.userID,plant,garden.name,status,'temperature')
-
+               sendNotification(garden.userID,plant,garden.name,status,'temperature')
          })    
       }  
       else
       {
-
          Garden.findById(plant.GardenID,(err,garden)=>{
-
             if(garden){
-
+               //saving current temperature in garden
                garden.currentTemp={value:temperature,date:Date.now()}
                garden.save()
-            }
-         
+            }         
          })
-
       }               
-    
-     
-     
-
-
+    //saving status and last value
   plant.tempStatus=status
   plant.lastTemp={value:temperature,date:new Date()}
 
-   //   plant.save()
-     
-     
    
  }
 
 
  const soilTest=async(plant,soilMoisture)=>{
 
-  
-
+   //begining of test
    var status;
    var delta=soilMoisture-plant.optimalSoilMoisture
    if(delta>20)
@@ -183,47 +141,33 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    else 
       status=-3;
 
-
-  
-
+ //gives notification only when the status changes for worse or first measurement which is not 1
    if(plant.moistStatus&&plant.moistStatus!=status &&status!=1 ||plant.moistStatus==null&&status!=1){
-    
       Garden.findById(plant.GardenID,(err,garden)=>{
-
          if(garden)
          sendNotification(garden.userID,plant,garden.name,status,'soilMoisture')
-
       })    
    }  
    else
    {
-
       Garden.findById(plant.GardenID,(err,garden)=>{
-
          if(garden){
-
+         //saving current soil moisture in garden
             garden.currentMoist={value:soilMoisture,date:Date.now()}
             garden.save()
          }
-
-     
       })
+   }   
 
-   }               
-
-
-      
+ //saving status and last value 
    plant.moistStatus=status
    plant.lastSoil={value:soilMoisture,date:new Date()}
-
-   // plant.save()
-
-
  }
 
 
  const lightTest=async(plant,light)=>{
 
+  //begining of test
    var status;
    var delta=light-plant.optimalSunExposure
    if(delta>20)
@@ -237,49 +181,34 @@ const getSensorBySerialNumber = async(serialNumber)=>{
    else 
    status=-3;
 
-
-   
-
+ //gives notification only when the status changes for worse or first measurement which is not 1
    if(plant.lightStatus&&plant.lightStatus!=status &&status!=1 ||plant.lightStatus==null&&status!=1){
-    
       Garden.findById(plant.GardenID,(err,garden)=>{
-
          if(garden)
          sendNotification(garden.userID,plant,garden.name,status,'light')
-
       })    
    }  
    else
    {
-
       Garden.findById(plant.GardenID,(err,garden)=>{
          if(garden){
 
+            //saving current sun exposure in garden
             garden.currentLight={value:light,date:Date.now()}
             garden.save()
          }
-
-    
       })
+   }        
 
-   }               
-   
-      
+    //saving status and last value
    plant.lightStatus=status
    plant.lastLight={value:light,date:new Date()}
-
-   // plant.save()
-
-
  }
 
  const checkLastIrrigation =async (plant,soilMoisture)=>{
       if(plant.lastSoil)
          if(plant.lastSoil.value<soilMoisture)
             plant.lastIrrigation=Date.now()
-
-
-
  }
 
 const sendNotification=(userID,plant,gardenName,status,type)=>{
@@ -325,7 +254,6 @@ module.exports={
    createSensor,
    getSensorById,
    deleteSensor,
-   fabricateData,
    getSensorBySerialNumber,
    realTimeData,
    getSensorsByKeyWord,

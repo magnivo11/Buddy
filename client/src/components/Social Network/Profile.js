@@ -26,8 +26,10 @@ export default function Profile(){
      axios.put('http://localhost:8080/post/',{data:{postID:postID,content:content,status:status}})
   }
   const deletePost=(postID)=>{
-    setPosts(posts.filter((post)=>(post !==postID)))
-    axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+    if (window.confirm('Are you sure you want to delete this post?')){
+      setPosts(posts.filter((post)=>(post !==postID)))
+      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      }
   }
 
     //fetching user information from server
@@ -69,7 +71,7 @@ return(
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">
-                      {editPermission&& <Link className="w3-center"  to={`/edituser/${userID}`}>
+                      {editPermission&& <Link className="w3-center"  to={`/edituser`}>
                       <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" style={{textAlign:'center'}} /> Edit My Profile</Link>}
 
                       </div>
@@ -100,7 +102,7 @@ return(
                 </div>
                 <div className="col-lg-8">
                 <div className="profile-feed" style={{textAlign:'left'}}>
-                <AddAPostBox posts={posts} setPosts={setPosts} usersFirstName= {currentUser.firstName} change={change} setChange={setChange}/>
+                <AddAPostBox posts={posts} target={"profile"}setPosts={setPosts} usersFirstName= {currentUser.firstName} change={change} setChange={setChange}/>
                 <PostList posts={posts} change={change} editPost={editPost} deletePost={deletePost}/>
                    
                   </div>

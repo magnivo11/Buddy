@@ -24,9 +24,10 @@ export default function Plant() {
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
-  const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' });
-
-
+ 
+  const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' ,showHistory:false});
+ 
+ 
   //set plant from server
   React.useEffect(() => {
 
@@ -38,7 +39,7 @@ export default function Plant() {
           if (data.sensorID)
             axios.get('http://localhost:8080/sensor/' + data.sensorID).then((Response) => {
               setSensor(Response.data)
-              setChartData({ data: Response.data.soilMoisture, title: 'Soil Moisture', optimal: data.optimalSoilMoisture })
+              setChartData({ data: Response.data.soilMoisture, title: 'Soil Moisture', optimal: data.optimalSoilMoisture,showHistory:false })
             })
           //set plant's garden from server
           fetch('http://localhost:8080/garden/find/' + data.GardenID)
@@ -75,30 +76,40 @@ export default function Plant() {
     }
 
 
-    setChartData({ title: e.target.value, data: data, optimal: optimalValue })
+    setChartData({ title: e.target.value, data: data, optimal: optimalValue,showHistory:chartData.showHistory })
+  }
+
+  //changes the chart period of display (last 10/plant history)
+  const showHistory=(e)=>{
+
+if(e.target.value=='last 10')
+  setChartData({ title: chartData.title, data: chartData.data, optimal: chartData.optimal,showHistory:false })
+if(e.target.value=='plant history')
+  setChartData({ title: chartData.title, data: chartData.data, optimal: chartData.optimal,showHistory:true })
+
   }
 
 
 
   return (
     <div style={{ fontFamily: "Open Sans" }}>
-      <section id="hero" className="d-flex align-items-center" style={{ overflow: 'scroll' }}>
+      <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-          <div className="container" data-aos="fade-up"  >
+          <div className="container constDistance" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">
                 <ul className="nav nav-tabs flex-column d-none d-lg-block">
                   {/*Title*/}
-                  <div className="section-title " >
-                    <br></br><br /><br /><br />
-                    <p >{garden.name} Garden </p>
+                  <div className="section-title fixedContainer" >
+  
+                    <p >{garden.name}</p>
                   </div>
                   {/*Left buttons*/}
                   {garden && <ButtonsGardensList setPlantID={setPlantID} gardenID={garden._id} />}
                 </ul>
               </div>
               <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-                <div className="section-title" > <br></br><br /><br /><br />
+                <div className="section-title" > {plant.sensorID && <div><br/><br/></div>}
                   <h2 style={{ fontSize: '45px' }}>
                     {plant.species} </h2>
                 </div>
@@ -119,13 +130,15 @@ export default function Plant() {
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div> :
                     <div>
+                       <button type="button" value='last 10' onClick={showHistory} class="btn btn-default"> last 10</button>
+                       <button type="button" value='plant history' onClick={showHistory} class="btn btn-default"> plant history</button>
                       <div style={{ display: 'flex', flexDirection: 'raw' }} class='header'>
 
                         <button type="button" value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
                         <button type="button" value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
                         <button type="button" value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
                       </div>
-                      <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal}></Chart>
+                      <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal} showHistory={chartData.showHistory}></Chart>
                     </div>
 
                   }
@@ -136,7 +149,7 @@ export default function Plant() {
                   <button style={{ width: '120px', background: 'white' }} className="button" type="submit"
                   onClick={() => {
                     axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
-                    history.push('/mygardens')
+                    window.location="/singlegarden/"+plant.GardenID
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
                 <h2 style={{ fontSize: '30px' }}>
@@ -165,8 +178,9 @@ function addSensor(e, plantID) {
     }
     axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
-        toast("The sensor added successfully");
-      }
+ 
+        toast("The sensor was added successfully"); 
+       }
     });
   }
   else {

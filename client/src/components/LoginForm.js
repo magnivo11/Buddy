@@ -1,7 +1,7 @@
 import '../css/Forms.css';
 import '../css/Buttons.scss'
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../Images/logoBuddy.jpg';
+import logo from '../Images/Logos/full logo in circle@4x.png';
 import React from 'react';
 import axios from 'axios'
 
