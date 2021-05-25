@@ -36,7 +36,7 @@ const socket = io.connect("http://localhost:8080");
 
 
 function App() {
-
+    
     if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
         window.history.replaceState(null, "New Page Title", "/")
 

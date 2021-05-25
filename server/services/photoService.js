@@ -1,56 +1,70 @@
- const { response } = require('express');
+const { PACKAGE_ROOT_URL } = require('@angular/core');
+const { response } = require('express');
 const { toast } = require('react-toastify');
 const Photo = require('../models/photoModel')
 const Plant = require('../models/plantModel')
 
+const addPhotoToOwner = async (type, plantID, photo) => {
+    if (type == "plant") {
+        await Plant.findById(plantID, (err, plant) => {
+            if (plant) {
+                plant.photos.push(photo);
+                plant.save()
+                return plant;
+            }
+        })
+    }
+    if (type == "user") {
 
- 
-const createPhoto = async(link,name)=>{
- 
-    const photo= new Photo({
-        link:link,
-        name:name
+    }
+    if (type == "post") {
+
+    }
+}
+
+
+
+const createPhoto = async (link, name) => {
+
+    const photo = new Photo({
+        link: link,
+        name: name
     });
 
-    await photo.save((err,photo)=>{
-        if(err)
-        {
-        return err;
+    console.log("service:");
+    console.log(photo);
+    await photo.save((err, img) => {
+        if (err) {
+            console.log("ERR");
+            return err;
         }
-         return photo;
-    }); 
+    });
 
-    // Plant.findById(plantID,(err,plant)=>{
-    //     if (plant){
-    //         plant.photos.push(photo);
-    //         plant.save();
-    //     }
-    // });
+    return photo;
 
-    // return await photo.save();
+
 
 };
 
 
-const getPhoto = async(id)=>{return await Photo.findById(id)};
+const getPhoto = async (id) => { return await Photo.findById(id) };
 
-const getAllPhotos = async()=>{return await Photo.find({});}
+const getAllPhotos = async () => { return await Photo.find({}); }
 
- 
 
-const editPhoto = async(id,link) =>{
-    const photo=Photo.getPhoto(id);
+
+const editPhoto = async (id, link) => {
+    const photo = Photo.getPhoto(id);
     if (!photo)
         return null;
-    else
-    {
-        photo.link=link; 
+    else {
+        photo.link = link;
     }
     await photo.save;
-    return photo; 
-    };
+    return photo;
+};
 
-const deletePhoto= async(id)=> {
+const deletePhoto = async (id) => {
     const delPhoto = await getPhoto(id);
     if (!delPhoto)
         return null;
@@ -59,10 +73,11 @@ const deletePhoto= async(id)=> {
     return true;
 };
 
-module.exports={
+module.exports = {
     createPhoto,
     deletePhoto,
     editPhoto,
     getPhoto,
-    getAllPhotos
+    getAllPhotos,
+    addPhotoToOwner,
 };

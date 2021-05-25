@@ -1,7 +1,6 @@
 import '../css/Timeline.scss';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Redirect, useHistory,Link } from 'react-router-dom';
+ import axios from 'axios'
 import React from 'react';
 import DrawGraph from './Graph'
 import ButtonsGardensList from './ButtonsGardensList';
@@ -11,6 +10,8 @@ import Chart from './Chart';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadImage from './UploadImage';
+import PhotoSlide from './PhotoSlide';
+
 
 const data = require('../files/data.json');
 
@@ -23,9 +24,10 @@ export default function Plant() {
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
+ 
   const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' ,showHistory:false});
  
-
+ 
   //set plant from server
   React.useEffect(() => {
 
@@ -89,7 +91,6 @@ if(e.target.value=='plant history')
 
 
 
-
   return (
     <div style={{ fontFamily: "Open Sans" }}>
       <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
@@ -127,7 +128,7 @@ if(e.target.value=='plant history')
                       </div>
                       <input type="text" id="sensorId" name="sensorId" style={{ width: '290px' }} placeholder="Enter Serial Number (on device)" />
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
-                     </form> </div> :
+                    </form> </div> :
                     <div>
                        <button type="button" value='last 10' onClick={showHistory} class="btn btn-default"> last 10</button>
                        <button type="button" value='plant history' onClick={showHistory} class="btn btn-default"> plant history</button>
@@ -151,12 +152,10 @@ if(e.target.value=='plant history')
                     window.location="/singlegarden/"+plant.GardenID
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
-                  <h2 style={{ fontSize: '30px' }}>
-                    {plant.species} photos</h2>
-                    <UploadImage plantID={plantID} type="plant" ></UploadImage>
-              <div>
-              </div>
-              
+                <h2 style={{ fontSize: '30px' }}>
+                  {plant.species} photos</h2>
+                <UploadImage plantID={plantID} type="plant" ></UploadImage>
+                <PhotoSlide plantID={plantID}></PhotoSlide>
               </div>
             </div>
           </div>
@@ -174,13 +173,14 @@ function addSensor(e, plantID) {
   var sensorId = document.getElementById('sensorId').value;
   if (sensorId != '') {
     const newSensor = {
-      plantID: plantID, 
+      plantID: plantID,
       sensorId: sensorId
     }
     axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
+ 
         toast("The sensor was added successfully"); 
-      }
+       }
     });
   }
   else {

@@ -131,7 +131,8 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(bodyParser.json());
+ app.use(bodyParser.json());
+ 
 
 //passport uses
 app.use(require('body-parser').urlencoded({ extended: true }));
