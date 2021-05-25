@@ -1,7 +1,6 @@
 import '../css/Timeline.scss';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Redirect, useHistory,Link } from 'react-router-dom';
+ import axios from 'axios'
 import React from 'react';
 import DrawGraph from './Graph'
 import ButtonsGardensList from './ButtonsGardensList';
@@ -11,6 +10,8 @@ import Chart from './Chart';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadImage from './UploadImage';
+import PhotoSlide from './PhotoSlide';
+
 
 const data = require('../files/data.json');
 
@@ -24,7 +25,7 @@ export default function Plant() {
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
   const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' });
- 
+
 
   //set plant from server
   React.useEffect(() => {
@@ -79,7 +80,6 @@ export default function Plant() {
 
 
 
-
   return (
     <div style={{ fontFamily: "Open Sans" }}>
       <section id="hero" className="d-flex align-items-center" style={{ overflow: 'scroll' }}>
@@ -117,7 +117,7 @@ export default function Plant() {
                       </div>
                       <input type="text" id="sensorId" name="sensorId" style={{ width: '290px' }} placeholder="Enter Serial Number (on device)" />
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
-                     </form> </div> :
+                    </form> </div> :
                     <div>
                       <div style={{ display: 'flex', flexDirection: 'raw' }} class='header'>
 
@@ -139,12 +139,10 @@ export default function Plant() {
                     history.push('/mygardens')
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
-                  <h2 style={{ fontSize: '30px' }}>
-                    {plant.species} photos</h2>
-                    <UploadImage plantID={plantID} type="plant" ></UploadImage>
-              <div>
-              </div>
-              
+                <h2 style={{ fontSize: '30px' }}>
+                  {plant.species} photos</h2>
+                <UploadImage plantID={plantID} type="plant" ></UploadImage>
+                <PhotoSlide plantID={plantID}></PhotoSlide>
               </div>
             </div>
           </div>
@@ -162,12 +160,12 @@ function addSensor(e, plantID) {
   var sensorId = document.getElementById('sensorId').value;
   if (sensorId != '') {
     const newSensor = {
-      plantID: plantID, 
+      plantID: plantID,
       sensorId: sensorId
     }
     axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
-        toast("The sensor added successfully"); 
+        toast("The sensor added successfully");
       }
     });
   }

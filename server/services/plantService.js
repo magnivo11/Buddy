@@ -2,12 +2,12 @@ const { response } = require('express');
 const Sensor = require('../models/sensorsModel')
 const Plant = require('../models/plantModel')
 const Garden = require('../models/gardenModel')
- const Photo = require('../models/photoModel');
+const Photo = require('../models/photoModel');
 const { deletePhoto } = require('./photoService');
 const { deleteSensor } = require('./sensorService');
 const multer = require("multer");
- require('dotenv').config();
- const path = require('path'); 
+require('dotenv').config();
+const path = require('path');
 
 const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, optimalSoilMoisture, optimalSunExposure, description) => {
 
@@ -30,12 +30,12 @@ const createPlantByAdmin = async (species, irrigationInstructors, optimalTemp, o
         isUserPlant: false,
         defaultPhotoID: null
     });
-     await plant.save((err,plant)=>{
-        if(err){
-        return err.message
+    await plant.save((err, plant) => {
+        if (err) {
+            return err.message
         }
         else
-        return plant
+            return plant
     });
 };
 
@@ -75,15 +75,21 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
 
 };
 
-const getNumOfPlants = async()=>{
+const getNumOfPlants = async () => {
     return await Plant.countDocuments();
 };
+
+const getPhotos = async (id) => {
+    return await Plant.findById(id).populate('photos');
+};
+
 
 const getPlantById = async (id) => { return await Plant.findById(id) };
 
 const getPlantsByGardenId = async (gardenId) => {
     return await Plant.find({ GardenID: gardenId });
 };
+
 
 const getPlantByName = async (name) => {
     return await
@@ -113,7 +119,7 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
         if (growthStatus != null) {
             plant.growthStatus = growthStatus
         }
-        plant.updatedDate= Date.now();
+        plant.updatedDate = Date.now();
         plant.save();
     })
     return true;
@@ -145,32 +151,31 @@ const updatePlantByAdmin = async (id,
         if (defaultPhotoID != null) {
             plant.defaultPhotoID = defaultPhotoID
         }
-        plant.lastUpdated= Date.now();
+        plant.lastUpdated = Date.now();
         plant.save();
     })
     return true;
 };
 
 
- const plantsPopularity = async () => {
+const plantsPopularity = async () => {
     const allPlants = await getAllPlants();
-    var max = 0; 
-    var name = 'none'; 
-     const plantsSpecies = allPlants.map(plant => plant.species)
-     plantsSpecies.reduce((a, b) => {
+    var max = 0;
+    var name = 'none';
+    const plantsSpecies = allPlants.map(plant => plant.species)
+    plantsSpecies.reduce((a, b) => {
         a[b] = a[b] + 1 || 1;
-        if (max<a[b])
-         {
+        if (max < a[b]) {
             max = a[b]
-            name = b 
-          }
-         return a;
+            name = b
+        }
+        return a;
     }, {})
-       return name;
+    return name;
 }
 
-  const deletePlantUser = async (plantID, gardenID) => {
-     const plant = await getPlantById(plantID);
+const deletePlantUser = async (plantID, gardenID) => {
+    const plant = await getPlantById(plantID);
 
     if (!plant)
         return null;
@@ -199,7 +204,7 @@ const updatePlantByAdmin = async (id,
     return plant;
 };
 
-const deletePlantAdmin = async(plantID)=> {
+const deletePlantAdmin = async (plantID) => {
     const plant = await getPlantById(plantID);
     if (!plant)
         return null;
@@ -211,36 +216,37 @@ const deletePlantAdmin = async(plantID)=> {
 const getPlantsByKeyWord = async (string) => {
 
     if (!string) {
-      string = "";
+        string = "";
     }
-  
+
     return await Plant.aggregate([
-      {
-        $match: {
-          $or: [
-            { species: { $regex: string, $options: 'i' } },
-            { growthStatus: { $regex: string, $options: 'i' } },
-            { irrigationInstructors: { $regex: string, $options: 'i' } },
-            { description: { $regex: string, $options: 'i' } }
-          ]
+        {
+            $match: {
+                $or: [
+                    { species: { $regex: string, $options: 'i' } },
+                    { growthStatus: { $regex: string, $options: 'i' } },
+                    { irrigationInstructors: { $regex: string, $options: 'i' } },
+                    { description: { $regex: string, $options: 'i' } }
+                ]
+            }
         }
-      }
     ]);
 };
 
 module.exports = {
-    getPlantsByGardenId, 
-    getPlantByName, 
-    createPlantByAdmin, 
+    getPlantsByGardenId,
+    getPlantByName,
+    createPlantByAdmin,
     createPlantByUser,
     plantsPopularity,
-    updatePlantByAdmin, 
-    updatePlantByUser, 
-    getPlantById, 
+    updatePlantByAdmin,
+    updatePlantByUser,
+    getPlantById,
     deletePlantUser,
-    deletePlantAdmin, 
-    getAllPlants, 
+    deletePlantAdmin,
+    getAllPlants,
     getAllAdminPlants,
     getNumOfPlants,
-    getPlantsByKeyWord
+    getPlantsByKeyWord,
+    getPhotos
 };

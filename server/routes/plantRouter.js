@@ -39,6 +39,8 @@ router.delete('/byAdmin/',plantController.deletePlantAdmin);
 
 router.get('/popularity/all',plantController.plantsPopularity);
 
+router.get('/photos/all/:id',plantController.getPhotos);
+
  
 
 

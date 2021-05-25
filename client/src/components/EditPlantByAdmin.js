@@ -12,6 +12,7 @@ export default function EditPlantByAdmin() {
   const [plant, setPlant] = React.useState({ _id: '' });
   const history = useHistory();
 
+  
   React.useEffect(() => {
     fetch('http://localhost:8080/plant/' + plantID)
       .then(response => response.json()).then(
