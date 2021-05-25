@@ -5,9 +5,22 @@
 * License: https://bootstrapmade.com/license/
 */
 
+.backFirstPage{
+  background-color:rgba(117, 128, 107,0.65) ;
+}
+
 .constDistance {
   position: relative;
-  top: 30px;
+  top: 80px;
+}
+
+.singleGardenConstDistance {
+  top: 0;
+  bottom:0;
+  position:fixed;
+  display: block;
+  overflow-x:hidden;
+  background-color: rgba(117, 128, 107,0.85)
 }
 
 .notificationsConstDistance {
@@ -343,8 +356,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .container {
-  padding-top: 110px;
-}
+  padding-top: 10%;}
 
 @media (max-width: 992px) {
   #hero .container {

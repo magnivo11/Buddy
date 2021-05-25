@@ -28,29 +28,27 @@ export default function SingleGarden(){
   return (
 
   <div  style={{fontFamily: "Open Sans"}}>
-    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-       <section id="specials" className="specials constDistance" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
-            <div className="container " data-aos="fade-up"  >
-              <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                <div className="col-lg-3 d-none d-lg-block ">
-                  <ul className="nav nav-tabs flex-column ">
+         <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
+        <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
+          <div className="container singleGardenConstDistance" data-aos="fade-up"  >
+            <div className="row" data-aos="fade-up" data-aos-delay={100}>
+              <div className="col-lg-3">
+              <ul className="nav nav-tabs flex-column ">
                       {/*Title*/}
                       <div className="section-title" >
                         <h2 style={{fontSize:'36px'}}></h2>
                       </div>
-                      <h1></h1><br/>
                       <div className="d-none d-lg-block buttonsTop">
                        <ButtonsList ownerID= {ownerID}/>
                   </div>
                   </ul>
-               </div>
-               {/*Middle part*/}  
-               <div className="col-lg-9 mt-4 mt-lg-0">
+              </div>
+              <div className="col-lg-9 mt-4 mt-lg-0">
                   <div className="tab-content">
                      <div>
                         <div className="section-title " >
                      
-                          <p className="gardenName">{gardenName} Garden </p>
+                          <p className="gardenName">{gardenName} </p>
                           {garden.currentTemp&& <div>
                             {garden.currentTemp.value&&
                           <p style={{fontSize:'35px'}}>{garden.currentTemp.value}° </p>
@@ -69,10 +67,10 @@ export default function SingleGarden(){
                       </div>
                     </div>
                  </div>
-               </div>      
+               </div> 
             </div>
-         </div>
-       </section>
+          </div>
+        </section>
       </section>
     </div>
 
