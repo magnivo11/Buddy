@@ -21,7 +21,6 @@ import Profile from './Social Network/Profile';
 import AboutUs from './AboutUs';
 import Notifications from './Notifications/Notifications';
 import NewsFeed from './Social Network/NewsFeed';
-import io from "socket.io-client";
 import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
@@ -29,9 +28,7 @@ import EditPlantByAdmin from './EditPlantByAdmin';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
 import Resetscreen from './Resetscreen';
-
-
-const socket = io.connect("http://localhost:8080");
+import socket from '../common/ReactSocket'
 
 
 
@@ -54,7 +51,7 @@ function App() {
 
     }, [])
 
-    socket.on('sensor update',()=>{
+    socket.on('check notifications',()=>{
         if (userID) {
             axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
                 setNewNotifications(Response.data.length)
@@ -62,7 +59,8 @@ function App() {
             })
         }
     })    
-    console.log(newNotifications)
+
+      
 
 
     return (
