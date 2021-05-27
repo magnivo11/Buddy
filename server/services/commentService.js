@@ -59,11 +59,42 @@ const deleteComment = async(commentID,postID)=>{
     const getAllCommetsByPost = async(postID)=>{
         return await Comment.find({postID:postID}); 
 }
+
+const getSumOfCommentsByPost = async () => {
+    return await Comment.aggregate([
+        {
+        $group: {
+            _id: "$postID",
+            count: { $sum: 1 }
+        }
+        }
+    ]);
+}; 
+
+const getCommentsByKeyWord = async (string) => {
+
+    if (!string) {
+      string = "";
+    }
+  
+    return await Comment.aggregate([
+      {
+        $match: {
+          $or: [
+            { content: { $regex: string, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+};
+
 module.exports={
     createComment,
     getCommentById,
     getAllCommetsByPost,
     getAllComments,
     updateComment,
-    deleteComment
+    deleteComment,
+    getSumOfCommentsByPost,
+    getCommentsByKeyWord
 };

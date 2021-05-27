@@ -46,7 +46,7 @@ export class UsersListComponent implements OnInit {
 
   loadAll(){
     this.usersService.getUsers().subscribe(data => {
-      this.users = data.users;
+      this.users = data;
     }, err => {
       window.alert(err.error);
     });
@@ -59,25 +59,25 @@ export class UsersListComponent implements OnInit {
   }
 
   onCreate(){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.router.navigateByUrl('/CreateUser');
   }
 
   onEdit(user : User){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.router.navigateByUrl('/EditUser', { state: user });
   }
   onDelete(user : User){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.usersService.deleteUser(user._id).subscribe(data => {
       this.users.splice(this.users.indexOf(user),1);
     }, err => {
-      window.alert(err.error);
-      this.users.splice(this.users.indexOf(user),1);
+      window.alert(err);
+      //this.users.splice(this.users.indexOf(user),1);
     });
   }
   onDetails(user : User){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.router.navigateByUrl('/DetailsUser', { state: user });
   }
 

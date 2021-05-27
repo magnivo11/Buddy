@@ -17,11 +17,11 @@ export class CreateUserComponent implements OnInit {
     ngOnInit(): void {
     }
     
-    onCreate(firstName: string, lastName: string, email: string, password: string, phone: string){
-      if(firstName === '' || lastName === '' || email === '' || password === '' || phone === '' )
-      window.alert('Please fill all fields');
+    onCreate(firstName: string, lastName: string, email: string, password: string, description: string,isAdmin: Boolean){
+      if(firstName === '' || lastName === '' || email === '' || password === '' || description === '' || isAdmin === undefined)
+        window.alert('Please fill all fields');
       else{
-        this.usersService.addUser(firstName, lastName, email, password, phone, true).subscribe(data => {
+        this.usersService.addUser(firstName, lastName, email, password, description, true).subscribe(data => {
           this.user = data;
           this.router.navigate(['/table-list']);
         }, err => {

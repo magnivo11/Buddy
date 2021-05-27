@@ -4,7 +4,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
 
-import { CreateArticleComponent } from '../../table-list/articles-list/create-article/create-article.component';
+import { CreatePostComponent } from '../../table-list/posts-list/create-post/create-post.component';
 import { GraphsComponent } from '../../graphs/graphs.component';
 
 
@@ -56,7 +56,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent ,
     children: [
-        { path: 'CreateArticle',      component: CreateArticleComponent },
+        { path: 'CreatePost',      component: CreatePostComponent },
 
     ]},
     { path: 'graphs',          component: GraphsComponent },

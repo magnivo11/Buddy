@@ -3,11 +3,10 @@ import { Comment } from '../../../models/comment';
 
 import { CommentsService } from '../../../services/comments.service';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
-import { Article } from '../../../models/post';
-import { ArticlesService } from '../../../services/articles.service';
-
-
-
+import { Post } from '../../../models/post';
+import { User } from '../../../models/user';
+import { PostsService } from '../../../services/posts.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-edit-comment',
@@ -17,28 +16,31 @@ import { ArticlesService } from '../../../services/articles.service';
 export class EditCommentComponent implements OnInit {
   
     comment: Comment = null;
-    articles: Article[] = [];
+    posts: Post[] = [];
+    users: User[] = [];
 
-    constructor(private commentsService : CommentsService, private articlesService : ArticlesService,
+    constructor(private commentsService : CommentsService, private postsService : PostsService, private usersService : UsersService,
       private router:Router, private activatedRoute:ActivatedRoute) {
       //this.router.getCurrentNavigation().extras.state;
     }
   
     ngOnInit(): void {
-      this.articlesService.getArticles().subscribe(articles => {
-        this.articles = articles;
-      });
-
       this.comment=history.state;
+      this.postsService.getPosts().subscribe(posts => {
+        this.posts = posts;
+      });
+      this.usersService.getUsers().subscribe(users => {
+        this.users = users;
+      });
     }
   
-    onUpdate(name: String, articleId: String, body: String){
-      if(name === '' || articleId === undefined || body === '')
+    onUpdate(userID: String, postID: String, content: String){
+      if(userID === '' || postID === undefined || content === '')
         window.alert('Please fill all fields');
       else{
-        this.comment.name = name;
-        this.comment.articleId = articleId;
-        this.comment.body = body;
+        this.comment.userID = userID;
+        this.comment.postID = postID;
+        this.comment.content = content;
         this.commentsService.updateComment(this.comment).subscribe(data => {
           this.comment = data;
           this.router.navigate(['/table-list']);

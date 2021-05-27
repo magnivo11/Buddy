@@ -10,38 +10,46 @@
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <input #firstName matInput placeholder="First Name" />
                   </mat-form-field>
                 </div>
-                <div class="col-md-6">
-                    <mat-form-field class="example-full-width">
-                      <input #lastName matInput placeholder="Last Name" />
-                    </mat-form-field>
-                  </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #lastName matInput placeholder="Last Name" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <mat-select #isAdmin placeholder="Is Admin"> 
+                      <mat-option value="true">Yes</mat-option>
+                      <mat-option value="false">No</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input #email matInput placeholder="Email" />
+                    <input #description matInput placeholder="Description" />
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                    <mat-form-field class="example-full-width">
-                      <input #password matInput placeholder="Password" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-6">
-                    <mat-form-field class="example-full-width">
-                      <input #phone matInput placeholder="Phone Number" />
-                    </mat-form-field>
-                  </div>
+                  <mat-form-field class="example-full-width">
+                    <input #email matInput placeholder="Email" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input #password matInput placeholder="Password" />
+                  </mat-form-field>
+                </div>
               </div>
               <button
-                (click)="onCreate(firstName.value, lastName.value, email.value, password.value, phone.value)"
+                (click)="onCreate(firstName.value, lastName.value, email.value, password.value, description.value,isAdmin.value)"
                 mat-raised-button
                 type="submit"
                 class="btn btn-danger pull-right"

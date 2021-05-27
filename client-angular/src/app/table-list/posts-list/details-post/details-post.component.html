@@ -4,8 +4,8 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">Edit User</h4>
-            <p class="card-category">Complete your user</p>
+            <h4 class="card-title">Post Details</h4>
+            <p class="card-category">See your Post</p>
           </div>
           <div class="card-body">
             <form>
@@ -13,71 +13,97 @@
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input
-                      #firstName
+                      #status
+                      [value]="post.status"
                       matInput
-                      placeholder="First Name"
-                      value="{{ user.firstName }}"
+                      placeholder="Status"
+                      disabled
                     />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input
-                      #lastName
+                      #userID
+                      [value]="post.userID"
                       matInput
-                      placeholder="Last Name"
-                      value="{{ user.lastName }}"
+                      placeholder="User"
+                      disabled
                     />
                   </mat-form-field>
                 </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      #img
+                      [value]="post.photoID"
+                      matInput
+                      placeholder="Image ID"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      [value]="post.published"
+                      matInput
+                      placeholder="Published"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        [value]="post.lastUpdated"
+                        matInput
+                        placeholder="Last Update"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
-                    <input
-                      #description
+                    <textarea
+                      #content
+                      [value]="post.content"
+                      rows="5"
                       matInput
-                      placeholder="Description"
-                      value="{{ user.description }}"
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      #email
-                      matInput
-                      placeholder="Email"
-                      value="{{ user.email }}"
-                    />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="example-full-width">
-                    <input
-                      #password
-                      matInput
-                      placeholder="Password"
-                      value="{{ user.password }}"
-                    />
+                      placeholder="Content"
+                      disabled
+                    ></textarea>
                   </mat-form-field>
                 </div>
               </div>
               <button
-                (click)="onUpdate(firstName.value, lastName.value, email.value, password.value, description.value)"
+                (click)="onEdit()"
                 mat-raised-button
                 type="submit"
                 class="btn btn-danger pull-right"
               >
-                Update
+                Edit
               </button>
+              <button
+              (click)="onDelete()"
+              mat-raised-button
+              type="submit"
+              class="btn btn-danger pull-right"
+            >
+              Delete
+            </button>
               <div class="clearfix"></div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <app-comments-list [listFor]="listFor"></app-comments-list>
   </div>
 </div>

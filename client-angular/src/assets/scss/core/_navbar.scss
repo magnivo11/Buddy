@@ -1,7 +1,7 @@
 .navbar {
     border: 0;
     border-radius: $border-radius-base;
-    padding: 0.625rem 0;
+    padding: 0.625rem 30px;
     margin-bottom: 20px;
     @include navbar-colors($white-color, $navbar-color);
 
@@ -149,7 +149,7 @@
         @include navbar-colors($bg-success, $white-color);
     }
     &.bg-dark{
-        @include navbar-colors($grey-a200, $grey-900);
+        @include navbar-colors($grey-200, $white-color);
     }
 
     &.navbar-transparent{

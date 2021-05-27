@@ -9,12 +9,11 @@ import { environment } from '../../environments/environment';
 })
 export class CommentsService {
   private CommentUrl = environment.commentUrl;
-  private filterUrl = environment.filterUrl;
 
   constructor(private http: HttpClient) {}
   
   filter(key: string): Observable<any> {
-    const url = `${this.filterUrl}/comments/${key}`;
+    const url = `${this.CommentUrl}/filter/${key}`;
     return this.http.get<any>(url);
   }
 

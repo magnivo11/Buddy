@@ -11,6 +11,7 @@ mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNe
 const postController = require('../controllers/postController');  
 
 
+router.get('/count',postController.getNumOfPosts); 
 router.get('/:id',postController.getPostById); 
 
 router.get('/',postController.getAllPosts); 
@@ -22,7 +23,6 @@ router.put('/',postController.updatePost);
 
 router.delete('/',postController.deletePost);
 
-router.get('/count',postController.getNumOfPosts); 
 router.get('/user/:id',postController.getPostsByUser); 
 
 module.exports=router;

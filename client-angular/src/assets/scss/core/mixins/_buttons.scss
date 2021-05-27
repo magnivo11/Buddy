@@ -153,7 +153,7 @@
     @include bmd-flat-button-variant($btn-info-bg, $btn-info-bg, $btn-info-bg, $btn-info-bg);
   }
   &.btn-outline-success {
-    @include bmd-flat-button-variant($btn-success-bg, $btn-success-bg, $btn-success-bg, $btn-success-bg);
+    @include bmd-flat-button-variant($red-500, $red-500, $red-500, $red-500);
   }
   &.btn-outline-warning {
     @include bmd-flat-button-variant($btn-warning-bg, $btn-warning-bg, $btn-warning-bg, $btn-warning-bg);

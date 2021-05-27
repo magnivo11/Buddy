@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({

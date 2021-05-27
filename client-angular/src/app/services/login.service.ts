@@ -20,7 +20,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
   onLogin(data) {
-    const url = `${this.usersUrl}/adminLogin`;
+    const url = `${this.usersUrl}/login`;
     return this.http.post(url, data);
   }
   onUpdate(data) {

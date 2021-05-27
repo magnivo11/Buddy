@@ -36,6 +36,7 @@
     "nodemailer": "^6.6.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "postcss-scss": "^3.0.5",
     "query-string": "^6.13.8",
     "react": "^17.0.1",
     "react-d3": "^0.4.0",
@@ -58,8 +59,10 @@
   "scripts": {
     "server": "cd server && npm start",
     "client-dashboard": "cd client-dashboard && npm start",
+    "client-angular": "cd client-angular && npm start",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client-dashboard\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run client-dashboard\" \"npm run client\" ",
+    "dev-angular": "concurrently \"npm run server\" \"npm run client-angular\" "
   },
   "repository": {
     "type": "git",

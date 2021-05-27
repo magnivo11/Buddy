@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../services/statistics.service';
 import { Chart } from 'chart.js';
-import { map } from 'rxjs/operators';
 import { Statistic } from '../models/statistic';
 import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
@@ -42,22 +41,22 @@ export class GraphsComponent implements OnInit {
   }
 
   load() {
-    this.stat.getCategoriesStatistic().subscribe(res => {
+    this.stat.getPlantsStatistic().subscribe(res => {
 
       var count = res.map(o => o.count);
-      var cat = res.map(o => o._id);
-      this.doughnutChartLabels = cat;
+      var plant = res.map(o => o._id);
+      this.doughnutChartLabels = plant;
       this.doughnutChartData = count
       this.doughnutChartType = 'doughnut';
 
 
     });
 
-    this.stat.getArticlesStatistic().subscribe(res => {
+    this.stat.getPostsStatistic().subscribe(res => {
 
-      var article = res.map(o => o._id);
+      var post = res.map(o => o._id);
       var count = res.map(o => o.count);
-      this.barChartLabels = article;
+      this.barChartLabels = post;
       this.barChartData = [{ data: count, label: 'Count Of Comments' }]
 
     });
@@ -77,7 +76,58 @@ export class GraphsComponent implements OnInit {
       "#004d66",
       "#339966",
       "#ffbb33",
-      "#ffbb35"
+      "#ffbb35",
+      "#00FFFF",
+      "#00FF00",
+      "#FFE4C4",
+      "#87CEFA",
+      "#FFFFE0",
+      "#FF00FF",
+      "#90f997",
+      "#9790f9",
+      "#99e5e5",
+      "#f7bd83",
+      "#ffbb33",
+      "#004d66",
+      "#339966",
+      "#ffbb33",
+      "#ffbb35",
+      "#00FFFF",
+      "#00FF00",
+      "#FFE4C4",
+      "#87CEFA",
+      "#FFFFE0",
+      "#FF00FF",
+      "#90f997",
+      "#9790f9",
+      "#99e5e5",
+      "#f7bd83",
+      "#ffbb33",
+      "#004d66",
+      "#339966",
+      "#ffbb33",
+      "#ffbb35",
+      "#00FFFF",
+      "#00FF00",
+      "#FFE4C4",
+      "#87CEFA",
+      "#FFFFE0",
+      "#FF00FF",
+      "#90f997",
+      "#9790f9",
+      "#99e5e5",
+      "#f7bd83",
+      "#ffbb33",
+      "#004d66",
+      "#339966",
+      "#ffbb33",
+      "#ffbb35",
+      "#00FFFF",
+      "#00FF00",
+      "#FFE4C4",
+      "#87CEFA",
+      "#FFFFE0",
+      "#FF00FF",
     ]
   }];
 

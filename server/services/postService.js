@@ -33,13 +33,14 @@ const getPostsByUser = async(id)=> {
 };
 
 const getNumOfPosts = async()=>{
-    return await Post.countDocuments();
+    return await Post.countDocuments({});
 };
 
-const updatePost = async(postID,content,status) =>{
+const updatePost = async(postID,content,userID,status) =>{
     Post.findById(postID,(err,post)=>{
         post.content=content;
         post.status= status;
+        post.userID=userID;
         post.lastUpdated= Date.now();
         post.save();
     });
@@ -85,11 +86,8 @@ const getPostsByKeyWord = async (string) => {
       {
         $match: {
           $or: [
-            { title: { $regex: string, $options: 'i' } },
-            { subTitle: { $regex: string, $options: 'i' } },
-            { category: { $regex: string, $options: 'i' } },
-            { img: { $regex: string, $options: 'i' } },
-            { body: { $regex: string, $options: 'i' } }
+            { content: { $regex: string, $options: 'i' } },
+            { status: { $regex: string, $options: 'i' } }
           ]
         }
       }

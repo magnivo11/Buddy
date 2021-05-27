@@ -10,47 +10,36 @@
           <div class="card-body">
             <form>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input
-                      #name
-                      value="{{ comment.name }}"
-                      matInput
-                      placeholder="Name"
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Article</mat-label>
-                    <mat-select #articleId value={{comment.articleId}}>
-                      <mat-option *ngFor="let article of articles" [value]="article._id">
-                        {{article.title}}
+                    <mat-label>User</mat-label>
+                    <mat-select #userID [value]="comment.userID">
+                      <mat-option *ngFor="let user of users" [value]="user._id">
+                        {{user.firstName + ' ' + user.lastName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <!-- <mat-form-field 
-                  <!-- <mat-form-field class="example-full-width">
-                    <input
-                      #articleId
-                      value="{{ comment.articleId }}"
-                      matInput
-                      placeholder="Article ID"
-                    />
-                  </mat-form-field> -->
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Post</mat-label>
+                    <mat-select #postID [value]="comment.postID">
+                      <mat-option *ngFor="let post of posts" [value]="post._id">
+                        {{post._id}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
                     <textarea
-                      #body
+                      #content
                       rows="5"
                       matInput
-                      placeholder="Body"
-                      value="{{ comment.body }}"
+                      placeholder="Content"
+                      [value]="comment.content"
                     ></textarea>
                   </mat-form-field>
                 </div>
@@ -58,9 +47,9 @@
               <button
                 (click)="
                   onUpdate(
-                    name.value,
-                    articleId.value,
-                    body.value
+                    userID.value,
+                    postID.value,
+                    content.value
                   )
                 "
                 mat-raised-button
