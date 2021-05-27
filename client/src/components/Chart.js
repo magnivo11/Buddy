@@ -4,7 +4,9 @@ import CanvasJSReact from '../canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-export default function Chart({title,sensorData,optimalValue}){
+export default function Chart({title,sensorData,optimalValue,showHistory}){
+
+    /// a function to convert the time to sec/min dd/mm//yy
 
     const displyTime=(date)=>{
         var currentHours = date.getHours()
@@ -20,22 +22,42 @@ export default function Chart({title,sensorData,optimalValue}){
         displyTime=displyTime+' '+newdate
         return displyTime
     }
-    
+
+    // this part check what part of the data to show (last 10/plant history) and creats the optimal graph (green line)
+
+    var data=sensorData
+
     if(sensorData){
-        var data;
-        if(sensorData.length>10){
+        if(!showHistory)
+         if(sensorData.length>10){
             data=sensorData.slice(sensorData.length-1-10,sensorData.length)
-        }
-        else{ 
-        data=sensorData
         }
         var fromSensor = []
         var optimal=[]
-  data.map((data, key) => {
+
+        //converting raw data into data the chart expects 
+        // here's an example of an expected array 
+         //  [
+            //     { y: 172, label: "Jan" },
+            //     { y: 173, label: "Feb" },
+            //     { y: 175, label: "Mar" },
+            //     { y: 172, label: "Apr" },
+            //     { y: 162, label: "May" },
+            //     { y: 165, label: "Jun" },
+            //     { y: 172, label: "Jul" },
+            //     { y: 168, label: "Aug" },
+            //     { y: 175, label: "Sept" },
+            //     { y: 170, label: "Oct" },
+            //     { y: 165, label: "Nov" },
+            //     { y: 169, label: "Dec" }
+            // ]
+
+
+         data.map((data, key) => {
       
    
-     fromSensor.push({ y : data.value, label :displyTime(new Date(data.date)) })
-     optimal.push({ y : optimalValue, label :displyTime(new Date(data.date)) })
+         fromSensor.push({ y : data.value, label :displyTime(new Date(data.date)) })
+         optimal.push({ y : optimalValue, label :displyTime(new Date(data.date)) })
      
 
 
@@ -44,11 +66,13 @@ export default function Chart({title,sensorData,optimalValue}){
 
     }
 
+    // chart options
+
     const options = {
         "@media (max-width: 700px)": {
             width:300,        height:200        },
         width:500,
-        height:400,
+        height:250,
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
         animationEnabled: true,	
         title:{
@@ -66,20 +90,6 @@ export default function Chart({title,sensorData,optimalValue}){
             name: "sensor",
             showInLegend: true,
             dataPoints: fromSensor
-            //  [
-            //     { y: 172, label: "Jan" },
-            //     { y: 173, label: "Feb" },
-            //     { y: 175, label: "Mar" },
-            //     { y: 172, label: "Apr" },
-            //     { y: 162, label: "May" },
-            //     { y: 165, label: "Jun" },
-            //     { y: 172, label: "Jul" },
-            //     { y: 168, label: "Aug" },
-            //     { y: 175, label: "Sept" },
-            //     { y: 170, label: "Oct" },
-            //     { y: 165, label: "Nov" },
-            //     { y: 169, label: "Dec" }
-            // ]
         },
         {
             type: "spline",
@@ -87,20 +97,6 @@ export default function Chart({title,sensorData,optimalValue}){
             color:'green',
             showInLegend: true,
             dataPoints:optimal
-            //  [
-            //     { y: 170, label: "Jan" },
-            //     { y: 170, label: "Feb" },
-            //     { y: 170, label: "Mar" },
-            //     { y: 170, label: "Apr" },
-            //     { y: 170, label: "May" },
-            //     { y: 170, label: "Jun" },
-            //     { y: 170, label: "Jul" },
-            //     { y: 170, label: "Aug" },
-            //     { y: 170, label: "Sept" },
-            //     { y: 170, label: "Oct" },
-            //     { y: 170, label: "Nov" },
-            //     { y: 170, label: "Dec" }
-            // ]
         }
     ],
  
@@ -109,9 +105,7 @@ export default function Chart({title,sensorData,optimalValue}){
 
 
     return(
-        <CanvasJSChart options = {options}
-        /* onRef = {ref => this.chart = ref} */
-    />
+        <CanvasJSChart options = {options}/>
     );
 
 }

@@ -86,6 +86,13 @@ const getNumOfPlants = async (request,response)=>{
    response.json(count); 
 }
 
+
+const getPhotos = async (req,res)=>{
+      const plantphotos = await plantService.getPhotos(req.params.id);
+      res.json(plantphotos.photos); 
+  
+}
+
 const plantsPopularity = async (request, response) => {
     const pop = await plantService.plantsPopularity();
     response.json(pop);
@@ -175,5 +182,6 @@ module.exports={
     getAllAdminPlants,
     getNumOfPlants,
     getPlantsByKeyWord,
-    getSumOfPlantsByGarden
+    getSumOfPlantsByGarden,
+    getPhotos
 };

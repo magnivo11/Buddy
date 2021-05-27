@@ -8,14 +8,14 @@ import UploadImage from './UploadImage';
 export default function PlantsBible() {
   const ownerID = window.sessionStorage.getItem('userID');
   const [editPermission,setEditPermission]=React.useState(false);
-
-
+ 
   React.useEffect(() => {
-    fetch('http://localhost:8080/user/' + ownerID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/user/' + ownerID)
       .then(response => response.json()).then(
         data => {
+          console.log(data);
           if(data.isAdmin)
-          setEditPermission(true);
+           setEditPermission(true);
         }
       )
   }, []);
@@ -30,8 +30,7 @@ export default function PlantsBible() {
               <h2 style={{ fontSize: '30px' }}>Plants Bible</h2>
               <p style={{ fontSize: '25px' }}>All the information in one place</p>
                { editPermission ? (<Link className="nav-link" to='/addaplantbyadmin'>Add new Plant</Link>):""}  
-               <UploadImage></UploadImage>
-               <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll', overflowX: 'hidden' }}>
+                <div className='scrollBlock' style={{ maxHeight: '300px', overflowY: 'scroll', overflowX: 'hidden' }}>
                 <PlantsBibleGrid q={''} />
               </div>
             </div>

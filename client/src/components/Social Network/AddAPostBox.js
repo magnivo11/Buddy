@@ -1,10 +1,8 @@
-import axios from 'axios'
-import{ Redirect} from 'react-router-dom';
 import React,{inputRef,useRef} from 'react';
 import {Link} from 'react-router-dom'
 
 
-export default function AddAPostBox({usersFirstName,posts,setPosts}) {
+export default function AddAPostBox({target, usersFirstName,posts,setPosts}) {
     const inputRef = React.useRef(null);
     const userId= window.sessionStorage.getItem('userID');
 
@@ -27,7 +25,7 @@ export default function AddAPostBox({usersFirstName,posts,setPosts}) {
                 <p>Status:</p>
                   </label>
                     <label className="radio-inline">
-                    <input type="radio" id='green' name="status" /> <label style={{color:'green'}}htmlFor="south">Look at me</label><br/>
+                    <input type="radio" id='green' name="status" /> <label style={{color:'green'}}htmlFor="south">Tip</label><br/>
                   </label> 
 
                     <label className="radio-inline">

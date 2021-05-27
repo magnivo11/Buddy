@@ -1,14 +1,11 @@
-import {Redirect,useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import React from 'react'
 import PlantsList from './plantsList'
 import ButtonsList from './ButtonsList';
-import indoorPlants from '../Images/Indoor-plants.jpg';
 
 
 export default function SingleGarden(){
-  const history = useHistory();
   var index=window.location.toString().lastIndexOf('/')+1
   const gardenID=window.location.toString().substring(index)
   const ownerID= window.sessionStorage.getItem('userID');
@@ -31,29 +28,27 @@ export default function SingleGarden(){
   return (
 
   <div  style={{fontFamily: "Open Sans"}}>
-    <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
-       <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
-            <div className="container" data-aos="fade-up"  >
-              <div className="row" data-aos="fade-up" data-aos-delay={100}>
-                <div className="col-lg-3 d-none d-lg-block ">
-                  <ul className="nav nav-tabs flex-column ">
+         <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
+        <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
+          <div className="container singleGardenConstDistance" data-aos="fade-up"  >
+            <div className="row" data-aos="fade-up" data-aos-delay={100}>
+              <div className="col-lg-3">
+              <ul className="nav nav-tabs flex-column ">
                       {/*Title*/}
                       <div className="section-title" >
                         <h2 style={{fontSize:'36px'}}></h2>
                       </div>
-                      <h1></h1>
                       <div className="d-none d-lg-block buttonsTop">
                        <ButtonsList ownerID= {ownerID}/>
                   </div>
                   </ul>
-               </div>
-               {/*Middle part*/}  
-               <div className="col-lg-9 mt-4 mt-lg-0">
+              </div>
+              <div className="col-lg-9 mt-4 mt-lg-0">
                   <div className="tab-content">
                      <div>
                         <div className="section-title " >
                      
-                          <p className="gardenName">{gardenName} Garden </p>
+                          <p className="gardenName">{gardenName} </p>
                           {garden.currentTemp&& <div>
                             {garden.currentTemp.value&&
                           <p style={{fontSize:'35px'}}>{garden.currentTemp.value}° </p>
@@ -67,15 +62,15 @@ export default function SingleGarden(){
                           <button style={{width:'120px',background: 'white'}}className="button" type="submit"
                           onClick={()=>{
                             axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
-                            history.push('/myGardens')}}> 
+                            window.location='/myGardens'}}> 
                           <span style={{color:'black'}} >Delete Garden</span></button>
                       </div>
                     </div>
                  </div>
-               </div>      
+               </div> 
             </div>
-         </div>
-       </section>
+          </div>
+        </section>
       </section>
     </div>
 

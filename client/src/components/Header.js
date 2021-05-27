@@ -2,6 +2,7 @@ import { FaTimes } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
 import '../css/Header.css';
 import React from 'react';
+import nameLogo from '../Images/Logos/full logo in square@4x.png';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DataContext from '../DataContext';
@@ -54,7 +55,8 @@ export default function Header() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
-          <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Buddy</Link></h1>
+          <img src={nameLogo} width="100px"className="logo mr-auto" /> 
+          {/* <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Buddy</Link></h1> */}
           <div className="mobile-nav-toggle" onClick={handleClick}>
           {/* mobile header */}
           {clicked? <FaTimes/> : <FaBars/>}
@@ -66,7 +68,8 @@ export default function Header() {
               <Link to="/mygardens" className="nav-item nav-link header-mobile-link">My Gardens </Link>
               <Link to="/newsfeed" className="nav-item nav-link header-mobile-link" style={{padding:"5%"}} >News Feed </Link>
               <Link to={`/profile/${userIDfromSession}`} className="nav-item nav-link" >My Profile </Link>
-              <Link to="/plantsbible" className="nav-item nav-link" style={{padding:"5%"}}>The Plant Bible</Link>
+              <Link to="/plantsbible" className="nav-item nav-link"style={{padding:"5%"}} >The Plant Bible</Link>
+              <Link to="/aboutus" className="nav-item nav-link header-mobile-link" style={{padding:"5%"}}>About Us </Link>
               <Link onClick={logOut} className="nav-item nav-link">Log out </Link>
               <Link to="/notifications"  className="nav-item nav-link" style={{padding:"5%"}}>Notifications
                {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
@@ -81,6 +84,8 @@ export default function Header() {
               <li><Link to="/newsfeed">News Feed </Link></li>
               <li><Link to={`/profile/${userIDfromSession}`}>My Profile </Link></li>
               <li><Link to="/plantsbible">The Plant Bible</Link></li>
+              <li><Link to="/aboutus">About Us</Link></li>
+
               <li></li>
               <Link onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
               <Link to="/notifications"  className="nav-item nav-link"><i className="fa fa-bell" />

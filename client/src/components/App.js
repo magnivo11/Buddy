@@ -21,7 +21,6 @@ import Profile from './Social Network/Profile';
 import AboutUs from './AboutUs';
 import Notifications from './Notifications/Notifications';
 import NewsFeed from './Social Network/NewsFeed';
-import io from "socket.io-client";
 import EditGarden from './EditGarden';
 import EditUser from './EditUser';
 import EditPlantByUser from './EditPlantByUser';
@@ -29,18 +28,17 @@ import EditPlantByAdmin from './EditPlantByAdmin';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
 import Resetscreen from './Resetscreen';
+import socket from '../common/ReactSocket'
 
 
-const socket = io.connect("http://localhost:8080");
 
 function App() {
-
+    
     if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
         window.history.replaceState(null, "New Page Title", "/")
 
     const [render, forceRender] = React.useState(false);
     const [newNotifications, setNewNotifications] = React.useState(0);
-
 
     var userID = window.sessionStorage.getItem('userID')
     React.useEffect(() => {
@@ -53,6 +51,16 @@ function App() {
 
     }, [])
 
+    socket.on('check notifications',()=>{
+        if (userID) {
+            axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
+                setNewNotifications(Response.data.length)
+
+            })
+        }
+    })    
+
+      
 
 
     return (

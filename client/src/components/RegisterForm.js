@@ -2,7 +2,7 @@ import '../css/Forms.css'
 import '../css/Buttons.scss'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../Images/LB.png';
+import logo from '../Images/Logos/full logo in circle@4x.png';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,7 @@ export default function RegisterForm() {
             <div className="wrapper fadeInDown">
               <div id="formContent">
                 <div className="fadeIn first">
-                  <img src={logo} id="icon" alt="Welcome Buddy" />
+                  <img src={logo}  style={{paddingTop:"2%"}}id="icon" alt="Welcome Buddy" />
                   <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Welcome to the family!</small> </h1>
                   {info.showMessege ? <div>{info.message}</div> : null}
                 </div>

@@ -1,7 +1,7 @@
 import '../css/Forms.css';
 import '../css/Buttons.scss'
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../Images/LB.png';
+import logo from '../Images/Logos/full logo in circle@4x.png';
 import React from 'react';
 import axios from 'axios'
 
@@ -18,7 +18,7 @@ export default function LoginForm() {
             <div className="wrapper fadeInDown">
               <div id="formContent">
                 <div className="fadeIn first">
-                  <img src={logo} id="icon" alt="Welcome Buddy" />
+                  <img src={logo} style={{paddingTop:"5%"}} id="icon" alt="Welcome Buddy" />
                   <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Nice to see you again!</small> </h1>
                   {messege.showMessege ? <div>{messege.text}</div> : null}
                 </div>

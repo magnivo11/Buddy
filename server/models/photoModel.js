@@ -7,8 +7,10 @@ const photoSchema = new Schema({
         index: { unique: true }
     },
     date: { type: Date, default: Date.now },
-    name: String
+    name: String,
+    img: { data: Buffer, contentType: String }
 })
 
 
+ 
 module.exports = mongoose.model('photos', photoSchema);
