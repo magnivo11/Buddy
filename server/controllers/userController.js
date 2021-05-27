@@ -106,6 +106,22 @@ const updateUser = async (request, response) => {
     response.json(user);
 };
 
+const updateUserByAdmin = async (request, response) => {
+
+    const user = await userService.updateUserByAdmin(
+        request.body.id,
+        request.body.firstName,
+        request.body.lastName,
+        request.body.email,
+        request.body.description,
+        request.body.password,
+        request.body.isAdmin);
+
+    if (!user) {
+        return response.status(404).json({ errors: ['User not found'] });
+    }
+    response.json(user);
+};
 
 const deleteUser = async (request, response) => {
     const user = await userService.deleteUser(request.params.userID);
@@ -168,7 +184,6 @@ const getAllUnReadNotificationsFromUser = async (request, response) => {
         response.send(notifications)
 }
 
-
 module.exports = {
     getAllPostsFromUser,
     getAllGardensFromUser,
@@ -177,6 +192,7 @@ module.exports = {
     getUserById,
     getUsers,
     updateUser,
+    updateUserByAdmin,
     deleteUser,
     getUserByEmail,
     getUsersGroupedByAdmin,

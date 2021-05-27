@@ -39,7 +39,7 @@ router.get('/filter/:key', userController.getUsersByKeyWord);
 router.post('/', userController.createUser);
 
 router.put('/', userController.updateUser);
-router.patch('/', userController.updateUser);
+router.patch('/byadmin', userController.updateUserByAdmin);
 
 router.delete('/:userID', userController.deleteUser);
 
@@ -47,7 +47,7 @@ router.put('/changepass', userController.changePassword);
 
 router.get('/token/:token', userController.verifyToken);
 
-router.delete('/', userController.deleteUser);
+router.delete('/:id', userController.deleteUser);
 
 router.get('/allposts/:userID',userController.getAllPostsFromUser); 
 
@@ -61,7 +61,6 @@ router.get('/allUnReadnotifications/:userID',userController.getAllUnReadNotifica
 router.post('/register', userController.createUser);
 
 router.post('/forgotpassword', userController.forgotPassword); 
-
 router.post('/login', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         if (err) {
@@ -72,7 +71,7 @@ router.post('/login', function (req, res, next) {
         }
         req.logIn(user, function (err) {
             if (err) { return res.status(501).json(err) }
-            return res.status(200).json({ message: 'Login Success' });
+            return res.status(200).json({ user: user, message: 'Login Success' });
         });
     })(req, res, next);
 });

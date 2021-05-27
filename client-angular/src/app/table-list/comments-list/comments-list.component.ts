@@ -22,7 +22,7 @@ export class CommentsListComponent implements OnInit {
       this.loadAll();
     else if (this.listFor !== '')
     {
-      this.loadForArticle(this.listFor);
+      this.loadForPost(this.listFor);
     }
   }
   
@@ -44,7 +44,7 @@ export class CommentsListComponent implements OnInit {
     }
     else if (this.listFor !== '')
     {
-      this.loadForArticle(this.listFor);
+      this.loadForPost(this.listFor);
     }
   }
 
@@ -56,8 +56,8 @@ export class CommentsListComponent implements OnInit {
     });
   }
 
-  loadForArticle(articleId: String){
-    this.commentsService.getCommentsByArticleID(articleId).subscribe(data => {
+  loadForPost(postID: String){
+    this.commentsService.getCommentsByPostID(postID).subscribe(data => {
       this.comments = data;
     }, err => {
       window.alert(err.error);
@@ -66,17 +66,17 @@ export class CommentsListComponent implements OnInit {
   }
 
   onCreate(){
-    //this.currentArticleService.changeCurrentArticle(article);
-    this.router.navigateByUrl('/CreateComment', { state: {article: this.listFor}});
+    //this.currentpostService.changeCurrentpost(post);
+    this.router.navigateByUrl('/CreateComment', { state: {post: this.listFor}});
   }
 
   onEdit(comment : Comment){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.router.navigateByUrl('/EditComment', { state: comment });
   }
   onDelete(comment : Comment){
-    //this.currentArticleService.changeCurrentArticle(article);
-    this.commentsService.deleteComment(comment._id).subscribe(data => {
+    //this.currentpostService.changeCurrentpost(post);
+    this.commentsService.deleteComment(comment._id, comment.postID).subscribe(data => {
       this.comments.splice(this.comments.indexOf(comment),1);
     }, err => {
       window.alert(err.error);
@@ -84,7 +84,7 @@ export class CommentsListComponent implements OnInit {
     });
   }
   onDetails(comment : Comment){
-    //this.currentArticleService.changeCurrentArticle(article);
+    //this.currentpostService.changeCurrentpost(post);
     this.router.navigateByUrl('/DetailsComment', { state: comment });
   }
 

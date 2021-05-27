@@ -12,24 +12,34 @@
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input #name value="{{ comment.name }}" matInput placeholder="Name" disabled />
+                    <input #userID value="{{user.firstName + ' ' + user.lastName}}" matInput placeholder="User Name" disabled />
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                    <mat-form-field class="example-full-width">
-                      <input
-                        value="{{ comment.published }}"
-                        matInput
-                        placeholder="Published"
-                        disabled
-                      />
-                    </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input #postID [value]="comment.postID" matInput placeholder="Post ID" disabled/>
+                  </mat-form-field>
                   </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="example-full-width">
-                    <input #articleId value="{{ comment.articleId }}" matInput placeholder="Article ID" disabled/>
+                    <input
+                      [value]="comment.published"
+                      matInput
+                      placeholder="Published"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      [value]="comment.lastUpdated"
+                      matInput
+                      placeholder="Last updated"
+                      disabled
+                    />
                   </mat-form-field>
                 </div>
               </div>
@@ -37,12 +47,12 @@
                 <div class="col-md-12">
                   <mat-form-field class="example-full-width">
                     <textarea
-                      #body
+                      #content
                       rows="5"
                       matInput
-                      placeholder="Body"
+                      placeholder="Content"
                       disabled
-                      value="{{ comment.body }}"
+                      [value]="comment.content"
                     ></textarea>
                   </mat-form-field>
                 </div>

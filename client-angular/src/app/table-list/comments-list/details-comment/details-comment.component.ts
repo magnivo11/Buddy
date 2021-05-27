@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Comment } from '../../../models/comment';
+import { User } from '../../../models/user';
 
 import { CommentsService } from '../../../services/comments.service';
+import { UsersService } from '../../../services/users.service';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 
 @Component({
@@ -12,13 +14,17 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 export class DetailsCommentComponent implements OnInit {
 
   comment: Comment = null;
+  user: User = null;
 
-  constructor(private commentsService : CommentsService, private router:Router, private activatedRoute:ActivatedRoute) {
+  constructor(private commentsService : CommentsService, private usersService : UsersService, private router:Router, private activatedRoute:ActivatedRoute) {
     //this.router.getCurrentNavigation().extras.state;
   }
 
   ngOnInit(): void {
     this.comment=history.state;
+    this.usersService.getUser(this.comment.userID).subscribe(user => {
+      this.user = user;
+    });
   }
 
   onEdit(){
@@ -26,7 +32,7 @@ export class DetailsCommentComponent implements OnInit {
 
   }
   onDelete(){
-    this.commentsService.deleteComment(this.comment._id).subscribe(data => {
+    this.commentsService.deleteComment(this.comment._id, this.comment.postID).subscribe(data => {
       this.router.navigate(['/table-list']);
     }, err => {
       window.alert(err.error);

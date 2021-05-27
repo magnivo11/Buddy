@@ -23,21 +23,21 @@ export class EditUserComponent implements OnInit {
     this.user = history.state;
   }
 
-  onUpdate(firstname: string, lastname: string, email: string, password: string, phone: string ) {
-    if(firstname === '' || lastname === '' || email === '' || password === '' || phone === '' )
-    window.alert('Please fill all fields');
+  onUpdate(firstName: String, lastName: String, email: String, password: String, description: String, isAdmin: Boolean) {
+    if(firstName === '' || lastName === '' || email === '' || password === '' || description === '' )
+      window.alert('Please fill all fields');
     else{
-      this.user.firstname = firstname;
-      this.user.lastname = lastname;
+      this.user.firstName = firstName;
+      this.user.lastName = lastName;
       this.user.email = email;
-      this.user.phone = phone;
       this.user.password = password;
-      this.user.isAdmin = true;
+      this.user.description = description;
+      this.user.isAdmin = isAdmin;
       this.usersService.updateUser(this.user).subscribe((data) => {
         this.user = data;
         this.router.navigate(["/table-list"]);
       }, err => {
-        window.alert(err.error);
+        window.alert(err.errors);
         this.router.navigate(['/table-list']);
       });
     }

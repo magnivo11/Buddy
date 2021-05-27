@@ -10,7 +10,9 @@ mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNe
 // import controllers   
 const commentController = require('../controllers/commentController');  
 
+router.get('/filter/:key', commentController.getCommentsByKeyWord);
 
+router.get('/postComments',commentController.getSumOfCommentsByPost); 
 router.get('/:id',commentController.getCommentById); 
 
 router.get('/bypost/:postID',commentController.getAllCommentsByPost); 
@@ -22,5 +24,6 @@ router.post('/',commentController.createComment);
 router.put('/',commentController.updateComment);
 
 router.delete('/',commentController.deleteComment);
+
 
 module.exports=router;

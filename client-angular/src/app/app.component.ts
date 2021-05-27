@@ -7,8 +7,8 @@ import { LoginService } from './services/login.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private show = false;
-  private showLogin = false;
+  show = false;
+  showLogin = false;
   constructor(private ls: LoginService) {
     // if (localStorage.getItem('token')) {
     // this.show = true;

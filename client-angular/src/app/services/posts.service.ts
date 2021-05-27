@@ -45,9 +45,9 @@ export class PostsService {
   }
 
   updatePost(post: Post): Observable<any> {
-    const url = `${this.postsUrl}/id/${post._id}`;
-    return this.http.put<any>(url, { 
+    return this.http.put<any>(this.postsUrl, { 
       postID: post._id, 
+      userID: post.userID,
       content: post.content, 
       status: post.status
     });

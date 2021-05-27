@@ -14,7 +14,7 @@ export class UsersService {
   
     constructor(private http: HttpClient) { }
     
-    filter(key: string): Observable<any> {
+    filter(key: String): Observable<any> {
       const url = `${this.usersUrl}/filter/${key}`;
       return this.http.get<any>(url);
     }
@@ -23,7 +23,7 @@ export class UsersService {
       return this.http.get<any>(this.usersUrl);
     }
   
-    addUser(firstName: string, lastName: string, email: string, password: string, description: string, isAdmin: boolean): Observable<any> {
+    addUser(firstName: String, lastName: String, email: String, password: String, description: String, isAdmin: boolean): Observable<any> {
       var code = "notadmin";
       if(isAdmin === true){
         code = "admincode"
@@ -38,28 +38,27 @@ export class UsersService {
       });
     }
   
-    getUser(id: string): Observable<any> {
+    getUser(id: String): Observable<any> {
       const url = `${this.usersUrl}/${id}`;
       return this.http.get<any>(url);
     }
   
     updateUser(user: User): Observable<any> {
-      var code = "notadmin";
-      if(user.isAdmin === true){
-        code = "admincode"
-      }
-      return this.http.patch<any>(this.usersUrl, { 
+      const url = `${this.usersUrl}/byadmin`;
+
+      return this.http.patch<any>(url, { 
+        id:user._id,
         email: user.email, 
         firstName: user.firstName, 
         lastName: user.lastName, 
         password: user.password, 
-        description: user.description,
-        code: code
+        isAdmin: user.isAdmin,
+        description: user.description
       });
     }
   
-    deleteUser(id: string): Observable<any> {
+    deleteUser(id: String): Observable<any> {
       const url = `${this.usersUrl}/${id}`;
-      return this.http.delete<any>(this.usersUrl);
+      return this.http.delete<any>(url);
     }
 }

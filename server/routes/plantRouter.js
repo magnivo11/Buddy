@@ -11,6 +11,7 @@ const plantController = require('../controllers/plantController');
 
 // router.post('/upload',plantController.uploadImage);
 
+router.get('/gardenPlants',plantController.getSumOfPlantsByGarden); //good
 router.get('/',plantController.getAllPlants); //good
 
 router.get('/count',plantController.getNumOfPlants); //good
@@ -38,8 +39,4 @@ router.delete('/',plantController.deletePlantUser);
 router.delete('/byAdmin/',plantController.deletePlantAdmin);
 
 router.get('/popularity/all',plantController.plantsPopularity);
-
- 
-
-
 module.exports=router;

@@ -12,7 +12,7 @@ import { PlantsService } from '../services/plants.service';
 export class DashboardComponent implements OnInit {
 
   activeUsersCounter : Number;
-  PlantsCounter : Number;
+  plantsCounter : Number;
   postsCounter : Number;
 
   constructor(private realTimeservice : RealTimeService, private postsService : PostsService, private plantsService : PlantsService){
@@ -24,17 +24,17 @@ export class DashboardComponent implements OnInit {
       this.postsCounter = count;
     });
     this.plantsService.getNumOfPlants().subscribe((count) => {
-      this.PlantsCounter = count;
+      this.plantsCounter = count;
     });
     this.realTimeservice.getNumOfActiveUsers().subscribe((count) => {
       this.activeUsersCounter = count;
     });
-    this.load();
+    this.load(); 
   }
 
   load() {
     this.realTimeservice.currentActiveUsersCounter.subscribe(counter => this.activeUsersCounter = counter);
-    this.realTimeservice.currentPlantsCounter.subscribe(counter => this.PlantsCounter = counter);
+    this.realTimeservice.currentPlantsCounter.subscribe(counter => this.plantsCounter = counter);
     this.realTimeservice.currentPostsCounter.subscribe(counter => this.postsCounter = counter);
   } 
 }

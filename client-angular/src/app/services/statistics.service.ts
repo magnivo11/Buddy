@@ -5,23 +5,25 @@ import { environment } from '../../environments/environment';
 //import 'rxjs/add/operator/map'
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticsService {
 
-  private filtersUrl = environment.filterUrl;
+  private CommentUrl = environment.commentUrl;
+  private plantUrl = environment.plantUrl;
 
   constructor(private http: HttpClient) { }
 
   
-  getCategoriesStatistic(): Observable<any> {
-    const url = `${this.filtersUrl}/categories`;
+  getPlantsStatistic(): Observable<any> {
+    const url = `${this.plantUrl}/gardenPlants`;
     return this.http.get<any>(url);
   }
   
-  getArticlesStatistic(): Observable<any>{
-    const url = `${this.filtersUrl}/articleComments`;
+  getPostsStatistic(): Observable<any>{
+    const url = `${this.CommentUrl}/postComments`;
     return this.http.get<any>(url);
   }
 }

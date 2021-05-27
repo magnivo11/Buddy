@@ -153,6 +153,13 @@ const getPlantsByKeyWord = async (request, response) => {
     response.json(plants);
 };
 
+const getSumOfPlantsByGarden = async (req, res) => {
+    const plants = await plantService.getSumOfPlantsByGarden();
+    if (!plants)
+        return response.status(404).json({ errors: ['Plants not found'] });
+    res.json(plants);
+};
+
 module.exports={
     getPlantsByGardenId,
     plantsPopularity,
@@ -167,5 +174,6 @@ module.exports={
     getAllPlants, 
     getAllAdminPlants,
     getNumOfPlants,
-    getPlantsByKeyWord
+    getPlantsByKeyWord,
+    getSumOfPlantsByGarden
 };

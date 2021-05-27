@@ -228,6 +228,17 @@ const getPlantsByKeyWord = async (string) => {
     ]);
 };
 
+const getSumOfPlantsByGarden = async () => {
+    return await Plant.aggregate([
+        {
+        $group: {
+            _id: "$GardenID",
+            count: { $sum: 1 }
+        }
+        }
+    ]);
+}; 
+
 module.exports = {
     getPlantsByGardenId, 
     getPlantByName, 
@@ -242,5 +253,6 @@ module.exports = {
     getAllPlants, 
     getAllAdminPlants,
     getNumOfPlants,
-    getPlantsByKeyWord
+    getPlantsByKeyWord,
+    getSumOfPlantsByGarden
 };

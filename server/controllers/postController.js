@@ -35,6 +35,7 @@ const updatePost = async (request,response)=>{
     const post= await PostService.updatePost(
         request.body.postID,
         request.body.content,
+        request.body.userID,
         request.body.status);
         if (!post){
         return response.status(404).json({errors:['post not found']});}
@@ -60,7 +61,7 @@ const deletePost = async (request,response)=>{
 };
 
 const getPostsByKeyWord = async (request, response) => {
-    const user = await userService.getPostsByKeyWord(request.params.key)
+    const user = await PostService.getPostsByKeyWord(request.params.key)
     if (!user)
         return response.status(404).json({ errors: ['Posts not found'] });
     response.json(user);

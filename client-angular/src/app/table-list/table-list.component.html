@@ -34,24 +34,24 @@
   </div>
   <div class="container-fluid">
     <div class="row">
-      <app-categories-list
+      <!-- <app-categories-list
         [listFor]="listFor"
         [search]="search"
         [refresh]="refresh"
-      ></app-categories-list>
+      ></app-categories-list> -->
       <app-users-list [search]="search" [refresh]="refresh"></app-users-list>
-      <app-contacts-list [search]="search" [refresh]="refresh"></app-contacts-list>
-      <app-articles-list
+      <!-- <app-contacts-list [search]="search" [refresh]="refresh"></app-contacts-list> -->
+      <app-posts-list
         [listFor]="listFor"
         [search]="search"
         [refresh]="refresh"
-      ></app-articles-list>
+      ></app-posts-list>
       <app-comments-list
         [listFor]="listFor"
         [search]="search"
         [refresh]="refresh"
       ></app-comments-list>
-      <app-scrapes-list [search]="search" [refresh]="refresh"></app-scrapes-list>
+      <!-- <app-scrapes-list [search]="search" [refresh]="refresh"></app-scrapes-list> -->
     </div>
   </div>
 </div>

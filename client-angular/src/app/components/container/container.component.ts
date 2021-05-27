@@ -8,8 +8,8 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./container.component.css']
 })
 export class ContainerComponent implements OnInit {
-  private isLogin: any;
-  private loginBtn =  false;
+  isLogin: any;
+  loginBtn =  false;
   constructor(private ls: LoginService, private route:ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {

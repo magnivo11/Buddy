@@ -49,11 +49,28 @@ const getAllCommentsByPost = async (request,response)=>{
    response.json(comments); 
 }
 
+const getSumOfCommentsByPost = async (req, res) => {
+    const comments = await CommentService.getSumOfCommentsByPost();
+    if (!comments){
+        return response.status(404).json({errors:['comments not found']});
+    }
+    res.json(comments);
+};
+
+const getCommentsByKeyWord = async (request, response) => {
+    const comments = await CommentService.getCommentsByKeyWord(request.params.key)
+    if (!comments)
+        return response.status(404).json({ errors: ['Comments not found'] });
+    response.json(comments);
+};
+
 module.exports={
     createComment,
     getCommentById,
     getAllComments,
     getAllCommentsByPost,
     updateComment,
-    deleteComment
+    deleteComment,
+    getSumOfCommentsByPost,
+    getCommentsByKeyWord
  };

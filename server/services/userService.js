@@ -6,6 +6,7 @@ const Garden = require('../models/gardenModel');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
  require('custom-env').env(process.env.NODE_ENV, './config');
+ var mongoose = require('mongoose');
 
  
 
@@ -53,19 +54,36 @@ const getAllGardensFromUser = async (id) => {
 
  
 const updateUser = async(id,firstName,lastName,email,description,password) =>{
-
+    console.log(id)
     User.findById(id,(err,user)=>{
+        console.log(user)
+
         user.firstName=firstName;
         user.lastName=lastName;
         user.email=email;
         user.description=description;
         user.password=password;
         user.lastUpdated= Date.now();
-         user.save();
+        user.save();
 
     });
     return true;
 };
+
+const updateUserByAdmin = async(id,firstName,lastName,email,description,password,isAdmin) =>{
+    User.findById(id,(err,user)=>{
+        user.firstName=firstName;
+        user.lastName=lastName;
+        user.email=email;
+        user.description=description;
+        user.password=password;
+        user.isAdmin=isAdmin;
+        user.lastUpdated= Date.now();
+        user.save();
+    });
+    return true;
+};
+
 const getUserByEmail = async (email) => {
     const user = User.findOne({ email: email });
     if (!user) {
@@ -104,12 +122,12 @@ const changePassword = async (password,id) => {
 }
 
 const deleteUser = async (id) => {
-    const user = User.getUserById(id);
+    const user = await getUserById(id);
     if (!user)
         return null;
 
     else {
-        if (user.gardens.length) {
+        if(user.gardens !== undefined){
             for (let i = 0; i < user.gardens.length; i++) {
                 Garden.findById(user.gardens[i].id, (err, garden) => {
                     if (garden)
@@ -119,7 +137,7 @@ const deleteUser = async (id) => {
             }
             user.save()
         }
-        await user.remove();
+        await user.remove(); 
     }
     return user;
 };
@@ -216,6 +234,7 @@ module.exports = {
     forgotPassword,
     deleteUser,
     updateUser,
+    updateUserByAdmin,
     getUserById,
     getUserByEmail,
     getUsers,
