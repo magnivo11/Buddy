@@ -3,9 +3,10 @@ import axios from 'axios'
 import {useHistory } from 'react-router-dom';
 import React from 'react';
 
-export default function EditGarden() {
+export default function EditPost() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const postID = window.location.toString().substring(index)
+  const userID= window.sessionStorage.getItem('userID');
   const history = useHistory();
   const [post, setPost] = React.useState();
   const [content, setContent] = React.useState("");
@@ -39,7 +40,7 @@ export default function EditGarden() {
               </div>
 
               <form onSubmit={(e) => {
-                editPost(e, status,content, postID,history)
+                editPost(e, status,content, postID,userID,history)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="content" className="fadeIn second" name="addAGarden" placeholder={content}
                 onChange={handleContentChange} />
@@ -47,9 +48,9 @@ export default function EditGarden() {
                 <a>
                   Status:&nbsp;
                   <select value={status} onChange={handleStatusChange}>
-                  <option value="orange">Question</option>
-                    <option value="red">Help</option>
-                    <option value="green">Look at me</option>
+                  <option value="Tip">Tip</option>
+                  <option value="Question">Question</option>
+                  <option value="Help">Help</option>
                   </select>
                 </a>
                 <br /><br />
@@ -68,15 +69,17 @@ export default function EditGarden() {
 
 }
 
-function editPost(e, status,content, postID,history) {
+function editPost(e, status,content,postID,userID,history) {
   e.preventDefault();
 
   const updatedPost = {
     content:content,
+    userID:userID,
     postID: postID,
-    status: status,
+    status: status
   }
 
   axios.put('http://localhost:8080/post/', updatedPost);
   history.push('/newsfeed')
 }
+
