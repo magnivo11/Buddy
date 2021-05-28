@@ -1,0 +1,81 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Garden Details</h4>
+            <p class="card-category">See your Garden</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #name matInput placeholder="Name" [value]="garden.name" disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Direct Sun</mat-label>
+                    <input #directSun matInput placeholder="Direct Sun" [value]="garden.directSun ? 'Yes' : 'No' " disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>User</mat-label>
+                    <mat-select #userID [value]="garden.userID" disabled>
+                      <mat-option *ngFor="let user of users" [value]="user._id">
+                        {{user.firstName + ' ' + user.lastName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Direction</mat-label>
+                    <mat-select #direction placeholder="Direction" [value]="garden.direction" disabled>
+                      <mat-option value="west">West</mat-option>
+                      <mat-option value="east">East</mat-option>
+                      <mat-option value="south">South</mat-option>
+                      <mat-option value="north">North</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Surrounding</mat-label>
+                    <mat-select #surrounding placeholder="Surrounding" [value]="garden.surrounding" disabled>
+                      <mat-option value="outdoor">Outdoor</mat-option>
+                      <mat-option value="indoor">Indoor</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                (click)="onEdit()"
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Edit
+              </button>
+              <button
+              (click)="onDelete()"
+              mat-raised-button
+              type="submit"
+              class="btn btn-danger pull-right"
+            >
+              Delete
+            </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-comments-list [listFor]="listFor"></app-comments-list> -->
+  </div>
+</div>

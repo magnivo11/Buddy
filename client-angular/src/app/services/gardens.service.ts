@@ -31,7 +31,7 @@ export class GardensService {
     return this.http.get<any>(url);
   }
 
-  addGarden(name: String, direction: String, directSun: Number, surroundings: Number, userID: Number): Observable<any> {
+  addGarden(name: String, direction: String, directSun: boolean, surroundings: String, userID: String): Observable<any> {
     return this.http.post<any>(this.gardenUrl, { 
       name: name, 
       direction: direction, 
@@ -46,13 +46,11 @@ export class GardensService {
     return this.http.get<any>(url);
   }
 
-  updateGarden(Garden: Garden): Observable<any> {
-    const url = `${this.gardenUrl}/byAdmin`;
-    return this.http.put<any>(url, Garden);
+  updateGarden(garden: Garden): Observable<any> {
+    return this.http.put<any>(this.gardenUrl, garden);
   }
 
   deleteGarden(gardenID: String, userID: String): Observable<any> {
-    const url = `${this.gardenUrl}/byAdmin`;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -62,6 +60,6 @@ export class GardensService {
         userID: userID,
       },
     };
-    return this.http.delete<any>(url, options);
+    return this.http.delete<any>(this.gardenUrl, options);
   }
 }

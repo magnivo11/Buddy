@@ -27,7 +27,7 @@ const updateComment = async (request,response)=>{
         request.body.id,
         request.body.content);
     
-        if (!comment){
+    if (!comment){
         return response.status(404).json({errors:['comment not found']});}
     response.json(comment);
 };
