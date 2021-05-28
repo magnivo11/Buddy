@@ -31,23 +31,29 @@ const getGardensByUserId = async (request,response)=>{
 }
 
 const editGarden = async (request,response)=>{
-    const garden = await gardenService.editGarden(request.body.id,
+    const garden = await gardenService.editGarden(
+        request.body._id,
         request.body.name,
         request.body.direction,
         request.body.surrounding,
-        request.body.directSun);
-    if(garden==true)
+        request.body.directSun,
+        request.body.userID);
+
+    if(garden)
     {
-        response.send(' garden was updated');  
+        
+        return response.status(200).json('garden was updated');  
     }
+    response.status(404).json({ errors: ['garden wasnt updated'] }); 
 }
 
 const deleteGarden = async (request,response)=>{
     const garden = await gardenService.deleteGarden(request.body.gardenID,request.body.userID);
     if(garden==true)
     {
-        response.send(' garden was deleted');  
-    }        
+        return response.status(200).json('garden was deleted');  
+    }
+    response.status(404).json({ errors: ['garden wasnt deleted'] }); 
 }
 
 const deletePlantInGarden = async (request,response)=>{

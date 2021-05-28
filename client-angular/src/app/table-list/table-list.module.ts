@@ -41,6 +41,10 @@ import { CreateUserComponent } from './users-list/create-user/create-user.compon
 import { EditUserComponent } from './users-list/edit-user/edit-user.component';
 import { DetailsUserComponent } from './users-list/details-user/details-user.component';
 
+import { GardensListComponent } from './gardens-list/gardens-list.component';
+import { CreateGardenComponent } from './gardens-list/create-garden/create-garden.component';
+import { EditGardenComponent } from './gardens-list/edit-garden/edit-garden.component';
+import { DetailsGardenComponent } from './gardens-list/details-garden/details-garden.component';
 
 
 
@@ -60,6 +64,10 @@ import { DetailsUserComponent } from './users-list/details-user/details-user.com
     CreateUserComponent,
     EditUserComponent,
     DetailsUserComponent,
+    GardensListComponent,
+    CreateGardenComponent,
+    EditGardenComponent,
+    DetailsGardenComponent,
     ],
   imports: [
     CommonModule,
