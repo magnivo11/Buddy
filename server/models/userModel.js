@@ -44,8 +44,7 @@ const userSchema = new Schema({
     created: { type: Date, default: Date.now },
     lastUpdated: { type: Date, default: Date.now },
     photoID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"photos"
+        type: String
     }, 
 })
 

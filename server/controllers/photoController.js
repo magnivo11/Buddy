@@ -1,6 +1,9 @@
 const { constructorParametersDownlevelTransform } = require('@angular/compiler-cli');
 const { request, response } = require('express');
-const Photo = require('../models/photoModel')
+const Photo = require('../models/photoModel');
+const Plant = require('../models/plantModel');
+const User = require('../models/userModel')
+const Post = require('../models/postModel')
 const photoService = require('../services/photoService');
 const scrapeService = require('../services/scrapeService');
 
@@ -43,14 +46,19 @@ const scrapePhoto = async (request, response) => {
     }
 }
 
-const uploadPhoto = async (link, name, type, plantID) => {
-    const photo = await photoService.createPhoto(link, name);
-    if (photo) {
-        const success =await photoService.addPhotoToOwner(type, plantID,photo);
+const uploadPhoto = async (link, type, ownerID) => {
+
+    if (type == "plant") {
+        await Plant.findById(ownerID, (err, plant) => {
+            if (plant) {
+                plant.photos.push(link);
+                plant.save();
+                return true;
+            }
+        })
     }
-    if(!success)
-    {
-        return response.status(404).json({ errors: ['upload failed'] })
+    else {
+        return link;
     }
 }
 

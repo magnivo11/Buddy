@@ -67,7 +67,7 @@ return(
               <div className="row">
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
-                    <img style={{width:'75%'}}src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />
+                    <img style={{width:'75%'}} src={`http://localhost:8080/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">

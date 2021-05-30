@@ -72,6 +72,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
+            <img style={{width:'500px'}} src={`http://localhost:8080/photo/find/${post.photoID}`}></img>
             {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
             <button  style={{fontSize:'9px',border:'white',background:'none'}}

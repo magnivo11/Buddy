@@ -21,7 +21,8 @@ const createUser = async (request, response) => {
             request.body.email,
             request.body.description,
             User.hashPassword(request.body.password),
-            isAdmin
+            isAdmin,
+            request.body.photoID
         )
 
     response.json(newUser);

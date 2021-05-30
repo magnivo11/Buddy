@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import UploadImage from './UploadImage';
 import PhotoSlide from './PhotoSlide';
 import socket from '../common/ReactSocket'
-
+ 
 
 const data = require('../files/data.json');
 
@@ -125,7 +125,7 @@ if(e.target.value=='plant history')
                     {plant.species} </h2>
                 </div>
 
-                <div class="inner" >
+                <div className="inner" >
                   {(!plant.sensorID) ? <div>
 
                     <form onSubmit={(e) => {
@@ -141,11 +141,12 @@ if(e.target.value=='plant history')
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div> :
                     <div>
+ 
                       <div style={{ display: 'flex', flexDirection: 'raw' }} class='header'>
                         <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
                         <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
                         <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
-                      </div>
+                       </div>
                       <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal} showHistory={chartData.showHistory}></Chart>
                         <button type="button" style={{width:'250px', color: "white",backgroundColor:'rgba(52, 100, 52, 0.8)'}} value='last 10' onClick={showHistory} class="btn btn-default"> Last 10 Measurements</button>
                        <button type="button" style={{width:'251px', color: "white",backgroundColor:'rgba(52, 100, 52, 0.8)'}} value='plant history' onClick={showHistory} class="btn btn-default"> Plant History</button>
@@ -167,7 +168,7 @@ if(e.target.value=='plant history')
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
                 <h2 style={{ fontSize: '30px' }}>
                   {plant.species} photos</h2>
-                <UploadImage plantID={plantID} type="plant" ></UploadImage>
+                <UploadImage ownerID={plantID} type="plant" ></UploadImage>
                 <PhotoSlide plantID={plantID}></PhotoSlide>
               </div>
             </div>
