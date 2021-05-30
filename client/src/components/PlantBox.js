@@ -8,7 +8,7 @@ export default function PlantBox({id,species,photo}){
         <div className="column">
         <div className="content">
         <Link to={`/plant/${id}`}>
-           <img class="center" src={statusRed} alt={species} style={{width: '20%'}} />
+           <img className="center" src={statusRed} alt={species} style={{width: '20%'}} />
            <p style={{textAlign: "center"}}>{species}</p>
           </Link>
         </div>

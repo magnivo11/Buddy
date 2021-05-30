@@ -10,18 +10,19 @@ const nodemailer = require('nodemailer');
 
  
 
-const createUser = async(firstName,lastName,email,description,password)=>{
+const createUser = async(firstName,lastName,email,description,password,isAdmin,photoID)=>{
     const user= new User({
         firstName:firstName,
         lastName:lastName,
         email:email,
         description:description,
         password:password,
-        isAdmin:false,
+        isAdmin:isAdmin,
         gardens:[],
         posts:[],
       resetPasswordToken: 0,
-        resetPasswordExpires: 0
+        resetPasswordExpires: 0,
+        photoID:photoID
      });
     return await user.save();
 };

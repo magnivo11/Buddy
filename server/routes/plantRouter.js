@@ -7,8 +7,7 @@ const Schema=mongoose.Schema;
 require('custom-env').env(process.env.NODE_ENV,'./config'); 
 mongoose.connect(process.env.CONNECTION_STRING,{ useUnifiedTopology: true, useNewUrlParser: true  });
 const plantController = require('../controllers/plantController');
-
-
+ 
 // router.post('/upload',plantController.uploadImage);
 
 router.get('/gardenPlants',plantController.getSumOfPlantsByGarden); //good

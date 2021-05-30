@@ -7,12 +7,13 @@ mongoose.set('useFindAndModify', false);
 const { deleteComment } = require('./commentService');
 
 
-const createPost = async(content, status, userID )=>{
+const createPost = async(content, status, userID,photoID)=>{
     const post= await new Post({
         content: content,
         status:status,
         comments:[],
-        userID: userID
+        userID: userID,
+        photoID:photoID
     }); 
     await User.findByIdAndUpdate({_id:userID},{
         $push: {

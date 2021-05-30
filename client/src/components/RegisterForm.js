@@ -8,7 +8,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterForm() {
+  const [FileName, setFileName] = React.useState("");
 
+  const onChangeFile = e => {
+    setFileName(e.target.files[0]);
+  }
   const [info, setInfo] = React.useState({ showMessege: false, redirectToLogin: false, message: '' });
   if (!info.redirectToLogin)
     return (
@@ -22,12 +26,15 @@ export default function RegisterForm() {
                   <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Welcome to the family!</small> </h1>
                   {info.showMessege ? <div>{info.message}</div> : null}
                 </div>
-                <form onSubmit={(e) => { register(e, setInfo) }}>
+                <form encType="multipart/form-data" onSubmit={(e) => { register(e, setInfo,FileName) }}>
                   <input type="text" id="first_name" className="fadeIn second" name="register" placeholder="First name" />
                   <input type="text" id="last_name" className="fadeIn second" name="register" placeholder="Last name" />
                   <input type="text" id="email" className="fadeIn second" name="register" placeholder="Email Address" />
                   <input type="password" id="password" className="fadeIn third" name="register" placeholder="Password" />
                   <input type="text" id="description" className="fadeIn second" name="register" placeholder="A few words about you" />
+                  <div className="form-group">
+                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                  </div>
                   <br></br>
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Register</span></button>
                   <div id="formFooter">
@@ -46,9 +53,16 @@ export default function RegisterForm() {
   }
 }
 
-function register(e, setInfo) {
+function register(e, setInfo,FileName) {
 
   e.preventDefault();
+  var formData = new FormData();
+  formData.append('link', FileName);
+  formData.append('type', "user");
+ 
+
+ axios.post('http://localhost:8080/photo/upload', formData);
+
   if (checkRequired('first_name') && checkRequired('last_name') &&
     checkRequired('email') && checkRequired('description') && checkRequired('password')) {
 
@@ -67,6 +81,7 @@ function register(e, setInfo) {
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,
               password: document.getElementById('password').value,
+              photoID: FileName.name
             }
             axios.post('http://localhost:8080/user/', newUser)
             setInfo({ redirectToLogin: true })

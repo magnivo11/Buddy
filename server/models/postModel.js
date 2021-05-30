@@ -15,8 +15,7 @@ const postSchema=new Schema({
         ref:"users"
     },
     photoID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"photos"
+        type: String
     }, 
     published: { type: Date, default: Date.now },
     lastUpdated: { type: Date, default: Date.now },
