@@ -5,22 +5,27 @@
 * License: https://bootstrapmade.com/license/
 */
 
+.buttonChart{
+  width:167px;
+  color: "grey";
+  background-color:'rgba(52, 52, 52, 0.8)'
+}
 .backFirstPage{
   background-color:rgba(117, 128, 107,0.65) ;
 }
 
 .constDistance {
   position: relative;
-  top: 80px;
+  top: 50px;
 }
 
 .singleGardenConstDistance {
-  top: 0;
-  bottom:0;
+  position: absolute;
+  margin:10px 0px 0px 0px;
+/*  bottom:0;
   position:fixed;
   display: block;
-  overflow-x:hidden;
-  background-color: rgba(117, 128, 107,0.85)
+  overflow-x:hidden; */
 }
 
 .notificationsConstDistance {
@@ -356,7 +361,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .container {
-  padding-top: 10%;}
+  padding-top: 8%;}
 
 @media (max-width: 992px) {
   #hero .container {

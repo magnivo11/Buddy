@@ -10,6 +10,10 @@ import { CreateCommentComponent } from './comments-list/create-comment/create-co
 import { EditCommentComponent } from './comments-list/edit-comment/edit-comment.component';
 import { DetailsCommentComponent } from './comments-list/details-comment/details-comment.component';
 
+import { CreateGardenComponent } from './gardens-list/create-garden/create-garden.component';
+import { EditGardenComponent } from './gardens-list/edit-garden/edit-garden.component';
+import { DetailsGardenComponent } from './gardens-list/details-garden/details-garden.component';
+
 // import { CreateCategoryComponent } from './categories-list/create-category/create-category.component';
 // import { EditCategoryComponent } from './categories-list/edit-category/edit-category.component';
 // import { DetailsCategoryComponent } from './categories-list/details-category/details-category.component';
@@ -93,7 +97,9 @@ export const TableListRoutes: Routes = [
      { path: 'EditUser',      component: EditUserComponent },
      { path: 'DetailsUser',      component: DetailsUserComponent },
 
-
+     { path: 'CreateGarden',      component: CreateGardenComponent },
+     { path: 'EditGarden',      component: EditGardenComponent },
+     { path: 'DetailsGarden',      component: DetailsGardenComponent },
     // { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'icons',          component: IconsComponent },

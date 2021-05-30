@@ -31,37 +31,42 @@ const getGardensByUserId = async(userID)=>{
 };
  const getGardenById = async(id)=>{return await Garden.findById(id)};
 
- const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null)=>{
-    Garden.findById(id,(err,garden)=>{
-        if (name!=null){
-            garden.name = name;     }
-         if (direction!=null){
-            garden.direction = direction;}
-         if (surrounding!=null){
-            garden.surrounding = surrounding;}
-        if (directSun!=null){
-            garden.directSun = directSun;}
-            garden.lastUpdated= Date.now();
-            garden.save();
-    
-    });
-   
-     return true };
+ const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID)=>{
+
+    const garden = Garden.findById(id,(err,garden)=>{
+                    if(garden !== null){
+                        if (name!=null){
+                            garden.name = name;     
+                        }
+                        if (direction!=null){
+                            garden.direction = direction;
+                        }
+                        if (surrounding!=null){
+                            garden.surrounding = surrounding;
+                        }
+                        if (directSun!=null){
+                            garden.directSun = directSun;
+                        }
+
+                        garden.userID=userID;
+                        garden.lastUpdated= Date.now();
+                        garden.save(); 
+                    }
+                    return garden;
+                });
+    return garden;
+};
 
 const getAllGardens = async()=>{
     return await Garden.find({})
 
 };
 
-
-
 const deleteGarden = async(gardenID,userID)=>{
     const garden = await getGardenById(gardenID);
  
-
     if (garden.plants.length>0)
     {
-
         for (let i=0; i<garden.plants.length ; i++)
         {
             deletePlantUser(garden.plants[i].id,gardenID); 
@@ -79,8 +84,7 @@ const deleteGarden = async(gardenID,userID)=>{
             user.save()    
        }
    })
-
-     await garden.remove(); 
+    await garden.remove(); 
     return true;
 };
 
@@ -91,7 +95,6 @@ const getAllSelectedGardens = async(Direction,DirectSun,Surrounding)=>{
         gar=gardens
         else
         return gar='no gardens found'
-
     })
     return gar
 };
