@@ -28,9 +28,11 @@ export default function SingleGarden(){
   return (
 
   <div  style={{fontFamily: "Open Sans"}}>
-         <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+         <section id="hero"   style={{ overflow: 'scroll' }}>
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-          <div className="container singleGardenConstDistance" data-aos="fade-up"  >
+          <div data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">
               <ul className="nav nav-tabs flex-column ">
