@@ -1,7 +1,6 @@
 import React from 'react';
 import CanvasJSReact from '../canvasjs.react';
 //var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Chart({title,sensorData,optimalValue,showHistory}){
@@ -71,12 +70,15 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
     const options = {
         "@media (max-width: 700px)": {
             width:300,        height:200        },
-        width:500,
-        height:250,
+        width:501,
+        height:270,
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
         animationEnabled: true,	
         title:{
-            text:title
+            text:title,
+            fontFamily: "Open Sans",
+            fontColor:"white",
+            padding:10
         },
         axisY : {
             title: ""
