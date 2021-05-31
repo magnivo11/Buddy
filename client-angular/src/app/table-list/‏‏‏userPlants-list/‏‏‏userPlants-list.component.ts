@@ -37,7 +37,7 @@ export class UserPlantsListComponent implements OnInit {
     }
     else if(this.listFor === "search")
     { 
-      this.plantsService.filter(this.search).subscribe(data =>{
+      this.plantsService.filterUser(this.search).subscribe(data =>{
         this.plants = data;
       }, err => {
         window.alert(err.error);

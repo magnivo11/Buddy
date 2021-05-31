@@ -162,8 +162,15 @@ const deletePlantAdmin = async(request,response)=>{
     return response.status(200).json(plant);
 };
 
-const getPlantsByKeyWord = async (request, response) => {
-    const plants = await plantService.getPlantsByKeyWord(request.params.key)
+const getAdminPlantsByKeyWord = async (request, response) => {
+    const plants = await plantService.getAdminPlantsByKeyWord(request.params.key)
+    if (!plants)
+        return response.status(404).json({ errors: ['Plants not found'] });
+    response.status(200).json(plants);
+};
+
+const getUserPlantsByKeyWord = async (request, response) => {
+    const plants = await plantService.getUserPlantsByKeyWord(request.params.key)
     if (!plants)
         return response.status(404).json({ errors: ['Plants not found'] });
     response.status(200).json(plants);
@@ -190,7 +197,8 @@ module.exports={
     getAllPlants, 
     getAllAdminPlants,
     getNumOfPlants,
-    getPlantsByKeyWord,
+    getAdminPlantsByKeyWord,
+    getUserPlantsByKeyWord,
     getSumOfPlantsByGarden,
     getPhotos,
     getAllUsersPlants

@@ -12,8 +12,13 @@ export class PlantsService {
 
   constructor(private http: HttpClient) { }
   
-  filter(key: string): Observable<any> {
-    const url = `${this.plantUrl}/filter/${key}`;
+  filterAdmin(key: string): Observable<any> {
+    const url = `${this.plantUrl}/byAdmin/filter/${key}`;
+    return this.http.get<any>(url);
+  }
+
+  filterUser(key: string): Observable<any> {
+    const url = `${this.plantUrl}/ByUser/filter/${key}`;
     return this.http.get<any>(url);
   }
 
