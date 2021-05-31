@@ -110,7 +110,11 @@ const getAllAdminPlants = async () => {
     return await Plant.find({ isUserPlant: false })
 };
 
-const updatePlantByUser = async (id, species = null, growthStatus = null) => {
+const getAllUsersPlants = async () => {
+    return await Plant.find({ isUserPlant: true })
+};
+
+const updatePlantByUser = async (id, species = null, growthStatus = null, GardenID) => {
 
     Plant.findById(id, (err, plant) => {
         if (species != null) {
@@ -119,6 +123,7 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
         if (growthStatus != null) {
             plant.growthStatus = growthStatus
         }
+        plant.GardenID = GardenID;
         plant.updatedDate = Date.now();
         plant.save();
     })
@@ -260,5 +265,6 @@ module.exports = {
     getNumOfPlants,
     getPlantsByKeyWord,
     getSumOfPlantsByGarden,
-    getPhotos
+    getPhotos,
+    getAllUsersPlants
 };

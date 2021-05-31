@@ -30,6 +30,13 @@ import { CreateUserComponent } from './users-list/create-user/create-user.compon
 import { EditUserComponent } from './users-list/edit-user/edit-user.component';
 import { DetailsUserComponent } from './users-list/details-user/details-user.component';
 
+import { CreatePlantComponent } from './‏‏plants-list/create-plant/create-plant.component';
+import { EditPlantComponent } from './‏‏plants-list/edit-plant/edit-plant.component';
+import { DetailsPlantComponent } from './‏‏plants-list/details-plant/details-plant.component';
+
+import { CreateUserPlantComponent } from './‏‏‏userPlants-list/create-‏‏‏userPlants/create-userPlant.component';
+import { EditUserPlantComponent } from './‏‏‏userPlants-list/edit-‏‏‏userPlants/edit-userPlant.component';
+import { DetailsUserPlantComponent } from './‏‏‏userPlants-list/details-‏‏‏userPlants/details-userPlant.component';
 
 export const TableListRoutes: Routes = [
     // {
@@ -100,6 +107,14 @@ export const TableListRoutes: Routes = [
      { path: 'CreateGarden',      component: CreateGardenComponent },
      { path: 'EditGarden',      component: EditGardenComponent },
      { path: 'DetailsGarden',      component: DetailsGardenComponent },
+
+     { path: 'CreatePlant',      component: CreatePlantComponent },
+     { path: 'EditPlant',      component: EditPlantComponent },
+     { path: 'DetailsPlant',      component: DetailsPlantComponent },
+
+     { path: 'CreateUserPlant',      component: CreateUserPlantComponent },
+     { path: 'EditUserPlant',      component: EditUserPlantComponent },
+     { path: 'DetailsUserPlant',      component: DetailsUserPlantComponent },
     // { path: 'user-profile',   component: UserProfileComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'icons',          component: IconsComponent },

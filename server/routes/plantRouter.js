@@ -18,6 +18,7 @@ router.get('/count',plantController.getNumOfPlants); //good
 router.get('/filter/:key',plantController.getPlantsByKeyWord); //good
 
 router.get('/admin',plantController.getAllAdminPlants);//good
+router.get('/user',plantController.getAllUsersPlants);//good
 
 router.get('/byGarden/:gardenId', plantController.getPlantsByGardenId);
 
