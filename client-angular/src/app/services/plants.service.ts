@@ -21,6 +21,16 @@ export class PlantsService {
     return this.http.get<any>(this.plantUrl);
   }
 
+  getAdminPlants(): Observable<any> {
+    const url = `${this.plantUrl}/admin`;
+    return this.http.get<any>(url);
+  }
+
+  getAllUsersPlants(): Observable<any> {
+    const url = `${this.plantUrl}/user`;
+    return this.http.get<any>(url);
+  }
+
   getNumOfPlants(): Observable<Number> {
     const url = `${this.plantUrl}/count`;
     return this.http.get<Number>(url);
@@ -42,6 +52,17 @@ export class PlantsService {
     });
   }
 
+  addPlantForUser(species: String, garden: String, growthStatus: String): Observable<any> {
+    const url = `${this.plantUrl}/ByUser`;
+
+    return this.http.post<any>(url, { 
+      isUserPlant: true,
+      species: species, 
+      GardenID: garden, 
+      growthStatus: growthStatus, 
+    });
+  }
+
   getPlant(id: String): Observable<any> {
     const url = `${this.plantUrl}/${id}`;
     return this.http.get<any>(url);
@@ -52,14 +73,20 @@ export class PlantsService {
     return this.http.put<any>(url, Plant);
   }
 
-  deletePlant(PlantID: String, userID: String): Observable<any> {
+  updateUserPlant(Plant: Plant): Observable<any> {
+    const url = `${this.plantUrl}/byuser`;
+    return this.http.put<any>(url, Plant);
+  }
+
+  deletePlant(PlantID: String, GardenID: String): Observable<any> {
     const url = `${this.plantUrl}/byAdmin`;
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
       body: {
-        PlantID: PlantID,
+        plantID: PlantID,
+        GardenID: GardenID
       },
     };
     return this.http.delete<any>(url, options);

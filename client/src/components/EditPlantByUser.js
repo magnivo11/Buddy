@@ -76,7 +76,7 @@ export default function EditPlantByUser(){
 
               </div>
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected,growthStatus,history)}}>
+              editPlant(e,plantID,selected,growthStatus,plant.GardenID,history)}}>
 
                   <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
 
@@ -129,13 +129,14 @@ export default function EditPlantByUser(){
 
    
 
-function editPlant(e,plantID,selected,growthStatus,history){
+function editPlant(e,plantID,selected,growthStatus,GardenID,history){
   e.preventDefault();
 
  const newPlant={
-  id:plantID,
+  _id:plantID,
   species:selected,
-  growthStatus:growthStatus
+  growthStatus:growthStatus,
+  GardenID: GardenID
  }
  axios.put('http://localhost:8080/plant/byuser/',newPlant);
  history.push('/plant/' + plantID)

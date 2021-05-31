@@ -11,9 +11,10 @@ import { ContainerComponent } from './components/container/container.component';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ToastrModule } from 'ngx-toastr';
+import { environment } from '../environments/environment';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+const config: SocketIoConfig = { url: environment.baseUrl, options: {} };
 
 
 @NgModule({ 

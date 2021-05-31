@@ -1,0 +1,90 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Plant Details</h4>
+            <p class="card-category">See your Plant</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #species matInput placeholder="Species" [value]="plant.species" disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                  <mat-form-field class="example-full-width">
+                    <input #irrigationInstructors matInput placeholder="irrigation Instructors" [value]="plant.irrigationInstructors" disabled/>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #optimalTemp matInput placeholder="Optimal Temperature" [value]="plant.optimalTemp" disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #optimalSoilMoisture matInput placeholder="Optimal Soil Moisture" [value]="plant.optimalSoilMoisture" disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input #optimalSunExposure matInput placeholder="Optimal Sun Exposure" [value]="plant.optimalSunExposure" disabled/>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <textarea #description
+                      rows="3"
+                      [value]="plant.description"
+                      matInput
+                      placeholder="Description"
+                      disabled
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input #growthStatus matInput placeholder="Growth Status" [value]="plant.growthStatus" disabled/>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input #healthStatus matInput placeholder="Health Status" [value]="plant.healthStatus" disabled/>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                (click)="onEdit()"
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Edit
+              </button>
+              <button
+              (click)="onDelete()"
+              mat-raised-button
+              type="submit"
+              class="btn btn-danger pull-right"
+            >
+              Delete
+            </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-comments-list [listFor]="listFor"></app-comments-list> -->
+  </div>
+</div>
