@@ -104,9 +104,9 @@ if(e.target.value=='plant history')
 
   return (
     <div style={{ fontFamily: "Open Sans" }}>
-      <section id="hero" className="d-flex align-items-center " style={{ overflow: 'scroll' }}>
+      <section id="hero"  style={{ overflow: 'scroll' }}>
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-          <div className="container constDistance" data-aos="fade-up"  >
+          <div className="container" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">
                 <ul className="nav nav-tabs flex-column d-none d-lg-block">
@@ -141,16 +141,19 @@ if(e.target.value=='plant history')
                       <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add Sensor</span></button>
                     </form> </div> :
                     <div>
-                       <button type="button" value='last 10' onClick={showHistory} className="btn btn-default"> last 10</button>
-                       <button type="button" value='plant history' onClick={showHistory} className="btn btn-default"> plant history</button>
-                      <div style={{ display: 'flex', flexDirection: 'raw' }} className='header'>
-
-                        <button type="button" value='Soil Moisture' onClick={changeChartData} className="btn btn-default"> Soil Moisture</button>
-                        <button type="button" value='Temperature' onClick={changeChartData} className="btn btn-default"> Temperature</button>
-                        <button type="button" value='Sun Exposure' onClick={changeChartData} className="btn btn-default"> Sun Exposure</button>
-                      </div>
+ 
+                      <div style={{ display: 'flex', flexDirection: 'raw' }} class='header'>
+                        <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Soil Moisture' onClick={changeChartData} class="btn btn-default"> Soil Moisture</button>
+                        <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Temperature' onClick={changeChartData} class="btn btn-default"> Temperature</button>
+                        <button type="button" style={{width:'167px', color: "grey",backgroundColor:'rgba(52, 52, 52, 0.8)'}} value='Sun Exposure' onClick={changeChartData} class="btn btn-default"> Sun Exposure</button>
+                       </div>
                       <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal} showHistory={chartData.showHistory}></Chart>
+                        <button type="button" style={{width:'250px', color: "white",backgroundColor:'rgba(52, 100, 52, 0.8)'}} value='last 10' onClick={showHistory} class="btn btn-default"> Last 10 Measurements</button>
+                       <button type="button" style={{width:'251px', color: "white",backgroundColor:'rgba(52, 100, 52, 0.8)'}} value='plant history' onClick={showHistory} class="btn btn-default"> Plant History</button>
+                    <br/>                    <br/>
+
                     </div>
+                
 
                   }
                 </div>

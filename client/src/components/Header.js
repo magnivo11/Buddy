@@ -2,7 +2,7 @@ import { FaTimes } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
 import '../css/Header.css';
 import React from 'react';
-import nameLogo from '../Images/Logos/full logo in square@4x.png';
+import nameLogo from '../Images/Logos/black and white logo.png';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DataContext from '../DataContext';
@@ -55,7 +55,7 @@ export default function Header() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <header id="header" className="fixed-top">
         <div className="container d-flex align-items-center">
-          <img src={nameLogo} width="100px"className="logo mr-auto" /> 
+          <Link to="/mygardens"><img src={nameLogo} width="70px" className="logo mr-auto" /> </Link>
           {/* <h1 className="logo mr-auto" style={{ marginRight: '100%' }}><Link to="/mygardens">Buddy</Link></h1> */}
           <div className="mobile-nav-toggle" onClick={handleClick}>
           {/* mobile header */}
