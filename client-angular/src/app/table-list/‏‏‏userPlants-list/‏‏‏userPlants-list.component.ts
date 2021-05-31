@@ -53,8 +53,8 @@ export class UserPlantsListComponent implements OnInit {
     });
   }
 
-  loadForGarden(user: String){
-    this.plantsService.getPlantsByGarden(user).subscribe(data => {
+  loadForGarden(garden: String){
+    this.plantsService.getPlantsByGarden(garden).subscribe(data => {
       this.plants = data;
     }, err => {
       window.alert(err.error);

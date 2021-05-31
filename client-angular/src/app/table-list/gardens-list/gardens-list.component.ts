@@ -23,6 +23,7 @@ export class GardensListComponent implements OnInit {
     this.loadAll();
     else if (this.listFor !== '')
     {
+      console.log(this.listFor);
       this.loadForUser(this.listFor);
     } 
   }
