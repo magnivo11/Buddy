@@ -218,7 +218,7 @@ const deletePlantAdmin = async (plantID) => {
     return true;
 };
 
-const getPlantsByKeyWord = async (string) => {
+const getAdminPlantsByKeyWord = async (string) => {
 
     if (!string) {
         string = "";
@@ -232,7 +232,29 @@ const getPlantsByKeyWord = async (string) => {
                     { growthStatus: { $regex: string, $options: 'i' } },
                     { irrigationInstructors: { $regex: string, $options: 'i' } },
                     { description: { $regex: string, $options: 'i' } }
-                ]
+                ],
+                $and: [{isUserPlant: false}]
+            }
+        }
+    ]);
+};
+
+const getUserPlantsByKeyWord = async (string) => {
+
+    if (!string) {
+        string = "";
+    }
+
+    return await Plant.aggregate([
+        {
+            $match: {
+                $or: [
+                    { species: { $regex: string, $options: 'i' } },
+                    { growthStatus: { $regex: string, $options: 'i' } },
+                    { irrigationInstructors: { $regex: string, $options: 'i' } },
+                    { description: { $regex: string, $options: 'i' } }
+                ],
+                $and: [{isUserPlant: true}]
             }
         }
     ]);
@@ -263,7 +285,8 @@ module.exports = {
     getAllPlants,
     getAllAdminPlants,
     getNumOfPlants,
-    getPlantsByKeyWord,
+    getAdminPlantsByKeyWord,
+    getUserPlantsByKeyWord,
     getSumOfPlantsByGarden,
     getPhotos,
     getAllUsersPlants
