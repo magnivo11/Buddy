@@ -75,8 +75,12 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
 
 };
 
-const getNumOfPlants = async () => {
-    return await Plant.countDocuments();
+const getNumOfAdminPlants = async () => {
+    return await Plant.countDocuments({isUserPlant: false});
+};
+
+const getNumOfUserPlants = async () => {
+    return await Plant.countDocuments({isUserPlant: true});
 };
 
 const getPhotos = async (id) => {
@@ -284,7 +288,8 @@ module.exports = {
     deletePlantAdmin,
     getAllPlants,
     getAllAdminPlants,
-    getNumOfPlants,
+    getNumOfAdminPlants,
+    getNumOfUserPlants,
     getAdminPlantsByKeyWord,
     getUserPlantsByKeyWord,
     getSumOfPlantsByGarden,

@@ -22,7 +22,7 @@ const createPlantByUser= async(request,response)=>{
         request.body.growthStatus,
         request.body.GardenID
         );
-    myEmitter.emit('createPlant');
+    myEmitter.emit('createUserPlant');
     response.status(200).send(newPlant)
 
 };
@@ -55,7 +55,7 @@ const createPlantByAdmin = async (request, response) => {
             response.status(404).send(err)
         }
         else{
-            myEmitter.emit('createPlant');
+            myEmitter.emit('createAdminPlant');
             response.status(200).send(plant)
         }
     });
@@ -67,7 +67,7 @@ const deletePlantUser = async(request,response)=>{
     if (!plant){
     return response.status(404).json({errors:['Plant not found']});}
 
-    myEmitter.emit('deletePlant');
+    myEmitter.emit('deleteUserPlant');
     response.status(200).send();
 }
 
@@ -83,11 +83,15 @@ const getPlantsByGardenId = async (request,response)=>{
     response.status(200).json(plants); 
 }
 
-const getNumOfPlants = async (request,response)=>{
-    const count = await plantService.getNumOfPlants();
+const getNumOfAdminPlants = async (request,response)=>{
+    const count = await plantService.getNumOfAdminPlants();
    response.status(200).json(count); 
 }
 
+const getNumOfUserPlants = async (request,response)=>{
+    const count = await plantService.getNumOfUserPlants();
+   response.status(200).json(count); 
+}
 
 const getPhotos = async (req,res)=>{
       const plantphotos = await plantService.getPhotos(req.params.id);
@@ -158,7 +162,7 @@ const deletePlantAdmin = async(request,response)=>{
     return response.status(404).json({errors:['Plant not found']});
     }
 
-    myEmitter.emit('deletePlant');
+    myEmitter.emit('deleteAdminPlant');
     return response.status(200).json(plant);
 };
 
@@ -196,7 +200,8 @@ module.exports={
     deletePlantAdmin, 
     getAllPlants, 
     getAllAdminPlants,
-    getNumOfPlants,
+    getNumOfAdminPlants,
+    getNumOfUserPlants,
     getAdminPlantsByKeyWord,
     getUserPlantsByKeyWord,
     getSumOfPlantsByGarden,
