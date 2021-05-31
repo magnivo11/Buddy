@@ -11,7 +11,8 @@ import { HttpClient } from '@angular/common/http';
 export class RealTimeService {
   
   currentActiveUsersCounter = this.socket.fromEvent<Number>('countActiveUsers');
-  currentPlantsCounter = this.socket.fromEvent<Number>('countPlants');
+  currentAdminPlantsCounter = this.socket.fromEvent<Number>('countAdminPlants');
+  currentUserPlantsCounter = this.socket.fromEvent<Number>('countUserPlants');
   currentPostsCounter = this.socket.fromEvent<Number>('countPosts');
   private usersUrl = environment.usersUrl;
 

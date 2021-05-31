@@ -13,7 +13,8 @@ const plantController = require('../controllers/plantController');
 router.get('/gardenPlants',plantController.getSumOfPlantsByGarden); //good
 router.get('/',plantController.getAllPlants); //good
 
-router.get('/count',plantController.getNumOfPlants); //good
+router.get('/byAdmin/count',plantController.getNumOfAdminPlants); //good
+router.get('/ByUser/count',plantController.getNumOfUserPlants); //good
 
 router.get('/byAdmin/filter/:key',plantController.getAdminPlantsByKeyWord); //good
 router.get('/ByUser/filter/:key',plantController.getUserPlantsByKeyWord); //good

@@ -36,8 +36,13 @@ export class PlantsService {
     return this.http.get<any>(url);
   }
 
-  getNumOfPlants(): Observable<Number> {
-    const url = `${this.plantUrl}/count`;
+  getNumOfAdminPlants(): Observable<Number> {
+    const url = `${this.plantUrl}/byAdmin/count`;
+    return this.http.get<Number>(url);
+  }
+
+  getNumOfUserPlants(): Observable<Number> {
+    const url = `${this.plantUrl}/ByUser/count`;
     return this.http.get<Number>(url);
   }
 
