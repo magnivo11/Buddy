@@ -1,7 +1,6 @@
 import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 import React from 'react';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
@@ -18,7 +17,6 @@ export default function AddAPlantByUser() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const gardenID = window.location.toString().substring(index)
   const [selected, setSelected] = React.useState('Select plant')
-  const history = useHistory();
   const [plants, setPlants] = React.useState([]);
   const [growthStatus, setGrowthStatus] = React.useState("")
 
@@ -54,7 +52,7 @@ export default function AddAPlantByUser() {
               </div>
               <form name='plantUserForm' style={{ fontSize: '10px' }} onSubmit={(e) => {
                 handleStatusChange(e)
-                addAPlant(e, gardenID, selected, growthStatus,history)
+                addAPlant(e, gardenID, selected, growthStatus)
               }}>
                 <div style={{ fontSize: '14px'}}>
                   <VirtualizedSelect
@@ -86,7 +84,7 @@ export default function AddAPlantByUser() {
                 <br></br>
                 <br></br>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button>&nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() =>     window.location='/mygardens'}><span>Cancel</span></button>
 
               </form>
             </div>
@@ -99,7 +97,7 @@ export default function AddAPlantByUser() {
 
 
 
-function addAPlant(e, gardenID, selected, growthStatus,history) {
+function addAPlant(e, gardenID, selected, growthStatus) {
   e.preventDefault();
   if(checkState(selected,"Species")&& checkState(growthStatus,"Growth Status")){
   console.log(growthStatus);

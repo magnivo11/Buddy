@@ -3,7 +3,7 @@ import { FaBars } from 'react-icons/fa';
 import '../css/Header.css';
 import React from 'react';
 import nameLogo from '../Images/Logos/black and white logo.png';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import DataContext from '../DataContext';
 
@@ -13,7 +13,6 @@ export default function Header() {
   const [currentUser, setUser] = React.useState({ _id: null });
   const [clicked, setClicked] = React.useState(false);
 
-  const history = useHistory();
   const logOut = (e) => {
     if (window.confirm('Are you sure you want to log out?')){
     if (userIDfromSession)
@@ -24,10 +23,10 @@ export default function Header() {
   }
   const doSearch = (e) => {
     if (e.target.value === "") {
-      history.push('/mygardens');
+      window.location='/mygardens';
     }
     else {
-      history.push('/biblesearch?q=' + e.target.value);
+      window.location='/biblesearch?q=' + e.target.value;
     }
   }
   React.useEffect(() =>
