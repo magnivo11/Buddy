@@ -16,7 +16,7 @@ export default function Resetscreen() {
     const token = window.location.toString().substring(index)
  
     React.useEffect(() => {
-        axios.get('http://localhost:8080/user/token/'+token).then((Response) => {
+        axios.get(process.env.REACT_APP_SERVER_URL+'/user/token/'+token).then((Response) => {
             console.log(Response);
         if (Response.data[0]._id) {
                  setDisplay(true);
@@ -61,7 +61,7 @@ export default function Resetscreen() {
         var confirmPassword = document.getElementById('confirmPassword').value;
         e.preventDefault();
         if (checkRequired('password') && checkRequired('confirmPassword') && confirmPassword == password) {
-             axios.put('http://localhost:8080/user/changepass/', { password: password , id:id}).
+             axios.put(process.env.REACT_APP_SERVER_URL+'/user/changepass/', { password: password , id:id}).
                 then((Response) => {
                     if (Response.data=="changed") {
                         setInfo({ showMessege: true, message: 'Changed!' })

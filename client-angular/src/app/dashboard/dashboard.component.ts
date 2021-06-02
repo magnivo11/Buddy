@@ -12,7 +12,8 @@ import { PlantsService } from '../services/plants.service';
 export class DashboardComponent implements OnInit {
 
   activeUsersCounter : Number;
-  plantsCounter : Number;
+  adminPlantsCounter : Number;
+  userPlantsCounter : Number;
   postsCounter : Number;
 
   constructor(private realTimeservice : RealTimeService, private postsService : PostsService, private plantsService : PlantsService){
@@ -23,8 +24,11 @@ export class DashboardComponent implements OnInit {
     this.postsService.getNumOfPosts().subscribe((count) => {
       this.postsCounter = count;
     });
-    this.plantsService.getNumOfPlants().subscribe((count) => {
-      this.plantsCounter = count;
+    this.plantsService.getNumOfAdminPlants().subscribe((count) => {
+      this.adminPlantsCounter = count;
+    });
+    this.plantsService.getNumOfUserPlants().subscribe((count) => {
+      this.userPlantsCounter = count;
     });
     this.realTimeservice.getNumOfActiveUsers().subscribe((count) => {
       this.activeUsersCounter = count;
@@ -34,7 +38,8 @@ export class DashboardComponent implements OnInit {
 
   load() {
     this.realTimeservice.currentActiveUsersCounter.subscribe(counter => this.activeUsersCounter = counter);
-    this.realTimeservice.currentPlantsCounter.subscribe(counter => this.plantsCounter = counter);
+    this.realTimeservice.currentAdminPlantsCounter.subscribe(counter => this.adminPlantsCounter = counter);
+    this.realTimeservice.currentUserPlantsCounter.subscribe(counter => this.userPlantsCounter = counter);
     this.realTimeservice.currentPostsCounter.subscribe(counter => this.postsCounter = counter);
   } 
 }

@@ -12,7 +12,7 @@ export default function SingleGarden(){
   const [garden,setGarden]=React.useState({_id:''});
  
   if(garden._id!=gardenID)
-   axios.get('http://localhost:8080/garden/find/'+gardenID).then((Response)=> {
+   axios.get(process.env.REACT_APP_SERVER_URL+'/garden/find/'+gardenID).then((Response)=> {
     if(Response.data){
 
     if(garden._id!==Response.data._id)
@@ -63,7 +63,7 @@ export default function SingleGarden(){
                           <span style={{color:'black'}}>Edit Garden</span></Link>  &nbsp;
                           <button style={{width:'120px',background: 'white'}}className="button" type="submit"
                           onClick={()=>{
-                            axios.delete('http://localhost:8080/garden/',{data:{gardenID:gardenID,userID:ownerID}})
+                            axios.delete(process.env.REACT_APP_SERVER_URL+'/garden/',{data:{gardenID:gardenID,userID:ownerID}})
                             window.location='/myGardens'}}> 
                           <span style={{color:'black'}} >Delete Garden</span></button>
                       </div>

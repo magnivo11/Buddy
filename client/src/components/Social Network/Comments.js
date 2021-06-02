@@ -18,7 +18,7 @@ export default function Comments({postId,postWriterID,deletePost}) {
 
     const toggleComments = () => {                
         if (!isVisible) {
-            fetch('http://localhost:8080/comment/bypost/' + postId)
+            fetch(process.env.REACT_APP_SERVER_URL+'/comment/bypost/' + postId)
                 .then(response => response.json()).then(
                     data => {setComments(data);
                     }
@@ -28,7 +28,7 @@ export default function Comments({postId,postWriterID,deletePost}) {
     }
     const deleteComment=(commentID)=>{
         setComments(comments.filter((comment)=>(comment._id !==commentID)))
-        axios.delete('http://localhost:8080/comment/',{data:{commentID:commentID,postID:postId}})
+        axios.delete(process.env.REACT_APP_SERVER_URL+'/comment/',{data:{commentID:commentID,postID:postId}})
       }
 
     return (

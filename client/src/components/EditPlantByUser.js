@@ -30,7 +30,7 @@ export default function EditPlantByUser(){
 
   
   React.useEffect(() => {
-    fetch('http://localhost:8080/plant/' + plantID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
       .then(response => response.json()).then(
         data => {
           setPlant(data);
@@ -39,7 +39,7 @@ export default function EditPlantByUser(){
   }, []);
 
   React.useEffect(() => {
-          axios.get('http://localhost:8080/plant/admin').then((Response)=> {
+          axios.get(process.env.REACT_APP_SERVER_URL+'/plant/admin').then((Response)=> {
             if(plants.length!=Response.data.length)
             {
               Response.data.forEach(singlePlant => {
@@ -74,7 +74,8 @@ export default function EditPlantByUser(){
 
               </div>
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected,growthStatus)}}>
+              editPlant(e,plantID,selected,growthStatus,plant.GardenID)}}>
+
 
                   <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
 
@@ -127,14 +128,17 @@ export default function EditPlantByUser(){
 
    
 
-function editPlant(e,plantID,selected,growthStatus){
+function editPlant(e,plantID,selected,growthStatus,GardenID){
+
   e.preventDefault();
 
  const newPlant={
-  id:plantID,
+  _id:plantID,
   species:selected,
-  growthStatus:growthStatus
+  growthStatus:growthStatus,
+  GardenID: GardenID
  }
- axios.put('http://localhost:8080/plant/byuser/',newPlant);
+
+ axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant);
  window.location='/plant/' + plantID
 }

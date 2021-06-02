@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Post } from '../../../models/post';
 import { User } from '../../../models/user';
 import { UsersService } from '../../../services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-post',
@@ -16,7 +17,7 @@ export class EditPostComponent implements OnInit {
   users: User[] = [];
 
   constructor(private PostsService : PostsService, private router:Router, private activatedRoute:ActivatedRoute, private usersService : UsersService
-    ) {
+    , private toastrService : ToastrService) {
     //this.router.getCurrentNavigation().extras.state;
   }
 
@@ -30,16 +31,17 @@ export class EditPostComponent implements OnInit {
   onUpdate(content: String, userID: String, status: String){
     
     if(content === '' || userID === '' || status === '' )
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.post.content = content;
       this.post.userID = userID;
       this.post.status = status;
       this.PostsService.updatePost(this.post).subscribe(data => {
         this.post = data;
+        this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
         this.router.navigate(['/table-list']);
       });
     }

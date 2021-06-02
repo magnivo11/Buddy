@@ -4,8 +4,7 @@ import { GardensService } from '../../../services/gardens.service';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { UsersService } from '../../../services/users.service';
-
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-garden',
@@ -19,7 +18,7 @@ export class CreateGardenComponent implements OnInit {
   users: User[] = [];
   isEditable = false;
 
-  constructor(private gardensService : GardensService, private router: Router, private usersService : UsersService) { }
+  constructor(private gardensService : GardensService, private router: Router, private usersService : UsersService, private toastrService : ToastrService) { }
 
   ngOnInit(): void {
     this.usersService.getUsers().subscribe(data => {
@@ -33,13 +32,16 @@ export class CreateGardenComponent implements OnInit {
 
   onCreate(name: String, direction: String, directSun: boolean,surrounding: String, userID: String){
     if(name === '' || direction === '' || directSun === undefined || surrounding === '' || userID  === '')
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
+
     else{
       this.gardensService.addGarden(name, direction, directSun,surrounding,userID).subscribe(data => {
         this.garden = data;
+        this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
+
         this.router.navigate(['/table-list']);
       });
     }

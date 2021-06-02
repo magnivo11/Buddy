@@ -47,7 +47,7 @@ function login(e, setLoggedIn, setMessege) {
   var password = document.getElementById('password').value;
    var logIn = false;
 
-  fetch('http://localhost:8080/user/login', {
+  fetch(process.env.REACT_APP_SERVER_URL+'/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ function login(e, setLoggedIn, setMessege) {
     error => console.error('wrong password or email')
   ).then(()=>{
     if (logIn===true) {
-       axios.get('http://localhost:8080/user/byemail/' + email).
+       axios.get(process.env.REACT_APP_SERVER_URL+'/user/byemail/' + email).
         then(Response => {
           if (Response.data) {
             window.sessionStorage.setItem('userID', Response.data._id);

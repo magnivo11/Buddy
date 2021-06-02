@@ -75,8 +75,12 @@ const createPlantByUser = async (species, isUserPlant, growthStatus, GardenID) =
 
 };
 
-const getNumOfPlants = async () => {
-    return await Plant.countDocuments();
+const getNumOfAdminPlants = async () => {
+    return await Plant.countDocuments({isUserPlant: false});
+};
+
+const getNumOfUserPlants = async () => {
+    return await Plant.countDocuments({isUserPlant: true});
 };
 
 const getPhotos = async (id) => {
@@ -110,7 +114,11 @@ const getAllAdminPlants = async () => {
     return await Plant.find({ isUserPlant: false })
 };
 
-const updatePlantByUser = async (id, species = null, growthStatus = null) => {
+const getAllUsersPlants = async () => {
+    return await Plant.find({ isUserPlant: true })
+};
+
+const updatePlantByUser = async (id, species = null, growthStatus = null, GardenID) => {
 
     Plant.findById(id, (err, plant) => {
         if (species != null) {
@@ -119,6 +127,7 @@ const updatePlantByUser = async (id, species = null, growthStatus = null) => {
         if (growthStatus != null) {
             plant.growthStatus = growthStatus
         }
+        plant.GardenID = GardenID;
         plant.updatedDate = Date.now();
         plant.save();
     })
@@ -213,7 +222,7 @@ const deletePlantAdmin = async (plantID) => {
     return true;
 };
 
-const getPlantsByKeyWord = async (string) => {
+const getAdminPlantsByKeyWord = async (string) => {
 
     if (!string) {
         string = "";
@@ -227,7 +236,29 @@ const getPlantsByKeyWord = async (string) => {
                     { growthStatus: { $regex: string, $options: 'i' } },
                     { irrigationInstructors: { $regex: string, $options: 'i' } },
                     { description: { $regex: string, $options: 'i' } }
-                ]
+                ],
+                $and: [{isUserPlant: false}]
+            }
+        }
+    ]);
+};
+
+const getUserPlantsByKeyWord = async (string) => {
+
+    if (!string) {
+        string = "";
+    }
+
+    return await Plant.aggregate([
+        {
+            $match: {
+                $or: [
+                    { species: { $regex: string, $options: 'i' } },
+                    { growthStatus: { $regex: string, $options: 'i' } },
+                    { irrigationInstructors: { $regex: string, $options: 'i' } },
+                    { description: { $regex: string, $options: 'i' } }
+                ],
+                $and: [{isUserPlant: true}]
             }
         }
     ]);
@@ -235,6 +266,11 @@ const getPlantsByKeyWord = async (string) => {
 
 const getSumOfPlantsByGarden = async () => {
     return await Plant.aggregate([
+        {
+            $match: {
+                isUserPlant: true
+            }
+        },
         {
         $group: {
             _id: "$GardenID",
@@ -257,8 +293,11 @@ module.exports = {
     deletePlantAdmin,
     getAllPlants,
     getAllAdminPlants,
-    getNumOfPlants,
-    getPlantsByKeyWord,
+    getNumOfAdminPlants,
+    getNumOfUserPlants,
+    getAdminPlantsByKeyWord,
+    getUserPlantsByKeyWord,
     getSumOfPlantsByGarden,
-    getPhotos
+    getPhotos,
+    getAllUsersPlants
 };

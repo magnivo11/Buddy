@@ -4,7 +4,7 @@ import Comment from "./Comment";
 export default function CommentsSection({ comments, postId, onDelete,setComments }) {
     const loggedUserId= window.sessionStorage.getItem('userID');
     const onClick = () => {
-        fetch('http://localhost:8080/comment/', {
+        fetch(process.env.REACT_APP_SERVER_URL+'/comment/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -16,7 +16,7 @@ export default function CommentsSection({ comments, postId, onDelete,setComments
             data => {
                 if (data) {
                     inputRef.current.value = '';
-                    fetch('http://localhost:8080/comment/bypost/' + postId)
+                    fetch(process.env.REACT_APP_SERVER_URL+'/comment/bypost/' + postId)
                         .then(response => response.json()).then(
                             data => {
                                 setComments(data)}

@@ -10,7 +10,7 @@ export default function EditPost() {
   const [content, setContent] = React.useState("");
   const [status, setStatus] = React.useState("")
   React.useEffect(() => {
-    fetch('http://localhost:8080/post/' + postID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/post/' + postID)
       .then(response => response.json()).then(
         data => {
           setPost(data);
@@ -77,7 +77,8 @@ function editPost(e, status,content,postID,userID) {
     status: status
   }
 
-  axios.put('http://localhost:8080/post/', updatedPost);
+  axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
   window.location='/newsfeed'
+
 }
 

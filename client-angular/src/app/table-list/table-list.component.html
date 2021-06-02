@@ -52,10 +52,20 @@
         [refresh]="refresh"
       ></app-comments-list>
       <app-gardens-list
+          [listFor]="listFor"
+          [search]="search"
+          [refresh]="refresh"
+      ></app-gardens-list>
+      <app-plants-list
         [listFor]="listFor"
         [search]="search"
         [refresh]="refresh"
-    ></app-gardens-list>
+      ></app-plants-list>
+      <app-userPlants-list
+        [listFor]="listFor"
+        [search]="search"
+        [refresh]="refresh"
+      ></app-userPlants-list>
       <!-- <app-scrapes-list [search]="search" [refresh]="refresh"></app-scrapes-list> -->
     </div>
   </div>

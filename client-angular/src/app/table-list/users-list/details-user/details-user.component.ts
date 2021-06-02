@@ -13,6 +13,7 @@ export class DetailsUserComponent implements OnInit {
   
   loggedUser: User;
   user: User = null;
+  listFor: String;
   
     constructor(private usersService : UsersService, private router:Router, private activatedRoute:ActivatedRoute, private loginService : LoginService
       ) {
@@ -22,6 +23,7 @@ export class DetailsUserComponent implements OnInit {
     ngOnInit(): void {
       this.user=history.state;
       this.loggedUser = this.loginService.getConnectedUser();
+      this.listFor= this.user._id;
     }
   
     onEdit(){

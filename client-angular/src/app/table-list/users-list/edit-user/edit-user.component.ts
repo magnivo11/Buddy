@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { User } from "../../../models/User";
 import { UsersService } from "../../../services/users.service";
 import { ActivatedRoute, Router, NavigationStart } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-edit-user",
@@ -14,7 +15,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute, private toastrService : ToastrService
   ) {
     //this.router.getCurrentNavigation().extras.state;
   }
@@ -25,7 +26,7 @@ export class EditUserComponent implements OnInit {
 
   onUpdate(firstName: String, lastName: String, email: String, password: String, description: String, isAdmin: Boolean) {
     if(firstName === '' || lastName === '' || email === '' || password === '' || description === '' )
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.user.firstName = firstName;
       this.user.lastName = lastName;
@@ -35,9 +36,10 @@ export class EditUserComponent implements OnInit {
       this.user.isAdmin = isAdmin;
       this.usersService.updateUser(this.user).subscribe((data) => {
         this.user = data;
+        this.toastrService.success('Succeess');  
         this.router.navigate(["/table-list"]);
       }, err => {
-        window.alert(err.errors);
+        this.toastrService.error(err.error.errors,'Error'); 
         this.router.navigate(['/table-list']);
       });
     }

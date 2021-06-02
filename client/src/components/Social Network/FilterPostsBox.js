@@ -7,7 +7,7 @@ export default function FilterPostsBox({posts, setPosts}) {
 
 
   React.useEffect(() => {
-  fetch('http://localhost:8080/post')
+  fetch(process.env.REACT_APP_SERVER_URL+'/post')
     .then(response => response.json()).then(
       data => {
         setAllPosts(data);
