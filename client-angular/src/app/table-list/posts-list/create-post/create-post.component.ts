@@ -4,7 +4,7 @@ import { PostsService } from '../../../services/posts.service';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { UsersService } from '../../../services/users.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class CreatePostComponent implements OnInit {
   users: User[] = [];
   isEditable = false;
 
-  constructor(private postsService : PostsService, private router: Router, private usersService : UsersService) { }
+  constructor(private postsService : PostsService, private router: Router, private usersService : UsersService, private toastrService : ToastrService    ) { }
 
   ngOnInit(): void {
     this.usersService.getUsers().subscribe(data => {
@@ -33,13 +33,14 @@ export class CreatePostComponent implements OnInit {
 
   onCreate(content: String, userID: String, status: String){
     if(content === '' || userID === '' || status === '')
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.postsService.addPost(content, status, userID).subscribe(data => {
         this.post = data;
+        this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
         this.router.navigate(['/table-list']);
       });
     }

@@ -26,18 +26,18 @@ export default function Plant() {
   React.useEffect(() => {
 
      //set plant from server
-    fetch('http://localhost:8080/plant/' + plantID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
       .then(response => response.json()).then(
         data => {
           setPlant(data);
           //set sesnor data and chart data
           if (data.sensorID)
-            axios.get('http://localhost:8080/sensor/' + data.sensorID).then((Response) => {
+            axios.get(process.env.REACT_APP_SERVER_URL+'/sensor/' + data.sensorID).then((Response) => {
               setSensor(Response.data)
               setChartData({ data: Response.data.soilMoisture, title: 'Soil Moisture', optimal: data.optimalSoilMoisture,showHistory:false })
             })
           //set plant's garden from server
-          fetch('http://localhost:8080/garden/find/' + data.GardenID)
+          fetch(process.env.REACT_APP_SERVER_URL+'/garden/find/' + data.GardenID)
             .then(response => response.json()).then(
               data => {
                 setGarden(data);
@@ -152,7 +152,7 @@ if(e.target.value=='plant history')
                   <span style={{ color: 'black' }}>Edit Plant</span></Link> &nbsp;
                   <button style={{ width: '120px', background: 'white' }} className="button" type="submit"
                   onClick={() => {
-                    axios.delete('http://localhost:8080/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
+                    axios.delete(process.env.REACT_APP_SERVER_URL+'/plant/', { data: { plantID: plantID, gardenID: plant.GardenID } })
                     window.location="/singlegarden/"+plant.GardenID
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
@@ -180,7 +180,7 @@ function addSensor(e, plantID) {
       plantID: plantID,
       sensorId: sensorId
     }
-    axios.post('http://localhost:8080/sensor/', newSensor).then((res) => {
+    axios.post(process.env.REACT_APP_SERVER_URL+'/sensor/', newSensor).then((res) => {
       if (res.status == 200) {
  
         toast("The sensor was added successfully"); 

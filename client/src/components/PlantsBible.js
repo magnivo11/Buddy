@@ -1,10 +1,8 @@
 import '../css/Bible.css';
 import React from 'react';
 import { Link } from 'react-router-dom'
-import axios from 'axios';
-import PlantsBibleGrid from './PlantsBibleGrid';
-import UploadImage from './UploadImage';
-
+ import PlantsBibleGrid from './PlantsBibleGrid';
+ 
 export default function PlantsBible() {
   const ownerID = window.sessionStorage.getItem('userID');
   const [editPermission, setEditPermission] = React.useState(false);
@@ -13,8 +11,7 @@ export default function PlantsBible() {
     fetch(process.env.REACT_APP_SERVER_URL + '/user/' + ownerID)
       .then(response => response.json()).then(
         data => {
-          console.log(data);
-          if (data.isAdmin)
+           if (data.isAdmin)
             setEditPermission(true);
 
         }

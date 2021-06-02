@@ -53,13 +53,19 @@ const io = socketIo(server/*,{
 
 // this socketio purpose is counting how many users are connecting to the web in real-time
 //var countActiveUsers = ActiveUsers.countActiveUsers;
-var countPlants = 0;
+var countAdminPlants = 0;
+var countUserPlants = 0;
 var countPosts = 0;
 var adminMessage = ''
 
-plantService.getNumOfPlants().then((docs) => {
-    countPlants= docs;
-    myEmitter.emit('emitPlant');
+plantService.getNumOfAdminPlants().then((docs) => {
+    countAdminPlants= docs;
+    myEmitter.emit('emitAdminPlant');
+});
+
+plantService.getNumOfUserPlants().then((docs) => {
+    countUserPlants= docs;
+    myEmitter.emit('emitUserPlant');
 });
 
 postService.getNumOfPosts().then((docs) => {
@@ -67,14 +73,24 @@ postService.getNumOfPosts().then((docs) => {
     myEmitter.emit('emitPost');
 });
 
-myEmitter.on('createPlant', () => {
-    countPlants++;
-    myEmitter.emit('emitPlant');
+myEmitter.on('createAdminPlant', () => {
+    countAdminPlants++;
+    myEmitter.emit('emitAdminPlant');
 });
 
-myEmitter.on('deletePlant', () => {
-    countPlants--;
-    myEmitter.emit('emitPlant');
+myEmitter.on('deleteAdminPlant', () => {
+    countAdminPlants--;
+    myEmitter.emit('emitAdminPlant');
+});
+
+myEmitter.on('createUserPlant', () => {
+    countUserPlants++;
+    myEmitter.emit('emitUserPlant');
+});
+
+myEmitter.on('deleteUserPlant', () => {
+    countUserPlants--;
+    myEmitter.emit('emitUserPlant');
 });
 
 
@@ -110,11 +126,15 @@ io.on('connection', (socket) => {
 
     else if (socket.handshake.headers.origin === process.env.ANGULAR_URL) {
         socket.broadcast.emit('countActiveUsers', ActiveUsers.countActiveUsers);           
-        socket.broadcast.emit('countPlants', countPlants);
+        socket.broadcast.emit('countAdminPlants', countAdminPlants);
+        socket.broadcast.emit('countUserPlants', countUserPlants);
         socket.broadcast.emit('countPosts', countPosts);
 
-        myEmitter.on('emitPlant', () => {
-            socket.broadcast.emit('countPlants', countPlants);
+        myEmitter.on('emitAdminPlant', () => {
+            socket.broadcast.emit('countAdminPlants', countAdminPlants);
+        });
+        myEmitter.on('emitUserPlant', () => {
+            socket.broadcast.emit('countUserPlants', countUserPlants);
         });
         myEmitter.on('emitPost', () => {
             socket.broadcast.emit('countPosts', countPosts);

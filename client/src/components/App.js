@@ -4,8 +4,7 @@ import RegisterForm from './RegisterForm';
 import DataContext from '../DataContext';
 import React from 'react';
 import AddAPlantByUser from './AddAPlantByUser';
-import Footer from './Footer';
-import BibleSearch from './BibleSearch';
+ import BibleSearch from './BibleSearch';
 import Header from './Header';
 import MyGardens from './MyGardens';
 import SingleGarden from './SingleGarden';
@@ -33,17 +32,16 @@ import socket from '../common/ReactSocket'
 
 
 function App() {
-    
-    if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
+     if (!window.sessionStorage.getItem('userID') && !(window.location.toString().includes("reset")))
         window.history.replaceState(null, "New Page Title", "/")
 
     const [render, forceRender] = React.useState(false);
     const [newNotifications, setNewNotifications] = React.useState(0);
-
+ 
     var userID = window.sessionStorage.getItem('userID')
     React.useEffect(() => {
         if (userID) {
-            axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
+            axios.get(process.env.REACT_APP_SERVER_URL+'/user/allUnReadnotifications/'+userID).then(Response => {
                 setNewNotifications(Response.data.length)
 
             })
@@ -53,7 +51,7 @@ function App() {
 
     socket.on('check notifications',()=>{
         if (userID) {
-            axios.get('http://localhost:8080/user/allUnReadnotifications/' + userID).then(Response => {
+            axios.get(process.env.REACT_APP_SERVER_URL+'/user/allUnReadnotifications/' + userID).then(Response => {
                 setNewNotifications(Response.data.length)
 
             })

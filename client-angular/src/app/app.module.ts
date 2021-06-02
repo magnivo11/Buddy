@@ -1,4 +1,7 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';    
+import { ToastrModule } from 'ngx-toastr';  
+import { CommonModule } from '@angular/common'; 
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,15 +13,16 @@ import { ComponentsModule } from './components/components.module';
 import { ContainerComponent } from './components/container/container.component';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ToastrModule } from 'ngx-toastr';
+import { environment } from '../environments/environment';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+const config: SocketIoConfig = { url: environment.baseUrl, options: {} };
 
 
 @NgModule({ 
   imports: [
-    BrowserAnimationsModule,
+    CommonModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -26,6 +30,7 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     RouterModule,
     AppRoutingModule,
     SocketIoModule.forRoot(config),
+    BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],
   declarations: [

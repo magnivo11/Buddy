@@ -7,6 +7,7 @@ import { Post } from '../../../models/post';
 import { User } from '../../../models/user';
 import { PostsService } from '../../../services/posts.service';
 import { UsersService } from '../../../services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-comment',
@@ -20,7 +21,8 @@ export class EditCommentComponent implements OnInit {
     users: User[] = [];
 
     constructor(private commentsService : CommentsService, private postsService : PostsService, private usersService : UsersService,
-      private router:Router, private activatedRoute:ActivatedRoute) {
+      private router:Router, private activatedRoute:ActivatedRoute, private toastrService : ToastrService
+      ) {
       //this.router.getCurrentNavigation().extras.state;
     }
   
@@ -36,16 +38,17 @@ export class EditCommentComponent implements OnInit {
   
     onUpdate(userID: String, postID: String, content: String){
       if(userID === '' || postID === undefined || content === '')
-        window.alert('Please fill all fields');
+        this.toastrService.error('Please fill all fields', 'Error');  
       else{
         this.comment.userID = userID;
         this.comment.postID = postID;
         this.comment.content = content;
         this.commentsService.updateComment(this.comment).subscribe(data => {
           this.comment = data;
+          this.toastrService.success('Succeess');  
           this.router.navigate(['/table-list']);
         }, err => {
-          window.alert(err.error);
+          this.toastrService.error(err.error.errors,'Error');  
           this.router.navigate(['/table-list']);
         });
       }

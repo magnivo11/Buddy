@@ -11,7 +11,7 @@ export default function EditGarden() {
   const [sunlight, setSunlight] = React.useState("")
 
   React.useEffect(() => {
-    fetch('http://localhost:8080/garden/find/' + gardenID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/garden/find/' + gardenID)
       .then(response => response.json()).then(
         data => {
           setGarden(data);
@@ -104,7 +104,7 @@ function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) 
     surroundings: surroundings,
   }
 
-  axios.put('http://localhost:8080/garden/', newGarden);
 
+  axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);
   window.location='/mygardens'
 }

@@ -26,7 +26,7 @@ export default function AddAPlantByUser() {
   }
   var plantsInfo = [];
   React.useEffect(() => {
-    axios.get('http://localhost:8080/plant/admin').then((Response) => {
+    axios.get(process.env.REACT_APP_SERVER_URL+'/plant/admin').then((Response) => {
       if (plants.length != Response.data.length) {
         Response.data.forEach(plant => {
           plantsInfo.push({ label: plant.species, value: plant.species})
@@ -107,7 +107,7 @@ function addAPlant(e, gardenID, selected, growthStatus) {
     growthStatus: growthStatus,
     GardenID: gardenID
   }
-  axios.post('http://localhost:8080/plant/ByUser', newPlant);
+  axios.post(process.env.REACT_APP_SERVER_URL+'/plant/ByUser', newPlant);
   window.location='/singleGarden/' + gardenID;
 }
 } 

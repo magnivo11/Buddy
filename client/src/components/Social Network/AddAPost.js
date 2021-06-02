@@ -70,7 +70,7 @@ function addAPost(e, inputRef, userId, FileName) {
   formData.append('type', "post");
  
 
- axios.post('http://localhost:8080/photo/upload', formData);
+ axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
 const form = document.forms.postForm;
 const statusArray = form.elements.status;
@@ -85,7 +85,7 @@ statusArray.forEach((status) => status.checked ? selectedStatus = status.id : nu
   userID: userId,
   photoID: FileName.name
 }
- axios.post('http://localhost:8080/post/', newPost);
+ axios.post(process.env.REACT_APP_SERVER_URL+'/post/', newPost);
   window.location = '/newsfeed'
 }
 
