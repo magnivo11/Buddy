@@ -90,7 +90,22 @@ router.post('/', photoController.createPhoto) // good
 router.get('/:photoID', photoController.getPhoto); //good 
 router.get('/', photoController.getAllPhotos);//good 
 router.put('/edit/:photoID', photoController.editPhoto);
-router.delete('/:photoID', photoController.deletePhoto);
+router.delete('/', (req,res)=>{
+  console.log("photoID")
+
+  console.log(req.body.photoID)
+  console.log(gfs.collection('uploads'))
+  gfs.collection('uploads').findOne({filename:req.body.photoID},function (err, file) {
+    if (err) { console.log("error") }
+    if (!file) {
+      { console.log("no file was found") }
+    }
+    if(file){
+      gfs.collection('uploads').deleteMany({filename:req.body.photoID});
+      gfs.collection('uploads').deleteMany({files_id:file._id});
+    }
+    })
+});
 router.get('/scrape/:name', photoController.scrapePhoto); //good 
 
 module.exports = router;

@@ -4,7 +4,7 @@ import{Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import AddAPostBox from './AddAPostBox'
 import PostList from './PostList'
-import userPhoto from '../../Images/Gardeners/3.png'
+import userPhoto from '../../Images/user.png'
 
 
 export default function Profile(){
@@ -48,7 +48,25 @@ export default function Profile(){
       if (posts.length != Response.data.length)
           setPosts(Response.data)
   })
+  console.log(currentUser)
 
+  //not copied
+  function isStringCharsValueSumIsPrime(s) {
+    var sum=0;
+    for (var i=0;i<s.length;i++)
+    {
+     //changing all letters to upper case , summing the ascii sum and substracting the redundant (for example-> A=44 in ascii, minus 43 is 1)
+      sum+=s.toUpperCase().charCodeAt(i)-43
+    }
+    if (isPrime(sum))return true;
+    return false;
+  }
+  //copied from stackoverflow
+  function isPrime(num) {
+    for(var i = 2; i < num; i++)
+      if(num % i === 0) return false;
+    return num > 1;
+  }
 return(
     <section id="hero"  style={{overflow:'scroll'}} >
     <section  style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
@@ -67,7 +85,11 @@ return(
               <div className="row">
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
-                    <img style={{width:'75%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />
+                    {currentUser.photoID?
+                    <img style={{width:'75%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
+                    <img style={{width:'75%'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
+
+
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">

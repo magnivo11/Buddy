@@ -3,7 +3,6 @@ import axios from 'axios'
 import React from 'react';
 import '../css/AddForms.css'
 import '../css/AddAPlant.css'
-import{ Redirect,useHistory} from 'react-router-dom';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -19,7 +18,6 @@ export default function EditPlantByUser(){
   const plantID=window.location.toString().substring(index)
   const [plant, setPlant] = React.useState({});
   const [selected,setSelected]=React.useState('Change species')
-  const history = useHistory();
   const [growthStatus, setGrowthStatus] = React.useState("")
   const handleStatusChange = (event) => {
     event.preventDefault();
@@ -76,7 +74,8 @@ export default function EditPlantByUser(){
 
               </div>
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected,growthStatus,plant.GardenID,history)}}>
+              editPlant(e,plantID,selected,growthStatus,plant.GardenID)}}>
+
 
                   <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
 
@@ -108,13 +107,13 @@ export default function EditPlantByUser(){
                   </label>
                 <label className="radio-inline">
                 {plant.growthStatus=="Ripening" ? <input value="Ripening" type="image" src={stage4} style={{borderBottom: "2px solid #000"}} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />:
-                  <input value="Ripening" type="image" src={stage4} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />}<br />Ripening
+                  <input value="Ripening" type="image" src={stage5} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />}<br />Ripening
                   </label>
                     <br></br>
                     <br></br>
 
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>&nbsp;
-                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>history.push('/mygardens')}><span>Cancel</span></button>
+                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
 
               </form>
              
@@ -129,7 +128,8 @@ export default function EditPlantByUser(){
 
    
 
-function editPlant(e,plantID,selected,growthStatus,GardenID,history){
+function editPlant(e,plantID,selected,growthStatus,GardenID){
+
   e.preventDefault();
 
  const newPlant={
@@ -138,6 +138,7 @@ function editPlant(e,plantID,selected,growthStatus,GardenID,history){
   growthStatus:growthStatus,
   GardenID: GardenID
  }
+
  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant);
- history.push('/plant/' + plantID)
+ window.location='/plant/' + plantID
 }
