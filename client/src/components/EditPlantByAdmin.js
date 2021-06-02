@@ -14,7 +14,7 @@ export default function EditPlantByAdmin() {
 
   
   React.useEffect(() => {
-    fetch('http://localhost:8080/plant/' + plantID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
       .then(response => response.json()).then(
         data => {
           setPlant(data);
@@ -66,7 +66,7 @@ function editPlantByAdmin(e, species, irrigationInstructors, optimalTemp, optima
     optimalSoilMoisture: checkField(optimalSoilMoisture,'optimalSoilMoisture'),
     description: checkField(description,'description')
   }
-  axios.put('http://localhost:8080/plant/byadmin', newPlant);
+  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byadmin', newPlant);
   history.push('/PlantsBible')
 
 }

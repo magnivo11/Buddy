@@ -14,7 +14,7 @@ export default function EditUser(){
   const [user,setUser]=React.useState({_id:''});
 
    React.useEffect(() => {
-    fetch('http://localhost:8080/user/'+userId)
+    fetch(process.env.REACT_APP_SERVER_URL+'/user/'+userId)
       .then(response => response.json()).then(
         data => {
           setUser(data);
@@ -58,7 +58,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
   e.preventDefault();
 
   const email = checkField(oldEmail,'email');
-    axios.get('http://localhost:8080/user/byemail/'+email).then((Response)=>{
+    axios.get(process.env.REACT_APP_SERVER_URL+'/user/byemail/'+email).then((Response)=>{
       if(Response.data){
         if(Response.data._id!==userId) {
           setInfo({showMessege:true})}
@@ -71,7 +71,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
             description:checkField(oldDescription,'description'),
             password: checkField(oldPassword,'password')
              }
-        axios.put('http://localhost:8080/user/',newUser)
+        axios.put(process.env.REACT_APP_SERVER_URL+'/user/',newUser)
         /////////////  forceRender renders app  /////////////
              data.forceRender(!data.render);
             setInfo({redirectToGardens:true})

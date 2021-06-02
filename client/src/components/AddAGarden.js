@@ -94,7 +94,7 @@ function addAGarden(e, direction, surroundings, sunlight, userId) {
       surroundings: surroundings,
       userID: userId
     }
-    axios.post('http://localhost:8080/garden/', newGarden);
+    axios.post(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);
     window.location='/mygardens';
   }
 }

@@ -1,3 +1,3 @@
 import io from "socket.io-client";
-var socket = io.connect("http://localhost:8080");
+var socket = io.connect(process.env.REACT_APP_SERVER_URL);
 export default socket;

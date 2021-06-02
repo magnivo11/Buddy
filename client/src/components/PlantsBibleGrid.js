@@ -8,7 +8,7 @@ export default function PlantsBibleGrid({ q = '' }) {
 
     const [plants, setPlants] = React.useState([])
     React.useEffect(() => {
-        fetch('http://localhost:8080/plant/admin'+q)
+        fetch(process.env.REACT_APP_SERVER_URL+'/plant/admin'+q)
             .then((response) => response.json())
             .then((data) => setPlants(data));
     }, [q]);

@@ -17,7 +17,7 @@ export default function PlantsBibleSinglePlant() {
 
 
   React.useEffect(() => {
-    axios.get('http://localhost:8080/plant/' + plantID).then((Response) => {
+    axios.get(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID).then((Response) => {
       if (plant !== Response.data) {
         setPlant(Response.data);
 
@@ -26,7 +26,7 @@ export default function PlantsBibleSinglePlant() {
   }, []);
 
   React.useEffect(() => {
-    fetch('http://localhost:8080/user/' + ownerID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/user/' + ownerID)
       .then(response => response.json()).then(
         data => {
           if (data.isAdmin)
@@ -87,7 +87,7 @@ export default function PlantsBibleSinglePlant() {
                 </Link> : null} &nbsp;
               {editPermission ? <button style={{ width: '120px', background: 'white' }} className="button" type="submit"
                 onClick={() => {
-                  axios.delete('http://localhost:8080/plant/byAdmin', { data: { plantID: plantID } })
+                  axios.delete(process.env.REACT_APP_SERVER_URL+'/plant/byAdmin', { data: { plantID: plantID } })
                   history.push('/plantsBible')
                 }}><span style={{ color: 'black' }} >Delete Plant</span>
               </button> : null}

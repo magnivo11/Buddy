@@ -20,12 +20,12 @@ export default function Post({postID, change,deletePost,editPost}) {
 
 
     React.useEffect(() => {
-        postID &&  fetch('http://localhost:8080/post/'+postID)
+        postID &&  fetch(process.env.REACT_APP_SERVER_URL+'/post/'+postID)
           .then(response => response.json()).then(
             data => {
             setPost(data)
             setContent(data.content);
-            fetch('http://localhost:8080/user/'+data.userID)
+            fetch(process.env.REACT_APP_SERVER_URL+'/user/'+data.userID)
             .then(response => response.json()).then(
               data => {setUser(data);
                 if(data._id==loggedUserID)
@@ -72,7 +72,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
-            <img style={{width:'500px'}} src={`http://localhost:8080/photo/find/${post.photoID}`}></img>
+            <img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>
             {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
             <button  style={{fontSize:'9px',border:'white',background:'none'}}

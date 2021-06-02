@@ -17,7 +17,9 @@ export default function UploadImage({ ownerID, type }) {
         formData.append('link', FileName);
         formData.append('type', type);
         formData.append('ownerID', ownerID);
-        axios.post('http://localhost:8080/photo/upload', formData);
+        axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
+        window.location="/plant/"+ownerID;
+ 
     }
 
     return (
