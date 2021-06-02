@@ -1,6 +1,5 @@
 import '../../css/Forms.css'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddAPost({ target }) {
   const userId = window.sessionStorage.getItem('userID');
-  const history = useHistory();
   const inputRef = React.useRef(null);
    const [FileName, setFileName] = React.useState("");
 
@@ -52,7 +50,7 @@ export default function AddAPost({ target }) {
                   </div>
                 </div>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/newsfeed')}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/newsfeed'}><span>Cancel</span></button>
               </form>
             </div>
           </div>

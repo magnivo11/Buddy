@@ -99,7 +99,9 @@ const updateUser = async (request, response) => {
         request.body.lastName,
         request.body.email,
         request.body.description,
-        request.body.password);
+        request.body.password,
+        request.body.photoID
+        );
 
     if (!user) {
         return response.status(404).json({ errors: ['User not found'] });
