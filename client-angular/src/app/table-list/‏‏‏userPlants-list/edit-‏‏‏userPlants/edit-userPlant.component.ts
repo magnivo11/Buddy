@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Plant } from '../../../models/plant';
 import { Garden } from '../../../models/garden';
 import { GardensService } from '../../../services/gardens.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-userPlant',
@@ -16,7 +17,7 @@ export class EditUserPlantComponent implements OnInit {
   gardens : Garden[] = [];  
 
   constructor(private plantsService : PlantsService, private gardensService : GardensService, private router:Router, private activatedRoute:ActivatedRoute
-    ) {
+    , private toastrService : ToastrService    ) {
     //this.router.getCurrentNavigation().extras.state;
   }
 
@@ -26,23 +27,23 @@ export class EditUserPlantComponent implements OnInit {
     this.gardensService.getGardens().subscribe(data => {
       this.gardens = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
   onUpdate(species: String, garden: String, growthStatus: String){
     
     if(species === '' || garden === '' || growthStatus === '')
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.plant.species = species;
       this.plant.GardenID = garden;
       this.plant.growthStatus = growthStatus;
       this.plantsService.updateUserPlant(this.plant).subscribe(data => {
+        this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        console.log(err.error);
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
         this.router.navigate(['/table-list']);
       });
     }

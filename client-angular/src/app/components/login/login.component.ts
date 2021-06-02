@@ -46,9 +46,7 @@ export class LoginComponent implements OnInit {
         (res: any) => {
           if(res.user.isAdmin === false)
           {
-            this.toastr.success('Please try agian or check your permmissions','This user is not labaled as admin');
-
-            alert('You are not an admin, try again.');
+            this.toastr.error('Please try again or check your permmissions','Error');
             this.ls.setShowLoginComp(true)
             return;
           }
@@ -56,21 +54,18 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(res.user));
          // this.ls.setToken(res.sessionToken);
           // this.ls.setIsLogin(true);
-          console.log(res);
           this.ls.setIsLogin(true, res.user);
-
+          this.toastr.success('Login Success');
           this.router.navigate(['/dashboard'], { relativeTo: this.route });
         }, (error: any) => {
-          console.log(error);
-          alert('email and password did not match');
+          this.toastr.error('Email and Password did not match','Error');
         });
     }
     else if (!this.login && !this.delete) {
       this.ls.onUpdate(formData.form.value).subscribe(
         (res: any) => alert('Your password is updated'),
         (error: any) => {
-          console.log(error); 
-          alert('email and password did not match');
+          this.toastr.error('Email and Password did not match','Error');
         }
       );
     }

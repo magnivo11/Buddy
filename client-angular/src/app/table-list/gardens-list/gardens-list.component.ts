@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Garden } from '../../models/garden';
 import { GardensService } from '../../services/gardens.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-gardens-list',
@@ -16,7 +17,8 @@ export class GardensListComponent implements OnInit {
   @Input() search: string = '';
   @Input() refresh: string = "false";
 
-  constructor(private gardensService : GardensService, private router: Router){}
+  constructor(private gardensService : GardensService, private router: Router, private toastrService : ToastrService
+    ){}
   
   ngOnInit() {
     if(this.listFor === '')
@@ -41,7 +43,7 @@ export class GardensListComponent implements OnInit {
       this.gardensService.filter(this.search).subscribe(data =>{
         this.gardens = data;
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
       })
     }
   }
@@ -50,7 +52,7 @@ export class GardensListComponent implements OnInit {
     this.gardensService.getGardens().subscribe(data => {
       this.gardens = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
@@ -58,7 +60,7 @@ export class GardensListComponent implements OnInit {
     this.gardensService.getGardensByUser(user).subscribe(data => {
       this.gardens = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
       this.router.navigate(['/table-list']);
     });
   }
@@ -72,10 +74,11 @@ export class GardensListComponent implements OnInit {
   }
   onDelete(garden : Garden){
     this.gardensService.deleteGarden(garden._id, garden.userID).subscribe(data => {
+      this.toastrService.success('Succeess');  
       this.gardens.splice(this.gardens.indexOf(garden),1);
     }, err => {
-      window.alert(err.error);
-      this.gardens.splice(this.gardens.indexOf(garden),1);
+      this.toastrService.error(err.error.errors,'Error');  
+      //this.gardens.splice(this.gardens.indexOf(garden),1);
     });
   }
   onDetails(garden : Garden){

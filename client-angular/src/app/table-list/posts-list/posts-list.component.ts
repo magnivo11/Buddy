@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../../models/post';
 import { PostsService } from '../../services/posts.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-posts-list',
@@ -16,7 +17,7 @@ export class PostsListComponent implements OnInit {
   @Input() search: string = '';
   @Input() refresh: string = "false";
 
-  constructor(private PostsService : PostsService, private router: Router){}
+  constructor(private PostsService : PostsService, private router: Router, private toastrService : ToastrService    ){}
   
   ngOnInit() {
     if(this.listFor === '')
@@ -40,7 +41,7 @@ export class PostsListComponent implements OnInit {
       this.PostsService.filter(this.search).subscribe(data =>{
         this.posts = data;
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
       })
     }
   }
@@ -49,7 +50,7 @@ export class PostsListComponent implements OnInit {
     this.PostsService.getPosts().subscribe(data => {
       this.posts = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
@@ -57,7 +58,7 @@ export class PostsListComponent implements OnInit {
     this.PostsService.getPostsByUser(user).subscribe(data => {
       this.posts = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
       this.router.navigate(['/table-list']);
     });
   }
@@ -71,10 +72,11 @@ export class PostsListComponent implements OnInit {
   }
   onDelete(post : Post){
     this.PostsService.deletePost(post._id, post.userID).subscribe(data => {
+      this.toastrService.success('Succeess');  
       this.posts.splice(this.posts.indexOf(post),1);
     }, err => {
-      window.alert(err.error);
-      this.posts.splice(this.posts.indexOf(post),1);
+      this.toastrService.error(err.error.errors,'Error');  
+      //this.posts.splice(this.posts.indexOf(post),1);
     });
   }
   onDetails(post : Post){

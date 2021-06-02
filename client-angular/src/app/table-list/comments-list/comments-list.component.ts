@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from '../../models/comment';
 import { CommentsService } from '../../services/comments.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comments-list',
@@ -15,7 +16,8 @@ export class CommentsListComponent implements OnInit {
   @Input() search: string = '';
   @Input() refresh: string = "false";
 
-  constructor(private commentsService :  CommentsService, private router: Router){}
+  constructor(private commentsService :  CommentsService, private router: Router, private toastrService : ToastrService
+    ){}
   
   ngOnInit() {
     if(this.listFor === '')
@@ -39,7 +41,7 @@ export class CommentsListComponent implements OnInit {
       this.commentsService.filter(this.search).subscribe(data =>{ 
         this.comments = data;
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
       })
     }
     else if (this.listFor !== '')
@@ -52,7 +54,7 @@ export class CommentsListComponent implements OnInit {
     this.commentsService.getComments().subscribe(data => {
       this.comments = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
@@ -60,7 +62,7 @@ export class CommentsListComponent implements OnInit {
     this.commentsService.getCommentsByPostID(postID).subscribe(data => {
       this.comments = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
       this.router.navigate(['/table-list']);
     });
   }
@@ -77,10 +79,11 @@ export class CommentsListComponent implements OnInit {
   onDelete(comment : Comment){
     //this.currentpostService.changeCurrentpost(post);
     this.commentsService.deleteComment(comment._id, comment.postID).subscribe(data => {
+      this.toastrService.success('Success');  
       this.comments.splice(this.comments.indexOf(comment),1);
     }, err => {
-      window.alert(err.error);
-      this.comments.splice(this.comments.indexOf(comment),1);
+      this.toastrService.error(err.error.errors,'Error');  
+      //this.comments.splice(this.comments.indexOf(comment),1);
     });
   }
   onDetails(comment : Comment){

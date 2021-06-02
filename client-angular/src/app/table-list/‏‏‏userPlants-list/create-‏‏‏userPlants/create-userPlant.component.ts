@@ -4,6 +4,7 @@ import { PlantsService } from '../../../services/plants.service';
 import { Router } from '@angular/router';
 import { Garden } from '../../../models/garden';
 import { GardensService } from '../../../services/gardens.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-userPlant',
@@ -17,7 +18,7 @@ export class CreateUserPlantComponent implements OnInit {
   gardens : Garden[] = [];  
   plants : Plant[] = [];  
 
-  constructor(private plantsService : PlantsService, private gardensService : GardensService, private router: Router) { }
+  constructor(private plantsService : PlantsService, private gardensService : GardensService, private router: Router, private toastrService : ToastrService    ) { }
 
   ngOnInit(): void {
     // this.plant=history.state.user;
@@ -30,13 +31,14 @@ export class CreateUserPlantComponent implements OnInit {
 
   onCreate(species: String, garden: String, growthStatus: String){
     if(species === '' || garden === ''  || growthStatus === '')
-      window.alert('Please fill all fields');
+      this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.plantsService.addPlantForUser(species, garden, growthStatus).subscribe(data => {
         this.plant = data;
+        this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        window.alert(err.errors);
+        this.toastrService.error(err.error.errors,'Error');  
         this.router.navigate(['/table-list']);
       });
     }
@@ -46,7 +48,7 @@ export class CreateUserPlantComponent implements OnInit {
     this.gardensService.getGardens().subscribe(data => {
       this.gardens = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
@@ -54,7 +56,7 @@ export class CreateUserPlantComponent implements OnInit {
     this.plantsService.getAdminPlants().subscribe(data => {
       this.plants = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 }
