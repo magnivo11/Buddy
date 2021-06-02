@@ -38,7 +38,7 @@ export default function ForgotPassword() {
     function reset(e) {
         e.preventDefault();
         var email = document.getElementById("email").value;
-        axios.post('http://localhost:8080/user/forgotPassword', { email: email }).then(Response => {
+        axios.post(process.env.REACT_APP_SERVER_URL+'/user/forgotPassword', { email: email }).then(Response => {
             if (Response) {
           setMessege({ text: "Email sent. Check your E-mail", showMessege: true })
     }

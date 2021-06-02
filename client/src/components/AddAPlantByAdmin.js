@@ -55,7 +55,7 @@ function addAPlantByAdmin(e) {
       optimalSoilMoisture: document.getElementById('optimalSoilMoisture').value,
       description: document.getElementById('description').value
     }
-    axios.post('http://localhost:8080/plant/', newPlant).then((Response) => {
+    axios.post(process.env.REACT_APP_SERVER_URL+'/plant/', newPlant).then((Response) => {
       if (Response.data.message) {
         toast(Response.data.message)
       }

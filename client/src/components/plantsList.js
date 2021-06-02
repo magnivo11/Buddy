@@ -22,7 +22,7 @@ import TableRow from '@material-ui/core/TableRow';
     const [plantListChange,setChange]=React.useState(false);
   const [plants,setPlants]=React.useState([]);
   React.useEffect(()=>{
-    axios.get('http://localhost:8080/plant/bygarden/'+gardenID).then(Response=>{
+    axios.get(process.env.REACT_APP_SERVER_URL+'/plant/bygarden/'+gardenID).then(Response=>{
       setPlants(Response.data)});
 
   },[gardenID])

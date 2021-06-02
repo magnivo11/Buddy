@@ -24,6 +24,7 @@
     "d3": "^6.5.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.1",
@@ -58,10 +59,9 @@
   },
   "scripts": {
     "server": "cd server && npm start",
-    "client-dashboard": "cd client-dashboard && npm start",
     "client-angular": "cd client-angular && npm start",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client-dashboard\" \"npm run client\" ",
+    "dev": "concurrently \"npm run server\" \"npm run client-angular\" \"npm run client\" ",
     "dev-angular": "concurrently \"npm run server\" \"npm run client-angular\" "
   },
   "repository": {

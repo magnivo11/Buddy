@@ -1,7 +1,6 @@
 import React from 'react';
 import CanvasJSReact from '../canvasjs.react';
-//var CanvasJSReact = require('./canvasjs.react');
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function Chart({title,sensorData,optimalValue,showHistory}){
 

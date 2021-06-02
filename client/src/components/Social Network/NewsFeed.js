@@ -17,19 +17,19 @@ export default function NewsFeed(){
   const deletePost=(postID)=>{
     if (window.confirm('Are you sure you want to delete this post?')){
       setPosts(posts.filter((post)=>(post !==postID)))
-      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      axios.delete(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,userID:userID}})
       window.location='/newsfeed'
       }
   }
 
   React.useEffect(() => {
-    fetch('http://localhost:8080/user/'+userID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/user/'+userID)
       .then(response => response.json()).then(
         data => {setUser(data)})
       
   }, []);
   React.useEffect(() => {
-  axios.get('http://localhost:8080/post').then(Response => {
+  axios.get(process.env.REACT_APP_SERVER_URL+'/post').then(Response => {
     if (posts.length != Response.data.length)
     {
       const postIDList = Response.data.map((post)=>(post._id));

@@ -11,12 +11,12 @@ export default function Notifications(){
   const [notifications,setNotifications]=React.useState([])
   const [hasNotifications,setHasNotifications]=React.useState(false)
   console.log(data.newNotifications)
-  axios.get('http://localhost:8080/user/setAllNotificationsToSeen/'+userID)
+  axios.get(process.env.REACT_APP_SERVER_URL+'/user/setAllNotificationsToSeen/'+userID)
   data.setNewNotifications(0)
 
 
   React.useEffect(() => {
-      fetch('http://localhost:8080/user/allnotifications/'+userID)
+      fetch(process.env.REACT_APP_SERVER_URL+'/user/allnotifications/'+userID)
         .then(response => response.json()).then(
           data => {
             setNotifications(data);

@@ -9,7 +9,7 @@ export default function Comment({comment, onDelete,commentWriterID}) {
 
 
     React.useEffect(() => {
-        fetch('http://localhost:8080/user/'+comment.userID)
+        fetch(process.env.REACT_APP_SERVER_URL+'/user/'+comment.userID)
           .then(response => response.json()).then(
             data => {setCommentWriter(data)
               if (loggedUserID===data._id){

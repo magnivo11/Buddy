@@ -31,7 +31,7 @@ export default function Header() {
     }
   }
   React.useEffect(() =>
-    axios.get('http://localhost:8080/user/' + userIDfromSession).then((Response) => {
+    axios.get(process.env.REACT_APP_SERVER_URL+'/user/' + userIDfromSession).then((Response) => {
       if (Response.data) {
         if (currentUser._id !== Response.data._id || currentUser.firstName !== Response.data.firstName || currentUser.lastName !== Response.data.lastName) {
           setUser(Response.data);

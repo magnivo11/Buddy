@@ -23,18 +23,18 @@ export default function Profile(){
 
 
    const editPost =(postID,content,status)=>{
-     axios.put('http://localhost:8080/post/',{data:{postID:postID,content:content,status:status}})
+     axios.put(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,content:content,status:status}})
   }
   const deletePost=(postID)=>{
     if (window.confirm('Are you sure you want to delete this post?')){
       setPosts(posts.filter((post)=>(post !==postID)))
-      axios.delete('http://localhost:8080/post/',{data:{postID:postID,userID:userID}})
+      axios.delete(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,userID:userID}})
       }
   }
 
     //fetching user information from server
     React.useEffect(() => {
-      fetch('http://localhost:8080/user/'+userID)
+      fetch(process.env.REACT_APP_SERVER_URL+'/user/'+userID)
         .then(response => response.json()).then(
           data => {
             setUser(data);
@@ -44,7 +44,7 @@ export default function Profile(){
         )
     }, []);
 
-    axios.get('http://localhost:8080/user/allposts/'+userID).then(Response => {
+    axios.get(process.env.REACT_APP_SERVER_URL+'/user/allposts/'+userID).then(Response => {
       if (posts.length != Response.data.length)
           setPosts(Response.data)
   })
@@ -67,7 +67,7 @@ return(
               <div className="row">
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
-                    <img style={{width:'75%'}} src={`http://localhost:8080/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />
+                    <img style={{width:'75%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />
                     <div className="mb-3">
                       <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
                       <div className="d-flex align-items-center justify-content-center">

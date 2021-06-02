@@ -32,7 +32,7 @@ export default function EditPlantByUser(){
 
   
   React.useEffect(() => {
-    fetch('http://localhost:8080/plant/' + plantID)
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
       .then(response => response.json()).then(
         data => {
           setPlant(data);
@@ -41,7 +41,7 @@ export default function EditPlantByUser(){
   }, []);
 
   React.useEffect(() => {
-          axios.get('http://localhost:8080/plant/admin').then((Response)=> {
+          axios.get(process.env.REACT_APP_SERVER_URL+'/plant/admin').then((Response)=> {
             if(plants.length!=Response.data.length)
             {
               Response.data.forEach(singlePlant => {
@@ -138,6 +138,6 @@ function editPlant(e,plantID,selected,growthStatus,GardenID,history){
   growthStatus:growthStatus,
   GardenID: GardenID
  }
- axios.put('http://localhost:8080/plant/byuser/',newPlant);
+ axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant);
  history.push('/plant/' + plantID)
 }

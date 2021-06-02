@@ -61,7 +61,7 @@ function register(e, setInfo,FileName) {
   formData.append('type', "user");
  
 
- axios.post('http://localhost:8080/photo/upload', formData);
+ axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
   if (checkRequired('first_name') && checkRequired('last_name') &&
     checkRequired('email') && checkRequired('description') && checkRequired('password')) {
@@ -69,7 +69,7 @@ function register(e, setInfo,FileName) {
     if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(document.getElementById('email').value)))
       setInfo({ showMessege: true, message: 'invalid email adress' })
     else {
-      axios.get('http://localhost:8080/user/byemail/' + document.getElementById('email').value).
+      axios.get(process.env.REACT_APP_SERVER_URL+'/user/byemail/' + document.getElementById('email').value).
         then((Response) => {
           if (Response.data) {
             setInfo({ showMessege: true, message: 'this email is  taken, please use a different one' })
@@ -83,7 +83,7 @@ function register(e, setInfo,FileName) {
               password: document.getElementById('password').value,
               photoID: FileName.name
             }
-            axios.post('http://localhost:8080/user/', newUser)
+            axios.post(process.env.REACT_APP_SERVER_URL+'/user/', newUser)
             setInfo({ redirectToLogin: true })
           }
         })

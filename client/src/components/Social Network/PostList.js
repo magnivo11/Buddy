@@ -3,8 +3,7 @@ import Post from "./Post"
 
 export default function PostList({posts,change,deletePost,editPost}) { 
 
-    console.log(posts)
-
+ 
     if (posts.length<1)
     return (
         <div></div>
