@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Plant } from '../../models/plant';
 import { PlantsService } from '../../services/plants.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-plants-list',
@@ -16,7 +17,7 @@ export class PlantsListComponent implements OnInit {
   @Input() search: string = '';
   @Input() refresh: string = "false";
 
-  constructor(private plantsService : PlantsService, private router: Router){}
+  constructor(private plantsService : PlantsService, private router: Router, private toastrService : ToastrService ){}
   
   ngOnInit() {
     if(this.listFor === '')
@@ -40,7 +41,7 @@ export class PlantsListComponent implements OnInit {
       this.plantsService.filterAdmin(this.search).subscribe(data =>{
         this.plants = data;
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error');  
       })
     }
   }
@@ -49,7 +50,7 @@ export class PlantsListComponent implements OnInit {
     this.plantsService.getAdminPlants().subscribe(data => {
       this.plants = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
     });
   }
 
@@ -57,7 +58,7 @@ export class PlantsListComponent implements OnInit {
     this.plantsService.getPlantsByGarden(user).subscribe(data => {
       this.plants = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error');  
       this.router.navigate(['/table-list']);
     });
   }
@@ -71,9 +72,10 @@ export class PlantsListComponent implements OnInit {
   }
   onDelete(plant : Plant){
     this.plantsService.deletePlant(plant._id, plant.GardenID).subscribe(data => {
+      this.toastrService.success('Succeess');  
       this.plants.splice(this.plants.indexOf(plant),1);
     }, err => {
-      window.alert(err.errors);
+      this.toastrService.error(err.error.errors,'Error');  
       //this.plants.splice(this.plants.indexOf(plant),1);
     });
   }

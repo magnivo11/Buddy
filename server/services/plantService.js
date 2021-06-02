@@ -267,6 +267,11 @@ const getUserPlantsByKeyWord = async (string) => {
 const getSumOfPlantsByGarden = async () => {
     return await Plant.aggregate([
         {
+            $match: {
+                isUserPlant: true
+            }
+        },
+        {
         $group: {
             _id: "$GardenID",
             count: { $sum: 1 }

@@ -3,6 +3,7 @@ import { User } from '../../models/user';
 import { UsersService } from '../../services/users.service';
 import { ActivatedRoute, Router, NavigationStart } from "@angular/router";
 import { LoginService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users-list',
@@ -18,7 +19,7 @@ export class UsersListComponent implements OnInit {
   @Input() refresh: string = "false";
 
 
-  constructor(private usersService : UsersService,  private router: Router, private loginService : LoginService){}
+  constructor(private usersService : UsersService,  private router: Router, private loginService : LoginService, private toastrService : ToastrService    ){}
 
   ngOnInit() {
     this.loadAll();      
@@ -36,7 +37,7 @@ export class UsersListComponent implements OnInit {
       this.usersService.filter(this.search).subscribe(data =>{
         this.users = data;
       }, err => {
-        window.alert(err.error);
+        this.toastrService.error(err.error.errors,'Error'); 
       })
     }
 
@@ -48,7 +49,7 @@ export class UsersListComponent implements OnInit {
     this.usersService.getUsers().subscribe(data => {
       this.users = data;
     }, err => {
-      window.alert(err.error);
+      this.toastrService.error(err.error.errors,'Error'); 
     });
   }
 
@@ -70,9 +71,10 @@ export class UsersListComponent implements OnInit {
   onDelete(user : User){
     //this.currentpostService.changeCurrentpost(post);
     this.usersService.deleteUser(user._id).subscribe(data => {
+      this.toastrService.success('Succeess');  
       this.users.splice(this.users.indexOf(user),1);
     }, err => {
-      window.alert(err);
+      this.toastrService.error(err.error.errors,'Error'); 
       //this.users.splice(this.users.indexOf(user),1);
     });
   }
