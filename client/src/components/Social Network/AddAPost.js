@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-  
+
 
 export default function AddAPost({ target }) {
   const userId = window.sessionStorage.getItem('userID');
   const history = useHistory();
   const inputRef = React.useRef(null);
-   const [FileName, setFileName] = React.useState("");
+  const [FileName, setFileName] = React.useState("");
 
   const onChangeFile = e => {
     setFileName(e.target.files[0]);
@@ -71,23 +71,23 @@ function addAPost(e, inputRef, userId, FileName) {
   formData.append('link', FileName);
   formData.append('type', "post");
  
-
- axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
-
-const form = document.forms.postForm;
-const statusArray = form.elements.status;
-console.log(statusArray)
-//getting content
-const content = inputRef.current.value;
-let selectedStatus;
-statusArray.forEach((status) => status.checked ? selectedStatus = status.id : null);
- const newPost = {
-  content: content,
-  status: selectedStatus,
-  userID: userId,
-  photoID: FileName.name
-}
- axios.post(process.env.REACT_APP_SERVER_URL+'/post/', newPost);
+  if (FileName != "") {
+     axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
+  }
+  const form = document.forms.postForm;
+  const statusArray = form.elements.status;
+  console.log(statusArray)
+  //getting content
+  const content = inputRef.current.value;
+  let selectedStatus;
+  statusArray.forEach((status) => status.checked ? selectedStatus = status.id : null);
+  const newPost = {
+    content: content,
+    status: selectedStatus,
+    userID: userId,
+    photoID: FileName.name
+  }
+  axios.post(process.env.REACT_APP_SERVER_URL + '/post/', newPost);
   window.location = '/newsfeed'
 }
 

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 export default function PlantsBible() {
   const ownerID = window.sessionStorage.getItem('userID');
   const [editPermission, setEditPermission] = React.useState(false);
-
   React.useEffect(() => {
     fetch(process.env.REACT_APP_SERVER_URL + '/user/' + ownerID)
       .then(response => response.json()).then(
