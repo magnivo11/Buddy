@@ -54,19 +54,16 @@ const getAllGardensFromUser = async (id) => {
 };
 
  
-const updateUser = async(id,firstName,lastName,email,description,password) =>{
-    console.log(id)
+const updateUser = async(id,firstName,lastName,email,description,password,photoID) =>{
     User.findById(id,(err,user)=>{
-        console.log(user)
-
         user.firstName=firstName;
         user.lastName=lastName;
         user.email=email;
         user.description=description;
         user.password=password;
+        user.photoID=photoID;
         user.lastUpdated= Date.now();
         user.save();
-
     });
     return true;
 };

@@ -1,13 +1,11 @@
 import '../../css/Forms.css'
 import axios from 'axios'
-import {useHistory } from 'react-router-dom';
 import React from 'react';
 
 export default function EditPost() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const postID = window.location.toString().substring(index)
   const userID= window.sessionStorage.getItem('userID');
-  const history = useHistory();
   const [post, setPost] = React.useState();
   const [content, setContent] = React.useState("");
   const [status, setStatus] = React.useState("")
@@ -40,7 +38,7 @@ export default function EditPost() {
               </div>
 
               <form onSubmit={(e) => {
-                editPost(e, status,content, postID,userID,history)
+                editPost(e, status,content, postID,userID)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="content" className="fadeIn second" name="addAGarden" placeholder={content}
                 onChange={handleContentChange} />
@@ -58,7 +56,7 @@ export default function EditPost() {
                
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
             </div>
           </div>
@@ -69,7 +67,7 @@ export default function EditPost() {
 
 }
 
-function editPost(e, status,content,postID,userID,history) {
+function editPost(e, status,content,postID,userID) {
   e.preventDefault();
 
   const updatedPost = {
@@ -80,6 +78,7 @@ function editPost(e, status,content,postID,userID,history) {
   }
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
-  history.push('/newsfeed')
+  window.location='/newsfeed'
+
 }
 

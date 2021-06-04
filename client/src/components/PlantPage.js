@@ -1,10 +1,8 @@
 import '../css/Timeline.scss';
-import { Redirect, useHistory,Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
  import axios from 'axios'
 import React from 'react';
-import DrawGraph from './Graph'
 import ButtonsGardensList from './ButtonsGardensList';
-import * as d3 from "d3"
 import '../css/plantPage.css';
 import Chart from './Chart';
 import { toast } from 'react-toastify';
@@ -17,22 +15,14 @@ import socket from '../common/ReactSocket'
 const data = require('../files/data.json');
 
 export default function Plant() {
-  
-
-  const history = useHistory();
-  var index = window.location.toString().lastIndexOf('/') + 1
+    var index = window.location.toString().lastIndexOf('/') + 1
   const [plantID, setPlantID] = React.useState(window.location.toString().substring(index));
   const [plant, setPlant] = React.useState('');
   const [garden, setGarden] = React.useState('');
   const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
   const [lastUpdated, setLastUpdated] = React.useState(Date.now());
-
- 
   const [chartData, setChartData] = React.useState({ data: [], title: '', optimal: '' ,showHistory:false});
- 
- 
- 
   React.useEffect(() => {
 
      //set plant from server
@@ -130,7 +120,7 @@ if(e.target.value=='plant history')
 
                     <form onSubmit={(e) => {
                       addSensor(e, plantID)
-                      history.push('/mygardens')
+                      window.location='/mygardens'
 
                     }}>
                       <div style={{ fontFamily: "Open Sans" }}>

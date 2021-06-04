@@ -1,7 +1,8 @@
 const { PACKAGE_ROOT_URL } = require('@angular/core');
 const { response } = require('express');
 const { toast } = require('react-toastify');
-const Photo = require('../models/photoModel')
+const Photo = require('../models/photoModel');
+const { db } = require('../models/plantModel');
 const Plant = require('../models/plantModel')
 
 const addPhotoToOwner = async (link, type, plantID) => {
@@ -50,6 +51,7 @@ const editPhoto = async (id, link) => {
 };
 
 const deletePhoto = async (id) => {
+    
     const delPhoto = await getPhoto(id);
     if (!delPhoto)
         return null;

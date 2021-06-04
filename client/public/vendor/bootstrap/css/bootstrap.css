@@ -2089,6 +2089,7 @@ select.form-control:focus::-ms-value {
 .form-control-file,
 .form-control-range {
   display: block;
+  text-align: center;
   width: 100%;
 }
 
