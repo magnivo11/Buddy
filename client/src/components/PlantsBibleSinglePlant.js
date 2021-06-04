@@ -1,13 +1,12 @@
 import axios from 'axios'
 import React from 'react';
 
-import { Redirect, Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import '../css/PlantsBibleSinglePlant.css';
 
 export default function PlantsBibleSinglePlant() {
 
-  const history = useHistory();
   var index = window.location.toString().lastIndexOf('/') + 1;
   const plantID = window.location.toString().substring(index);
   const [plant, setPlant] = React.useState(false);
@@ -87,8 +86,10 @@ export default function PlantsBibleSinglePlant() {
                 </Link> : null} &nbsp;
               {editPermission ? <button style={{ width: '120px', background: 'white' }} className="button" type="submit"
                 onClick={() => {
+
                   axios.delete(process.env.REACT_APP_SERVER_URL+'/plant/byAdmin', { data: { plantID: plantID } })
-                  history.push('/plantsBible')
+                  window.location='/plantsBible'
+
                 }}><span style={{ color: 'black' }} >Delete Plant</span>
               </button> : null}
             </div>

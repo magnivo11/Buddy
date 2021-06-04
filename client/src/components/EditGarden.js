@@ -1,12 +1,10 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import {useHistory } from 'react-router-dom';
 import React from 'react';
 
 export default function EditGarden() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const gardenID = window.location.toString().substring(index)
-  const history = useHistory();
   const [garden, setGarden] = React.useState({ _id: '' });
   const [direction, setDirection] = React.useState("");
   const [surroundings, setSurroundings] = React.useState("")
@@ -46,7 +44,7 @@ export default function EditGarden() {
               </div>
 
               <form onSubmit={(e) => {
-                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,history)
+                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName} />
                 <br />
@@ -79,7 +77,7 @@ export default function EditGarden() {
                 </a>
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => history.push('/mygardens')}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
             </div>
           </div>
@@ -90,7 +88,7 @@ export default function EditGarden() {
 
 }
 
-function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,history) {
+function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) {
 
   e.preventDefault();
 
@@ -106,6 +104,7 @@ function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,h
     surroundings: surroundings,
   }
 
+
   axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);
-  history.push('/mygardens')
+  window.location='/mygardens'
 }
