@@ -33,8 +33,8 @@ export class CreatePlantComponent implements OnInit {
         this.toastrService.success('Succeess');  
         this.router.navigate(['/table-list']);
       }, err => {
-        this.toastrService.error(err.error.errors,'Error');  
-        this.router.navigate(['/table-list']);
+        this.toastrService.error(err.error.message, 'Error');  
+        //this.router.navigate(['/table-list']);
       });
     }
   }

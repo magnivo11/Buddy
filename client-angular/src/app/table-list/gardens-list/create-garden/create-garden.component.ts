@@ -42,7 +42,7 @@ export class CreateGardenComponent implements OnInit {
       }, err => {
         this.toastrService.error(err.error.errors,'Error');  
 
-        this.router.navigate(['/table-list']);
+        //this.router.navigate(['/table-list']);
       });
     }
   }

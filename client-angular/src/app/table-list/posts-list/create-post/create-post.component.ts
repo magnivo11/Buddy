@@ -41,7 +41,7 @@ export class CreatePostComponent implements OnInit {
         this.router.navigate(['/table-list']);
       }, err => {
         this.toastrService.error(err.error.errors,'Error');  
-        this.router.navigate(['/table-list']);
+        //this.router.navigate(['/table-list']);
       });
     }
   }
