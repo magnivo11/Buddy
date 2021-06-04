@@ -58,11 +58,14 @@
     "@angular-devkit/build-angular": "^0.1100.7"
   },
   "scripts": {
-    "server": "cd server && npm start",
-    "client-angular": "cd client-angular && npm start",
+    "server-dev": "cd server && npm start-dev",
+    "server-prod": "cd server && npm start-prod",
+    "client-angular-dev": "cd client-angular && npm start",
+    "client-angular-prod": "cd client-angular && npm build-prod && npm start",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client-angular\" \"npm run client\" ",
-    "dev-angular": "concurrently \"npm run server\" \"npm run client-angular\" "
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-angular-dev\" \"npm run client\" ",
+    "dev-angular": "concurrently \"npm run server\" \"npm run client-angular\" ",
+    "prod": "concurrently \"npm run server-prod\" \"npm run client-angular-prod\" \"npm run client\" "
   },
   "repository": {
     "type": "git",

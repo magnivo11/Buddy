@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=local&& nodemon server.js"
+    "start-dev": "SET NODE_ENV=local&& nodemon server.js",
+    "start-prod": "SET NODE_ENV=prod&& nodemon server.js"
   },
   "keywords": [],
   "author": "",
