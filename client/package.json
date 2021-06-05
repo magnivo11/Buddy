@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "browser-router": "^0.2.0",
+    "env-cmd": "^10.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
@@ -21,9 +22,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.local react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-prod": "env-cmd -f .env.prod react-scripts build'"
   },
   "eslintConfig": {
     "extends": [
