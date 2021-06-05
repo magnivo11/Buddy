@@ -59,8 +59,10 @@ router.post('/upload', upload.single('link'), (req, res) => {
   if (type == 'plant') {
     ownerID = req.body.ownerID;
   }
+  console.log("F");
+  console.log(req.body);
   const ans = photoController.uploadPhoto(req.file.originalname, type, ownerID);
-  return ans;
+  return ans;  
 });
 
 router.get('/find/:filename', (req, res) => {
