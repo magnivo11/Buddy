@@ -57,7 +57,7 @@ function register(e, setInfo,FileName) {
 
   e.preventDefault();
   var formData = new FormData();
-  formData.append('link', FileName);
+  formData.append('link', FileName.replace(/\s/g, '%20') );
   formData.append('type', "user");
  
 

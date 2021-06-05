@@ -8,7 +8,11 @@ export default function EditPost() {
   const userID= window.sessionStorage.getItem('userID');
   const [post, setPost] = React.useState();
   const [content, setContent] = React.useState("");
-  const [status, setStatus] = React.useState("")
+  const [photoID, setPhotoID] = React.useState("");
+  const [status, setStatus] = React.useState("");
+
+  const [FileName, setFileName] = React.useState("");
+
   React.useEffect(() => {
     fetch(process.env.REACT_APP_SERVER_URL+'/post/' + postID)
       .then(response => response.json()).then(
@@ -16,6 +20,8 @@ export default function EditPost() {
           setPost(data);
           setContent(data.content);
           setStatus(data.status);
+          setPhotoID(data.photoID);
+
         }
       )
   }, []);
@@ -25,6 +31,10 @@ export default function EditPost() {
   }
   const handleContentChange = (event) => {
     setContent(event.target.value);
+  }
+
+  const onChangeFile = e => {
+    setFileName(e.target.files[0]);
   }
 
   return (
@@ -38,8 +48,9 @@ export default function EditPost() {
               </div>
 
               <form onSubmit={(e) => {
-                editPost(e, status,content, postID,userID)
+                editPost(e, status,content, postID,userID,FileName,photoID)
               }}>
+                
                 <input style={{ fontSize: '12px' }} type="text" id="content" className="fadeIn second" name="addAGarden" placeholder={content}
                 onChange={handleContentChange} />
                 <br />
@@ -52,7 +63,9 @@ export default function EditPost() {
                   </select>
                 </a>
                 <br /><br />
-             
+                <div className="form-group" >
+                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                  </div>
                
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
@@ -67,18 +80,27 @@ export default function EditPost() {
 
 }
 
-function editPost(e, status,content,postID,userID) {
+function editPost(e, status,content,postID,userID,FileName,photoID) {
+
   e.preventDefault();
+
+  var formData = new FormData();
+  formData.append('link', FileName);
+  formData.append('type', "post");
+ 
+ axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
   const updatedPost = {
     content:content,
     userID:userID,
     postID: postID,
-    status: status
+    status: status,
+    photoID: FileName.name
   }
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
   window.location='/newsfeed'
+  axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: photoID} })
 
 }
 

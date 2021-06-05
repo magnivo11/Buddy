@@ -37,11 +37,12 @@ const getNumOfPosts = async()=>{
     return await Post.countDocuments({});
 };
 
-const updatePost = async(postID,content,userID,status) =>{
+const updatePost = async(postID,content,userID,status,photoID) =>{
     Post.findById(postID,(err,post)=>{
         post.content=content;
         post.status= status;
         post.userID=userID;
+        post.photoID=photoID,
         post.lastUpdated= Date.now();
         post.save();
     });

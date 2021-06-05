@@ -46,7 +46,7 @@ export default function AddAPost({ target }) {
                     <input type="radio" id='Help' name="status" /> <label style={{ color: 'red' }} htmlFor="north">Help &nbsp;&nbsp;</label><br />
                   </label>
                   <div className="form-group">
-                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                  <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
                   </div>
                 </div>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;
@@ -63,18 +63,18 @@ export default function AddAPost({ target }) {
 
 
 function addAPost(e, inputRef, userId, FileName) {
-
   e.preventDefault();
   var formData = new FormData();
-  formData.append('link', FileName);
+  formData.append('link', FileName );
   formData.append('type', "post");
  
   if (FileName != "") {
      axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
   }
+
+
   const form = document.forms.postForm;
   const statusArray = form.elements.status;
-  console.log(statusArray)
   //getting content
   const content = inputRef.current.value;
   let selectedStatus;

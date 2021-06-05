@@ -59,8 +59,6 @@ router.post('/upload', upload.single('link'), (req, res) => {
   if (type == 'plant') {
     ownerID = req.body.ownerID;
   }
-  console.log("F");
-  console.log(req.body);
   const ans = photoController.uploadPhoto(req.file.originalname, type, ownerID);
   return ans;  
 });
@@ -93,10 +91,6 @@ router.get('/:photoID', photoController.getPhoto); //good
 router.get('/', photoController.getAllPhotos);//good 
 router.put('/edit/:photoID', photoController.editPhoto);
 router.delete('/', (req,res)=>{
-  console.log("photoID")
-
-  console.log(req.body.photoID)
-  console.log(gfs.collection('uploads'))
   gfs.collection('uploads').findOne({filename:req.body.photoID},function (err, file) {
     if (err) { console.log("error") }
     if (!file) {

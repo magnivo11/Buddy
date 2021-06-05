@@ -10,7 +10,7 @@ import userPhoto from '../../Images/Gardeners/3.png'
 export default function Post({postID, change,deletePost,editPost}) {
     const loggedUserID = window.sessionStorage.getItem('userID');
     const [post,setPost]=React.useState([]);
-    const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
+    const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:'',photoID:''});
     const [ownersPermissions, setOwnersPermissions] = React.useState(false);
     const [content, setContent] = React.useState("");
     const handleEditContectChange = (event) => {
@@ -60,7 +60,7 @@ export default function Post({postID, change,deletePost,editPost}) {
 
     return (     
         <div className="d-flex align-items-start profile-feed-item" style={{fontFamily: "Open Sans"}}>
-            <img src={userPhoto} alt="profile" className="img-sm rounded-circle postUserPhoto" />
+            <img src={process.env.REACT_APP_SERVER_URL+`/photo/find/${writerUser.photoID}`} alt="profile" className="img-sm rounded-circle postUserPhoto" />
             <div className="ml-4">
             <h6>
             <Link className="nav-link singlePost"   to={`/profile/${writerUser._id}`}>{writerUser.firstName +" "+ writerUser.lastName} </Link>
@@ -72,7 +72,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
-            <img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>
+            {post.photoID&&<img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
             {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
             <button  style={{fontSize:'9px',border:'white',background:'none'}}

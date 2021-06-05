@@ -5,6 +5,7 @@ import React from 'react';
 export default function EditGarden() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const gardenID = window.location.toString().substring(index)
+  const userId= window.sessionStorage.getItem('userID');
   const [garden, setGarden] = React.useState({ _id: '' });
   const [direction, setDirection] = React.useState("");
   const [surroundings, setSurroundings] = React.useState("")
@@ -44,7 +45,7 @@ export default function EditGarden() {
               </div>
 
               <form onSubmit={(e) => {
-                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID)
+                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId)
               }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName} />
                 <br />
@@ -88,7 +89,7 @@ export default function EditGarden() {
 
 }
 
-function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) {
+function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId) {
 
   e.preventDefault();
 
@@ -98,11 +99,14 @@ function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID) 
 
   const newGarden = {
     name: name,
-    id: gardenID,
+    _id: gardenID,
     direction: direction,
     directSun: sunlight,
     surroundings: surroundings,
+    userID:userId
   }
+
+  console.log(newGarden)
 
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);

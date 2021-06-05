@@ -38,7 +38,7 @@ export default function EditUser(){
               <br/>
                 <h1 style= {{fontSize: '35px', color:'#51361A'}}>Edit My Profile </h1> 
                 {user.photoID?
-                <img style={{width:'35%'}} src={`http://localhost:8080/photo/find/${user.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
+                <img style={{width:'35%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
                 <img style={{width:'75%'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
                
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
@@ -69,11 +69,11 @@ export default function EditUser(){
 function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, oldPassword,oldPhotoID,userId,setInfo,FileName){
   e.preventDefault();
   var formData = new FormData();
-  formData.append('link', FileName);
+  formData.append('link', FileName );
   formData.append('type', "user");
  
 
- axios.post('http://localhost:8080/photo/upload', formData);
+  axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
   const updatedPhotoFile= checkState(oldPhotoID,FileName);
   const email = checkField(oldEmail,'email');
@@ -114,7 +114,7 @@ function checkState(beforeUpdate,state) {
   if (state== "") updated = beforeUpdate;
   else {
     updated = state.name;
-    axios.delete('http://localhost:8080/photo/', { data: { photoID: beforeUpdate} })
+    axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: beforeUpdate} })
   }
   return updated;
 }
