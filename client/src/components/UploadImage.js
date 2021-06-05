@@ -25,8 +25,8 @@ export default function UploadImage({ ownerID, type }) {
     return (
         <form onSubmit={changeOnClick} encType="multipart/form-data">
             <div className="form-group">
-                <input type="file" name="link" classname="form-control-file" onchange="{onChangeFile}" />
-                <button type="submit"><span>upload</span></button><br /><br />
+                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                 <button type="submit"><span>upload</span></button><br /><br />
             </div>
 
 
