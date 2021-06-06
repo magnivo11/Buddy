@@ -19,7 +19,7 @@ export default function UploadImage({ ownerID, type }) {
         formData.append('ownerID', ownerID);
         axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
         window.location = "/plant/" + ownerID;
-
+ 
     }
 
     return (
