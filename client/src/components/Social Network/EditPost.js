@@ -96,7 +96,7 @@ function editPost(e, status,content,postID,userID,FileName,photoID) {
     userID:userID,
     postID: postID,
      status: status,
-    photoID: FileName.name
+    photoID: FileName.name,
      status: status
    }
 
