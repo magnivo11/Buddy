@@ -32,7 +32,6 @@ const getGardensByUserId = async(userID)=>{
  const getGardenById = async(id)=>{return await Garden.findById(id)};
 
  const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID)=>{
-
     const garden = Garden.findById(id,(err,garden)=>{
                     if(garden !== null){
                         if (name!=null){
