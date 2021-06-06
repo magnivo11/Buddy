@@ -37,7 +37,9 @@ const updatePost = async (request, response) => {
         request.body.postID,
         request.body.content,
         request.body.userID,
-        request.body.status);
+        request.body.status,
+        request.body.photoID
+        );
     if (!post) {
         return response.status(404).json({ errors: ['post not found'] });
     }

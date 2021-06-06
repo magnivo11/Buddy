@@ -47,8 +47,7 @@ const scrapePhoto = async (request, response) => {
 }
 
 const uploadPhoto = async (link, type, ownerID) => {
-
-    if (type == "plant") {
+     if (type == "plant") {
         await Plant.findById(ownerID, (err, plant) => {
             if (plant) {
                 plant.photos.push(link);
