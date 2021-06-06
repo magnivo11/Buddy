@@ -3,8 +3,7 @@ import axios from 'axios';
 import '../../css/SocialNetworkProfile.css'
 import Comments from "./Comments"
 import {Link} from 'react-router-dom'
-import userPhoto from '../../Images/Gardeners/3.png'
-
+ 
 
 
 export default function Post({postID, change,deletePost,editPost}) {

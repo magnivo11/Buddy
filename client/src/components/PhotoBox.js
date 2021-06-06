@@ -6,7 +6,7 @@ export default function PhotoBox({ slideImg }) {
   var url = process.env.REACT_APP_SERVER_URL+"/photo/find/"+res;
   return (
     <div className="each-slide">
-      <div style={{ width:'300px', height:'400px' ,'backgroundImage': `url(${url})`}}>
+      <div style={{ width:'200px', height:'200px' ,'backgroundImage': `url(${url})`}}>
        </div>
     </div>
   )
