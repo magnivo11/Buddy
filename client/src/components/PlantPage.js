@@ -96,7 +96,7 @@ if(e.target.value=='plant history')
     <div style={{ fontFamily: "Open Sans" }}>
       <section id="hero"  style={{ overflow: 'scroll' }}>
         <section id="specials" className="specials" style={{ backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop: '0%', marginLeft: '9%', marginRight: '9%' }}>
-          <div className="container" data-aos="fade-up"  >
+          <div className="container plantContainer" data-aos="fade-up"  >
             <div className="row" data-aos="fade-up" data-aos-delay={100}>
               <div className="col-lg-3">
                 <ul className="nav nav-tabs flex-column d-none d-lg-block">
@@ -111,8 +111,7 @@ if(e.target.value=='plant history')
               </div>
               <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
                 <div className="section-title" > {plant.sensorID && <div><br/><br/></div>}
-                  <h2 style={{ fontSize: '45px' }}>
-                    {plant.species} </h2>
+                  <h2 style={{fontSize:"30px"}}>{plant.species} </h2>
                 </div>
 
                 <div className="inner" >
@@ -124,7 +123,7 @@ if(e.target.value=='plant history')
 
                     }}>
                       <div style={{ fontFamily: "Open Sans" }}>
-                        <p className="noSensor section-title " style={{ color: 'white' }}>Looks like you haven't added a sensor to your plant</p>
+                        <p className="noSensor section-title " style={{ color: 'white' }}>Looks like you haven't added a sensor</p>
                         <p className="noSensor section-title" style={{ color: 'white' }}><small>Add one now!</small></p>
                       </div>
                       <input type="text" id="sensorId" name="sensorId" style={{ width: '290px' }} placeholder="Enter Serial Number (on device)" />
