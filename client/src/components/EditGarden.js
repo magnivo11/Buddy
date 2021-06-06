@@ -5,11 +5,8 @@ import React from 'react';
 export default function EditGarden() {
   var index = window.location.toString().lastIndexOf('/') + 1
   const gardenID = window.location.toString().substring(index)
-<<<<<<< HEAD
-  const userId= window.sessionStorage.getItem('userID');
-=======
->>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
-  const [garden, setGarden] = React.useState({ _id: '' });
+   const userId= window.sessionStorage.getItem('userID');
+   const [garden, setGarden] = React.useState({ _id: '' });
   const [direction, setDirection] = React.useState("");
   const [surroundings, setSurroundings] = React.useState("")
   const [sunlight, setSunlight] = React.useState("")
@@ -48,12 +45,8 @@ export default function EditGarden() {
               </div>
 
               <form onSubmit={(e) => {
-<<<<<<< HEAD
-                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId)
-=======
-                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID)
->>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
-              }}>
+                 editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId)
+                 }}>
                 <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName} />
                 <br />
                 <a>
