@@ -1,0 +1,43 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title">Posts Table</h4>
+      <a class="" (click)="onCreate()" href="javascript:void(0)">
+        <i class="material-icons">add_box</i>
+        <!-- <p class="card-category">ADD NEW CATEGORY</p> -->
+      </a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th>Status</th>
+            <th>Content</th>
+            <th>Published</th>
+            <th>Last Update</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of posts">
+              <td>{{post.status}}</td>
+              <td>{{post.content.substring(0,100)}}</td>
+              <td class="text-primary">{{post.published | date: 'short'}}</td>
+              <td class="text-primary">{{post.lastUpdated | date: 'short'}}</td>
+              <td>
+                <a class="" href="javascript:void(0)" (click)="onEdit(post)">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a class="" href="javascript:void(0)" (click)="onDelete(post)">
+                  <i class="material-icons">delete</i>
+                </a>
+                <a class="" href="javascript:void(0)" (click)="onDetails(post)">
+                  <i class="material-icons">list</i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

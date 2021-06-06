@@ -1,129 +1,114 @@
 import '../css/Forms.css'
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
 import React from 'react';
-import DataContext from '../DataContext'
 
-export default function EditGarden(){
-  var index=window.location.toString().lastIndexOf('/')+1
-  const gardenID=window.location.toString().substring(index)
-  const[gardenEdited,setGardenEdited]=React.useState(false)
-  //const user=React.useContext(DataContext);
-  
+export default function EditGarden() {
+  var index = window.location.toString().lastIndexOf('/') + 1
+  const gardenID = window.location.toString().substring(index)
+  const userId= window.sessionStorage.getItem('userID');
+  const [garden, setGarden] = React.useState({ _id: '' });
+  const [direction, setDirection] = React.useState("");
+  const [surroundings, setSurroundings] = React.useState("")
+  const [sunlight, setSunlight] = React.useState("")
 
- 
-if(!gardenEdited){
+  React.useEffect(() => {
+    fetch(process.env.REACT_APP_SERVER_URL+'/garden/find/' + gardenID)
+      .then(response => response.json()).then(
+        data => {
+          setGarden(data);
+          setDirection(data.direction);
+          setSurroundings(data.surrounding);
+          setSunlight(data.directSun)
+        }
+      )
+  }, []);
+  const gardenName = garden.name
+
+  const handleDirectionChange = (event) => {
+    setDirection(event.target.value);
+  }
+  const handleSurroundingsChange = (event) => {
+    setSurroundings(event.target.value);
+  }
+  const handleSunlightChange = (event) => {
+    setSunlight(event.target.value);
+  }
 
   return (
-    <div>
-
+    <div style={{ fontFamily: "Open Sans" }}>
       <section id="hero" className="d-flex align-items-center">
         <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
-  
           <div className="wrapper fadeInDown">
             <div id="formContent">
-              <div className="fadeIn first">
-              
-                <h4 style= {{fontSize: '20px', color:'#51361A'}}>Edit Garden </h4> 
-          
+              <div className="fadeIn first"><br />
+                <h1 style={{ fontSize: '35px', color: '#51361A' }} >Edit Garden </h1>
               </div>
-              <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editGarden(e,gardenID)
-              setGardenEdited(true)
-            }}>
-                <input style= {{fontSize: '12px'}} type="text"  id="name" className="fadeIn second" name="addAGarden" placeholder="Name"  />
-                <p>Direction:</p>
-                <label className="radio-inline">
-                    <input type="radio" id="notrh" name="direction"  /> <label htmlFor="north">Notrh</label><br />
-                  </label>
-                    <label className="radio-inline">
-                    <input type="radio" id="west" name="direction"  /><label htmlFor="west">West</label><br />
-                    </label>
-                    <label className="radio-inline">
-                    <input type="radio" id="south" name="direction" /> <label htmlFor="south">South</label><br/>
-                  </label>
-                    <label className="radio-inline">
-                    <input type="radio" id="east" name="direction" /> <label htmlFor="east">East</label><br/>
-                    </label>                
-                    <p>Surroundings:</p>
-                    <label className="radio-inline">
-                    <input type="radio" id="outdoor" name="surroundings"  /> <label htmlFor="outdoor">Outdoor</label><br />
-                    </label>
-                    <label className="radio-inline">
-                    <input type="radio" id="indoor" name="surroundings"  /><label htmlFor="indoor"> Indoor</label><br />
-                   </label>
-                    <p>Direct Sunlight:</p>
-                    <label className="radio-inline">
-                    <input type="radio" id="yes_sunlight" name="sunlight"  /> <label htmlFor="yes_sunlight">Yes</label><br />
-                    </label>
-                    <label className="radio-inline">
-                    <input type="radio" id="no_sunlight" name="sunlight"  /><label htmlFor="no_sunlight"> No</label><br />
-                   </label>
-                   <br></br>
-                   <br></br>
-                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
+
+              <form onSubmit={(e) => {
+                editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId)
+              }}>
+                <input style={{ fontSize: '12px' }} type="text" id="name" className="fadeIn second" name="addAGarden" placeholder={gardenName} />
+                <br />
+                <a>
+                  Which direction your garden is facing?&nbsp;
+                  <select value={direction} onChange={handleDirectionChange}>
+                    <option value="south">South</option>
+                    <option value="north">North</option>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                  </select>
+                </a>
+                <br /><br />
+                <a>
+                  Where is it located?&nbsp;
+                  <select value={surroundings} onChange={handleSurroundingsChange}>
+                    <option value="indoor">Indoor</option>
+                    <option value="outdoor">Outdoor</option>
+
+                  </select>
+                </a>
+                <br /><br />
+
+                <a>
+                  Sun exposure&nbsp;
+                  <select value={sunlight} onChange={handleSunlightChange}>
+                    <option value={true}>Direct sunlight</option>
+                    <option value={false}>Indirect sunlight</option>
+                  </select>
+                </a>
+                <br /><br />
+                <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
-             
             </div>
           </div>
         </div>
       </section>
     </div>
   );
-              }
-              else{
-                return(<Redirect to="/mygardens"/>);
 
-              }
-  }
-   
+}
 
-function editGarden(e,gardenID){
+function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,userId) {
 
   e.preventDefault();
-  const form = document.forms.gardenForm;
-  const directions = form.elements.direction;
-  const surroundings=form.elements.surroundings
-  const sunLight=form.elements.sunlight
-  var direction;
-  var surrounding;
-  var sunlight;
-  //getting name and size
-  const name=document.getElementById('name').value;
-  //getting direction
-  for(var i = 0; i <directions.length; i++){
-    if(directions[i].checked){
-      direction=directions[i].id;}}
-    
 
-  // getting surrounsings
-  for(var i = 0; i <surroundings.length; i++){
-    if(surroundings[i].checked){
-      surrounding=surroundings[i].id;}}
-  
+  let name;
+  if (document.getElementById('name').value.length == 0) name = gardenName;
+  else name = document.getElementById('name').value;
 
-  //getting sun light
-  for(var i = 0; i <sunLight.length; i++){
-    if(sunLight[i].checked){
-      if(i==0){
-        sunlight=true}
-      else{
-        sunlight=false}}}
- 
-  const newGarden= { 
-  name:name,
-  id:gardenID,
-  direction:direction,
-  directSun :sunlight,
-  surroundings:surrounding,
+  const newGarden = {
+    name: name,
+    _id: gardenID,
+    direction: direction,
+    directSun: sunlight,
+    surroundings: surroundings,
+    userID:userId
   }
- 
-  axios.put('http://localhost:8080/garden/',newGarden);
 
- 
-
-  
+  console.log(newGarden)
 
 
+  axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);
+  window.location='/mygardens'
 }

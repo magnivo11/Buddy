@@ -21,11 +21,15 @@ router.get('/temperature/:_id',sensorsController.getSensorTemp);
 
 router.get('/light/:_id',sensorsController.getSensorLight);
 
+router.get('/filter/:key',sensorsController.getSensorsByKeyWord); //good
+
 router.post('/',sensorsController.createSensor);
+router.put('/:id',sensorsController.updateSensor);
 
 router.get('/:id',sensorsController.getSensorById);
 
 router.delete('/:id',sensorsController.deleteSensor);
 
+router.post('/data',sensorsController.RealTimeData)
 
 module.exports=router; 

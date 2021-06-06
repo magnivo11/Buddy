@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/userModel';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { environment } from '../../environments/environment';
 })
 
 export class UserService {
-  private usersUrl = environment.usersUrl;
+  private usersUrl = environment.userUrl;
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -21,30 +22,46 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
+
+  getUserByEmail(email: String): Observable<User> {
+    const url = `${this.usersUrl}/byemail/${email}`;
+    console.log(this.http.get<User>(url));
+    return this.http.get<User>(url)
+  }
+
   getUsersGroupedByAdmin(): Observable<String[]> {
-    
     const url = this.usersUrl+`/groupedbyadmin`;
     return this.http.get<String[]>(url);
   }
 
-
-/*
-  addArticle(title: string): Observable<Article> {
-    return this.http.post<Article>(this.articlesUrl, { title: title });
+  register(body:any) : Observable<User>
+  {
+    var res = JSON.parse(body);
+    return this.http.post<User>(this.usersUrl+'/register' , {email:res.email,name:res.name,lastName:res.lastName,code:res.secretkey,password:res.password});
   }
 
-  updateArticle(article: Article): Observable<Article> {
-    const url = `${this.articlesUrl}/${article._id}`;
-    return this.http.patch<Article>(url, { title: article.title });
+  login(body:any){
+    return this.http.post(this.usersUrl+'/login',body,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type','application/json')
+    });
   }
 
-  deleteArticle(id: number): Observable<Article> {
-    const url = `${this.articlesUrl}/${id}`;
-    return this.http.delete<Article>(url);
+  home(){
+    return this.http.get(this.usersUrl+"/home",{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type','application/json')
+    })
   }
 
-  scrape(): Observable<any> {
-    const url = `${this.articlesUrl}/scrape`;
-    return this.http.get(url);
-  }*/
+  logout(){
+     return this.http.get(this.usersUrl+'/logout',{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type','application/json')
+    })
+  }
+ 
 }

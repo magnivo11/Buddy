@@ -4,19 +4,19 @@ const User = require('../models/userModel')
 const Plant = require('../models/plantModel');
 const Photo = require('../models/photoModel');
 
-const { deletePlant } = require('./plantService');
+const { deletePlantUser } = require('./plantService');
  
 
 // create a garden and save ref to user gardens array
 const createGarden = async(name,direction,directSun,surrounding,userID)=>{
-    console.log("controller"+surrounding)
-     const garden= new Garden({
-    name:name,
-    direction:direction,
-    directSun:directSun,
-    surrounding:surrounding,
-    userID:userID,
-    plants:[]
+
+    const garden= new Garden({
+        name:name,
+        direction:direction,
+        directSun:directSun,
+        surrounding:surrounding,
+        userID:userID,
+        plants:[]
     }); 
     User.findById(userID,(err,user)=>{
         if(user)
@@ -31,38 +31,44 @@ const getGardensByUserId = async(userID)=>{
 };
  const getGardenById = async(id)=>{return await Garden.findById(id)};
 
- const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null)=>{
-    Garden.findById(id,(err,garden)=>{
-        if (name!=null){
-            garden.name = name;     }
-         if (direction!=null){
-            garden.direction = direction;}
-         if (surrounding!=null){
-            garden.surrounding = surrounding;}
-        if (directSun!=null){
-            garden.directSun = directSun;}
-            garden.save();
-    
-    });
-   
-     return true };
+ const editGarden = async(id,name=null,direction=null,surrounding=null,directSun=null,userID)=>{
+    const garden = Garden.findById(id,(err,garden)=>{
+                    if(garden !== null){
+                        if (name!=null){
+                            garden.name = name;     
+                        }
+                        if (direction!=null){
+                            garden.direction = direction;
+                        }
+                        if (surrounding!=null){
+                            garden.surrounding = surrounding;
+                        }
+                        if (directSun!=null){
+                            garden.directSun = directSun;
+                        }
 
-const getAllGardens = async()=>{return await Garden.find({})
+                        garden.userID=userID;
+                        garden.lastUpdated= Date.now();
+                        garden.save(); 
+                    }
+                    return garden;
+                });
+    return garden;
 };
 
+const getAllGardens = async()=>{
+    return await Garden.find({})
 
+};
 
 const deleteGarden = async(gardenID,userID)=>{
     const garden = await getGardenById(gardenID);
-    console.log(garden);
-
-
+ 
     if (garden.plants.length>0)
     {
-        console.log(garden.plants.length);
         for (let i=0; i<garden.plants.length ; i++)
         {
-            deletePlant(garden.plants[i].id,gardenID); 
+            deletePlantUser(garden.plants[i].id,gardenID); 
         }
     }
     //deleting garden ref from user 
@@ -77,30 +83,51 @@ const deleteGarden = async(gardenID,userID)=>{
             user.save()    
        }
    })
-
-     await garden.remove(); 
+    await garden.remove(); 
     return true;
 };
 
 const getAllSelectedGardens = async(Direction,DirectSun,Surrounding)=>{
     var gar;
-  await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
-      if(gardens)
-      gar=gardens
-      else
-      return gar='no gardens found'
+    await Garden.find({direction:Direction,directSun:DirectSun,surrounding:Surrounding},(err,gardens)=>{
+        if(gardens)
+        gar=gardens
+        else
+        return gar='no gardens found'
+    })
+    return gar
+};
 
-  })
-  return gar
+const getGardensByKeyWord = async (string) => {
 
-}
+    if (!string) {
+      string = "";
+    }
+  
+    return await Garden.aggregate([
+      {
+        $match: {
+          $or: [
+            { name: { $regex: string, $options: 'i' } },
+            { direction: { $regex: string, $options: 'i' } },
+            { surrounding: { $regex: string, $options: 'i' } }          ]
+        }
+      }
+    ]);
+};
+
+const getNumOfGardens = async()=>{
+    return await Garden.countDocuments();
+};
 
 module.exports={
-createGarden,
-getAllGardens,
-deleteGarden,
-getGardenById,
-getGardensByUserId,
-editGarden,
-getAllSelectedGardens
+    createGarden,
+    getAllGardens,
+    deleteGarden,
+    getGardenById,
+    getGardensByUserId,
+    editGarden,
+    getAllSelectedGardens,
+    getGardensByKeyWord,
+    getNumOfGardens
 };

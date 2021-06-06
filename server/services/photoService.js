@@ -1,49 +1,57 @@
+const { PACKAGE_ROOT_URL } = require('@angular/core');
 const { response } = require('express');
-const Photo = require('../models/photoModel')
+const { toast } = require('react-toastify');
+const Photo = require('../models/photoModel');
+const { db } = require('../models/plantModel');
 const Plant = require('../models/plantModel')
 
-
- 
-const createPhoto = async(link, plantID)=>{
-    console.log("SESRVICE createPhoto"); 
-    console.log(plantID); 
+const addPhotoToOwner = async (link, type, plantID) => {
+  
+}
 
 
-    const photo= new Photo({
-        link:link,
-        plantID:plantID
+
+const createPhoto = async (link, name) => {
+
+    const photo = new Photo({
+        link: link,
+        name: name
     });
 
-    Plant.findById(plantID,(err,plant)=>{
-        if (plant){
-            plant.photos.push(photo);
-            plant.save();
+
+    await photo.save((err, img) => {
+        if (err) {
+            console.log("ERR");
+            return err;
         }
     });
-    return await photo.save();
+
+    return photo;
+
+
 
 };
 
 
-const getPhoto = async(id)=>{return await Photo.findById(id)};
+const getPhoto = async (id) => { return await Photo.findById(id) };
 
-const getAllPhotos = async()=>{return await Photo.find({});}
+const getAllPhotos = async () => { return await Photo.find({}); }
 
- 
 
-const editPhoto = async(id,link) =>{
-    const photo=Photo.getPhoto(id);
+
+const editPhoto = async (id, link) => {
+    const photo = Photo.getPhoto(id);
     if (!photo)
         return null;
-    else
-    {
-        photo.link=link; 
+    else {
+        photo.link = link;
     }
     await photo.save;
-    return photo; 
-    };
+    return photo;
+};
 
-const deletePhoto= async(id)=> {
+const deletePhoto = async (id) => {
+    
     const delPhoto = await getPhoto(id);
     if (!delPhoto)
         return null;
@@ -52,10 +60,11 @@ const deletePhoto= async(id)=> {
     return true;
 };
 
-module.exports={
+module.exports = {
     createPhoto,
     deletePhoto,
     editPhoto,
     getPhoto,
-    getAllPhotos
+    getAllPhotos,
+    addPhotoToOwner,
 };

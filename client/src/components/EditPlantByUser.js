@@ -3,8 +3,6 @@ import axios from 'axios'
 import React from 'react';
 import '../css/AddForms.css'
 import '../css/AddAPlant.css'
-import{Link, Redirect, useParams} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -18,27 +16,46 @@ import stage5 from '../Images/IconStages/stage 5.jpg';
 export default function EditPlantByUser(){
   var index=window.location.toString().lastIndexOf('/')+1
   const plantID=window.location.toString().substring(index)
-  const[plantEdited,setPlantEdited]=React.useState(false)
-  const [selected,setSelected]=React.useState('Select plant')
+  const [plant, setPlant] = React.useState({});
+  const [selected,setSelected]=React.useState('Change species')
+  const [growthStatus, setGrowthStatus] = React.useState("")
+  const handleStatusChange = (event) => {
+    event.preventDefault();
+    setGrowthStatus(event.target.id);
+  }
 
+//Get Admin plants from server
   const [plants,setPlants]=React.useState([])
-  var plantsInfo=[];
-  axios.get('http://localhost:8080/plant/admin').then((Response)=> {
-    if(plants.length!=Response.data.length)
-    {
-      Response.data.forEach(plant => {
-        plantsInfo.push({label:plant.species, value:plant.species})
-      });
-    setPlants(plantsInfo);
-    }
-  })
+  let plantsInfo=[];
+
+  
+  React.useEffect(() => {
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
+      .then(response => response.json()).then(
+        data => {
+          setPlant(data);
+        }
+      )
+  }, []);
+
+  React.useEffect(() => {
+          axios.get(process.env.REACT_APP_SERVER_URL+'/plant/admin').then((Response)=> {
+            if(plants.length!=Response.data.length)
+            {
+              Response.data.forEach(singlePlant => {
+                if(plant.species!=singlePlant.species) //eliminate the current species from plants list
+                plantsInfo.push({label:singlePlant.species, value:singlePlant.species})
+              });
+            setPlants(plantsInfo);
+            }
+        })
+        }
+, []);
 
 
-
-if(!plantEdited){
 
   return (
-    <div>
+    <div  style={{fontFamily: "Open Sans"}}>
 
         <link rel="stylesheet" href="https://unpkg.com/react-select@1.2.0/dist/react-select.css"></link>
         <meta charSet="utf-8" />
@@ -52,48 +69,52 @@ if(!plantEdited){
             <div id="formContent">
               <div className="fadeIn first">
               <br></br>
-                <h4 style= {{fontSize: '25px', color:'#51361A'}}>Edit Plant </h4> 
-          
+              <h1 style={{fontSize: '35px', color:'#51361A'}} >Edit Plant </h1> 
+              <h2 style={{fontSize: '25px', color:'#51361A'}} >{plant.species} </h2> 
+
               </div>
-              
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected)
-              setPlantEdited(true)}}>
-              <VirtualizedSelect
+              editPlant(e,plantID,selected,growthStatus,plant.GardenID)}}>
+
+
+                  <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
+
+                   <VirtualizedSelect
                 name="Species"
                 placeholder= {selected}
                 value={plants.value}
                 options={plants}
                 onChange={(e)=>{
                   setSelected(e.value)}} />
-                   
-                <p style= {{fontSize: '14px'}} >Select you plant's initial stage:</p>
+                  </div> <br></br>
+                <p style= {{fontSize: '14px'}} >Change plant's growth stage:</p>
 
-                  <label className="radio-inline">
-                    <input type="radio" id="Seed" name="growthStatus"  />
-                    <img src={stage1} width={40}></img>Seed
+                <label className="radio-inline" >
+                {plant.growthStatus==="Seed" ? <input value="Seed" type="image" src={stage1} style={{borderBottom: "2px solid #000"}}  width={40} id="Seed" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Seed" type="image" src={stage1}   width={40} id="Seed" name="growthStatus" onClick={handleStatusChange} />}<br />Seed
+               </label>
+                <label className="radio-inline" >
+                  {plant.growthStatus==="Seedling" ? <input value="Seedling" type="image" src={stage2}   style={{borderBottom: "2px solid #000"}}width={40} id="Seedling" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Seedling" type="image" src={stage2} width={40} id="Seedling" name="growthStatus" onClick={handleStatusChange} />}<br />Seedling
+               </label>
+                <label className="radio-inline">
+                {plant.growthStatus=="Vegetative" ? <input value="Vegetative" type="image" src={stage3}  style={{borderBottom: "2px solid #000"}} width={40} id="Vegetative" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Vegetative" type="image" src={stage3} width={40} id="Vegetative" name="growthStatus" onClick={handleStatusChange} />}<br />Vegetative
+               </label>
+                <label className="radio-inline" >
+                {plant.growthStatus=="Flowering" ? <input value="Flowering" type="image" src={stage4} style={{borderBottom: "2px solid #000"}} width={40} id="Flowering" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Flowering" type="image" src={stage4} width={40} id="Flowering" name="growthStatus" onClick={handleStatusChange} />}<br />Flowering
                   </label>
-                
-                  <label className="radio-inline">
-                    <input type="radio" id="Seedling" name="growthStatus"  />
-                    <img src={stage2} width={40}></img>Seedling
-                  </label>
-                  <label className="radio-inline">
-                    <input type="radio" id="Vegetative" name="growthStatus"  />
-                    <img src={stage3} width={40}></img>Vegetative
-                  </label>
-                  <label className="radio-inline">
-                    <input type="radio" id="Flowering" name="growthStatus"   />
-                    <img src={stage4} width={40}></img>Flowering
-
-                  </label> <label className="radio-inline">
-                    <input type="radio" id="Ripening" name="growthStatus"  />
-                    <img src={stage5} width={40}></img>Ripening
+                <label className="radio-inline">
+                {plant.growthStatus=="Ripening" ? <input value="Ripening" type="image" src={stage4} style={{borderBottom: "2px solid #000"}} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />:
+                  <input value="Ripening" type="image" src={stage5} width={40} id="Ripening" name="growthStatus" onClick={handleStatusChange} />}<br />Ripening
                   </label>
                     <br></br>
                     <br></br>
 
-                <input type="submit" className="fadeIn fourth"  value="Save"/><br/>
+                    <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>&nbsp;
+                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
+
               </form>
              
             </div>
@@ -103,30 +124,21 @@ if(!plantEdited){
     </div>
   );
 }
-else{
-  return(<Redirect to={`/plant/${plantID}`}/>);
-
-}
   
-}
+
    
 
-function editPlant(e,plantID,selected){
-  e.preventDefault();
-  const form = document.forms.plantUserForm;
-  const growthStatus = form.elements.growthStatus;
-  var status;
+function editPlant(e,plantID,selected,growthStatus,GardenID){
 
-  for(var i = 0; i <growthStatus.length; i++){
-  if(growthStatus[i].checked){
-  status=growthStatus[i].id;
-  }}
+  e.preventDefault();
 
  const newPlant={
-  id:plantID,
+  _id:plantID,
   species:selected,
-  growthStatus:status
+  growthStatus:growthStatus,
+  GardenID: GardenID
  }
- axios.put('http://localhost:8080/plant/byuser/',newPlant);
-  
+
+ axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant);
+ window.location='/plant/' + plantID
 }

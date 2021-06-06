@@ -1,0 +1,109 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Post Details</h4>
+            <p class="card-category">See your Post</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      #status
+                      [value]="post.status"
+                      matInput
+                      placeholder="Status"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      #userID
+                      [value]="post.userID"
+                      matInput
+                      placeholder="User"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      #img
+                      [value]="post.photoID"
+                      matInput
+                      placeholder="Image ID"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      [value]="post.published"
+                      matInput
+                      placeholder="Published"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input
+                        [value]="post.lastUpdated"
+                        matInput
+                        placeholder="Last Update"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <textarea
+                      #content
+                      [value]="post.content"
+                      rows="5"
+                      matInput
+                      placeholder="Content"
+                      disabled
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                (click)="onEdit()"
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Edit
+              </button>
+              <button
+              (click)="onDelete()"
+              mat-raised-button
+              type="submit"
+              class="btn btn-danger pull-right"
+            >
+              Delete
+            </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-comments-list [listFor]="listFor"></app-comments-list>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+  .button {
+    height: 50px;
+    background: #84996f;
+    margin-bottom: 25px;
+    border-radius: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    span {
+      line-height: 33px;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      font-weight: "semibold";
+    }
+    
+  }
+

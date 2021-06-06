@@ -8,10 +8,20 @@ const createSensor = async (request,response)=>{
 
     const newSensor=
     await SensorService.createSensor(
-        request.body.plantID)
+        request.body.plantID,request.body.sensorId)
        
      response.json(newSensor);
 }
+
+const updateSensor = async (request,response)=>{
+    const sensors= await SensorService.updateSensor(
+        request.params.SensorsID,
+        request.body.plantID
+        );
+        if (!sensors){
+        return response.status(404).json({errors:['sensors not found']});}
+    response.json(sensors);
+};
 
 const getAllSensors= async (request,response)=>{
     const sensors = await SensorService.getAllSensors();
@@ -35,7 +45,7 @@ const deleteSensor = async (request,response)=>{
 const getSensorSoilMoisture = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.soilMoisture.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
@@ -46,7 +56,7 @@ const getSensorSoilMoisture = async(request,response)=>{
 const getSensorTemp = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.temperature.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
@@ -57,7 +67,7 @@ const getSensorTemp = async(request,response)=>{
 const getSensorLight = async(request,response)=>{
     const sensor=await SensorService.getSensorById(request.params._id)
     if(!sensor)
-    console.log('eror')
+    console.log('error')
     if(sensor.light.length>10){
         const data=sensor.soilMoisture.slice(sensor.soilMoisture.length-1-10,sensor.soilMoisture.length-1)
         response.send(data)
@@ -74,7 +84,19 @@ const getSensorBySerialNumber = async (request,response)=>{
     response.json(sensor);
 };
 
-module.exports={
+const RealTimeData= async (request,response)=>{
+    const sensor= await SensorService.realTimeData(request.body.serialNumber,request.body.soilMoisture,request.body.temperature,request.body.light)
+    response.send('ok')
+ };
+
+const getSensorsByKeyWord = async (request, response) => {
+    const sensors = await SensorService.getSensorsByKeyWord(request.params.key)
+    if (!sensors)
+        return response.status(404).json({ errors: ['Sensors not found'] });
+    response.json(sensors);
+};
+ 
+ module.exports={
     createSensor,
     getAllSensors,
     getSensorById,
@@ -82,5 +104,8 @@ module.exports={
     getSensorSoilMoisture,
     getSensorTemp,
     getSensorLight,
-    getSensorBySerialNumber
- };
+    getSensorBySerialNumber,
+    RealTimeData,
+    getSensorsByKeyWord,
+    updateSensor
+};

@@ -8,8 +8,8 @@ html {
   
   .column {
     float: left;
-    width: 20%;
-    margin-bottom: 16px;
+    width: 17%;
+    margin-bottom: 0px;
     margin-left: 10px;
     padding: 0 8px;
   }
@@ -42,14 +42,14 @@ html {
   .button {
     border: none;
     outline: 0;
-    font-size:  11px;
+    font-size:  18px;
     display: inline-block;
-    padding: 8px;
     color: white;
     background-color: #000;
     text-align: center;
     cursor: pointer;
-    width: 69%;
+    width: 100%;
+    height: auto;
   }
  
   .button:hover {

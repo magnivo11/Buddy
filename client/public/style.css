@@ -5,6 +5,33 @@
 * License: https://bootstrapmade.com/license/
 */
 
+.buttonChart{
+  width:167px;
+  color: "grey";
+  background-color:'rgba(52, 52, 52, 0.8)'
+}
+.backFirstPage{
+  background-color:rgba(117, 128, 107,0.65) ;
+}
+
+.constDistance {
+  position: relative;
+  top: 50px;
+}
+
+.singleGardenConstDistance {
+  position: absolute;
+  margin:10px 0px 0px 0px;
+/*  bottom:0;
+  position:fixed;
+  display: block;
+  overflow-x:hidden; */
+}
+
+.notificationsConstDistance {
+  position: absolute;
+  top: 10px;
+}
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -164,168 +191,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*--------------------------------------------------------------
 # Header
---------------------------------------------------------------*/
-#header {
-  background: rgba(12, 11, 9, 0.6);
-  border-bottom: 1px solid rgba(12, 11, 9, 0.6);
-  transition: all 0.5s;
-  z-index: 997;
-  padding: 15px 0;
-  top: 40px;
-}
-
-#header.header-scrolled {
-  top: 0;
-  background: rgba(0, 0, 0, 0.85);
-  border-bottom: 1px solid #37332a;
-}
-
-#header .logo {
-  font-size: 28px;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-}
-
-#header .logo a {
-  color: #fff;
-}
-
-#header .logo img {
-  max-height: 40px;
-}
-
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/* Desktop Navigation */
-.nav-menu ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-menu > ul {
-  display: flex;
-  align-items: center;
-}
-
-.nav-menu > ul > li {
-  position: relative;
-  white-space: nowrap;
-  padding-left: 28px;
-}
-
-.nav-menu a {
-  display: block;
-  position: relative;
-  color: white;
-  transition: 0.3s;
-  font-size: 14px;
-  font-family: "Open Sans", sans-serif;
-}
-
-.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
-  color: #d9ba85;
-}
-
-.nav-menu .book-a-table a {
-  border: 2px solid #cda45e;
-  color: #fff;
-  border-radius: 50px;
-  padding: 8px 25px;
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  transition: 0.3s;
-}
-
-.nav-menu .book-a-table a:hover {
-  background: #cda45e;
-  color: #fff;
-}
-
-.nav-menu .drop-down ul {
-  display: block;
-  position: absolute;
-  left: 15px;
-  top: calc(100% + 30px);
-  z-index: 99;
-  opacity: 0;
-  visibility: hidden;
-  padding: 10px 0;
-  background: #fff;
-  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-  transition: 0.3s;
-}
-
-.nav-menu .drop-down:hover > ul {
-  opacity: 1;
-  top: 100%;
-  visibility: visible;
-}
-
-.nav-menu .drop-down li {
-  min-width: 180px;
-  position: relative;
-}
-
-.nav-menu .drop-down ul a {
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: none;
-  color: #1a1814;
-}
-
-.nav-menu .drop-down ul a:hover, .nav-menu .drop-down ul .active > a, .nav-menu .drop-down ul li:hover > a {
-  color: #cda45e;
-}
-
-.nav-menu .drop-down > a:after {
-  content: "\ea99";
-  font-family: IcoFont;
-  padding-left: 5px;
-}
-
-.nav-menu .drop-down .drop-down ul {
-  top: 0;
-  left: calc(100% - 30px);
-}
-
-.nav-menu .drop-down .drop-down:hover > ul {
-  opacity: 1;
-  top: 0;
-  left: 100%;
-}
-
-.nav-menu .drop-down .drop-down > a {
-  padding-right: 35px;
-}
-
-.nav-menu .drop-down .drop-down > a:after {
-  content: "\eaa0";
-  font-family: IcoFont;
-  position: absolute;
-  right: 15px;
-}
-
-@media (max-width: 1366px) {
-  .nav-menu .drop-down .drop-down ul {
-    left: -90%;
-  }
-  .nav-menu .drop-down .drop-down:hover > ul {
-    left: -100%;
-  }
-  .nav-menu .drop-down .drop-down > a:after {
-    content: "\ea9d";
-  }
-}
+-
 
 /* Mobile Navigation */
 .mobile-nav-toggle {
@@ -487,7 +353,6 @@ h1, h2, h3, h4, h5, h6 {
 
 #hero:before {
   content: "";
-  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -496,8 +361,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .container {
-  padding-top: 110px;
-}
+  padding-top: 8%;}
 
 @media (max-width: 992px) {
   #hero .container {
@@ -722,7 +586,6 @@ section {
   font-family: "Playfair Display", serif;
   color: #cda45e;
 }
-
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
@@ -779,7 +642,6 @@ section {
 # About
 --------------------------------------------------------------*/
 .about {
-  background: url("../img/about-bg.jpg") center center;
   background-size: cover;
   position: relative;
   padding: 80px 0;
@@ -787,7 +649,6 @@ section {
 
 .about:before {
   content: "";
-  background: rgba(0, 0, 0, 0.8);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -971,7 +832,9 @@ section {
 }
 
 .menu .menu-content::after {
-  content: "......................................................................" "...................................................................." "....................................................................";
+  content: "......................................................................"
+ "...................................................................."
+ "....................................................................";
   position: absolute;
   left: 20px;
   right: 0;
@@ -1792,4 +1655,143 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+}
+
+.addPost input[type=text] {
+    font-size: 16px;
+}
+.addPost input[type=radio] label{
+  font-size: 30px;
+}
+.addPost p {
+  font-size: 15px;
+}
+.addPost button {
+  font-size: 15px;
+}
+.filterPosts a{
+  font-size: 15px;
+}
+.filterPosts button {
+  font-size: 15px;
+  border:'white';
+}
+.singlePost{
+  font-size: 20px;
+  font-weight:bolder;
+}
+.timeAgo{
+  font-size: 10px;
+}
+
+.postUserPhoto{
+  width:110px;
+}
+.commentUserPhoto{
+  width:70px;
+}
+.singleComment{
+  font-size: 16px;
+  font-weight:bolder;
+}
+
+.filterPosts a select option{
+  font-size: 10px;
+}
+.newComment{
+  font-size: 14px;
+  width:120px;
+}
+.header-mobile{
+  color:'white';
+}
+.header-mobile-link{
+  padding: 20%;
+}
+.tableStatus{
+  width:'30px';
+  height:'30px'
+}
+.gardenName{
+  padding-top: 100px;
+  font-size: 40px;
+}
+.buttonsTop{
+  padding-top: 30px;
+}
+.noSensor{
+  font-size:25px;
+  color:'white';
+  text-align:'left';
+}
+
+.notificationText{
+  font-size:'18px';
+  color:'white'
+}
+
+
+@media (max-width: 992px) {
+  .addPost input[type=text] {
+    font-size: 10px;
+    padding: 0%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+  .addPost p {
+    font-size: 11px;
+  }
+  .addPost button {
+    font-size: 12px;
+  }
+  .filterPosts a{
+    font-size: 12px;
+  }
+  .singlePost{
+    font-size: 16px;
+    font-weight:bolder;
+  }
+  .timeAgo{
+    font-size: 8px;
+  }
+  .filterPosts button {
+    font-size: 12px;
+  }
+  .postUserPhoto{
+    width:45px;
+  }
+  .commentUserPhoto{
+    width:35px;
+  }
+  .singleComment{
+    font-size: 12px;
+    font-weight:bolder;
+  }
+  .newComment{
+    font-size: 10px;
+    width:75px;
+  }
+  .header-large-screen{
+    display:none;
+  }
+  .tableStatus{
+    width:'15px';
+    height:'15px'
+  }
+  .bottonsOnMobile{
+    display: "none";
+  }
+  .gardenName{
+    padding-top: 210px;
+    font-size: 20px;
+  }
+  .noSensor{
+    font-size:20px;
+  }
+  .plantBibleTitle{
+    font-size:10px;
+  }
+  .graphChart{
+width:'50px';
+  }
 }

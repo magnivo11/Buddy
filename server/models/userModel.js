@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require ('bcrypt');
+const { schema } = require('./gardenModel');
 
 const userSchema = new Schema({
-    name: {
+    firstName: {
         type: String,
         required: true
     },
@@ -12,20 +14,51 @@ const userSchema = new Schema({
         required: true,
         index: { unique: true }
     },
+    description: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
     },
     isAdmin: {
-        type: String,
+        type: Boolean,
         required: true
     },
+    resetPasswordToken: {type:String},
+    resetPasswordExpires:{type:Date},
     gardens: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "gardens"
         }
-    ]
+    ],    
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "posts"
+        }
+    ],
+    
+    created: { type: Date, default: Date.now },
+    lastUpdated: { type: Date, default: Date.now },
+    photoID: {
+        type: String
+    }, 
 })
+
+userSchema.statics.hashPassword = function hashPassword (password)
+{
+    return bcrypt.hashSync(password,10); 
+}
+
+userSchema.methods.isValid = function (hashedPassword)
+{
+    return bcrypt.compareSync(hashedPassword,this.password); 
+}
+
+ 
+
 
 module.exports = mongoose.model('users', userSchema);

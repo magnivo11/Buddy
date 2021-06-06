@@ -1,22 +1,19 @@
 import '../css/Bible.css';
 import React from 'react';
 import PlantBibleBox from './PlantBibleBox'
-import axios from 'axios';
-   
+ 
 
+export default function PlantsBibleGrid({ q = '' }) {
 
-export default function PlantsBibleGrid({Q}) {
 
     const [plants, setPlants] = React.useState([])
     React.useEffect(() => {
-       var url = 'http://localhost:8080/plant/byName/'+Q;
-       axios.get(url).then((Response) => {
-           if (plants.length != Response.data.length)
-               setPlants(Response.data);
-       })
-   }, [Q]);
+        fetch(process.env.REACT_APP_SERVER_URL+'/plant/admin'+q)
+            .then((response) => response.json())
+            .then((data) => setPlants(data));
+    }, [q]);
 
-   if(plants.length>0)
+
 
     return (
         <>
@@ -32,8 +29,6 @@ export default function PlantsBibleGrid({Q}) {
 
         </>
     );
-    else
-    return ('');
 
 }
 

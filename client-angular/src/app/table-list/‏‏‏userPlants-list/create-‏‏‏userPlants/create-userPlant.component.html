@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Create New Plant</h4>
+            <p class="card-category">Complete your Plant</p>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Species</mat-label>
+                    <mat-select #species>
+                      <mat-option *ngFor="let plant of plants" [value]="plant.species">
+                        {{plant.species}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Garden</mat-label>
+                    <mat-select #garden>
+                      <mat-option *ngFor="let garden of gardens" [value]="garden._id">
+                        {{garden.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Growth Status</mat-label>
+                    <mat-select #growthStatus placeholder="Growth Status">
+                      <mat-option value="Seed">Seed</mat-option>
+                      <mat-option value="Seedling">Seedling</mat-option>
+                      <mat-option value="Vegetative">Vegetative</mat-option>
+                      <mat-option value="Flowering">Flowering</mat-option>
+                      <mat-option value="Ripening">Ripening</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                (click)="onCreate(species.value, garden.value, growthStatus.value)"
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Create
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

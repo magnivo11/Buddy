@@ -2,71 +2,78 @@ import '../css/AddForms.css'
 import '../css/AddAPlant.css';
 
 import axios from 'axios'
-import{Link, Redirect} from 'react-router-dom';
-import logo from '../Images/LB.png'; 
 import React from 'react';
-import DataContext from '../DataContext'
 
 
-export default function EditPlantByAdmin(){
-  var index=window.location.toString().lastIndexOf('/')+1
-  const plantID=window.location.toString().substring(index)
-  const[plantEdited,setPlantEdited]=React.useState(false)
- 
-if(!plantEdited){
+export default function EditPlantByAdmin() {
+  var index = window.location.toString().lastIndexOf('/') + 1
+  const plantID = window.location.toString().substring(index)
+  const [plant, setPlant] = React.useState({ _id: '' });
+
+  
+  React.useEffect(() => {
+    fetch(process.env.REACT_APP_SERVER_URL+'/plant/' + plantID)
+      .then(response => response.json()).then(
+        data => {
+          setPlant(data);
+        }
+      )
+  }, []);
+
   return (
-    <div>
+    <div style={{ fontFamily: "Open Sans" }}>
+      <section id="hero" className="d-flex align-items-center">
+        <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+          <div className="wrapper fadeInDown">
+            <div id="formContent">
+              <div className="fadeIn first">
+                <h1 style={{ fontSize: '35px', color: '#51361A' }} >Edit Plant </h1>
+              </div>
+              <form name='gardenForm' style={{ fontSize: '10px' }} onSubmit={(e) => {
+                editPlantByAdmin(e, plant.species, plant.irrigationInstructors, plant.optimalTemp, plant.optimalSunExposure,
+                  plant.optimalSoilMoisture, plant.description, plantID)
+              }}>
+                <input style={{ fontSize: '12px' }} type="text" id="species" className="fadeIn second" placeholder={'Species: ' + plant.species} />
+                <input style={{ fontSize: '12px' }} type="text" id="irrigationInstructors" className="fadeIn second" placeholder={'Irrigation Instructors: ' + plant.irrigationInstructors} />
+                <input style={{ fontSize: '12px' }} type="text" id="description" className="fadeIn second" placeholder={'Description: ' + plant.description} />
 
-    <section id="hero" className="d-flex align-items-center">
-      <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
+                <input style={{ fontSize: '12px' }} type="number" id="optimalTemp" className="fadeIn second" placeholder={'Optimal Temperature: ' + plant.optimalTemp} /><br></br><br></br>
+                <input style={{ fontSize: '12px', hight: '50px' }} type="number" id="optimalSunExposure" className="fadeIn second" placeholder={'Optimal sun exposure: ' + plant.optimalSunExposure} /><br></br><br></br>
+                <input style={{ fontSize: '12px' }} type="number" id="optimalSoilMoisture" className="fadeIn second" placeholder={'Optimal Soil Moisture ' + plant.optimalSoilMoisture} /><br></br> <br></br>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save</span></button>&nbsp;
+                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
 
-        <div className="wrapper fadeInDown">
-          <div id="formContent">
-            <div className="fadeIn first">
-            
-              <h4 style= {{fontSize: '20px', color:'#51361A'}}>Edit Plant- Admin </h4> 
-        
+              </form>
             </div>
-            <form name='gardenForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-            editPlantByAdmin(e,plantID)
-            setPlantEdited(true)
-          }}>
-              <input style= {{fontSize: '12px'}} type="text"  id="species" className="fadeIn second"  placeholder="Species"  />
-              <input style= {{fontSize: '12px'}} type="text"  id="irrigationInstructors" className="fadeIn second"  placeholder="Irrigation Instructors"  />
-              <input style= {{fontSize: '12px'}} type="number"  id="optimalTemp" className="fadeIn second"  placeholder="Optimal Temperature"  />
-              <br></br>               <br></br>
-              <input style= {{fontSize: '12px', hight:'50px'}} type="number"  id="optimalSunExposure" className="fadeIn second"  placeholder="Optimal Sun Exposure"  />
-              <br></br>               <br></br>
-
-              <input style= {{fontSize: '12px'}} type="number"  id="optimalSoilMoisture" className="fadeIn second"  placeholder="Optimal Soil Moisture"  />
-              <input style= {{fontSize: '12px'}} type="text"  id="description" className="fadeIn second"  placeholder="Description"  />
-               <input type="submit" className="fadeIn fourth"  value="Add Plant To DB"/><br/>
-            </form>
-           
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   );
 }
-else{
-  return(<Redirect to="/mygardens"/>);
+function editPlantByAdmin(e, species, irrigationInstructors, optimalTemp, optimalSunExposure,
+  optimalSoilMoisture, description, plantID) {
+    e.preventDefault();
 
-}
-}
-function editPlantByAdmin(e,plantID){
-
-  e.preventDefault();
-
-  const newPlant= { 
-  id:plantID,
-  species:document.getElementById('species').value,
-  irrigationInstructors:document.getElementById('irrigationInstructors').value,
-  optimalTemp:document.getElementById('optimalTemp').value,
-  optimalSunExposure:document.getElementById('optimalSunExposure').value,
-  optimalSoilMoisture:document.getElementById('optimalSoilMoisture').value,
-  description: document.getElementById('description').value
+  const newPlant = {
+    id: plantID,
+    species: checkField(species,'species'),
+    irrigationInstructors: checkField(irrigationInstructors,'irrigationInstructors'),
+    optimalTemp: checkField(optimalTemp,'optimalTemp'),
+    optimalSunExposure: checkField(optimalSunExposure,'optimalSunExposure'),
+    optimalSoilMoisture: checkField(optimalSoilMoisture,'optimalSoilMoisture'),
+    description: checkField(description,'description')
   }
-    axios.put('http://localhost:8080/plant/byadmin',newPlant);
+
+  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byadmin', newPlant);
+  window.location='/PlantsBible'
+
+}
+
+function checkField(beforeUpdate,field){
+  let updated="";
+  if (document.getElementById(field).value.length == 0) 
+      updated = beforeUpdate;
+  else updated = document.getElementById(field).value;
+  return updated;
 }

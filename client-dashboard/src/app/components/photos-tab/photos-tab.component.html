@@ -1,0 +1,57 @@
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container">
+        <h5><b><i class="fa fa-dashboard"></i> {{userName}}'s Admin Dashboard </b></h5>
+     </div>
+    <div class="w3-bar-block">
+        <a class="w3-bar-item w3-button w3-padding" routerLink="/statistics"><i
+            class="fa fa-calculator fa-fw"></i> Statistics & search </a>
+        <a class="w3-bar-item w3-button w3-padding" routerLink="/todo-tab"><i class="fa fa-list fa-fw"></i>To Do List</a>
+        <a class="w3-bar-item w3-button w3-padding" routerLink="/photos-tab"><i class="fa fa-photo fa-fw"></i>Photos</a>
+        <button (click)='logout()' class="w3-button w3-dark-grey">Log Out</button>
+    </div>
+    </nav>
+    
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+    title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+<div>
+    <p>Scrape photos by species:</p> <div class="w3-quarter">
+    <div class="w3-container w3-purple margin w3-right">
+       <div class="w3-clear"></div>
+      <h4><em class="fa fa-photo w3-xlarge"></em> Number of photos  {{photosList.length}}</h4>
+     </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <select id="species" (change)='selectName($event)'>
+        <option *ngFor="let plant of plantsList">
+            {{plant.species}}
+        </option>
+    </select>
+    <button class="w3-button w3-dark-grey" (click)='getAllSelectedPhotos()'>Scrape from wikipedia</button>
+    <button class="w3-button w3-dark-grey" (click)='getAllPhotos()'>Display&refresh All photos </button>
+    <div *ngIf='((photosList)&&(photosList.length>0))'>
+        <p>Photos</p>
+        <table class="table" >
+            <th id='tableheader'></th>
+            <tr *ngFor='let photo of photosList'>
+                <div class="container">
+                    <img style="margin-left: 2% ; width: 120px; height: 120px;" src={{photo.link}} alt="photo not found">
+
+                    <td style="margin-top: 0%;">
+                        <button class="w3-button w3-dark-grey " style="padding: 6px 16px; font-size: 10px;" (click)='choosenPhoto(photo)'>make me default
+                            photo</button>
+                        <button class="w3-button w3-dark-grey" style="padding: 6px 16px; font-size: 10px;"(click)='deletePhoto(photo._id)'>delete me</button>
+                    </td>
+                </div>
+            </tr>
+        </table>
+    </div>
+ 
+</div>
+</div>

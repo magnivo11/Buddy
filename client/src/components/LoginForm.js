@@ -1,38 +1,35 @@
 import '../css/Forms.css';
+import '../css/Buttons.scss'
 import { Link, Redirect } from 'react-router-dom';
-import logo from '../Images/LB.png';
+import logo from '../Images/Logos/full logo in circle@4x.png';
 import React from 'react';
 import axios from 'axios'
 
 
-function LoginForm() {
+export default function LoginForm() {
   const [messege, setMessege] = React.useState({ text: '', showMessege: false });
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   if (!loggedIn) {
     return (
-      <div>
+      <div style={{ fontFamily: "Open Sans" }}>
         <section id="hero" className="d-flex align-items-center">
           <div className="container position-relative text-center text-lg-left" data-aos="zoom-in" data-aos-delay={100}>
-
             <div className="wrapper fadeInDown">
               <div id="formContent">
                 <div className="fadeIn first">
-
-                  <img src={logo} id="icon" alt="Welcome Buddy" />
-                  <h1 style={{ fontSize: '35px', color: '#51361A' }}>Nice to see you again! </h1>
+                  <img src={logo} style={{paddingTop:"5%"}} id="icon" alt="Welcome Buddy" />
+                  <h1><small  style={{color: '#51361A', fontWeight:'bold'}}>Nice to see you again!</small> </h1>
                   {messege.showMessege ? <div>{messege.text}</div> : null}
-                  <h3 style={{ color: '#51361A' }}>Log in </h3>
-
                 </div>
                 <form onSubmit={(e) => { login(e, setLoggedIn, setMessege) }}>
                   <input type="text" id="email" className="fadeIn second" name="login" placeholder="Email" />
-                  <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" />
-                  <input type="submit" className="fadeIn fourth" value="Login" />
+                  <input type="password" id="password" className="fadeIn third" name="login" placeholder="Password" /> <br></br>
+                  <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Log in</span></button><br></br>
                 </form>
                 <div id="formFooter">
-                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/register">Don't have an account? Register!</Link>
-
+                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/register">Don't have an account? Register!</Link><br></br>
+                  <Link className="underlineHover" style={{ color: '#51361A' }} to="/forgotpassword">Forgot password?</Link>
                 </div>
               </div>
             </div>
@@ -48,29 +45,36 @@ function login(e, setLoggedIn, setMessege) {
   e.preventDefault();
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
-  axios.get('http://localhost:8080/user/byemail/' + email).
-    then(Response => {
-      if (Response.data)
-        if (Response.data.password === password) {
-          /*   const user=({"_id:Response.data._id,
-                         "name":Response.data.name,
-                         "lastName":Response.data.lastName,
-                         "email":email,
-                         "isAdmin":Response.data.isAdmin
-                       });
-                       setUser(user);*/
-          //setUser({_id:Response.data._id});
-          window.sessionStorage.setItem('userID', Response.data._id);
-          setLoggedIn(true);
-        }
-        else
-          setMessege({ text: 'password incorrect', showMessege: true })
-      else
-        setMessege({ text: 'invalid email', showMessege: true })
+   var logIn = false;
 
+  fetch(process.env.REACT_APP_SERVER_URL+'/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password
     })
+  }).then(data => { data.json(); logIn = true; console.log(logIn)},
+    error => console.error('wrong password or email')
+  ).then(()=>{
+    if (logIn===true) {
+       axios.get(process.env.REACT_APP_SERVER_URL+'/user/byemail/' + email).
+        then(Response => {
+          if (Response.data) {
+            window.sessionStorage.setItem('userID', Response.data._id);
+            setLoggedIn(true);
+  
+          }
+          else
+            setMessege({ text: 'invalid details', showMessege: true })
+        })
+  
+    }
+  })
 
+  
 }
 
 
-export default LoginForm

@@ -1,0 +1,22 @@
+#outer
+{
+    width:80%;
+    text-align: center;
+    display:inline-block;
+
+}
+.inner
+{
+    display:inline-block;
+    border-color:'black';
+ }
+ 
+ * {
+    box-sizing: border-box;
+  }
+  
+  /* Position the image container (needed to position the left and right arrows) */
+  .container {
+    position: relative;
+  }
+   
