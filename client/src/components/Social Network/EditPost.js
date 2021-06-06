@@ -8,11 +8,15 @@ export default function EditPost() {
   const userID= window.sessionStorage.getItem('userID');
   const [post, setPost] = React.useState();
   const [content, setContent] = React.useState("");
+<<<<<<< HEAD
   const [photoID, setPhotoID] = React.useState("");
   const [status, setStatus] = React.useState("");
 
   const [FileName, setFileName] = React.useState("");
 
+=======
+  const [status, setStatus] = React.useState("")
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
   React.useEffect(() => {
     fetch(process.env.REACT_APP_SERVER_URL+'/post/' + postID)
       .then(response => response.json()).then(
@@ -20,8 +24,11 @@ export default function EditPost() {
           setPost(data);
           setContent(data.content);
           setStatus(data.status);
+<<<<<<< HEAD
           setPhotoID(data.photoID);
 
+=======
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
         }
       )
   }, []);
@@ -33,10 +40,13 @@ export default function EditPost() {
     setContent(event.target.value);
   }
 
+<<<<<<< HEAD
   const onChangeFile = e => {
     setFileName(e.target.files[0]);
   }
 
+=======
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
   return (
     <div style={{ fontFamily: "Open Sans" }}>
       <section id="hero" className="d-flex align-items-center">
@@ -48,9 +58,14 @@ export default function EditPost() {
               </div>
 
               <form onSubmit={(e) => {
+<<<<<<< HEAD
                 editPost(e, status,content, postID,userID,FileName,photoID)
               }}>
                 
+=======
+                editPost(e, status,content, postID,userID)
+              }}>
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
                 <input style={{ fontSize: '12px' }} type="text" id="content" className="fadeIn second" name="addAGarden" placeholder={content}
                 onChange={handleContentChange} />
                 <br />
@@ -63,9 +78,13 @@ export default function EditPost() {
                   </select>
                 </a>
                 <br /><br />
+<<<<<<< HEAD
                 <div className="form-group" >
                     <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
                   </div>
+=======
+             
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
                
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
@@ -94,13 +113,20 @@ function editPost(e, status,content,postID,userID,FileName,photoID) {
     content:content,
     userID:userID,
     postID: postID,
+<<<<<<< HEAD
     status: status,
     photoID: FileName.name
+=======
+    status: status
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
   }
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
   window.location='/newsfeed'
+<<<<<<< HEAD
   axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: photoID} })
+=======
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
 
 }
 

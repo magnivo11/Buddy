@@ -69,11 +69,19 @@ export default function EditUser(){
 function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, oldPassword,oldPhotoID,userId,setInfo,FileName){
   e.preventDefault();
   var formData = new FormData();
+<<<<<<< HEAD
   formData.append('link', FileName );
   formData.append('type', "user");
  
 
   axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
+=======
+  formData.append('link', FileName);
+  formData.append('type', "user");
+ 
+
+ axios.post('http://localhost:8080/photo/upload', formData);
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
 
   const updatedPhotoFile= checkState(oldPhotoID,FileName);
   const email = checkField(oldEmail,'email');
@@ -114,7 +122,11 @@ function checkState(beforeUpdate,state) {
   if (state== "") updated = beforeUpdate;
   else {
     updated = state.name;
+<<<<<<< HEAD
     axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: beforeUpdate} })
+=======
+    axios.delete('http://localhost:8080/photo/', { data: { photoID: beforeUpdate} })
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
   }
   return updated;
 }

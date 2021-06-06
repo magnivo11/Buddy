@@ -46,7 +46,11 @@ export default function AddAPost({ target }) {
                     <input type="radio" id='Help' name="status" /> <label style={{ color: 'red' }} htmlFor="north">Help &nbsp;&nbsp;</label><br />
                   </label>
                   <div className="form-group">
+<<<<<<< HEAD
                   <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+=======
+                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
                   </div>
                 </div>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Add</span></button> &nbsp;

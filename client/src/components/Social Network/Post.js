@@ -10,7 +10,11 @@ import userPhoto from '../../Images/Gardeners/3.png'
 export default function Post({postID, change,deletePost,editPost}) {
     const loggedUserID = window.sessionStorage.getItem('userID');
     const [post,setPost]=React.useState([]);
+<<<<<<< HEAD
     const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:'',photoID:''});
+=======
+    const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
     const [ownersPermissions, setOwnersPermissions] = React.useState(false);
     const [content, setContent] = React.useState("");
     const handleEditContectChange = (event) => {
@@ -72,7 +76,11 @@ export default function Post({postID, change,deletePost,editPost}) {
             {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
+<<<<<<< HEAD
             {post.photoID&&<img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
+=======
+            <img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>
+>>>>>>> 93badef4f7f15c832bbbb84973158b0f3ddbc276
             {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
             <button  style={{fontSize:'9px',border:'white',background:'none'}}
