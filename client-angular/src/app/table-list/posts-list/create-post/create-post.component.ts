@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreatePostComponent implements OnInit {
 
   post: Post = null;
-  user: String = '';
+  userFor: String = '';
   users: User[] = [];
   isEditable = false;
 
@@ -25,10 +25,11 @@ export class CreatePostComponent implements OnInit {
     this.usersService.getUsers().subscribe(data => {
       this.users = data;
     });
-    this.user=history.state.user;
-    if(this.user !== ''){
+    this.userFor=history.state.user;
+    if(this.userFor !== ''){
       this.isEditable = true;
     }
+    
   }
 
   onCreate(content: String, userID: String, status: String){

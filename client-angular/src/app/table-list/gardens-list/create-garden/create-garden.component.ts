@@ -23,11 +23,11 @@ export class CreateGardenComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getUsers().subscribe(data => {
       this.users = data;
+      this.user=history.state.user;
+      if(this.user !== ''){
+        this.isEditable = true;
+      }
     });
-    this.user=history.state.user;
-    if(this.user !== ''){
-      this.isEditable = true;
-    }
   }
 
   onCreate(name: String, direction: String, directSun: boolean,surrounding: String, userID: String){

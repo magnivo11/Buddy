@@ -11,35 +11,54 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CommentsListComponent implements OnInit {
 
-  comments :  Comment[] = [];  
+  comments :  Comment[] = [];
+  @Input() userFor: String = '';
+  @Input() postFor: String = '';  
   @Input() listFor: String = '';
   @Input() search: string = '';
   @Input() refresh: string = "false";
+  isShow = true;
 
   constructor(private commentsService :  CommentsService, private router: Router, private toastrService : ToastrService
     ){}
   
   ngOnInit() {
-    if(this.listFor === '')
+    if(this.listFor === ''){
+      this.isShow = true;
       this.loadAll();
-    else if (this.listFor !== '')
+    }
+    else if (this.listFor === 'post')
     {
-      this.loadForPost(this.listFor);
+      this.isShow = true;
+      this.loadForPost(this.postFor);
+    }
+    else if (this.listFor === 'user')
+    {
+      this.isShow = true;
+      this.loadForUser(this.userFor);
     }
   }
   
   ngOnChanges(changes: String) {
     // changes.prop contains the old and the new value...
-    if(this.refresh === "true")
+    if(this.refresh === "true"){
+      this.isShow = true;
       this.loadAll();
+    }
     if(this.listFor === "" || this.search === "")
     { 
+      this.isShow = true;
       this.loadAll();
     }
     else if(this.listFor === "search")
     { 
       this.commentsService.filter(this.search).subscribe(data =>{ 
-        this.comments = data;
+        if(data.length === 0){
+          this.isShow = false;
+        }
+        else{
+          this.comments = data;
+        }
       }, err => {
         this.toastrService.error(err.error.errors,'Error');  
       })
@@ -67,9 +86,18 @@ export class CommentsListComponent implements OnInit {
     });
   }
 
+  loadForUser(userID: String){
+    this.commentsService.getCommentsByUserID(userID).subscribe(data => {
+      this.comments = data;
+    }, err => {
+      this.toastrService.error(err.error.errors,'Error');  
+      this.router.navigate(['/table-list']);
+    });
+  }
+
   onCreate(){
     //this.currentpostService.changeCurrentpost(post);
-    this.router.navigateByUrl('/CreateComment', { state: {post: this.listFor}});
+    this.router.navigateByUrl('/CreateComment', { state: {post: this.postFor, user: this.userFor}});
   }
 
   onEdit(comment : Comment){

@@ -68,18 +68,16 @@ const updateUser = async(id,firstName,lastName,email,description,password,photoI
     return true;
 };
 
-const updateUserByAdmin = async(id,firstName,lastName,email,description,password,isAdmin) =>{
-    User.findById(id,(err,user)=>{
-        user.firstName=firstName;
-        user.lastName=lastName;
-        user.email=email;
-        user.description=description;
-        user.password=password;
-        user.isAdmin=isAdmin;
-        user.lastUpdated= Date.now();
-        user.save();
-    });
-    return true;
+const updateUserByAdmin = async(id,firstName,lastName,email,description,isAdmin) =>{
+    const user = await User.findById(id);
+    user.firstName=firstName;
+    user.lastName=lastName;
+    user.email=email;
+    user.description=description;
+    user.isAdmin=isAdmin;
+    user.lastUpdated= Date.now();
+
+    return await user.save();
 };
 
 const getUserByEmail = async (email) => {

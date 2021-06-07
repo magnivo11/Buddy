@@ -54,10 +54,14 @@ const deleteComment = async(commentID,postID)=>{
     await comment.remove();
     return comment;
     }
-    };
+};
 
-    const getAllCommetsByPost = async(postID)=>{
-        return await Comment.find({postID:postID}); 
+const getAllCommetsByPost = async(postID)=>{
+    return await Comment.find({postID:postID}); 
+}
+
+const getAllCommentsByUser = async(userID)=>{
+    return await Comment.find({userID:userID});  
 }
 
 const getSumOfCommentsByPost = async () => {
@@ -92,6 +96,7 @@ module.exports={
     createComment,
     getCommentById,
     getAllCommetsByPost,
+    getAllCommentsByUser,
     getAllComments,
     updateComment,
     deleteComment,

@@ -23,7 +23,7 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <mat-label>Garden</mat-label>
-                    <mat-select #garden>
+                    <mat-select #garden [value]="gardenFor" [disabled]="isEditable">
                       <mat-option *ngFor="let garden of gardens" [value]="garden._id">
                         {{garden.name}}
                       </mat-option>

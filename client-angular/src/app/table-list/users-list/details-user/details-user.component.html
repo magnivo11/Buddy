@@ -72,6 +72,8 @@
         </div>
       </div>
     </div>
-    <app-gardens-list [listFor]="listFor"></app-gardens-list>
+    <app-gardens-list [listFor]="listFor" [userFor]="user._id"></app-gardens-list>
+    <app-posts-list [listFor]="listFor" [userFor]="user._id"></app-posts-list>
+    <app-comments-list [listFor]="listFor" [userFor]="user._id"></app-comments-list>
   </div>
 </div>

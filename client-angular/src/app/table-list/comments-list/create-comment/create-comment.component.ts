@@ -18,9 +18,11 @@ export class CreateCommentComponent implements OnInit {
 
   
     comment: Comment = null;
-    post: String = '';
+    postFor: String = '';
+    userFor: String = '';
     posts: Post[] = [];
-    isEditable = false;
+    isEditableUser = false;
+    isEditablePost = false;
     users: User[] = [];
 
     constructor(private commentsService : CommentsService, private postsService : PostsService, private usersService : UsersService,
@@ -31,13 +33,17 @@ export class CreateCommentComponent implements OnInit {
       this.postsService.getPosts().subscribe(posts => {
         this.posts = posts;
       });
-      this.post=history.state.post;
-      if(this.post !== ''){
-        this.isEditable = true;
-      }
       this.usersService.getUsers().subscribe(users => {
         this.users = users;
       });
+      this.postFor=history.state.post;
+      this.userFor=history.state.user;
+      if(this.postFor !== ''){
+        this.isEditablePost = true;
+      }
+      if(this.userFor !== ''){
+        this.isEditableUser = true;
+      }
     }
 
     onCreate(userID: String, postId: String, body: String){
