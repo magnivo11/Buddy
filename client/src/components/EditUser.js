@@ -42,8 +42,8 @@ export default function EditUser(){
               </div><br/>
               <form  onSubmit={(e)=>{editUser(e,data,user.firstName,user.lastName,user.email,user.description ,user.password,user.photoID,userId,setInfo,FileName)}}>
               {user.photoID?
-                <img style={{width:'150px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className=" rounded-circle" />:
-                <img  style={{width:'150px'}} src={userPhoto} alt="profile" className=" rounded-circle" />}
+                <img style={{width:'150px',height:'150px',objectFit: "cover"}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className=" rounded-circle" />:
+                <img  style={{width:'150px',objectFit:"cover"}} src={userPhoto} alt="profile" className=" rounded-circle" />}
                
               <div className="form-group" >
                     <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>

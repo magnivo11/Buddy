@@ -12,6 +12,8 @@ export default function Post({postID, change,deletePost,editPost}) {
      const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:'',photoID:''});
      const [ownersPermissions, setOwnersPermissions] = React.useState(false);
     const [content, setContent] = React.useState("");
+    const [mobileMode, setMobileMode] = React.useState(false);
+    
     const handleEditContectChange = (event) => {
         setContent(event.target.value);
       }
@@ -19,6 +21,9 @@ export default function Post({postID, change,deletePost,editPost}) {
 
 
     React.useEffect(() => {
+      if (window.innerWidth > 700){
+        setMobileMode(true)
+      }
         postID &&  fetch(process.env.REACT_APP_SERVER_URL+'/post/'+postID)
           .then(response => response.json()).then(
             data => {
@@ -74,14 +79,15 @@ export default function Post({postID, change,deletePost,editPost}) {
              {post.photoID&&<img className="imgPost" src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
               {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
-            <button  style={{fontSize:'9px',border:'white',background:'none'}}
+            <button  style={mobileMode?{fontSize:'12px',border:'white',background:'none'}:{fontSize:'9px',border:'white',background:'none'}}
           type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-pencil" />&nbsp;Edit </button>  
 </Link>
-             <button  style={{fontSize:'9px',border:'white',background:'none'}}
+             <button  style={mobileMode?{fontSize:'12px',border:'white',background:'none'}:{fontSize:'9px',border:'white',background:'none'}}
             onClick={()=>{
                 deletePost(postID,post.photoID);
             }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button>
             </div> } 
+            <br/>
 
              <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> 
 

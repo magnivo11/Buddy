@@ -89,8 +89,8 @@ return(
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
                     {currentUser.photoID?
-                    <img style={{width:'75%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
-                    <img style={{width:'75%'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
+                    <img style={{width:'200px',height:'200px',objectFit:"cover"}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
+                    <img style={{width:'150px'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
 
 
                     <div className="mb-3">
