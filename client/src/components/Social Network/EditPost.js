@@ -22,7 +22,7 @@ export default function EditPost() {
           setStatus(data.status);
            setPhotoID(data.photoID);
 
-=======
+
          }
       )
   }, []);
@@ -96,7 +96,7 @@ function editPost(e, status,content,postID,userID,FileName,photoID) {
     userID:userID,
     postID: postID,
      status: status,
-    photoID: FileName.name
+    photoID: FileName.name,
      status: status
    }
 
