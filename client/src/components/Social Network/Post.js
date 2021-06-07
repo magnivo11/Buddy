@@ -71,7 +71,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             {orange&&<a style={{background:'orange'}} className="round-button"></a>}
 
             <p>&nbsp;&nbsp;{content}</p>
-             {post.photoID&&<img style={{width:'500px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
+             {post.photoID&&<img className="imgPost" src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
               {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
             <button  style={{fontSize:'9px',border:'white',background:'none'}}
@@ -79,7 +79,7 @@ export default function Post({postID, change,deletePost,editPost}) {
 </Link>
              <button  style={{fontSize:'9px',border:'white',background:'none'}}
             onClick={()=>{
-                deletePost(postID);
+                deletePost(postID,post.photoID);
             }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button>
             </div> } 
 

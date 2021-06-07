@@ -1736,8 +1736,20 @@ section {
   color:'white'
 }
 
+.centerFilter {
+  position: center;
+  float:center;
+  color:black;
+  background-color: white;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.imgPost{
+  width: 400px;
+}
 
 @media (max-width: 992px) {
+ 
   .headingPlant{
     font-size: 35px;
   }
@@ -1803,5 +1815,13 @@ section {
   .graphChart{
 width:'50px';
   }
+ .photoEditProfile{
+   width:'400px'
+ }
+}
 
+@media (max-width: 500px) {
+  .imgPost{
+    width: 100px;
+  }
 }

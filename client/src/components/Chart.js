@@ -67,8 +67,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
     // chart options
 
     const options = {
-        "@media (max-width: 700px)": {
-            width:300,        height:200        },
+      
         width:501,
         height:270,
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
@@ -102,11 +101,50 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
     ],
  
 }
+const optionsMobile = {
+      
+    width:201,
+    height:270,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    animationEnabled: true,	
+    title:{
+        text:title,
+        fontFamily: "Open Sans",
+        fontColor:"white",
+        padding:10
+    },
+    axisY : {
+        title: ""
+    },
+    toolTip: {
+        shared: true
+    },
+    data: [
+    {
+        type: "spline",
+        name: "sensor",
+        showInLegend: true,
+        dataPoints: fromSensor
+    },
+    {
+        type: "spline",
+        name: "optimal",
+        color:'green',
+        showInLegend: true,
+        dataPoints:optimal
+    }
+],
 
+}
 
-
+if (window.innerWidth > 700){
     return(
         <CanvasJSChart options = {options}/>
     );
-
+    }
+    else{
+        return(
+            <CanvasJSChart options = {optionsMobile}/>
+        );
+    }
 }

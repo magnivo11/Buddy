@@ -36,14 +36,15 @@ export default function EditUser(){
             <div id="formContent" >
               <div className="fadeIn first">
               <br/>
-                <h1 style= {{fontSize: '35px', color:'#51361A'}}>Edit My Profile </h1> 
-                {user.photoID?
-                <img style={{width:'35%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
-                <img style={{width:'75%'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
+                <h1 style= {{fontSize: '30px', color:'#51361A'}}>Edit My Profile </h1> 
                
                 {info.showMessege? <div>this email is  taken, please use a different one</div>:null }
               </div><br/>
               <form  onSubmit={(e)=>{editUser(e,data,user.firstName,user.lastName,user.email,user.description ,user.password,user.photoID,userId,setInfo,FileName)}}>
+              {user.photoID?
+                <img style={{width:'150px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className=" rounded-circle" />:
+                <img  style={{width:'150px'}} src={userPhoto} alt="profile" className=" rounded-circle" />}
+               
               <div className="form-group" >
                     <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
                   </div>
