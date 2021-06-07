@@ -13,11 +13,16 @@ export default function NewsFeed(){
   const [currentUser,setUser]=React.useState({_id:'',firstName:'',lastName:''});
   const [posts,setPosts]=React.useState([]);
   const [change,setChange]=React.useState(false);
+  const [resetFilter,setResetFilter]=React.useState();
+  const [filterPressed,setFilterPressed]=React.useState(false);
 
-  const deletePost=(postID)=>{
+
+  const deletePost=(postID,postPhotoName)=>{
     if (window.confirm('Are you sure you want to delete this post?')){
       setPosts(posts.filter((post)=>(post !==postID)))
       axios.delete(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,userID:userID}})
+      if(postPhotoName)
+      axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: postPhotoName} })
       window.location='/newsfeed'
       }
   }
@@ -37,7 +42,7 @@ export default function NewsFeed(){
       setPosts(postIDList);
       setChange(false);
     }
-})  }, []);
+})  }, [resetFilter]);
 
 console.log(posts)
     return (
@@ -56,7 +61,9 @@ console.log(posts)
                     <div className="panel-body">
                       <AddAPostBox posts={posts} usersFirstName= {currentUser.firstName} setPosts={setPosts}/>
                         <br></br>
-                        <FilterPostsBox posts={posts} setPosts={setPosts}/>
+                        <FilterPostsBox posts={posts} setPosts={setPosts} setFilterPressed={setFilterPressed} />
+                        {filterPressed&&            <p className="w3-center">
+                        <button style={{border:"white"}}  onClick={()=>setResetFilter(true)}>Show all posts</button></p>}
                         <PostList posts={posts} change={change} deletePost={deletePost}/>
                     </div>
                   </div>

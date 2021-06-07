@@ -9,6 +9,7 @@ import Matan from '../Images/AboutUs/Matan.jpg';
 
 
 export default function AboutUs(){
+
     return (
       <div style={{fontFamily: "Open Sans"}}>
        <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>

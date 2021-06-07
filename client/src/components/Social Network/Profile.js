@@ -25,10 +25,13 @@ export default function Profile(){
    const editPost =(postID,content,status)=>{
      axios.put(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,content:content,status:status}})
   }
-  const deletePost=(postID)=>{
+  const deletePost=(postID,postPhotoName)=>{
     if (window.confirm('Are you sure you want to delete this post?')){
       setPosts(posts.filter((post)=>(post !==postID)))
       axios.delete(process.env.REACT_APP_SERVER_URL+'/post/',{data:{postID:postID,userID:userID}})
+      if(postPhotoName)
+      axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: postPhotoName} })
+
       }
   }
 

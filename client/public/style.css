@@ -4,7 +4,12 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
+.plantContainer{
+  padding-right: 10%;
+}
+.headingPlant{
+  font-size: 45px;
+}
 .buttonChart{
   width:167px;
   color: "grey";
@@ -361,7 +366,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .container {
-  padding-top: 8%;}
+  padding-top: 8%;
+}
 
 @media (max-width: 992px) {
   #hero .container {
@@ -1730,8 +1736,23 @@ section {
   color:'white'
 }
 
+.centerFilter {
+  position: center;
+  float:center;
+  color:black;
+  background-color: white;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.imgPost{
+  width: 400px;
+}
 
 @media (max-width: 992px) {
+ 
+  .headingPlant{
+    font-size: 35px;
+  }
   .addPost input[type=text] {
     font-size: 10px;
     padding: 0%;
@@ -1786,12 +1807,21 @@ section {
     font-size: 20px;
   }
   .noSensor{
-    font-size:20px;
+    font-size:16px;
   }
   .plantBibleTitle{
     font-size:10px;
   }
   .graphChart{
 width:'50px';
+  }
+ .photoEditProfile{
+   width:'400px'
+ }
+}
+
+@media (max-width: 500px) {
+  .imgPost{
+    width: 100px;
   }
 }
