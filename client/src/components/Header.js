@@ -43,9 +43,6 @@ export default function Header() {
       setClicked(!clicked)
     }
 
-
-
-
   return (
     <div style={{ fontFamily: "Open Sans" }}>
        
@@ -89,7 +86,8 @@ export default function Header() {
               <Link onClick={logOut} className="nav-item nav-link"><i className="fa fa-key" /></Link>
               <Link to="/notifications"  className="nav-item nav-link"><i className="fa fa-bell" />
                {data.newNotifications!=0&&<span style={{ position : 'absolute', top: '-10px', right: '-10px',padding: '5px 10px',borderRadius:'50%', background: 'red', color: 'white'}}>{data.newNotifications}</span>}</Link>
-              <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>
+              {!currentUser.isAdmin && <Link to="/edituser" className="nav-item nav-link"><i className="fa fa-cog" /></Link>}
+              {currentUser.isAdmin && <a href={process.env.REACT_APP_ANGULAR_URL} target="_blank" className="nav-item nav-link"><i className="fa fa-cog" /></a>}
               <li style={{ color: "white" }}>Hey {currentUser.firstName}</li>
             </ul>
           </nav>

@@ -7,7 +7,7 @@ export default function Footer(){
              
               <div className="container">
                 <div className="copyright">
-                  © Copyright <strong><span>Little Buddy</span></strong>. All Rights Reserved
+                  © Copyright <strong><span>Buddy</span></strong>. All Rights Reserved
                 </div>
                 <div className="credits">
                   {/* All the links in the footer should remain intact. */}

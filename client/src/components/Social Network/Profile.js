@@ -108,7 +108,7 @@ return(
                   <div className="py-4">
                     {currentUser.isAdmin &&<p className="clearfix">
                       <span className="float-left">
-                        Status
+                        Type:
                       </span>
                       <span className="float-right text-muted">
                         Admin
@@ -117,7 +117,7 @@ return(
          
                     <p className="clearfix">
                       <span className="float-left">
-                        Email
+                        Email:
                       </span>
                       <span className="float-right text-muted">
                       {currentUser.email}

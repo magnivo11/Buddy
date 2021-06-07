@@ -107,8 +107,9 @@ function addAPlant(e, gardenID, selected, growthStatus) {
     growthStatus: growthStatus,
     GardenID: gardenID
   }
-  axios.post(process.env.REACT_APP_SERVER_URL+'/plant/ByUser', newPlant);
-  window.location='/singleGarden/' + gardenID;
+  axios.post(process.env.REACT_APP_SERVER_URL+'/plant/ByUser', newPlant).then(response =>{
+    window.location='/singleGarden/' + gardenID;
+  });
 }
 } 
 function checkState(field,fieldName) {
