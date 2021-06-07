@@ -27,7 +27,7 @@ export default function PhotoSlide({ plantID }) {
                 <Slide>
                     {
                         photos.map((data, key) => {
-                             return <PhotoBox slideImg={data} />
+                             return <PhotoBox slideImg={data} key={key} />
                          })
                     }
                 </Slide>

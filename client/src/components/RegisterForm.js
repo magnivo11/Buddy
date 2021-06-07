@@ -9,12 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function RegisterForm() {
   const [FileName, setFileName] = React.useState("");
+  const userIDfromSession = window.sessionStorage.getItem('userID');
+
+  const buttonOnClick = e => {
+    document.getElementById('file-input').click()
+  };  
 
   const onChangeFile = e => {
     setFileName(e.target.files[0]);
   }
   const [info, setInfo] = React.useState({ showMessege: false, redirectToLogin: false, message: '' });
-  if (!info.redirectToLogin)
+  if (!info.redirectToLogin && !userIDfromSession)
     return (
       <div style={{ fontFamily: "Open Sans" }}>
         <section id="hero" className="d-flex align-items-center"style={{overflow:'scroll'}}>
@@ -33,7 +38,10 @@ export default function RegisterForm() {
                   <input type="password" id="password" className="fadeIn third" name="register" placeholder="Password" />
                   <input type="text" id="description" className="fadeIn second" name="register" placeholder="A few words about you" />
                   <div className="form-group">
-                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                    <button style={{ width: '120px', background: 'rgb(205, 164, 94)', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span>Select Photo</span></button>
+                    <input id="file-input" name='link' className="form-control-file" type="file" name="name" onChange={onChangeFile} style={{display: "none"}} />        
+
+                    {/* <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input> */}
                   </div>
                   <br></br>
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Register</span></button>
@@ -49,7 +57,7 @@ export default function RegisterForm() {
       </div>
     );
   else {
-    return (<Redirect to="/login" />);
+    return (<Redirect to="/mygardens" />);
   }
 }
 
@@ -83,8 +91,11 @@ function register(e, setInfo,FileName) {
               password: document.getElementById('password').value,
               photoID: FileName.name
             }
-            axios.post(process.env.REACT_APP_SERVER_URL+'/user/', newUser)
-            setInfo({ redirectToLogin: true })
+            axios.post(process.env.REACT_APP_SERVER_URL+'/user/', newUser).then(Response => {
+              if (Response.data) {
+                window.sessionStorage.setItem('userID', Response.data._id);      
+                setInfo({ redirectToLogin: true })
+              }});
           }
         })
     }

@@ -13,6 +13,10 @@ export default function EditUser(){
   const [user,setUser]=React.useState({_id:''});
   const [FileName, setFileName] = React.useState("");
 
+  const buttonOnClick = e => {
+    document.getElementById('file-input').click()
+  };  
+
   const onChangeFile = e => {
     setFileName(e.target.files[0]);
   }
@@ -45,16 +49,18 @@ export default function EditUser(){
               </div><br/>
               <form  onSubmit={(e)=>{editUser(e,data,user.firstName,user.lastName,user.email,user.description ,user.password,user.photoID,userId,setInfo,FileName)}}>
               <div className="form-group" >
-                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                    <button style={{ width: '120px', background: 'rgb(205, 164, 94)', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span>Select Photo</span></button>
+                    <input id="file-input" name='link' className="form-control-file" type="file" name="name" onChange={onChangeFile} style={{display: "none"}} />        
+                    {/* <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input> */}
                   </div>
-                <input type="text" id="first_name" className="fadeIn second"  placeholder={'First Name: '+user.firstName} />
+                <input type="text" id="first_name" className="fadeIn second" placeholder={'First Name: '+user.firstName} />
                 <input type="text" id="last_name" className="fadeIn second"  placeholder={'Last Name: '+user.lastName}  />
                 <input type="text" id="email" className="fadeIn second"  placeholder={'Email: '+user.email} />
                 <input type="text" id="description" className="fadeIn second"  placeholder={'Description: '+user.description} />
                 <input type="text" id="password" className="fadeIn third"  placeholder={'Password'} />
             
                 <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>&nbsp;
-                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
+                <button style={{width:'120px',background: '#84996f'}}className="button" type="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
 
               </form>
              
@@ -95,14 +101,15 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
             photoID:updatedPhotoFile,
              }
 
-        axios.put(process.env.REACT_APP_SERVER_URL+'/user/',newUser)
-        /////////////  forceRender renders app  /////////////
-             data.forceRender(!data.render);
-            setInfo({redirectToGardens:true})
+        axios.put(process.env.REACT_APP_SERVER_URL+'/user/',newUser).then(response =>{
+          /////////////  forceRender renders app  /////////////
+               data.forceRender(!data.render);
+              setInfo({redirectToGardens:true})
+              window.location='/profile/' + userId;
+        });
             
         }
     }});
-    window.location='/profile/' + userId;
   }
   function checkField(beforeUpdate,field){
     let updated="";

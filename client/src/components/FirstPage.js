@@ -1,6 +1,9 @@
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 export default function FirstPage(){
+  const userIDfromSession = window.sessionStorage.getItem('userID');
+
+  if (!userIDfromSession){
     return (
       <div>
     <section id="hero" className="d-flex align-items-center" >           
@@ -20,4 +23,8 @@ export default function FirstPage(){
      </section>
     </div>
      );
-   }
+  }
+  else{
+    return (<Redirect to="/mygardens" />);
+  }
+}

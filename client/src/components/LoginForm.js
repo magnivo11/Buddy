@@ -9,8 +9,9 @@ import axios from 'axios'
 export default function LoginForm() {
   const [messege, setMessege] = React.useState({ text: '', showMessege: false });
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const userIDfromSession = window.sessionStorage.getItem('userID');
 
-  if (!loggedIn) {
+  if (!loggedIn && !userIDfromSession) {
     return (
       <div style={{ fontFamily: "Open Sans" }}>
         <section id="hero" className="d-flex align-items-center">

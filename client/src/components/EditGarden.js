@@ -78,7 +78,7 @@ export default function EditGarden() {
                 </a>
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" type="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
               </form>
             </div>
           </div>
@@ -108,6 +108,7 @@ function editGarden(e, gardenName, direction, surroundings, sunlight, gardenID,u
 
  
 
-  axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden);
-  window.location='/mygardens'
+  axios.put(process.env.REACT_APP_SERVER_URL+'/garden/', newGarden).then(response =>{
+    window.location='/mygardens';
+  });
 }

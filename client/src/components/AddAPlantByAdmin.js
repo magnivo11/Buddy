@@ -59,8 +59,8 @@ function addAPlantByAdmin(e) {
       if (Response.data.message) {
         toast(Response.data.message)
       }
+      window.location='/plantsbible/';
     });
-    window.location='/plantsbible/';
   }
 }
 function checkRequired(field) {
