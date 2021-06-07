@@ -22,7 +22,7 @@ export default function EditPost() {
           setStatus(data.status);
            setPhotoID(data.photoID);
 
-
+ 
          }
       )
   }, []);

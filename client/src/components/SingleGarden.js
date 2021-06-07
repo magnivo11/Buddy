@@ -49,9 +49,9 @@ export default function SingleGarden(){
                   <div className="tab-content">
                      <div>
                         <div className="section-title " >
-                     
-                          <p className="gardenName">{gardenName} </p>
-                          {garden.currentTemp&& <div>
+                           <p className="gardenName">{gardenName} </p>
+                          <h2>{garden.direction},{garden.surrounding},{garden.directSun?"sunny":"shady"}</h2>
+                           {garden.currentTemp&& <div>
                             {garden.currentTemp.value&&
                           <p style={{fontSize:'35px'}}>{garden.currentTemp.value}° </p>
                             }</div>

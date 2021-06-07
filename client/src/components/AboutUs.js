@@ -66,7 +66,7 @@ export default function AboutUs(){
                         <p className="title">Developer</p>  
                         <p><a href="https://github.com/Atsaady"><button className="button"><i className="fa fa-github" aria-hidden="true"></i></button></a>&nbsp;
                         <a href="https://www.linkedin.com/in/arik-saadi-313379172/"><button className="button" style={{backgroundColor:'rgb(0,114,177)'}}><i className="fa fa-linkedin" aria-hidden="true"></i></button></a>&nbsp;
-                        <a href="mailto:Galsh1994@gmail.com"><button className="button" style={{backgroundColor:'rgb(0,114,100)'}}><i className="fa fa-envelope" aria-hidden="true"></i></button></a>
+                        <a href="mailto:atsaady@gmail.com"><button className="button" style={{backgroundColor:'rgb(0,114,100)'}}><i className="fa fa-envelope" aria-hidden="true"></i></button></a>
 
                         </p>
 
