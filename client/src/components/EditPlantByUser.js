@@ -74,7 +74,7 @@ export default function EditPlantByUser(){
 
               </div>
               <form name='plantUserForm' style= {{fontSize: '10px'}}  onSubmit={(e)=>{
-              editPlant(e,plantID,selected,growthStatus,plant.GardenID)}}>
+              editPlant(e,plantID,selected,growthStatus,plant.GardenID,plant,growthStatus)}}>
 
 
                   <div style={{fontSize:'14px', width:'400px',marginLeft:'80px'}}>
@@ -128,18 +128,31 @@ export default function EditPlantByUser(){
 
    
 
-function editPlant(e,plantID,selected,growthStatus,GardenID){
+function editPlant(e,plantID,selected,growthStatus,GardenID,plant){
 
   e.preventDefault();
 
+  let updatedSpecies;
+  if(selected=="Change species") updatedSpecies=plant.species; //no change was made
+  else updatedSpecies=selected;
+  let updatedGrowthStatus =checkState(plant.growthStatus,growthStatus)
  const newPlant={
   _id:plantID,
-  species:selected,
-  growthStatus:growthStatus,
+  species:updatedSpecies,
+  growthStatus:updatedGrowthStatus,
   GardenID: GardenID
  }
 
+
  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant).then(response =>{
   window.location='/plant/' + plantID
-});
+  });
+}
+function checkState(beforeUpdate,state) {
+  let updated="";
+  if (state== "") updated = beforeUpdate;
+  else {
+    updated = state.name;
+    }
+  return updated;
 }

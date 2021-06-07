@@ -1,7 +1,7 @@
  import { post } from 'jquery';
 import React,{inputRef,useState,useRef} from 'react';
 
-export default function FilterPostsBox({posts, setPosts}) {
+export default function FilterPostsBox({posts, setPosts,setFilterPressed}) {
 
   const [AllPosts,setAllPosts]=React.useState(posts);
 
@@ -10,7 +10,7 @@ export default function FilterPostsBox({posts, setPosts}) {
   fetch(process.env.REACT_APP_SERVER_URL+'/post')
     .then(response => response.json()).then(
       data => {
-        setAllPosts(data);
+        setAllPosts(data.reverse());
       }
     )
 }, []);
@@ -28,7 +28,7 @@ const handleStatusChange = (event) => {
                 <div className="w3-container w3-padding"> 
             
               <form name='filterForm' style= {{fontSize: '10px', textAlign:'center',border:'black'}}   onSubmit={(e)=>{
-              filterPosts(e,status,setPosts,AllPosts)
+              filterPosts(e,status,setPosts,AllPosts,setFilterPressed)
             }}>
                 <div className="filterPosts">
                  <a>
@@ -40,6 +40,7 @@ const handleStatusChange = (event) => {
                   </select>
                 </a> &nbsp;&nbsp;
                   <button  style={{border:'white'}} type="submit" className="w3-button w3-theme-d2 w3-margin-bottom"> Filter</button> &nbsp;
+
               </div>
               </form>  
                   
@@ -52,8 +53,8 @@ const handleStatusChange = (event) => {
       );
     }
     
-function filterPosts(e,status,setPosts,AllPosts){
+function filterPosts(e,status,setPosts,AllPosts,setFilterPressed){
   e.preventDefault();
   setPosts(AllPosts.filter((post)=>post.status == status).map((status)=>status._id))
-
+  setFilterPressed(true)
 }
