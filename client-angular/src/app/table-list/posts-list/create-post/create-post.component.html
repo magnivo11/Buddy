@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <mat-label>User</mat-label>
-                    <mat-select #user>
+                    <mat-select #user [value]="userFor" [disabled]="isEditable">
                       <mat-option *ngFor="let user of users" [value]="user._id">
                         {{user.firstName + ' ' + user.lastName}}
                       </mat-option>

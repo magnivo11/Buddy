@@ -15,16 +15,17 @@ export class CreateUserPlantComponent implements OnInit {
 
   plant: Plant = null;
   isEditable = false;
+  gardenFor: String = '';
   gardens : Garden[] = [];  
   plants : Plant[] = [];  
 
   constructor(private plantsService : PlantsService, private gardensService : GardensService, private router: Router, private toastrService : ToastrService    ) { }
 
   ngOnInit(): void {
-    // this.plant=history.state.user;
-    // if(this.plant !== ''){
-    //   this.isEditable = true;
-    // }
+    this.gardenFor=history.state.garden;
+    if(this.gardenFor !== ''){
+      this.isEditable = true;
+    }
     this.loadAllGardens();
     this.loadAllPlants();
   }

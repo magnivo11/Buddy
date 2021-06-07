@@ -27,7 +27,7 @@
                 <div class="col-md-4">
                   <mat-form-field class="example-full-width">
                     <mat-label>User</mat-label>
-                    <mat-select #userID>
+                    <mat-select #userID [value]="user" [disabled]="isEditable">
                       <mat-option *ngFor="let user of users" [value]="user._id">
                         {{user.firstName + ' ' + user.lastName}}
                       </mat-option>

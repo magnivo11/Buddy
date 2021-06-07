@@ -22,8 +22,8 @@ export class DetailsUserComponent implements OnInit {
   
     ngOnInit(): void {
       this.user=history.state;
+      this.listFor= "user";
       this.loggedUser = this.loginService.getConnectedUser();
-      this.listFor= this.user._id;
     }
   
     onEdit(){

@@ -26,7 +26,7 @@ const getPostById = async (request, response) => {
 };
 
 const getPostsByUser = async (request, response) => {
-    const post = await PostService.getPostsByUser(request.params.userID)
+    const post = await PostService.getPostsByUser(request.params.id)
     if (!post)
         return response.status(404).json({ errors: ['post not found'] });
     response.json(post);

@@ -19,11 +19,15 @@ export class ContainerComponent implements OnInit {
     this.ls.isLogin.subscribe(res => this.isLogin = res);
   }
   logout() {
-    localStorage.removeItem('user');
-    this.ls.setIsLogin(false, null);
-    this.ls.showLogin(false);
-    this.loginBtn = !this.loginBtn
-    this.router.navigate(['logout'])
+    if (window.confirm('Are you sure you want to log out?')){
+      localStorage.removeItem('user');
+      this.ls.setIsLogin(false, null);
+      this.ls.showLogin(false);
+      this.loginBtn = !this.loginBtn
+      this.router.navigate(['logout'])
+  
+      this.ls.showLogin(this.loginBtn);
+    }
   }
 
   showLogin() {

@@ -51,7 +51,6 @@ export class UsersService {
         email: user.email, 
         firstName: user.firstName, 
         lastName: user.lastName, 
-        password: user.password, 
         isAdmin: user.isAdmin,
         description: user.description
       });

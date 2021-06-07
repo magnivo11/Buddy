@@ -16,6 +16,7 @@ router.get('/postComments',commentController.getSumOfCommentsByPost);
 router.get('/:id',commentController.getCommentById); 
 
 router.get('/bypost/:postID',commentController.getAllCommentsByPost); 
+router.get('/byUser/:userID',commentController.getAllCommentsByUser); 
 
 router.get('/',commentController.getAllComments); 
 

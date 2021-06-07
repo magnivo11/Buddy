@@ -117,7 +117,6 @@ const updateUserByAdmin = async (request, response) => {
         request.body.lastName,
         request.body.email,
         request.body.description,
-        request.body.password,
         request.body.isAdmin);
 
     if (!user) {

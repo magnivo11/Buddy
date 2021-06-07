@@ -22,7 +22,7 @@ export class DetailsGardenComponent implements OnInit {
 
   ngOnInit(): void {
     this.garden=history.state;
-    this.listFor = this.garden._id;
+    this.listFor = 'garden';
     this.usersService.getUsers().subscribe(data => {
       this.users = data;
     });

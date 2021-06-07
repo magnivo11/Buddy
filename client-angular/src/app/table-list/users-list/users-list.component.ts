@@ -17,6 +17,7 @@ export class UsersListComponent implements OnInit {
   @Input() search: string = '';
   isLogin = false;
   @Input() refresh: string = "false";
+  isShow = true;
 
 
   constructor(private usersService : UsersService,  private router: Router, private loginService : LoginService, private toastrService : ToastrService    ){}
@@ -30,19 +31,27 @@ export class UsersListComponent implements OnInit {
     // changes.prop contains the old and the new value...
     if(this.search === "")
     { 
+      this.isShow = true;
       this.loadAll();
     }
     else
     { 
       this.usersService.filter(this.search).subscribe(data =>{
-        this.users = data;
+        if(data.length === 0){
+          this.isShow = false;
+        }
+        else{
+          this.users = data;
+        }
       }, err => {
         this.toastrService.error(err.error.errors,'Error'); 
       })
     }
 
-    if(this.refresh === "true")
+    if(this.refresh === "true"){
+      this.isShow = true;
       this.loadAll();
+    }
   } 
 
   loadAll(){

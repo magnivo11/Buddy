@@ -18,7 +18,7 @@ export class DetailsPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.post=history.state;
-    this.listFor = this.post._id;
+    this.listFor = 'post';
   }
 
   onEdit(){
