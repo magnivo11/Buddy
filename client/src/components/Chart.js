@@ -75,7 +75,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
         title:{
             text:title,
             fontFamily: "Open Sans",
-            fontColor:"white",
+            fontColor:"black",
             padding:10
         },
         axisY : {
