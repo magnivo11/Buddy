@@ -84,8 +84,8 @@ function register(e, setInfo,FileName) {
           }
           else {
             const newUser = {
-              firstName: camelize(document.getElementById('first_name').value),
-              lastName: camelize(document.getElementById('last_name').value),
+              firstName: camelizeName(document.getElementById('first_name').value),
+              lastName: camelizeName(document.getElementById('last_name').value),
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,
               password: document.getElementById('password').value,
@@ -111,4 +111,7 @@ function checkRequired(field) {
 function camelize(str) {
   const field= str.replaceAll('_', ' ');
   return field.charAt(0).toUpperCase()+field.slice(1);
+}
+function camelizeName(str) {
+  return str.charAt(0).toUpperCase()+str.slice(1);
 }
