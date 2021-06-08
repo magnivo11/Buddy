@@ -1691,7 +1691,10 @@ section {
 }
 
 .postUserPhoto{
-  width:110px;
+  width:100px;
+  height:100px;
+  object-fit: cover
+
 }
 .commentUserPhoto{
   width:70px;
@@ -1780,6 +1783,8 @@ section {
   }
   .postUserPhoto{
     width:45px;
+    height:45px;
+    object-fit: cover
   }
   .commentUserPhoto{
     width:35px;

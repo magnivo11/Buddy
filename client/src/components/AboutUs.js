@@ -12,11 +12,10 @@ export default function AboutUs(){
 
     return (
       <div style={{fontFamily: "Open Sans"}}>
-       <section id="hero" className="d-flex align-items-center" style={{overflow:'scroll'}}>
+       <section id="hero" className=" align-items-center" style={{overflow:'scroll'}}>
        <section id="specials" className="specials" style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 
            <div className="container" data-aos="fade-up"  >
              <div className="section-title" >
-               <br/><br/><br/> <br/>
                 <h2 style={{fontSize:'35px'}}>About Us</h2>
               </div>
               <div>

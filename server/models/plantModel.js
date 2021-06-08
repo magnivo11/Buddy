@@ -12,10 +12,7 @@ const plantSchema = new Schema({
   lightStatus: Number,
   moistStatus: Number,
   isUserPlant: Boolean,
-  defaultPhotoID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "photos"
-  },
+  defaultPhotoID: String,
   irrigationInstructors: String, // celsius
 
   optimalTemp: {
