@@ -4,6 +4,10 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+.commentFont{
+  font-size: 20px;
+}
 .plantContainer{
   padding-right: 10%;
 }
@@ -1707,8 +1711,9 @@ section {
 .filterPosts a select option{
   font-size: 10px;
 }
-.newComment{
-  font-size: 14px;
+.newComment [type=text] {
+  font-size: 8px;
+  padding:0%;
   width:120px;
 }
 .header-mobile{
@@ -1753,6 +1758,9 @@ section {
 
 @media (max-width: 992px) {
  
+  .commentFont{
+    font-size: 10px;
+  }
   .headingPlant{
     font-size: 35px;
   }

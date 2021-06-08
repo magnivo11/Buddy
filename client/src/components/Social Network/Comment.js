@@ -35,10 +35,9 @@ export default function Comment({comment, onDelete,commentWriterID}) {
 
       return (        
         <div className="d-flex align-items-start profile-feed-item">
-        {/* <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="profile" className="commentUserPhoto rounded-circle" /> */}
         <div className="ml-4">
         <h6>
-            <Link className="nav-link singleComment"   to={`/profile/${commentWriter._id}`}>{commentWriter.firstName} {commentWriter.lastName} </Link>
+            <Link className="nav-link singleComment"   to={`/profile/${commentWriter._id}`}>{camelize(commentWriter.firstName)} {camelize(commentWriter.lastName)} </Link>
                 <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>
@@ -50,4 +49,7 @@ export default function Comment({comment, onDelete,commentWriterID}) {
     </div>
       );
       
+}
+function camelize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
