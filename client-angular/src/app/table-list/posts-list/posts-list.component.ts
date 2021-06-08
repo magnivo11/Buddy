@@ -12,34 +12,46 @@ import { ToastrService } from 'ngx-toastr';
 export class PostsListComponent implements OnInit {
 
   posts : Post[] = [];  
-
+  @Input() userFor: String = '';
   @Input() listFor: String = '';
   @Input() search: string = '';
   @Input() refresh: string = "false";
+  isShow = true;
 
   constructor(private PostsService : PostsService, private router: Router, private toastrService : ToastrService    ){}
   
   ngOnInit() {
-    if(this.listFor === '')
-    this.loadAll();
-    else if (this.listFor !== '')
+    if(this.listFor === ''){
+      this.isShow = true;
+      this.loadAll();
+    }
+    else if (this.listFor === 'user')
     {
-      this.loadForUser(this.listFor);
+      this.isShow = true;
+      this.loadForUser(this.userFor);
     } 
   }
   
   ngOnChanges(changes: String) {
     // changes.prop contains the old and the new value...
-    if(this.refresh === "true")
+    if(this.refresh === "true"){
+      this.isShow = true;
       this.loadAll();
+    }
     if(this.listFor === "" || this.search === "")
     { 
+      this.isShow = true;
       this.loadAll();
     }
     else if(this.listFor === "search")
     { 
       this.PostsService.filter(this.search).subscribe(data =>{
-        this.posts = data;
+        if(data.length === 0){
+          this.isShow = false;
+        }
+        else{
+          this.posts = data;
+        }
       }, err => {
         this.toastrService.error(err.error.errors,'Error');  
       })
@@ -59,12 +71,12 @@ export class PostsListComponent implements OnInit {
       this.posts = data;
     }, err => {
       this.toastrService.error(err.error.errors,'Error');  
-      this.router.navigate(['/table-list']);
+      //this.router.navigate(['/table-list']);
     });
   }
 
   onCreate(){
-    this.router.navigateByUrl('/CreatePost', { state: {user: this.listFor}});
+    this.router.navigateByUrl('/CreatePost', { state: {user: this.userFor}});
   }
 
   onEdit(post : Post){

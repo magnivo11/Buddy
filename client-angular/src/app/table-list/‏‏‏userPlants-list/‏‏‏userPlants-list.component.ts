@@ -12,34 +12,46 @@ import { ToastrService } from 'ngx-toastr';
 export class UserPlantsListComponent implements OnInit {
 
   plants : Plant[] = [];  
-
+  @Input() gardenFor: String = '';
   @Input() listFor: String = '';
   @Input() search: string = '';
   @Input() refresh: string = "false";
+  isShow = true;
 
   constructor(private plantsService : PlantsService, private router: Router, private toastrService : ToastrService    ){}
   
   ngOnInit() {
-    if(this.listFor === '')
-    this.loadAll();
-    else if (this.listFor !== '')
+    if(this.listFor === ''){
+      this.isShow = true;
+      this.loadAll();
+    }
+    else if (this.listFor === 'garden')
     {
-      this.loadForGarden(this.listFor);
+      this.isShow = true;
+      this.loadForGarden(this.gardenFor);
     } 
   }
   
   ngOnChanges(changes: String) {
     // changes.prop contains the old and the new value...
-    if(this.refresh === "true")
+    if(this.refresh === "true"){
+      this.isShow = true;
       this.loadAll();
+    }
     if(this.listFor === "" || this.search === "")
     { 
+      this.isShow = true;
       this.loadAll();
     }
     else if(this.listFor === "search")
     { 
       this.plantsService.filterUser(this.search).subscribe(data =>{
-        this.plants = data;
+        if(data.length === 0){
+          this.isShow = false;
+        }
+        else{
+          this.plants = data;
+        }
       }, err => {
         this.toastrService.error(err.error.errors,'Error');  
       })
@@ -64,7 +76,7 @@ export class UserPlantsListComponent implements OnInit {
   }
 
   onCreate(){
-    this.router.navigateByUrl('/CreateUserPlant', { state: {user: this.listFor}});
+    this.router.navigateByUrl('/CreateUserPlant', { state: {garden: this.gardenFor}});
   }
 
   onEdit(plant : Plant){

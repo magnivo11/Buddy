@@ -14,7 +14,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 export class DetailsCommentComponent implements OnInit {
 
   comment: Comment = null;
-  user: User = null;
+  user: User;
 
   constructor(private commentsService : CommentsService, private usersService : UsersService, private router:Router, private activatedRoute:ActivatedRoute) {
     //this.router.getCurrentNavigation().extras.state;

@@ -44,8 +44,14 @@ const deleteComment = async (request,response)=>{
         return response.status(404).json({errors:['comment not found']});}
     response.send();
 };
+
 const getAllCommentsByPost = async (request,response)=>{
     const comments = await CommentService.getAllCommetsByPost(request.params.postID);
+   response.json(comments); 
+}
+
+const getAllCommentsByUser = async (request,response)=>{
+    const comments = await CommentService.getAllCommentsByUser(request.params.userID);
    response.json(comments); 
 }
 
@@ -69,6 +75,7 @@ module.exports={
     getCommentById,
     getAllComments,
     getAllCommentsByPost,
+    getAllCommentsByUser,
     updateComment,
     deleteComment,
     getSumOfCommentsByPost,

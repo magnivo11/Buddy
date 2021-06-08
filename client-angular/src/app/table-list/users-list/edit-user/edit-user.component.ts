@@ -24,14 +24,13 @@ export class EditUserComponent implements OnInit {
     this.user = history.state;
   }
 
-  onUpdate(firstName: String, lastName: String, email: String, password: String, description: String, isAdmin: Boolean) {
-    if(firstName === '' || lastName === '' || email === '' || password === '' || description === '' )
+  onUpdate(firstName: String, lastName: String, email: String, description: String, isAdmin: Boolean) {
+    if(firstName === '' || lastName === '' || email === '' || description === '' )
       this.toastrService.error('Please fill all fields', 'Error');  
     else{
       this.user.firstName = firstName;
       this.user.lastName = lastName;
       this.user.email = email;
-      this.user.password = password;
       this.user.description = description;
       this.user.isAdmin = isAdmin;
       this.usersService.updateUser(this.user).subscribe((data) => {

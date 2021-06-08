@@ -41,7 +41,7 @@ export default function EditPlantByAdmin() {
                 <input style={{ fontSize: '12px', hight: '50px' }} type="number" id="optimalSunExposure" className="fadeIn second" placeholder={'Optimal sun exposure: ' + plant.optimalSunExposure} /><br></br><br></br>
                 <input style={{ fontSize: '12px' }} type="number" id="optimalSoilMoisture" className="fadeIn second" placeholder={'Optimal Soil Moisture ' + plant.optimalSoilMoisture} /><br></br> <br></br>
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save</span></button>&nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" type="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
 
               </form>
             </div>
@@ -65,8 +65,9 @@ function editPlantByAdmin(e, species, irrigationInstructors, optimalTemp, optima
     description: checkField(description,'description')
   }
 
-  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byadmin', newPlant);
-  window.location='/PlantsBible'
+  axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byadmin', newPlant).then(response =>{
+    window.location='/PlantsBible'
+  });
 
 }
 

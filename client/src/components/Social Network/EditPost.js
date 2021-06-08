@@ -27,6 +27,11 @@ export default function EditPost() {
       )
   }, []);
 
+
+  const buttonOnClick = e => {
+    document.getElementById('file-input').click()
+  };  
+
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   }
@@ -66,11 +71,13 @@ export default function EditPost() {
                 </a>
                 <br /><br />
                  <div className="form-group" >
-                    <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input>
+                    <button style={{ width: '120px', background: 'rgb(205, 164, 94)', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span>Select Photo</span></button>
+                    <input id="file-input" name='link' className="form-control-file" type="file" name="name" onChange={onChangeFile} style={{display: "none"}} />        
+                    {/* <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input> */}
                   </div>
                 <br /><br />
                 <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Save Changes</span></button> &nbsp;
-                <button style={{ width: '120px', background: '#84996f' }} className="button" onClick={() => window.location='/mygardens'}><span>Cancel</span></button>
+                <button style={{ width: '120px', background: '#84996f' }} className="button" type="button" onClick={() => window.location='/newsfeed'}><span>Cancel</span></button>
               </form>
             </div>
           </div>

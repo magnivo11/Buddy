@@ -113,7 +113,7 @@ export default function EditPlantByUser(){
                     <br></br>
 
                     <button style={{width:'120px',background: '#84996f'}}className="button" type="submit"><span>Save</span></button>&nbsp;
-                <button style={{width:'120px',background: '#84996f'}}className="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
+                <button style={{width:'120px',background: '#84996f'}}className="button" type="button" onClick={()=>window.location='/mygardens'}><span>Cancel</span></button>
 
               </form>
              
@@ -143,8 +143,10 @@ function editPlant(e,plantID,selected,growthStatus,GardenID,plant){
   GardenID: GardenID
  }
 
- axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant);
- window.location='/plant/' + plantID
+
+ axios.put(process.env.REACT_APP_SERVER_URL+'/plant/byuser/',newPlant).then(response =>{
+  window.location='/plant/' + plantID
+  });
 }
 function checkState(beforeUpdate,state) {
   let updated="";

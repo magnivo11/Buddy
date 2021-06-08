@@ -21,6 +21,11 @@ export class CommentsService {
     return this.http.get<any>(this.CommentUrl);
   }
 
+  getCommentsByUserID(userId: String): Observable<any> {
+    const url = `${this.CommentUrl}/byUser/${userId}`;
+    return this.http.get<any>(url);
+  }
+
   getCommentsByPostID(postId: String): Observable<any> {
     const url = `${this.CommentUrl}/bypost/${postId}`;
     return this.http.get<any>(url);
