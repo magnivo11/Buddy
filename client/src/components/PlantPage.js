@@ -19,7 +19,6 @@ export default function Plant() {
   const [plantID, setPlantID] = React.useState(window.location.toString().substring(index));
   const [plant, setPlant] = React.useState('');
   const [garden, setGarden] = React.useState('');
-  const [gardenID, setGardenID] = React.useState('');
   const [sensor, setSensor] = React.useState('');
   const [mobileMode, setMobileMode] = React.useState(false);
   const [lastUpdated, setLastUpdated] = React.useState(Date.now());
@@ -114,15 +113,16 @@ export default function Plant() {
                 </ul>
               </div>
               <div className="col-lg-8 details order-2 order-lg-1">{/*main content*/}
-                <div> {plant.sensorID && <div><br /><br /></div>}
+                <div> 
                   <h2 style={{ fontSize: '45px' }}>
                     {plant.species} </h2>
                   <h2 style={{ fontSize: '20px', color: '#cda45e'  }}>
                     status:</h2><h2 style={{ fontSize: '20px' }}>
                     {plant.growthStatus} </h2>
+                    {plant.sensorID &&<div>
                     <h2 style={{ fontSize: '20px', color: '#cda45e'}}>
                     sensor num:</h2><h2 style={{ fontSize: '20px' }}>
-                    {sensor.serialNumber} </h2>
+                    {sensor.serialNumber} </h2></div>}
                 </div>
 
                 <div className="inner" >
@@ -149,6 +149,7 @@ export default function Plant() {
                       <Chart title={chartData.title} sensorData={chartData.data} optimalValue={chartData.optimal} showHistory={chartData.showHistory}></Chart>
                       <button type="button" style={!mobileMode?{ width: '200px', color: "white", backgroundColor: 'rgba(52, 100, 52, 0.8)' }:{ width: '250px', color: "white", backgroundColor: 'rgba(52, 100, 52, 0.8)' }} value='last 10' onClick={showHistory} class="btn btn-default"> Last 10 Measurements</button>
                       <button type="button" style={!mobileMode?{ width: '200px', color: "white", backgroundColor: 'rgba(52, 100, 52, 0.8)' }:{ width: '251px', color: "white", backgroundColor: 'rgba(52, 100, 52, 0.8)' }} value='plant history' onClick={showHistory} class="btn btn-default"> Plant History</button>
+
                       <br />                    <br />
 
                     </div>
@@ -165,6 +166,8 @@ export default function Plant() {
                     window.location = "/singlegarden/" + plant.GardenID
                   }}>
                   <span style={{ color: 'black' }} >Delete Plant</span></button><br></br>
+                  {!mobileMode &&<button style={{ width: '120px', background: 'white' }} className="button"  onClick={()=>window.location=`/singlegarden/${garden._id}`} >                  
+                  <span style={{ color: 'black' }}>Back to garden</span></button>}
                 <h2 style={{ fontSize: '30px' }}>
                   {plant.species} photos</h2>
                 <UploadImage ownerID={plantID} type="plant" ></UploadImage>
