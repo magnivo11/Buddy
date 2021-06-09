@@ -5,7 +5,7 @@ import logo from '../Images/Logos/full logo in circle@4x.png';
 import React from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Resetscreen() {
 

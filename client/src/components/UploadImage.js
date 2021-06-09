@@ -31,7 +31,6 @@ export default function UploadImage({ ownerID, type }) {
             <div className="form-group">
                     <button style={{ width: '120px', background: 'white', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span style={{ color: 'black' }} >Select Photo</span></button>
                     <input id="file-input" name='link' className="form-control-file" type="file" name="name" onChange={onChangeFile} style={{display: "none"}} />        
-                    {/* <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input> */}
                  <button style={{ width: '120px', background: 'rgb(205, 164, 94)' }} type="button" className="button" type="submit"><span style={{ color: 'black' }} >Upload</span></button><br /><br />
             </div>
 

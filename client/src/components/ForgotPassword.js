@@ -1,7 +1,6 @@
-import TextField from '@material-ui/core/TextField'
-import React from 'react';
+ import React from 'react';
 import axios from 'axios'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../Images/Logos/full logo in circle@4x.png';
 
 
@@ -45,7 +44,7 @@ export default function ForgotPassword() {
           setMessege({ text: "Email sent. Check your E-mail", showMessege: true })
     }
             else
-    setMessege({ text: "You don't have a user please register", showMessege: true })
+    setMessege({ text: "You are not registered , please create a user", showMessege: true })
 });
     }
 
