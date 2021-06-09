@@ -14,7 +14,7 @@ export default function ButtonsGardensList({ gardenID,setPlantID }) {
         <div>
             <ul className="nav nav-tabs flex-column">
                 <li className="nav-item">
-            <Link className="nav-link"to={`/addaplantbyuser/${gardenID}`}>Add A Plant! </Link>
+            <Link className="nav-link" style={{color:'rgb(205, 164, 94)'}} to={`/addaplantbyuser/${gardenID}`}>Add A Plant! </Link>
                 </li>
             </ul>       
         </div>
@@ -23,7 +23,7 @@ export default function ButtonsGardensList({ gardenID,setPlantID }) {
         <div  style={{fontFamily: "Open Sans"}}>
         <ul className="nav nav-tabs flex-column">
         <li className="nav-item">
-              <Link  className="nav-link" to={`/singlegarden/${gardenID}`}>All Plants </Link>
+              <Link  className="nav-link" style={{color:'rgb(205, 164, 94)'}} to={`/singlegarden/${gardenID}`}>All Plants </Link>
             </li>
             </ul>
                 {plants.map((data,key)=>{
@@ -31,7 +31,7 @@ export default function ButtonsGardensList({ gardenID,setPlantID }) {
             })}
             <ul className="nav nav-tabs flex-column">
                     <li className="nav-item">
-               <Link className="nav-link" to={`/addaplantbyuser/${gardenID}`}>Add A Plant! </Link>
+               <Link className="nav-link" style={{color:'rgb(205, 164, 94)'}} to={`/addaplantbyuser/${gardenID}`}>Add A Plant! </Link>
             </li>
             </ul>
                

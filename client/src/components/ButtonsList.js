@@ -15,7 +15,7 @@ export default function ButtonsList({ ownerID }) {
         <div>
             <ul className="nav nav-tabs flex-column">
                 <li className="nav-item">
-            <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>
+            <Link className="nav-link" style={{color:'rgb(205, 164, 94)'}} to='/addagarden'>Add A Garden! </Link>
                 </li>
             </ul>       
         </div>
@@ -24,7 +24,7 @@ export default function ButtonsList({ ownerID }) {
         <div  style={{fontFamily: "Open Sans"}}>
         <ul className="nav nav-tabs flex-column">
         <li className="nav-item">
-              <Link  className="nav-link" to='/mygardens'>All Gardens </Link>
+              <Link  className="nav-link" style={{color:'rgb(205, 164, 94)'}} to='/mygardens'>All Gardens </Link>
             </li>
             </ul>
                 {items.map((data,key)=>{
@@ -32,7 +32,7 @@ export default function ButtonsList({ ownerID }) {
             })}
                         <ul className="nav nav-tabs flex-column">
         <li className="nav-item">
-               <Link className="nav-link" to='/addagarden'>Add A Garden! </Link>
+               <Link className="nav-link" style={{color:'rgb(205, 164, 94)'}} to='/addagarden'>Add A Garden! </Link>
             </li>
             </ul>
                
