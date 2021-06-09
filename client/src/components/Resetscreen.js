@@ -17,7 +17,6 @@ export default function Resetscreen() {
  
     React.useEffect(() => {
         axios.get(process.env.REACT_APP_SERVER_URL+'/user/token/'+token).then((Response) => {
-            console.log(Response);
         if (Response.data[0]._id) {
                  setDisplay(true);
                 setID(Response.data[0]._id);

@@ -24,7 +24,6 @@ export default function PlantBibleBox({ id, species, photo }) {
         
     }, []);
 
-console.log(addPhoto)
     return (
         <div className="column">
             <div className="content" style={{textAlign:'center'}}>

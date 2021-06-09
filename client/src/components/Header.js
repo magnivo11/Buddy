@@ -39,7 +39,6 @@ export default function Header() {
     }), [])
 
     const handleClick=()=>{
-      console.log(clicked);
       setClicked(!clicked)
     }
 

@@ -51,7 +51,6 @@ export default function Profile(){
       if (posts.length != Response.data.length)
           setPosts(Response.data)
   })
-  console.log(currentUser)
 
   //not copied
   function isStringCharsValueSumIsPrime(s) {

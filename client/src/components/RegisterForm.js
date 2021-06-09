@@ -64,12 +64,6 @@ export default function RegisterForm() {
 function register(e, setInfo,FileName) {
 
   e.preventDefault();
-  var formData = new FormData();
-  formData.append('link', FileName);
-  formData.append('type', "user");
- 
-
- axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
   if (checkRequired('first_name') && checkRequired('last_name') &&
     checkRequired('email') && checkRequired('description') && checkRequired('password')) {
@@ -89,10 +83,16 @@ function register(e, setInfo,FileName) {
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,
               password: document.getElementById('password').value,
-              photoID: FileName.name
             }
             axios.post(process.env.REACT_APP_SERVER_URL+'/user/', newUser).then(Response => {
               if (Response.data) {
+                if (FileName!=""){
+                var formData = new FormData();
+                formData.append('link', FileName);
+                formData.append('type', "user");
+                formData.append('ownerID',Response.data._id);
+               axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
+                }
                 window.sessionStorage.setItem('userID', Response.data._id);      
                 setInfo({ redirectToLogin: true })
               }});

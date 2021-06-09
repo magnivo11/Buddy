@@ -46,18 +46,38 @@ const scrapePhoto = async (request, response) => {
     }
 }
 
-const uploadPhoto = async (link, type, ownerID) => {
+const uploadPhoto = async (link, type, ownerID,fileId) => {
      if (type == "plant") {
-        await Plant.findById(ownerID, (err, plant) => {
+         await Plant.findById(ownerID, (err, plant) => {
             if (plant) {
-                plant.photos.push(link);
+                plant.photos.push(fileId);
                 plant.save();
-                return true;
+                return fileId;
             }
         })
     }
-    else {
-        return link;
+    if (type == "user") {
+      
+
+        await User.findById(ownerID, (err, user) => {
+            if (user) {
+                user.photoID=fileId;
+                user.save();
+                return fileId;
+            }
+        })
+    }
+    if (type == "post") {
+        console.log("lepost")
+        console.log(ownerID)
+        console.log(fileId)
+        await Post.findById(ownerID, (err, post) => {
+            if (post) {
+                post.photoID=fileId;
+                post.save();
+                return fileId;
+            }
+        })
     }
 }
 

@@ -91,25 +91,22 @@ export default function EditPost() {
 function editPost(e, status,content,postID,userID,FileName,photoID) {
 
   e.preventDefault();
-
+  if(FileName!=""){
   var formData = new FormData();
   formData.append('link', FileName);
   formData.append('type', "post");
- 
- axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
+  formData.append('ownerID', postID);
+  axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
 
+  }
   const updatedPost = {
     content:content,
     userID:userID,
     postID: postID,
-     status: status,
-    photoID: FileName.name,
-     status: status
-   }
+     status: status   }
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
   window.location='/newsfeed'
-   axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: photoID} })
   
 }
 
