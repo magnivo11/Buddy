@@ -57,7 +57,7 @@ function login(e, setLoggedIn, setMessege) {
       email,
       password
     })
-  }).then(data => { data.json(); logIn = true;},
+  }).then(data => { logIn = true;},
     error => console.error('wrong password or email')
   ).then(()=>{
     if (logIn===true) {
