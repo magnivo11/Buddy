@@ -100,7 +100,6 @@ export default function AddAPlantByUser() {
 function addAPlant(e, gardenID, selected, growthStatus) {
   e.preventDefault();
   if(checkState(selected,"Species")&& checkState(growthStatus,"Growth Status")){
-  console.log(growthStatus);
   const newPlant = {
     species: selected,
     isUserPlant: true,

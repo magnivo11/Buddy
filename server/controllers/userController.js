@@ -21,9 +21,7 @@ const createUser = async (request, response) => {
             request.body.email,
             request.body.description,
             User.hashPassword(request.body.password),
-            isAdmin,
-            request.body.photoID
-        )
+            isAdmin        )
 
     response.json(newUser);
 }
@@ -99,9 +97,7 @@ const updateUser = async (request, response) => {
         request.body.lastName,
         request.body.email,
         request.body.description,
-        request.body.password,
-        request.body.photoID
-        );
+        request.body.password        );
 
     if (!user) {
         return response.status(404).json({ errors: ['User not found'] });

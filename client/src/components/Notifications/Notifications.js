@@ -10,7 +10,6 @@ export default function Notifications(){
   const userID = window.sessionStorage.getItem('userID');
   const [notifications,setNotifications]=React.useState([])
   const [hasNotifications,setHasNotifications]=React.useState(false)
-  console.log(data.newNotifications)
   axios.get(process.env.REACT_APP_SERVER_URL+'/user/setAllNotificationsToSeen/'+userID)
   data.setNewNotifications(0)
 

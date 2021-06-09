@@ -44,7 +44,6 @@ export default function NewsFeed(){
     }
 })  }, [resetFilter]);
 
-console.log(posts)
     return (
     <section id="hero"  style={{overflow:'scroll'}} >
       <section  style={{backgroundColor: 'rgba(117, 128, 107,0.85)', marginTop:'0%', marginLeft:'9%', marginRight:'9%'}}> 

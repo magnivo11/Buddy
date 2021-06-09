@@ -11,8 +11,8 @@ export default function PlantsBibleGrid({ q = '' }) {
         fetch(process.env.REACT_APP_SERVER_URL+'/plant/admin'+q)
             .then((response) => response.json())
             .then((data) => {setPlants(data)
-            console.log(data)}
-            );
+                        }
+                                    );
     }, [q]);
 
 
