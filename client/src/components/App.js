@@ -139,7 +139,6 @@ function App() {
                     <Route exact path='/plantsbiblesingleplant/:plantID'>
                         <Header /><PlantsBibleSinglePlant /></Route>
                 </Switch>
-                {/* <Footer /> */}
             </BrowserRouter>
 
         </DataContext.Provider>

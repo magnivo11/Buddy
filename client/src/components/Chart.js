@@ -33,23 +33,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
         var fromSensor = []
         var optimal=[]
 
-        //converting raw data into data the chart expects 
-        // here's an example of an expected array 
-         //  [
-            //     { y: 172, label: "Jan" },
-            //     { y: 173, label: "Feb" },
-            //     { y: 175, label: "Mar" },
-            //     { y: 172, label: "Apr" },
-            //     { y: 162, label: "May" },
-            //     { y: 165, label: "Jun" },
-            //     { y: 172, label: "Jul" },
-            //     { y: 168, label: "Aug" },
-            //     { y: 175, label: "Sept" },
-            //     { y: 170, label: "Oct" },
-            //     { y: 165, label: "Nov" },
-            //     { y: 169, label: "Dec" }
-            // ]
-
+      
 
          data.map((data, key) => {
       
@@ -75,7 +59,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
         title:{
             text:title,
             fontFamily: "Open Sans",
-            fontColor:"white",
+            fontColor:"black",
             padding:10
         },
         axisY : {

@@ -11,9 +11,6 @@ const getActiveUsers = (req, res) => {
 }
 const createUser = async (request, response) => {
     var isAdmin = false;
-    if (request.body.code == "admincode") {
-        isAdmin = true;
-    }
     const newUser =
         await userService.createUser(
             request.body.firstName,

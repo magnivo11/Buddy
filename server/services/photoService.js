@@ -5,9 +5,7 @@ const Photo = require('../models/photoModel');
 const { db } = require('../models/plantModel');
 const Plant = require('../models/plantModel')
 
-const addPhotoToOwner = async (link, type, plantID) => {
-  
-}
+
 
 
 
@@ -66,5 +64,5 @@ module.exports = {
     editPhoto,
     getPhoto,
     getAllPhotos,
-    addPhotoToOwner,
+    
 };
