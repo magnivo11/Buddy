@@ -71,14 +71,7 @@ export default function AddAPost({ target }) {
 
 function addAPost(e, inputRef, userId, FileName) {
   e.preventDefault();
-  var formData = new FormData();
-  formData.append('link', FileName );
-  formData.append('type', "post");
- 
-  if (FileName != "") {
-     axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
-  }
-
+  
 
   const form = document.forms.postForm;
   const statusArray = form.elements.status;
@@ -90,9 +83,19 @@ function addAPost(e, inputRef, userId, FileName) {
     content: content,
     status: selectedStatus,
     userID: userId,
-    photoID: FileName.name
   }
-  axios.post(process.env.REACT_APP_SERVER_URL + '/post/', newPost);
+  axios.post(process.env.REACT_APP_SERVER_URL + '/post/', newPost).then((Response)=>{
+    if(Response.data){
+      if (FileName != "") {
+        var formData = new FormData();
+        formData.append('link', FileName );
+        formData.append('type', "post");
+        formData.append('ownerID', Response.data._id);
+     axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
+      }
+  }
+
+  });
   window.location = '/newsfeed'
 }
 

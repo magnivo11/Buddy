@@ -10,7 +10,9 @@ export default function PlantsBibleGrid({ q = '' }) {
     React.useEffect(() => {
         fetch(process.env.REACT_APP_SERVER_URL+'/plant/admin'+q)
             .then((response) => response.json())
-            .then((data) => setPlants(data));
+            .then((data) => {setPlants(data)
+                        }
+                                    );
     }, [q]);
 
 

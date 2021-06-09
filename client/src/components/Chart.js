@@ -54,7 +54,7 @@ export default function Chart({title,sensorData,optimalValue,showHistory}){
       
         width:501,
         height:270,
-        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        backgroundColor: 'rgb(240, 232, 211)',
         animationEnabled: true,	
         title:{
             text:title,

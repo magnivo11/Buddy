@@ -12,6 +12,8 @@ export default function Post({postID, change,deletePost,editPost}) {
      const [writerUser,setUser]=React.useState({_id:'',firstName:'',lastName:'',photoID:''});
      const [ownersPermissions, setOwnersPermissions] = React.useState(false);
     const [content, setContent] = React.useState("");
+    const [mobileMode, setMobileMode] = React.useState(false);
+    
     const handleEditContectChange = (event) => {
         setContent(event.target.value);
       }
@@ -19,6 +21,9 @@ export default function Post({postID, change,deletePost,editPost}) {
 
 
     React.useEffect(() => {
+      if (window.innerWidth > 700){
+        setMobileMode(true)
+      }
         postID &&  fetch(process.env.REACT_APP_SERVER_URL+'/post/'+postID)
           .then(response => response.json()).then(
             data => {
@@ -62,7 +67,7 @@ export default function Post({postID, change,deletePost,editPost}) {
             <img src={process.env.REACT_APP_SERVER_URL+`/photo/find/${writerUser.photoID}`} alt="profile" className="img-sm rounded-circle postUserPhoto" />
             <div className="ml-4">
             <h6>
-            <Link className="nav-link singlePost"   to={`/profile/${writerUser._id}`}>{writerUser.firstName +" "+ writerUser.lastName} </Link>
+            <Link className="nav-link singlePost"   to={`/profile/${writerUser._id}`}>{camelize(writerUser.firstName) +" "+ camelize(writerUser.lastName)} </Link>
                 <small className="ml-4 text-muted timeAgo">
                 <i className="mdi mdi-clock mr-1" />{timestamp} min ago</small>
             </h6>
@@ -74,14 +79,14 @@ export default function Post({postID, change,deletePost,editPost}) {
              {post.photoID&&<img className="imgPost" src={process.env.REACT_APP_SERVER_URL+`/photo/find/${post.photoID}`}></img>}
               {ownersPermissions&& <div>
                 <Link to={`/editpost/${postID}`}>
-            <button  style={{fontSize:'9px',border:'white',background:'none'}}
-          type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-pencil" />&nbsp;Edit </button>  
-</Link>
-             <button  style={{fontSize:'9px',border:'white',background:'none'}}
+            <button  style={mobileMode?{fontSize:'12px',border:'white',background:'none'}:{fontSize:'9px',border:'white',background:'none'}}
+          type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-pencil" />&nbsp;Edit </button>  </Link>
+             <button  style={mobileMode?{fontSize:'12px',border:'white',background:'none'}:{fontSize:'9px',border:'white',background:'none'}}
             onClick={()=>{
                 deletePost(postID,post.photoID);
             }}type="button" className="w3-button w3-theme-d2 w3-margin-bottom"><i className="fa fa-trash" />&nbsp;Delete </button>
             </div> } 
+            <br/>
 
              <Comments postId={postID} deletePost={deletePost} postWriterID={post.userID} /> 
 
@@ -89,4 +94,7 @@ export default function Post({postID, change,deletePost,editPost}) {
         </div>
                     
     );
+}
+function camelize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

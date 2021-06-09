@@ -11,9 +11,7 @@ const createPost = async (request, response) => {
         await PostService.createPost(
             request.body.content,
             request.body.status,
-            request.body.userID,
-            request.body.photoID
-        );
+            request.body.userID        );
     myEmitter.emit('createPost');
     response.json(newPost);
 }
@@ -37,9 +35,7 @@ const updatePost = async (request, response) => {
         request.body.postID,
         request.body.content,
         request.body.userID,
-        request.body.status,
-        request.body.photoID
-        );
+        request.body.status        );
     if (!post) {
         return response.status(404).json({ errors: ['post not found'] });
     }

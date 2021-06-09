@@ -7,25 +7,27 @@ export default function PlantBibleBox({ id, species, photo }) {
        const [addPhoto, setPhoto] = React.useState(null);
     React.useEffect(() => {
         if (photo !== null) {
-            var url = process.env.REACT_APP_SERVER_URL+'/photo/'+photo;
-            axios.get(url).then((Response) => {
-                 if (Response.data!==null) {
-                    setPhoto(Response.data.link);
-                 }
-                 else {
-                    setPhoto(noImg);
-                 }
-            })
+            setPhoto(photo)
+            // var url = process.env.REACT_APP_SERVER_URL+'/photo/'+photo;
+            // axios.get(url).then((Response) => {
+            //      if (Response.data!==null) {
+            //         setPhoto(Response.data.link);
+            //      }
+            //      else {
+            //         setPhoto(noImg);
+            //      }
+            // })
         }
         else {
             setPhoto(noImg);
         }
+        
     }, []);
-
 
     return (
         <div className="column">
             <div className="content" style={{textAlign:'center'}}>
+               
                 <Link to={`/PlantsBibleSinglePlant/${id}`} >
                     <img src={addPhoto} alt={species} style={{width:'160px' ,height: '170px' }} />
                 </Link>

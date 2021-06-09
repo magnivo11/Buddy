@@ -51,7 +51,6 @@ export default function Profile(){
       if (posts.length != Response.data.length)
           setPosts(Response.data)
   })
-  console.log(currentUser)
 
   //not copied
   function isStringCharsValueSumIsPrime(s) {
@@ -89,12 +88,12 @@ return(
                 <div className="col-lg-4">
                   <div className="border-bottom text-center pb-4">
                     {currentUser.photoID?
-                    <img style={{width:'75%'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
-                    <img style={{width:'75%'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
+                    <img style={{width:'180px',height:'180px',objectFit:"cover"}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${currentUser.photoID}`} alt="profile" className="img-lg rounded-circle mb-3" />:
+                    <img style={{width:'150px'}} src={userPhoto} alt="profile" className="img-lg rounded-circle mb-3" />}
 
 
                     <div className="mb-3">
-                      <h3 style={{fontSize:'33'}}>{currentUser.firstName+" "+currentUser.lastName}</h3>
+                      <h3 style={{fontSize:'33'}}>{camelize(currentUser.firstName)+" "+camelize(currentUser.lastName)}</h3>
                       <div className="d-flex align-items-center justify-content-center">
                       {editPermission&& <Link className="w3-center"  to={`/edituser`}>
                       <i className="fa fa-pencil fa-fw w3-margin-right w3-text-theme" style={{textAlign:'center'}} /> Edit My Profile</Link>}
@@ -143,4 +142,7 @@ return(
 </section>
 </section>
 )
+}
+function camelize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

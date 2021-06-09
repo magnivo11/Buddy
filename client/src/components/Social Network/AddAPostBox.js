@@ -19,7 +19,7 @@ export default function AddAPostBox({target, usersFirstName,posts,setPosts}) {
             }}>
               <div className="addPost">
               <Link className="nav-link"  to={`/addapost/${userId}`}>
-                <input  type="text" ref={inputRef} placeholder={ usersFirstName+", what's on your mind?"} ></input>       </Link>        
+                <input  type="text" ref={inputRef} placeholder={ camelize(usersFirstName)+", what's on your mind?"} ></input>       </Link>        
                 <br></br>
                 <label className="radio-inline">
                 <p>Status:</p>
@@ -44,4 +44,7 @@ export default function AddAPostBox({target, usersFirstName,posts,setPosts}) {
 
         </div>
     );
+}
+function camelize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

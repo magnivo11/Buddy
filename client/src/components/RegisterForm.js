@@ -63,12 +63,6 @@ export default function RegisterForm() {
 function register(e, setInfo, FileName) {
 
   e.preventDefault();
-  var formData = new FormData();
-  formData.append('link', FileName);
-  formData.append('type', "user");
-
-
-  axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
 
   if (checkRequired('first_name') && checkRequired('last_name') &&
     checkRequired('email') && checkRequired('description') && checkRequired('password')) {
@@ -83,16 +77,23 @@ function register(e, setInfo, FileName) {
           }
           else {
             const newUser = {
-              firstName: camelize(document.getElementById('first_name').value),
-              lastName: camelize(document.getElementById('last_name').value),
+              firstName: camelizeName(document.getElementById('first_name').value),
+              lastName: camelizeName(document.getElementById('last_name').value),
               email: document.getElementById('email').value,
               description: document.getElementById('description').value,
               password: document.getElementById('password').value,
-              photoID: FileName.name
             }
             axios.post(process.env.REACT_APP_SERVER_URL + '/user/', newUser).then(Response => {
               if (Response.data) {
-                window.sessionStorage.setItem('userID', Response.data._id);
+                if (FileName!=""){
+                var formData = new FormData();
+                formData.append('link', FileName);
+                formData.append('type', "user");
+                formData.append('ownerID',Response.data._id);
+               axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
+                }
+                window.sessionStorage.setItem('userID', Response.data._id);      
+ 
                 setInfo({ redirectToLogin: true })
               }
             });
@@ -109,6 +110,9 @@ function checkRequired(field) {
   return true;
 }
 function camelize(str) {
-  const field = str.replaceAll('_', ' ');
+   const field = str.replaceAll('_', ' ');
   return field.charAt(0).toUpperCase() + field.slice(1);
-}
+ 
+function camelizeName(str) {
+  return str.charAt(0).toUpperCase()+str.slice(1);
+ }

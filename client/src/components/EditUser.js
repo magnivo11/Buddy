@@ -29,7 +29,6 @@ export default function EditUser(){
         }
       )
   }, []);
- console.log(user)
   
   const[info,setInfo]=React.useState({showMessege:false});
    return (
@@ -46,8 +45,8 @@ export default function EditUser(){
               </div><br/>
               <form  onSubmit={(e)=>{editUser(e,data,user.firstName,user.lastName,user.email,user.description ,user.password,user.photoID,userId,setInfo,FileName)}}>
               {user.photoID?
-                <img style={{width:'150px'}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className=" rounded-circle" />:
-                <img  style={{width:'150px'}} src={userPhoto} alt="profile" className=" rounded-circle" />}
+                <img style={{width:'150px',height:'150px',objectFit: "cover"}} src={process.env.REACT_APP_SERVER_URL+`/photo/find/${user.photoID}`} alt="profile" className=" rounded-circle" />:
+                <img  style={{width:'150px',objectFit:"cover"}} src={userPhoto} alt="profile" className=" rounded-circle" />}
                
               <div className="form-group" >
                     <button style={{ width: '120px', background: 'rgb(205, 164, 94)', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span>Select Photo</span></button>
@@ -75,20 +74,20 @@ export default function EditUser(){
    
 function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, oldPassword,oldPhotoID,userId,setInfo,FileName){
   e.preventDefault();
+  if (FileName!="")
+{
   var formData = new FormData();
-   formData.append('link', FileName );
+  formData.append('link', FileName );
   formData.append('type', "user");
- 
+  formData.append('ownerID',userId);
 
   axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
-   
-
-  const updatedPhotoFile= checkState(oldPhotoID,FileName);
+} 
+ 
   const email = checkField(oldEmail,'email');
 
     axios.get(process.env.REACT_APP_SERVER_URL+'/user/byemail/'+email).then((Response)=>{
       if(Response.data){
-        console.log(Response.data);
         if(Response.data._id!==userId) {
           setInfo({showMessege:true})}
         else{
@@ -99,7 +98,6 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
             email:email,
             description:checkField(oldDescription,'description'),
             password: checkField(oldPassword,'password'),
-            photoID:updatedPhotoFile,
              }
 
         axios.put(process.env.REACT_APP_SERVER_URL+'/user/',newUser).then(response =>{
@@ -107,6 +105,7 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
                data.forceRender(!data.render);
               setInfo({redirectToGardens:true})
               window.location='/profile/' + userId;
+
         });
             
         }

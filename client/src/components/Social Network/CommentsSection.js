@@ -29,14 +29,12 @@ export default function CommentsSection({ comments, postId, onDelete,setComments
     const inputRef = React.useRef(null);
 
     return (
-        <>
-        <br></br><br></br>
-        <h3>Comments</h3>
+        <div className="addPost">
             {comments.map((data, key) => {
                 return <Comment comment={data} onDelete={onDelete} key={key} />
             })}
-            <input type="text" className="newComment" ref={inputRef} placeholder="New Comment"  />
+            <input type="text" ref={inputRef} placeholder="New Comment"  />
             <button style={{fontSize:'10px', border:'white', background:'none'}} onClick={onClick} type="button" >  <i className="fa fa-plus" /></button>
-        </>
+        </div>
     );
 }
