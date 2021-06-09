@@ -1,7 +1,7 @@
 {
-  "name": "Little-Buddy",
+  "name": "Buddy",
   "version": "1.0.0",
-  "description": "Hello and Welcome to Little - Buddy !!!",
+  "description": "Hello and Welcome to Buddy !!!",
   "main": "index.js",
   "dependencies": {
     "@angular/animations": "^11.2.10",
@@ -60,8 +60,8 @@
   "scripts": {
     "server-dev": "cd server && npm run start-dev",
     "server-prod": "cd server && npm run start-prod",
-    "client-angular-dev": "cd client-angular && npm start",
-    "client-angular-prod": "cd client-angular && npm start-prod",
+    "client-angular-dev": "cd client-angular && npm run start",
+    "client-angular-prod": "cd client-angular && npm run start-prod",
     "client-dev": "cd client && npm run build:local",
     "client-prod": "cd client && npm run build:prod",
     "dev": "concurrently \"npm run server-dev\" \"npm run client-angular-dev\" \"npm run client-dev\" ",
