@@ -91,13 +91,22 @@ function addAPost(e, inputRef, userId, FileName) {
         formData.append('link', FileName );
         formData.append('type', "post");
         formData.append('ownerID', Response.data._id);
-     axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
+        axios.post(process.env.REACT_APP_SERVER_URL + '/photo/upload', formData);
+        sleep(5000).then(() => {
+          window.location = '/newsfeed'});
+      }
+      else{
+      window.location = '/newsfeed'
       }
   }
 
   });
-  window.location = '/newsfeed'
 }
+// sleep time expects milliseconds
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 
 
 
