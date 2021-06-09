@@ -40,9 +40,7 @@ export default function RegisterForm() {
                   <div className="form-group">
                     <button style={{ width: '120px', background: 'rgb(205, 164, 94)', margingRight: '10px'}} type="button" className="button" onClick={buttonOnClick}><span>Select Photo</span></button>
                     <input id="file-input" name='link' className="form-control-file" type="file" name="name" onChange={onChangeFile} style={{display: "none"}} />        
-
-                    {/* <input type="file" name='link' className="form-control-file" onChange={onChangeFile}></input> */}
-                  </div>
+                   </div>
                   <br></br>
                   <button style={{ width: '120px', background: '#84996f' }} className="button" type="submit"><span>Register</span></button>
                   <div id="formFooter">
