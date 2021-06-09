@@ -36,7 +36,7 @@ export default function PlantsList({ gardenID }) {
         <Table className={classes.root}>
           <TableHead>
             <TableRow >
-              <TableCell className={classes.title}>Serial Number</TableCell>
+              <TableCell className={classes.title}></TableCell>
               <TableCell className={classes.title}>Plant</TableCell>
               <TableCell className={classes.title} >Status</TableCell>
               <TableCell className={classes.title} align="center">Last Irrigation</TableCell>
