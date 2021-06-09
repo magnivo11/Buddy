@@ -104,8 +104,8 @@ function editUser(e,data,oldFirstName, oldLastName, oldEmail,oldDescription, old
           /////////////  forceRender renders app  /////////////
                data.forceRender(!data.render);
               setInfo({redirectToGardens:true})
-              window.location='/profile/' + userId;
-
+              sleep(5000).then(() => {
+                window.location='/profile/' + userId});
         });
             
         }
@@ -125,4 +125,8 @@ function checkState(beforeUpdate,state) {
      axios.delete(process.env.REACT_APP_SERVER_URL+'/photo/', { data: { photoID: beforeUpdate} })
     }
   return updated;
+}
+
+function sleep (time) {
+return new Promise((resolve) => setTimeout(resolve, time));
 }

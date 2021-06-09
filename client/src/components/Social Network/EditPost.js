@@ -97,7 +97,7 @@ function editPost(e, status,content,postID,userID,FileName,photoID) {
   formData.append('type', "post");
   formData.append('ownerID', postID);
   axios.post(process.env.REACT_APP_SERVER_URL+'/photo/upload', formData);
-
+ 
   }
   const updatedPost = {
     content:content,
@@ -106,7 +106,10 @@ function editPost(e, status,content,postID,userID,FileName,photoID) {
      status: status   }
 
   axios.put(process.env.REACT_APP_SERVER_URL+'/post/', updatedPost);
-  window.location='/newsfeed'
+  sleep(5000).then(() => {
+    window.location = '/newsfeed'});
   
 }
-
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
